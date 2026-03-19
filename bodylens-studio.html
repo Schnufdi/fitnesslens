@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BodyLens — Studio</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.studio-nav-secondary {
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 36px; height: 42px;
+  border-bottom: 1px solid var(--br);
+  background: var(--bg-1);
+}
+.studio-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--tx-3);
+  padding-right: 12px; border-right: 1px solid var(--br);
+}
+.studio-tab {
+  font-size: 11px; font-weight: 600; padding: 4px 12px;
+  background: transparent; border: none; color: var(--tx-3);
+  cursor: pointer; font-family: var(--sans); transition: color 0.15s;
+  border-radius: 2px;
+}
+.studio-tab:hover  { color: var(--tx-2); }
+.studio-tab.active { color: var(--tx-1); background: var(--bg-2); }
+.moat-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 10px 14px; border-bottom: 1px solid var(--br);
+}
+.moat-item:last-child { border-bottom: none; }
+.moat-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.moat-title { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+.moat-desc  { font-size: 11px; color: var(--tx-2); line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-brand">Body<em>Lens</em></div>
+  <div class="nav-links">
+    <a class="nav-link" href="bodylens-profile.html">Profile</a>
+    <a class="nav-link" href="bodylens-today.html">Today</a>
+    <a class="nav-link" href="bodylens-week.html">Week</a>
+    <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
+    <a class="nav-link" href="bodylens-progress.html">Progress</a>
+    <a class="nav-link" href="bodylens-science.html">Science</a>
+  </div>
+  <div class="nav-meta">
+    <span class="nav-tag nt-go">Studio</span>
+    <a class="nav-link" href="bodylens-today.html" style="border:1px solid var(--br);border-radius:3px;font-size:10px;padding:4px 10px;color:var(--tx-2);">← Back to app</a>
+  </div>
+</nav>
+
+<!-- Studio secondary nav -->
+<div class="studio-nav-secondary">
+  <div class="studio-label">Studio</div>
+  <button class="studio-tab active" onclick="switchStudio('pane-biz',this)">Business &amp; Roadmap</button>
+  <button class="studio-tab" onclick="switchStudio('pane-tech',this)">Technical improvements</button>
+</div>
+
+<div class="page" style="padding-top:36px;">
+
+  <!-- ═══ BUSINESS TAB ═══ -->
+  <div id="pane-biz">
+
+    <div class="studio-hero">
+      <div class="eyebrow eyebrow-ac" style="margin-bottom:8px;">BodyLens · Business strategy</div>
+      <div class="title-lg" style="margin-bottom:10px;">From personal tool to performance product</div>
+      <div class="body-sm" style="max-width:600px;">BodyLens is currently a personalised single-user performance OS. The path to a business runs through deepening the personalisation engine, adding the data layer that makes it sticky, and gating the most valuable features behind a subscription that is priced well below a personal trainer or nutritionist.</div>
+    </div>
+
+    <!-- Positioning -->
+    <div class="sec-rule">Market positioning</div>
+    <div class="two-col-equal" style="margin-bottom:28px;">
+      <div class="card card-pad">
+        <div class="eyebrow eyebrow-ac" style="margin-bottom:8px;">The insight</div>
+        <div class="body-sm" style="margin-bottom:10px;">Every performance app currently on the market solves one layer. MyFitnessPal tracks food. Strava tracks cardio. Strong tracks lifts. Nike Training gives you programmes. No product integrates all four layers into a single coherent system that knows who you are and adapts to your specific constraints.</div>
+        <div class="body-sm"><strong style="color:var(--tx-1);">BodyLens is not a fitness app.</strong> It is a performance operating system — the first to connect training stimulus, nutrition timing, sleep, supplementation, and injury management into one adaptive daily system. The AI coach makes it feel like having a £200/hour professional in your pocket.</div>
+      </div>
+      <div class="card card-pad">
+        <div class="eyebrow eyebrow-go" style="margin-bottom:8px;">The moat</div>
+        <div class="card" style="border:none;background:transparent;padding:0;">
+          <div class="moat-item"><div class="moat-icon">🔒</div><div><div class="moat-title">Depth of personalisation</div><div class="moat-desc">Profile includes injury MRI findings, training age, nutrition journey, wake time, and 12-week arc. No generic app can replicate this from day one. The profile IS the product.</div></div></div>
+          <div class="moat-item"><div class="moat-icon">🧠</div><div><div class="moat-title">AI coach with context</div><div class="moat-desc">The system prompt carries the full user profile. Every AI answer is anchored to the person's specific goals, constraints, and history. Generic AI assistants cannot compete with this specificity.</div></div></div>
+          <div class="moat-item"><div class="moat-icon">📈</div><div><div class="moat-title">Longitudinal data</div><div class="moat-desc">Session check-ins, supplement adherence, knee status, and protein tracking build a dataset over 12 weeks that no competitor has for that user. The product gets more valuable with use.</div></div></div>
+          <div class="moat-item"><div class="moat-icon">🎯</div><div><div class="moat-title">Constraint integration</div><div class="moat-desc">The meniscus protocol is the proof of concept: a specific medical constraint that reconfigures every movement, every food choice, and every supplement recommendation. This is the differentiator.</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing tiers -->
+    <div class="sec-rule">Pricing architecture</div>
+    <div class="three-col" style="margin-bottom:28px;">
+
+      <div class="price-card">
+        <div class="eyebrow" style="margin-bottom:6px;">Free tier</div>
+        <div class="price-val">£0</div>
+        <div class="price-period">forever</div>
+        <div class="body-sm" style="margin-top:10px;margin-bottom:12px;color:var(--tx-2);">Enough to demonstrate value. Not enough to replace a programme.</div>
+        <div class="feature-list">
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Today view — protocol for the current day</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Week overview — programme structure</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Journeys — read-only trade-off analysis</div></div>
+          <div class="feature-row"><div class="feat-tick no">✗</div><div class="feat-text">AI coach (limited to 5 questions/month)</div></div>
+          <div class="feature-row"><div class="feat-tick no">✗</div><div class="feat-text">Food shuffle and recipe inspiration</div></div>
+          <div class="feature-row"><div class="feat-tick no">✗</div><div class="feat-text">Session check-in and progress tracking</div></div>
+          <div class="feature-row"><div class="feat-tick no">✗</div><div class="feat-text">Custom injury / constraint integration</div></div>
+        </div>
+      </div>
+
+      <div class="price-card featured">
+        <div class="eyebrow eyebrow-ac" style="margin-bottom:6px;">Core — recommended</div>
+        <div class="price-val" style="color:var(--ac-hi);">£14</div>
+        <div class="price-period">per month · or £120/year</div>
+        <div class="body-sm" style="margin-top:10px;margin-bottom:12px;">One personal training session costs £60–80. This is two weeks of daily coaching for the same price.</div>
+        <div class="feature-list">
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Everything in free tier</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">AI coach — unlimited questions</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Full 7-day protocol with wake time sync</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Food shuffle + recipe inspiration</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Session check-in + progress dashboard</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">12-week mesocycle tracking</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Nutrition journey selection + shopping kit</div></div>
+        </div>
+      </div>
+
+      <div class="price-card">
+        <div class="eyebrow eyebrow-go" style="margin-bottom:6px;">Pro — deep personalisation</div>
+        <div class="price-val" style="color:var(--go);">£29</div>
+        <div class="price-period">per month · or £240/year</div>
+        <div class="body-sm" style="margin-top:10px;margin-bottom:12px;">For users with specific medical constraints, performance targets, or who want a fully custom programme.</div>
+        <div class="feature-list">
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Everything in Core tier</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Custom injury constraint integration (MRI/physio upload → programme adapts)</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Blood biomarker integration (testosterone, Vit D, ferritin — upload lab results)</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Wearable sync (Oura, Whoop, Garmin — auto-adjusts daily protocol)</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Human coach review (quarterly 30-min session with accredited coach)</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Partner/team access — share programme read-only</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Go-to-market -->
+    <div class="sec-rule">Go-to-market strategy</div>
+    <div class="two-col-equal" style="margin-bottom:28px;">
+      <div>
+        <div class="card card-pad" style="margin-bottom:10px;">
+          <div class="eyebrow eyebrow-ac" style="margin-bottom:6px;">Phase 1 — Personal proof (now)</div>
+          <div class="body-sm">Run the programme on yourself for 12 weeks. Document every milestone, every adaptation, every protocol decision. The founder using the product is the strongest marketing signal in the consumer health space. The story of a senior professional returning to tennis after a knee event while building lean mass at 44 is commercially compelling and deeply human.</div>
+        </div>
+        <div class="card card-pad" style="margin-bottom:10px;">
+          <div class="eyebrow eyebrow-wa" style="margin-bottom:6px;">Phase 2 — Closed beta (months 2–3)</div>
+          <div class="body-sm">10–20 users, curated. Ideally: similar profile (35–50, former athletes returning to training, one specific constraint). Each user goes through onboarding, gets a personalised profile build, and uses the app for 8 weeks. Feedback loop informs v2. Community of early users is the product's first marketing channel.</div>
+        </div>
+        <div class="card card-pad">
+          <div class="eyebrow" style="margin-bottom:6px;">Phase 3 — Controlled launch (month 4+)</div>
+          <div class="body-sm">Waitlist-driven public launch. Content strategy built around the science rail — short-form explanations of the mechanisms behind common fitness myths. SEO-optimised long-form content targeting "performance programme for 40s", "returning to training after knee injury", "lean muscle after 40". The science content builds trust and drives organic acquisition.</div>
+        </div>
+      </div>
+      <div>
+        <div class="card card-pad" style="margin-bottom:10px;">
+          <div class="eyebrow eyebrow-go" style="margin-bottom:6px;">Channel strategy</div>
+          <div class="body-sm" style="margin-bottom:8px;"><strong style="color:var(--tx-1);">Primary: content-led SEO.</strong> The science rail in the app becomes a blog. Every science card is a 600-word article. The myths section is a "common mistakes" series. Long-tail search traffic for performance and injury-return content converts to trial.</div>
+          <div class="body-sm" style="margin-bottom:8px;"><strong style="color:var(--tx-1);">Secondary: physiotherapy and sports medicine referral.</strong> The meniscus protocol is a clinically coherent intervention. Physios and sports doctors who see compliant patients will recommend the tool. B2B2C referral channel.</div>
+          <div class="body-sm"><strong style="color:var(--tx-1);">Tertiary: LinkedIn and professional network.</strong> The founder profile — senior finance, endurance sport background, recovery story — maps to a large addressable audience of professionals in their 40s who have let performance slip and want a structured return.</div>
+        </div>
+        <div class="card card-pad">
+          <div class="eyebrow" style="margin-bottom:6px;">Unit economics (target)</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;">
+            <div><div class="label" style="margin-bottom:2px;">MRR at 500 Core users</div><div style="font-family:var(--serif);font-size:22px;color:var(--ac-hi);">£7k</div></div>
+            <div><div class="label" style="margin-bottom:2px;">MRR at 100 Pro users</div><div style="font-family:var(--serif);font-size:22px;color:var(--go);">£2.9k</div></div>
+            <div><div class="label" style="margin-bottom:2px;">Target CAC</div><div style="font-family:var(--serif);font-size:22px;">£18</div></div>
+            <div><div class="label" style="margin-bottom:2px;">LTV at 14mo avg</div><div style="font-family:var(--serif);font-size:22px;">£196</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- pane-biz -->
+
+  <!-- ═══ TECHNICAL TAB ═══ -->
+  <div id="pane-tech" style="display:none;">
+
+    <div class="studio-hero">
+      <div class="eyebrow eyebrow-ac" style="margin-bottom:8px;">BodyLens · Technical roadmap</div>
+      <div class="title-lg" style="margin-bottom:10px;">From static HTML to adaptive performance system</div>
+      <div class="body-sm" style="max-width:600px;">Current stack: pure static HTML/CSS/JS, no build step, no backend, no database. Deployable to GitHub Pages in under 10 minutes. The roadmap moves from static personalisation toward a real-time adaptive system with data persistence, wearable integration, and multi-user support — without losing the simplicity that makes the current version feel fast and owned.</div>
+    </div>
+
+    <!-- Current state -->
+    <div class="sec-rule">Current architecture</div>
+    <div class="two-col-equal" style="margin-bottom:28px;">
+      <div class="card card-pad">
+        <div class="eyebrow eyebrow-ac" style="margin-bottom:8px;">What exists now</div>
+        <div class="feature-list">
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">6 linked HTML pages with shared CSS and JS</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Anthropic API integration for AI coach (client-side fetch)</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Day-by-day protocol with adjustable wake time</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Full nutrition system with meal shuffle and recipe cards</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Tooltip system for jargon and abbreviations</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">Session check-in (state held in-session only)</div></div>
+          <div class="feature-row"><div class="feat-tick">✓</div><div class="feat-text">GitHub Pages deployable — zero infrastructure cost</div></div>
+        </div>
+      </div>
+      <div class="card card-pad">
+        <div class="eyebrow eyebrow-go" style="margin-bottom:8px;">Known limitations</div>
+        <div class="feature-list">
+          <div class="feature-row"><div class="feat-tick no">✗</div><div class="feat-text">No data persistence — check-ins reset on page close</div></div>
+          <div class="feature-row"><div class="feat-tick no">✗</div><div class="feat-text">API key exposed client-side (acceptable for personal use, not for multi-user)</div></div>
+          <div class="feature-row"><div class="feat-tick no">✗</div><div class="feat-text">No user authentication or profiles</div></div>
+          <div class="feature-row"><div class="feat-tick no">✗</div><div class="feat-text">All data is hardcoded — updating programme requires editing HTML</div></div>
+          <div class="feature-row"><div class="feat-tick no">✗</div><div class="feat-text">No wearable or external data integration</div></div>
+          <div class="feature-row"><div class="feat-tick no">✗</div><div class="feat-text">Not a native app — no push notifications or offline mode</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technical roadmap -->
+    <div class="sec-rule">Development roadmap — ranked by impact / effort</div>
+
+    <div style="margin-bottom:6px;">
+      <div class="road-item">
+        <div class="ri-phase phase-now">Now · 1–2 days</div>
+        <div><div class="ri-title">LocalStorage persistence for check-ins and preferences</div><div class="ri-desc">Session check-in data, wake time preference, selected nutrition journey, and supplement adherence all written to localStorage. Zero infrastructure, zero cost, transforms the app from stateless to memory-bearing.</div></div>
+        <div class="ri-effort">Low effort · High impact</div>
+      </div>
+      <div class="road-item">
+        <div class="ri-phase phase-now">Now · 1 day</div>
+        <div><div class="ri-title">Progressive Web App (PWA) wrapper</div><div class="ri-desc">Add manifest.json and service worker. Enables "Add to Home Screen" on iPhone and Android — app icon, offline support for cached pages, full-screen mode. No App Store, no Xcode, no £79/year developer account.</div></div>
+        <div class="ri-effort">Low effort · High impact</div>
+      </div>
+      <div class="road-item">
+        <div class="ri-phase phase-now">Now · 2–3 days</div>
+        <div><div class="ri-title">API key proxy — Cloudflare Worker or Vercel Edge Function</div><div class="ri-desc">Move the Anthropic API call server-side to a lightweight edge function. The API key leaves the client entirely. Required before sharing the app with any user other than yourself. Cloudflare Workers free tier handles ~100k requests/day — sufficient for beta.</div></div>
+        <div class="ri-effort">Medium effort · Critical for scaling</div>
+      </div>
+      <div class="road-item">
+        <div class="ri-phase phase-next">Next · 1 week</div>
+        <div><div class="ri-title">Supabase backend — auth, profiles, and check-in storage</div><div class="ri-desc">Supabase (open-source Firebase alternative) provides Postgres database, auth, and real-time APIs. User signs up, profile is stored, check-ins persist across devices. Free tier handles the first 500 users. Migration from localStorage to Supabase is a clean upgrade path.</div></div>
+        <div class="ri-effort">Medium effort · Unlocks multi-user</div>
+      </div>
+      <div class="road-item">
+        <div class="ri-phase phase-next">Next · 3–5 days</div>
+        <div><div class="ri-title">Dynamic programme builder — replace hardcoded HTML data</div><div class="ri-desc">Move all programme data (exercises, protocols, meals, modifications) to JSON files or a Supabase table. HTML becomes a template. Programme updates become data changes, not code changes. Prerequisite for supporting multiple users with different programmes.</div></div>
+        <div class="ri-effort">Medium effort · Foundation for scale</div>
+      </div>
+      <div class="road-item">
+        <div class="ri-phase phase-next">Next · 1 week</div>
+        <div><div class="ri-title">Onboarding wizard — profile builder for new users</div><div class="ri-desc">A 12-step onboarding flow that collects: age, weight, training history, goals, constraints (with injury checklist), nutrition journey preference, wake time, supplement baseline, and training days. Outputs a personalised system prompt and programme configuration. The AI fills in the gaps. This turns BodyLens from a single-user tool into a product.</div></div>
+        <div class="ri-effort">High effort · Required for product</div>
+      </div>
+      <div class="road-item">
+        <div class="ri-phase phase-later">Later · 2–3 weeks</div>
+        <div><div class="ri-title">Wearable integration — Oura Ring, Whoop, Garmin</div><div class="ri-desc">OAuth connection to wearable APIs. Nightly HRV (Heart Rate Variability), sleep score, and readiness score feed into the next day's protocol. Low readiness triggers an automatic RPE reduction and volume adjustment. The protocol becomes adaptive in real-time rather than prescribed.</div></div>
+        <div class="ri-effort">High effort · Pro tier differentiator</div>
+      </div>
+      <div class="road-item">
+        <div class="ri-phase phase-later">Later · 1–2 weeks</div>
+        <div><div class="ri-title">AI programme generation — new mesocycle from check-in data</div><div class="ri-desc">After the 4-week deload, the AI reviews 4 weeks of check-in data (compliance, knee status, protein adherence, strength feedback) and generates the week 5–8 intensification programme automatically. The protocol evolves based on actual performance, not assumed progression.</div></div>
+        <div class="ri-effort">High effort · Core value prop for Pro</div>
+      </div>
+      <div class="road-item">
+        <div class="ri-phase phase-later">Later · 3–5 days</div>
+        <div><div class="ri-title">Blood biomarker integration — lab result upload</div><div class="ri-desc">User uploads blood test PDF (NHS, Medichecks, Thriva). OCR extracts testosterone, vitamin D, ferritin, HbA1c, and other relevant markers. The supplement recommendations and nutrition targets update automatically. A Vit D deficiency changes the D3 recommendation. A low testosterone triggers a review of the sleep and supplement protocol.</div></div>
+        <div class="ri-effort">Medium effort · High clinical value</div>
+      </div>
+      <div class="road-item">
+        <div class="ri-phase phase-later">Later · 1 week</div>
+        <div><div class="ri-title">Capacitor native app — iOS and Android packaging</div><div class="ri-desc">Wrap the web app in Capacitor to produce App Store and Play Store submissions. Access to native push notifications (supplement reminders, session alerts). Requires Apple Developer Account (£79/year) and Google Play (£20 one-time). Total build time approximately 8 hours once the web app is stable.</div></div>
+        <div class="ri-effort">Medium effort · Distribution reach</div>
+      </div>
+    </div>
+
+    <!-- Ideas backlog -->
+    <div class="sec-rule">Feature ideas backlog</div>
+    <div class="two-col-equal" style="margin-bottom:32px;">
+      <div>
+        <div class="card card-pad" style="margin-bottom:10px;">
+          <div class="eyebrow" style="margin-bottom:8px;">Nutrition</div>
+          <div class="feature-list">
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Barcode scanner — scan a food product and it evaluates against daily targets and the avoid list</div></div>
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Restaurant mode — input the restaurant name, AI suggests the best options for the day's macro targets</div></div>
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Travel mode — protocol adapts for hotel gym, limited food options, and jet lag recovery</div></div>
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Social eating mode — "I'm at a dinner tonight" → protocol adjusts rest of day's targets accordingly</div></div>
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Grocery delivery integration — shopping kit auto-populates Ocado or Amazon Fresh basket</div></div>
+          </div>
+        </div>
+        <div class="card card-pad">
+          <div class="eyebrow" style="margin-bottom:8px;">Training</div>
+          <div class="feature-list">
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">In-session timer — rest period countdown with vibration alert, built into each exercise card</div></div>
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Strength trend graph — plots 1RM estimates week by week for each compound movement</div></div>
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Form video library — curated exercise demonstration videos embedded in each exercise card</div></div>
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Tempo timer — visual metronome for 2–3s eccentric timing</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card card-pad" style="margin-bottom:10px;">
+          <div class="eyebrow" style="margin-bottom:8px;">Intelligence</div>
+          <div class="feature-list">
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Fatigue model — accumulates training stress across the week, warns if Friday's session risks overreaching</div></div>
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Readiness score — synthesises sleep data, check-in history, and training load into a daily number</div></div>
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Personalised science rail — science cards ranked by relevance to the user's current phase and constraints</div></div>
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Comparative benchmarks — anonymised aggregate data from users with similar profiles</div></div>
+          </div>
+        </div>
+        <div class="card card-pad">
+          <div class="eyebrow" style="margin-bottom:8px;">Product experience</div>
+          <div class="feature-list">
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Morning briefing push notification — daily spoken summary delivered at wake time</div></div>
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Partner view — read-only access for a training partner, physio, or coach</div></div>
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Dark/light mode toggle — the current dark theme, plus a clean light version for morning outdoor use</div></div>
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Shareable progress card — weekly highlight image for social sharing (without private data)</div></div>
+            <div class="feature-row"><div class="feat-tick">→</div><div class="feat-text">Voice input for check-ins — "session done, knee was fine, hit protein" → all three logged</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- pane-tech -->
+
+  <div class="page-end"></div>
+</div>
+
+<script src="nav.js"></script>
+<script>
+function switchStudio(paneId, btn) {
+  document.querySelectorAll('.studio-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('pane-biz').style.display  = 'none';
+  document.getElementById('pane-tech').style.display = 'none';
+  btn.classList.add('active');
+  document.getElementById(paneId).style.display = 'block';
+}
+</script>
+</body>
+</html>

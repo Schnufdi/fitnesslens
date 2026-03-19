@@ -84,3 +84,94 @@ function switchTab(paneId, btn) {
   const p = document.getElementById(paneId);
   if (p) p.classList.add('active');
 }
+
+// ── TOOLTIP / JARGON SYSTEM ──────────────────────────────
+// Applied to any element with class "tip" and data-tip attribute.
+// The CSS handles hover display — this just ensures dynamic content gets tooltips too.
+const GLOSSARY = {
+  'RPE':   'Rate of Perceived Exertion — a 1–10 scale of workout difficulty. RPE 8 means 2 reps left in the tank.',
+  'MPS':   'Muscle Protein Synthesis — the biological process of building new muscle tissue. Triggered by training and protein intake.',
+  'mTOR':  'Mechanistic Target of Rapamycin — the molecular "switch" that activates muscle building when leucine levels are sufficient.',
+  'GH':    'Growth Hormone — released during deep sleep. Drives muscle repair and connective tissue remodelling.',
+  'PCr':   'Phosphocreatine — the energy molecule creatine supplements. Used for explosive, high-intensity efforts lasting under 10 seconds.',
+  'COX':   'Cyclo-oxygenase — an enzyme that produces inflammatory compounds. Omega-3s compete with pro-inflammatory fats at this enzyme.',
+  'EPA':   'Eicosapentaenoic acid — an omega-3 fatty acid found in fish. Reduces inflammation at the synovial joint level.',
+  'DHA':   'Docosahexaenoic acid — an omega-3 fatty acid. Works alongside EPA for joint and brain health.',
+  'VO₂max':'Maximum oxygen uptake — the gold standard measure of cardiovascular fitness. Higher = more aerobic capacity.',
+  'DOMS':  'Delayed Onset Muscle Soreness — the ache felt 24–48h after training. Normal, caused by microscopic muscle damage. Not an injury.',
+  'ROM':   'Range of Motion — the full movement a joint can perform. Restricted to 0–70° for the knee in modified exercises.',
+  'MCL':   'Medial Collateral Ligament — the ligament on the inner side of the knee. Mildly irritated in your MRI. Intact.',
+  'ACL':   'Anterior Cruciate Ligament — the main stabilising ligament of the knee. Intact in your MRI.',
+  'IGF-1': 'Insulin-like Growth Factor 1 — a hormone produced in response to GH. Directly stimulates muscle protein synthesis.',
+  'ATP':   'Adenosine Triphosphate — the molecule cells use as energy currency. Creatine helps regenerate ATP faster.',
+  'CNS':   'Central Nervous System — brain and spinal cord. Training requires CNS freshness for peak output on heavy compound lifts.',
+  'EMG':   'Electromyography — measurement of muscle electrical activity. Used to compare which exercises activate which muscles most.',
+  'RDL':   'Romanian Deadlift — a hip hinge movement that loads the hamstrings and glutes with minimal knee flexion.',
+  'MRI':   'Magnetic Resonance Imaging — the scan that revealed the medial meniscus tear and associated findings.',
+  'PGE2':  'Prostaglandin E2 — the primary chemical mediator of joint inflammation. Omega-3s reduce its production.',
+  'NMDA':  'N-methyl-D-aspartate receptor — involved in sleep regulation. Magnesium glycinate modulates this to deepen slow-wave sleep.',
+  'KSM-66':'A standardised extract of ashwagandha root. Standardisation matters — generic ashwagandha shows inconsistent results in research.',
+};
+
+// Wrap known terms in .tip spans when added to the DOM
+function applyTooltips(root) {
+  root = root || document.body;
+  // Walk text nodes and wrap glossary terms
+  const terms = Object.keys(GLOSSARY).sort((a,b) => b.length - a.length);
+  const skip  = new Set(['SCRIPT','STYLE','INPUT','TEXTAREA','SELECT','BUTTON','A']);
+
+  function walk(node) {
+    if (skip.has(node.nodeName)) return;
+    if (node.nodeType === 3) { // text node
+      const text = node.textContent;
+      for (const term of terms) {
+        const idx = text.indexOf(term);
+        if (idx >= 0) {
+          // Check parent isn't already a .tip
+          if (node.parentElement && node.parentElement.classList.contains('tip')) break;
+          const span = document.createElement('span');
+          span.innerHTML =
+            escHtml(text.slice(0, idx)) +
+            `<span class="tip" data-tip="${escHtml(GLOSSARY[term])}">${escHtml(term)}</span>` +
+            escHtml(text.slice(idx + term.length));
+          node.parentNode.replaceChild(span, node);
+          break;
+        }
+      }
+    } else {
+      Array.from(node.childNodes).forEach(walk);
+    }
+  }
+
+  // Only run on main content, not nav
+  const content = root.querySelector('.page, .main-inner, .tab-content');
+  if (content) walk(content);
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Run once after page load
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => applyTooltips(document.body), 300);
+});
+
+// ── LOCALSTORAGE PERSISTENCE ─────────────────────────────
+// Saves: wake time preference, selected nutrition journey, check-in data
+const BL_STORE = {
+  get(key)      { try { return JSON.parse(localStorage.getItem('bl_'+key)); } catch(e){ return null; } },
+  set(key,val)  { try { localStorage.setItem('bl_'+key, JSON.stringify(val)); } catch(e){} },
+};
+
+// Restore wake time on Today page load
+function restorePreferences() {
+  const wakeEl = document.getElementById('wake-select');
+  if (wakeEl) {
+    const saved = BL_STORE.get('wake_time');
+    if (saved) wakeEl.value = saved;
+    wakeEl.addEventListener('change', () => BL_STORE.set('wake_time', wakeEl.value));
+  }
+}
+
+document.addEventListener('DOMContentLoaded', restorePreferences);
