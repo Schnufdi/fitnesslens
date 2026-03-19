@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BodyLens — Today</title>
+<link rel="stylesheet" href="style.css">
+<style>
+html,body{height:100%;overflow:hidden;}
+body{display:flex;flex-direction:column;}
+.app-shell{display:grid;grid-template-columns:156px 1fr;flex:1;overflow:hidden;}
+.day-sidebar{border-right:1px solid var(--br);padding:16px 0;overflow-y:auto;}
+.dsb{display:flex;flex-direction:column;padding:9px 14px;border:none;background:transparent;color:var(--tx-2);font-family:var(--sans);cursor:pointer;text-align:left;transition:all 0.15s;border-left:2px solid transparent;gap:1px;width:100%;}
+.dsb:hover{background:rgba(255,255,255,0.03);color:var(--tx-1);}
+.dsb.active{background:var(--ac-dim);color:var(--ac-hi);border-left-color:var(--ac);}
+.dsb-name{font-size:13px;font-weight:500;}
+.dsb-type{font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;opacity:0.6;}
+.dsb.active .dsb-type{opacity:1;}
+.dsb-kcal{font-size:10px;color:var(--tx-3);}
+.dsb.active .dsb-kcal{color:rgba(58,184,138,0.55);}
+.main-col{overflow-y:auto;display:flex;flex-direction:column;}
+.main-inner{padding:24px 28px;max-width:860px;}
+.priority-band{padding:11px 28px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--br);flex-shrink:0;}
+.priority-band.p-train{background:linear-gradient(90deg,rgba(45,158,120,0.1),transparent);}
+.priority-band.p-food{background:linear-gradient(90deg,rgba(176,120,32,0.1),transparent);}
+.priority-band.p-recovery{background:linear-gradient(90deg,rgba(74,96,128,0.08),transparent);}
+.pb-icon{font-size:18px;}
+.pb-content{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+.pb-label{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;}
+.p-train .pb-label{color:var(--ac-hi);}
+.p-food .pb-label{color:var(--wa);}
+.p-recovery .pb-label{color:var(--sl);}
+.pb-title{font-family:var(--serif);font-size:18px;font-weight:500;}
+.pb-sep{color:var(--tx-3);}
+.pb-brief{font-size:12px;color:var(--tx-2);font-style:italic;}
+.dot-bar{display:flex;gap:3px;padding:10px 28px;border-bottom:1px solid var(--br);flex-shrink:0;}
+.db-seg{height:2px;flex:1;border-radius:2px;background:var(--br);}
+.db-seg.done{background:var(--ac);}
+.db-seg.now{background:rgba(45,158,120,0.45);}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-brand">Body<em>Lens</em></div>
+  <div class="nav-links">
+    <a class="nav-link" href="bodylens-profile.html">Profile</a>
+    <a class="nav-link" href="bodylens-today.html">Today</a>
+    <a class="nav-link" href="bodylens-week.html">Week</a>
+    <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
+    <a class="nav-link" href="bodylens-progress.html">Progress</a>
+    <a class="nav-link" href="bodylens-science.html">Science</a>
+  </div>
+  <div class="nav-meta">
+    <span class="nav-tag nt-gold">Meniscus protocol</span>
+    <span class="nav-tag nt-ac">Balanced precision</span>
+  </div>
+</nav>
+
+<div class="app-shell">
+
+  <!-- DAY SIDEBAR -->
+  <div class="day-sidebar">
+    <button class="dsb" onclick="setDay(0,this)"><span class="dsb-name">Monday</span><span class="dsb-type">Push</span><span class="dsb-kcal">2,950 kcal</span></button>
+    <button class="dsb" onclick="setDay(1,this)"><span class="dsb-name">Tuesday</span><span class="dsb-type">Rest</span><span class="dsb-kcal">2,700 kcal</span></button>
+    <button class="dsb" onclick="setDay(2,this)"><span class="dsb-name">Wednesday</span><span class="dsb-type">Pull</span><span class="dsb-kcal">2,950 kcal</span></button>
+    <button class="dsb" onclick="setDay(3,this)"><span class="dsb-name">Thursday</span><span class="dsb-type">Rest</span><span class="dsb-kcal">2,700 kcal</span></button>
+    <button class="dsb active" onclick="setDay(4,this)"><span class="dsb-name">Friday</span><span class="dsb-type">Posterior</span><span class="dsb-kcal">3,050 kcal</span></button>
+    <button class="dsb" onclick="setDay(5,this)"><span class="dsb-name">Saturday</span><span class="dsb-type">Upper</span><span class="dsb-kcal">2,950 kcal</span></button>
+    <button class="dsb" onclick="setDay(6,this)"><span class="dsb-name">Sunday</span><span class="dsb-type">Rest</span><span class="dsb-kcal">2,700 kcal</span></button>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main-col">
+
+    <!-- dot progress -->
+    <div class="dot-bar" id="dot-bar">
+      <div class="db-seg done"></div><div class="db-seg done"></div>
+      <div class="db-seg done"></div><div class="db-seg done"></div>
+      <div class="db-seg now"></div><div class="db-seg"></div><div class="db-seg"></div>
+    </div>
+
+    <!-- priority band -->
+    <div class="priority-band p-food" id="priority-band">
+      <div class="pb-icon" id="pb-icon">⚡</div>
+      <div class="pb-content">
+        <div class="pb-label" id="pb-label">Food is the lever today</div>
+        <div class="pb-title" id="pb-title">Fuel first. Then lift.</div>
+        <div class="pb-sep">—</div>
+        <div class="pb-brief" id="pb-brief">Posterior chain runs on glycogen. What you eat before training determines 80% of today's output.</div>
+      </div>
+    </div>
+
+    <!-- scroll content -->
+    <div class="main-inner">
+
+      <!-- SPOKEN SUMMARY -->
+      <div class="spoken-summary" id="spoken-summary">
+        <div class="ss-head"><div class="ss-dot"></div><div class="ss-label">From your coach</div></div>
+        <div class="ss-text" id="ss-text">
+          Today is Friday — your most important session of the week, and the one that does double duty. The Romanian deadlift and hip thrust you are about to do are not just the biggest muscle-building stimulus of your week. They are the primary therapeutic intervention for your knee. Strong glutes reduce medial compartment load by roughly 30–40%. You are training the structures that protect the torn tissue. Everything today flows from that dual purpose: the calories are high because the session demands it, the carbs are front-loaded because glycogen is the fuel, the collagen goes in 45 minutes before you lift because that is the connective tissue synthesis window. Get the pre-workout right and the session takes care of itself.
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="tab-row">
+        <button class="tab-btn active" onclick="switchTabLocal('pane-protocol',this)">Protocol</button>
+        <button class="tab-btn" onclick="switchTabLocal('pane-training',this)" id="tab-training">Training</button>
+        <button class="tab-btn gold-tab" onclick="switchTabLocal('pane-mods',this)" id="tab-mods">Modifications <span class="tab-badge" id="mod-badge">3</span></button>
+        <button class="tab-btn" onclick="switchTabLocal('pane-nutrition',this)">Nutrition</button>
+      </div>
+
+      <!-- PROTOCOL TAB -->
+      <div class="tab-pane active" id="pane-protocol">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+          <div>
+            <div class="title-md" id="proto-title">Friday — Posterior Chain</div>
+            <div class="body-sm" id="proto-sub">Wake-to-sleep protocol · tap any card for the science</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="label">Wake time</div>
+            <select id="wake-select" onchange="renderProtocol(currentDay)"
+              style="background:var(--bg-1);border:1px solid var(--br);border-radius:3px;color:var(--tx-1);font-family:var(--sans);font-size:12px;padding:5px 10px;outline:none;">
+              <option value="330">05:30</option>
+              <option value="360" selected>06:00</option>
+              <option value="390">06:30</option>
+              <option value="420">07:00</option>
+              <option value="450">07:30</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="macro-bar">
+          <div class="mb-cell"><div class="mb-lbl">Calories</div><div class="mb-val mv-k" id="p-kcal">3,050</div></div>
+          <div class="mb-cell"><div class="mb-lbl">Protein</div><div class="mb-val mv-p" id="p-prot">190g</div></div>
+          <div class="mb-cell"><div class="mb-lbl">Carbs</div><div class="mb-val mv-c" id="p-carbs">350g</div></div>
+          <div class="mb-cell"><div class="mb-lbl">Fat</div><div class="mb-val mv-f" id="p-fat">85g</div></div>
+        </div>
+
+        <div class="proto-stream" id="proto-stream"></div>
+
+        <div class="coach-box" style="margin-top:20px;">
+          <div class="cb-head"><div class="cb-dot"></div><div class="cb-label">Ask your coach</div></div>
+          <div class="qq-row" id="qq-row-proto">
+            <button class="qq" onclick="askCoach(this,'ai-inp-p','ai-resp-p','ai-btn-p','Protocol tab')">Sauna protocol tonight?</button>
+            <button class="qq" onclick="askCoach(this,'ai-inp-p','ai-resp-p','ai-btn-p','Protocol tab')">What if I train at 7am not 6am?</button>
+            <button class="qq" onclick="askCoach(this,'ai-inp-p','ai-resp-p','ai-btn-p','Protocol tab')">Knee feels tight this morning</button>
+          </div>
+          <div class="inp-row">
+            <input class="ai-inp" id="ai-inp-p" type="text" placeholder="Ask about today's protocol…" onkeydown="if(event.key==='Enter')sendCoach('ai-inp-p','ai-resp-p','ai-btn-p',getDayCtx())">
+            <button class="ai-btn" id="ai-btn-p" onclick="sendCoach('ai-inp-p','ai-resp-p','ai-btn-p',getDayCtx())">Ask</button>
+          </div>
+          <div class="ai-resp" id="ai-resp-p"></div>
+        </div>
+      </div>
+
+      <!-- TRAINING TAB -->
+      <div class="tab-pane" id="pane-training">
+        <div id="training-content"></div>
+        <div class="coach-box" style="margin-top:20px;">
+          <div class="cb-head"><div class="cb-dot"></div><div class="cb-label">Ask your coach</div></div>
+          <div class="qq-row" id="qq-row-train"></div>
+          <div class="inp-row">
+            <input class="ai-inp" id="ai-inp-t" type="text" placeholder="Ask about today's session…" onkeydown="if(event.key==='Enter')sendCoach('ai-inp-t','ai-resp-t','ai-btn-t',getDayCtx())">
+            <button class="ai-btn" id="ai-btn-t" onclick="sendCoach('ai-inp-t','ai-resp-t','ai-btn-t',getDayCtx())">Ask</button>
+          </div>
+          <div class="ai-resp" id="ai-resp-t"></div>
+        </div>
+      </div>
+
+      <!-- MODS TAB -->
+      <div class="tab-pane" id="pane-mods">
+        <div id="mods-content"></div>
+      </div>
+
+      <!-- NUTRITION TAB -->
+      <div class="tab-pane" id="pane-nutrition">
+        <div id="nutrition-content"></div>
+      </div>
+
+      <div class="page-end"></div>
+    </div><!-- main-inner -->
+  </div><!-- main-col -->
+</div><!-- app-shell -->
+
+<script src="nav.js"></script>
+<script>
+
+// ─── DATA ───────────────────────────────────────────────
+const DAYS = [
+  { name:'Monday', type:'Push', kcal:'2,950', p:'185g', c:'330g', f:'82g', priority:'p-train', icon:'🏋️', label:'Training is the lever today', title:'Compound first. Protein loaded.', brief:"Bench press is the primary event. CNS is freshest now — don't waste it on isolations.", mods:0,
+    spoken:"Today is Monday — upper push day, the start of the week's stimulus. Everything is in service of the bench press and what follows it: the CNS is at its sharpest, the glycogen from breakfast is loaded, and the 90-minute activation window between waking and lifting is the most important preparation you can do. This session feeds directly into your lean mass goal. The chest and shoulder stimulus you deliver today will have a second visit on Saturday before MPS elevation decays. Eat precisely, train precisely, and take your protein within 30 minutes of finishing. Today's work is Monday's investment and Saturday's return.",
+    prog:['done','now','','','','',''],
+    protocol:'push',
+    exercises:[
+      {name:'Barbell Bench Press',meta:'4 sets · 6–8 reps · RPE 8 · Rest 3 min',detail:'Primary chest, anterior delt, triceps. 2–3s eccentric. Heaviest compound first.',type:'is-primary',badge:'Compound',badgeClass:'pill-ac'},
+      {name:'Incline Dumbbell Press',meta:'3 sets · 10–12 reps · RPE 7–8 · Rest 2 min',detail:'Upper chest, 30–45°. Seated, knee neutral.',type:'is-primary',badge:'Compound',badgeClass:'pill-ac'},
+      {name:'Seated Dumbbell Shoulder Press',meta:'3 sets · 10–12 reps · RPE 7 · Rest 90s',detail:'Seated eliminates standing knee stress. Lateral head via slight pronation.',type:'',badge:'Compound',badgeClass:'pill-ac'},
+      {name:'Cable Lateral Raise',meta:'3 sets · 15–20 reps · RPE 8 · Rest 60s',detail:'Medial delt. Cable maintains tension at peak abduction.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
+      {name:'Rope Tricep Pushdown',meta:'3 sets · 12–15 reps · RPE 7 · Rest 60s',detail:'Elbows pinned. Flare at extension.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
+      {name:'Overhead Cable Extension',meta:'2 sets · 12–15 reps · RPE 7 · Rest 60s',detail:'Long head — 2/3 of tricep mass.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
+    ],
+    qq:['How do I know bench weight is right?','What if I only have 45 minutes?'],
+    mods_data:null,
+    meals:{kcal:'2,950',p:'185g',c:'330g',f:'82g',items:[
+      {time:'Post-wake',name:'Oats + whey + banana',items:'80g oats · 30g whey · milk · banana',p:'52g',c:'82g',f:'16g'},
+      {time:'Pre-training',name:'Eggs + sourdough',items:'4 eggs · 2 slices sourdough · spinach',p:'38g',c:'42g',f:'24g'},
+      {time:'Post-training',name:'Whey + fast carbs',items:'30g whey · banana · rice cakes',p:'35g',c:'55g',f:'6g'},
+      {time:'Main meal',name:'Chicken + rice + yoghurt',items:'200g chicken · 200g basmati · spinach · 150g yoghurt',p:'58g',c:'85g',f:'18g'},
+    ]}
+  },
+  { name:'Tuesday', type:'Rest', kcal:'2,700', p:'185g', c:'265g', f:'85g', priority:'p-food', icon:'🥗', label:'Food is the lever today', title:'MPS peaks today. Eat precisely.', brief:"Yesterday's session is still building muscle. Amino acid supply determines how much.", mods:0,
+    spoken:"Today is Tuesday — rest day, and the most nutritionally critical day of the week relative to Monday. Muscle protein synthesis from yesterday's push session peaks now, between 24 and 36 hours post-training. The amino acids you provide today are directly used for repair and adaptation. There is nothing else to do athletically — the work is happening without you. Your job is to not disrupt it. Anti-inflammatory meals today are deliberate: the synovial environment around your knee is also in its peak repair window. Omega-3s, olive oil, and dark greens are joint medicine as much as food. Hit protein across four meals, sleep well tonight, and let the biology do what it does.",
+    prog:['done','now','','','','',''],
+    protocol:'rest',
+    exercises:null, qq:[],
+    mods_data:null,
+    meals:{kcal:'2,700',p:'185g',c:'265g',f:'85g',items:[
+      {time:'Breakfast',name:'Turmeric eggs + sourdough',items:'4 eggs with turmeric · 2 slices sourdough · spinach · berries',p:'36g',c:'52g',f:'22g'},
+      {time:'Lunch',name:'Mackerel + quinoa bowl',items:'2 fillets smoked mackerel · 120g quinoa · cucumber · rocket · lemon',p:'48g',c:'55g',f:'28g'},
+      {time:'Snack',name:'Cottage cheese + walnuts',items:'250g cottage cheese · 20g walnuts · apple',p:'38g',c:'24g',f:'18g'},
+      {time:'Dinner',name:'Salmon + lentils + greens',items:'200g salmon · 120g lentils · wilted spinach · garlic · olive oil',p:'55g',c:'58g',f:'28g'},
+    ]}
+  },
+  { name:'Wednesday', type:'Pull', kcal:'2,950', p:'185g', c:'330g', f:'82g', priority:'p-train', icon:'🏋️', label:'Training is the lever today', title:'Pull day. Posterior emphasis begins.', brief:"Weighted pull-ups first. One modification today — same target stimulus.", mods:1,
+    spoken:"Today is Wednesday — upper pull, and the point where your posterior chain emphasis starts to show. The weighted pull-up is your primary compound, which means your CNS needs to be fresh for the first set. One modification: the chest-supported row replaces the standing bent-over row because the standing hip hinge hold creates an isometric knee demand your meniscus doesn't need on a non-posterior-chain day. The modification does not reduce the mid-back stimulus — if anything it isolates the target more cleanly. The face pulls are non-negotiable. They exist because Monday's pressing session creates anterior shoulder dominance and Wednesday's face pulls rebalance it. Skip them and you are accumulating a shoulder injury over weeks.",
+    prog:['done','done','now','','','',''],
+    protocol:'pull',
+    exercises:[
+      {name:'Weighted Pull-up',meta:'4 sets · 5–8 reps · RPE 8 · Rest 3 min',detail:'Add 5–10kg via belt. Dead hang to chin. Knees crossed behind — no knee demand.',type:'is-primary',badge:'Compound',badgeClass:'pill-ac'},
+      {name:'Chest-Supported DB Row',meta:'4 sets · 6–8 reps · RPE 8 · Rest 2.5 min',detail:'Modified from standing bent-over row.',mod:'Chest support removes knee-hip isometric hold. Primary stimulus unchanged.',type:'is-modified',badge:'Modified',badgeClass:'pill-go'},
+      {name:'Seated Cable Row (wide)',meta:'3 sets · 10–12 reps · RPE 7 · Rest 90s',detail:'Seated. Full stretch and retraction. 2s pause at peak.',type:'',badge:'Compound',badgeClass:'pill-ac'},
+      {name:'Face Pull (rope)',meta:'3 sets · 15–20 reps · RPE 7 · Rest 60s',detail:'Elbows high. Rear delt and external rotators. Shoulder health insurance.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
+      {name:'Incline Dumbbell Curl',meta:'3 sets · 12–15 reps · RPE 7–8 · Rest 60s',detail:'Seated incline, knee neutral. Long head bicep via shoulder extension.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
+      {name:'Hammer Curl (seated)',meta:'2 sets · 12–15 reps · RPE 7 · Rest 60s',detail:'Seated. Brachialis emphasis. Thickens upper arm from all angles.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
+    ],
+    qq:['Lower back aches on rows — what\'s safer?','How much weight on pull-ups?'],
+    mods_data:[{name:'Bent-Over Row → Chest-Supported Row',muscle:'Mid-back · rhomboids · rear delt',verdict:'Full stimulus',vClass:'pill-ac',
+      stdName:'Barbell Bent-Over Row',stdDetail:'4×6–8 RPE 8 · Standing hip hinge hold throughout',
+      modName:'Chest-Supported DB Row',modDetail:'4×6–8 RPE 8 · Chest on bench · Knee fully unloaded',
+      losses:['Standing hip hinge builds lower back isometric endurance — removed by chest support','Slightly lower absolute barbell load'],
+      offsets:['Primary mid-back stimulus identical — chest support isolates target more cleanly','Hip hinge isometric back work recovered by Friday\'s RDL as primary compound']}],
+    meals:{kcal:'2,950',p:'185g',c:'330g',f:'82g',items:[
+      {time:'Post-wake',name:'Protein oats + egg whites',items:'80g oats · 200ml milk · 30g whey · 4 egg whites · banana',p:'55g',c:'80g',f:'14g'},
+      {time:'Pre-training',name:'Bagel + turkey + OJ',items:'1 bagel · 120g turkey · mustard · 250ml OJ',p:'38g',c:'72g',f:'8g'},
+      {time:'Post-training',name:'Whey + banana',items:'30g whey · banana · rice cakes',p:'35g',c:'55g',f:'6g'},
+      {time:'Main meal',name:'Tuna + pasta + rocket',items:'2 tins tuna · 180g pasta · rocket · capers · lemon · olive oil',p:'52g',c:'88g',f:'14g'},
+    ]}
+  },
+  { name:'Thursday', type:'Rest', kcal:'2,700', p:'185g', c:'265g', f:'85g', priority:'p-recovery', icon:'🌙', label:'Recovery is the lever today', title:'Sleep tonight determines Friday.', brief:"Everything today serves one purpose: Friday's posterior chain session.", mods:0,
+    spoken:"Today is Thursday — the most strategically important rest day of the week. Tomorrow is your primary session: the posterior chain work that simultaneously builds muscle and protects your knee. Everything you do today is preparation for it. The carbohydrate load begins at lunch, not tomorrow morning — muscle glycogen takes 12–24 hours to fully replenish, so Thursday afternoon's carbs are Friday's fuel. The collagen dose today is in addition to the pre-training dose tomorrow: Shaw et al.'s research shows a 24-hour priming effect that amplifies the synthesis response. And tonight's sleep is the single most valuable pre-workout intervention available. More impactful than any supplement, any warmup, any meal timing. Earlier to bed by 30 minutes is worth more than anything else you could do.",
+    prog:['done','done','done','now','','',''],
+    protocol:'rest_pre',
+    exercises:null, qq:[],
+    mods_data:null,
+    meals:{kcal:'2,700',p:'185g',c:'265g',f:'85g',items:[
+      {time:'Breakfast',name:'Smoked salmon + eggs',items:'3 eggs + 3 whites · 100g smoked salmon · sourdough · spinach',p:'52g',c:'42g',f:'26g'},
+      {time:'Lunch',name:'Lentil soup + chicken',items:'Red lentil soup · 150g chicken · wholegrain pitta',p:'55g',c:'70g',f:'18g'},
+      {time:'Snack',name:'Whey + rice cakes',items:'30g whey · 3 rice cakes · peanut butter · orange',p:'36g',c:'48g',f:'12g'},
+      {time:'Dinner',name:'Lean mince + roasted veg',items:'250g 5% beef mince · courgette · aubergine · new potatoes · tomato sauce',p:'52g',c:'58g',f:'24g'},
+    ]}
+  },
+  { name:'Friday', type:'Posterior', kcal:'3,050', p:'190g', c:'350g', f:'85g', priority:'p-food', icon:'⚡', label:'Food is the lever today', title:'Fuel first. Then lift.', brief:"RDL and hip thrust run on glycogen. What you eat now determines how much you lift.", mods:3,
+    spoken:"Today is Friday — your most important session of the week, and the one that does double duty. The Romanian deadlift and hip thrust you are about to do are not just the biggest muscle-building stimulus of your week. They are the primary therapeutic intervention for your knee. Strong glutes reduce medial compartment load by roughly 30–40%. You are training the structures that protect the torn tissue. Everything today flows from that dual purpose: the calories are high because the session demands it, the carbs are front-loaded because glycogen is the fuel, the collagen goes in 45 minutes before you lift because that is the connective tissue synthesis window. Get the pre-workout right and the session takes care of itself.",
+    prog:['done','done','done','done','now','',''],
+    protocol:'posterior',
+    exercises:[
+      {name:'Romanian Deadlift',meta:'4 sets · 6–8 reps · RPE 8 · Rest 3 min',detail:'Hip hinge primary. Soft knee, never deep flexion. Hamstring stretch at bottom.',type:'is-primary',badge:'Primary',badgeClass:'pill-ac'},
+      {name:'Barbell Hip Thrust',meta:'4 sets · 8–12 reps · RPE 8 · Rest 2.5 min',detail:'Highest glute EMG of any exercise. Knee static at ~90° at top.',type:'is-primary',badge:'Compound',badgeClass:'pill-ac'},
+      {name:'Leg Press (partial)',meta:'3 sets · 12–15 reps · RPE 7 · Rest 2 min',detail:'High foot placement.',mod:'0–70° only. +20–30% load to offset shortened ROM.',type:'is-modified',badge:'Modified',badgeClass:'pill-go'},
+      {name:'Seated Leg Curl',meta:'3 sets · 12–15 reps · RPE 7 · Rest 90s',detail:'Machine controls range. Hamstring lengthened = long-head stimulus.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
+      {name:'Step-Up (20–25cm box)',meta:'3 sets · 10–12/leg · RPE 7 · Rest 90s',detail:'Heel drive.',mod:'Replaces lunges. Knee within 70–80°.',type:'is-modified',badge:'Modified',badgeClass:'pill-go'},
+      {name:'Cable Glute Kickback',meta:'3 sets · 15/leg · RPE 7 · Rest 60s',detail:'Hip extension, knee near straight. Zero meniscal demand.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
+      {name:'Standing Calf Raise',meta:'3 sets · 15–20 reps · RPE 7 · Rest 60s',detail:'Full plantar flexion, 3s eccentric. Gastrocnemius adds knee stability.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
+    ],
+    qq:['How deep on leg press with my knee?','Why is hip thrust safe for my knee?','What if knee feels tight?'],
+    mods_data:[
+      {name:'Back Squat → RDL + Hip Thrust',muscle:'Quad · glute · hamstring · hormonal driver',verdict:'~95%',vClass:'pill-wa',
+        stdName:'Barbell Back Squat',stdDetail:'4×5–8 RPE 8–9 · Full depth below parallel',
+        modName:'RDL primary + Hip Thrust secondary',modDetail:'Hip hinge + hip extension · Knee flexion minimal and static',
+        losses:['Deep quad tension at 70–120° knee flexion — range meniscus cannot tolerate','Systemic GH spike from full squat slightly reduced'],
+        offsets:['RDL still drives testosterone/GH via heavy load through large muscle mass','Hip thrust exceeds squat for glute EMG — glute development equal or better','Partial leg press recovers 0–70° quad stimulus — where peak quad tension occurs']},
+      {name:'Walking Lunge → Box Step-Up',muscle:'Quad · glute · unilateral stability',verdict:'Full',vClass:'pill-ac',
+        stdName:'Walking Dumbbell Lunge',stdDetail:'3×12/leg · Full stride · Dynamic knee travel',
+        modName:'Step-Up (20–25cm, heel drive)',modDetail:'3×10–12/leg · Controlled unilateral · Knee within 70–80°',
+        losses:['Eccentric quad load through fuller ROM from dynamic lunge stride'],
+        offsets:['Same quad-glute chain loaded unilaterally','Cable kickback recovers glute isolation from lunge\'s back-leg phase']},
+      {name:'Full Leg Press → Partial (0–70°)',muscle:'Quad · glute',verdict:'~90%',vClass:'pill-wa',
+        stdName:'Full-Range Leg Press',stdDetail:'Full ROM including deep knee flexion',
+        modName:'Partial Leg Press (0–70° only)',modDetail:'High foot · Stop at 70° · +20–30% load to compensate',
+        losses:['70–120° range where peak quad tension occurs — the honest 3% gap'],
+        offsets:['Heavier partial load partially recovers total mechanical tension','Targeted for progressive reintroduction from week 5–8']}
+    ],
+    meals:{kcal:'3,050',p:'190g',c:'350g',f:'85g',items:[
+      {time:'Post-wake',name:'Big oat bowl',items:'100g oats · 30g whey · 300ml milk · banana · 15g peanut butter',p:'58g',c:'95g',f:'22g'},
+      {time:'Pre-training',name:'Whey + banana + dates',items:'40g whey · 300ml milk · banana · 3 medjool dates',p:'40g',c:'88g',f:'8g'},
+      {time:'Post-training',name:'Whey immediately',items:'30g whey in water · within 30 min · non-negotiable',p:'30g',c:'3g',f:'2g'},
+      {time:'Main meal',name:'Steak + potatoes + greens',items:'220g sirloin · 250g new potatoes · broccoli · garlic butter',p:'55g',c:'52g',f:'32g'},
+    ]}
+  },
+  { name:'Saturday', type:'Upper', kcal:'2,950', p:'185g', c:'325g', f:'83g', priority:'p-train', icon:'🏋️', label:'Training is the lever today', title:'Second upper hit. Frequency, not heroics.', brief:"Re-stimulate before MPS from Wednesday decays. Quality execution over loading.", mods:0,
+    spoken:"Today is Saturday — second upper stimulus of the week, and the one that completes the frequency equation. MPS from Wednesday's pull session decays in 48–72 hours. You are re-stimulating before that window closes. This is not a day to attempt personal records. The shoulder press, chest-supported row, cable fly, and pulldown today exist to maintain the anabolic signal, not restart it. The combination of Monday's push and today's upper full means chest, shoulders, triceps, and back have each been trained twice — which is the frequency shown to produce 70% more hypertrophy than once-weekly training at matched volume. The programme is working. Today's job is to not interrupt it.",
+    prog:['done','done','done','done','done','now',''],
+    protocol:'upper',
+    exercises:[
+      {name:'Dumbbell Shoulder Press',meta:'3 sets · 8–10 reps · RPE 8 · Rest 2 min',detail:'Seated. Second weekly shoulder stimulus. Reveals bilateral imbalance.',type:'is-primary',badge:'Compound',badgeClass:'pill-ac'},
+      {name:'Chest-Supported DB Row',meta:'3 sets · 10–12 reps · RPE 8 · Rest 2 min',detail:'Chest support removes lower back and knee demand entirely.',type:'',badge:'Compound',badgeClass:'pill-ac'},
+      {name:'Cable Fly (low-to-high)',meta:'3 sets · 12–15 reps · RPE 7 · Rest 90s',detail:'Upper pec. Cable maintains tension through full arc.',type:'',badge:'Compound',badgeClass:'pill-ac'},
+      {name:'Lat Pulldown (close neutral)',meta:'3 sets · 10–12 reps · RPE 7 · Rest 90s',detail:'Seated. Lower lat emphasis. Lean 15°, elbows drive to hips.',type:'',badge:'Compound',badgeClass:'pill-ac'},
+      {name:'EZ Curl + Pushdown superset',meta:'3 rounds · 12–15 reps · RPE 7 · Rest 60s',detail:'Arms pre-fatigued from compounds. Opposing muscles allow minimal rest.',type:'',badge:'Superset',badgeClass:'pill-wa'},
+    ],
+    qq:['Why not go heavy again today?','What\'s the timeline back to tennis?'],
+    mods_data:null,
+    meals:{kcal:'2,950',p:'185g',c:'325g',f:'83g',items:[
+      {time:'Post-wake',name:'Eggs + avocado + sourdough',items:'4 eggs · 3 slices sourdough · avocado · cherry tomatoes',p:'38g',c:'68g',f:'30g'},
+      {time:'Pre-training',name:'Yoghurt + whey + granola',items:'200g yoghurt · 30g whey · granola · honey · banana',p:'48g',c:'72g',f:'12g'},
+      {time:'Post-training',name:'Whey + fast carbs',items:'30g whey · banana · rice cakes',p:'35g',c:'55g',f:'6g'},
+      {time:'Main meal',name:'Roast chicken + sweet potato',items:'2 chicken thighs skin on · 200g sweet potato · green beans',p:'50g',c:'68g',f:'28g'},
+    ]}
+  },
+  { name:'Sunday', type:'Rest', kcal:'2,700', p:'180g', c:'260g', f:'88g', priority:'p-food', icon:'🥗', label:'Food is flexible today', title:'Hit protein. Everything else is yours.', brief:"One rule today: 180g protein. The rest is yours.", mods:0,
+    spoken:"Today is Sunday — the close of the week, and the night that consolidates everything. The full week's training adaptation — every compound movement from Monday's bench press to Saturday's shoulder press — is still being processed. Tonight's sleep, and the GH pulse during slow-wave sleep, builds on all of it. Nutritionally there is one rule: hit your protein target. Carbs and fat are flexible — Sunday is deliberately the day the programme removes rigidity, because adherence over 12 weeks requires one day where you eat what you enjoy without calculation. Review the week before bed: which sets genuinely hit RPE 8, where did form break first, did the knee behave. That is the data for week 2.",
+    prog:['done','done','done','done','done','done','now'],
+    protocol:'rest_end',
+    exercises:null, qq:[],
+    mods_data:null,
+    meals:{kcal:'2,700',p:'180g',c:'260g',f:'88g',items:[
+      {time:'Brunch',name:'Sunday slow breakfast',items:'3 eggs + 100g smoked salmon · rye bread · Greek yoghurt',p:'55g',c:'48g',f:'28g'},
+      {time:'Lunch',name:'Flexible — hit protein',items:'Eat what you enjoy. Aim for 50g protein.',p:'50g+',c:'~',f:'~'},
+      {time:'Dinner',name:'Lean Sunday roast',items:'250g beef or turkey · roasted root veg · greens · light gravy',p:'55g',c:'60g',f:'22g'},
+      {time:'Before bed',name:'Cottage cheese',items:'250g cottage cheese · cinnamon · walnuts',p:'32g',c:'8g',f:'14g'},
+    ]}
+  },
+];
+
+// ─── PROTOCOLS ───────────────────────────────────────────
+const PROTOCOLS = {
+  push:[
+    {off:0,type:'wake',glyph:'○',gClass:'',node:'',action:'Wake + 500ml water immediately',detail:'Before anything else',sci:'Core temperature and testosterone are at daily nadir on waking. Hydration begins the activation process. Even mild dehydration reduces strength output by 2–5%.'},
+    {off:10,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'D3 + K2, Omega-3, Ashwagandha',detail:'With a small fat-containing food',sci:'Fat-soluble vitamins require dietary fat for absorption. D3 without food has significantly reduced bioavailability. Morning Ashwagandha maintains consistent plasma levels for cortisol suppression throughout the day.'},
+    {off:20,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Breakfast — oats + whey + banana',detail:'80g oats · 30g whey · milk · banana',sci:'Moderate carbs and fast protein at wake primes amino acid availability and begins glycogen loading. Whey clears the leucine threshold for MPS activation — muscle building begins even before training.'},
+    {off:70,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Creatine 5g',detail:'In water — consistency matters most',sci:'Creatine timing is irrelevant; daily saturation is what matters. 5g maintains full phosphocreatine saturation for 5–15% strength output improvement across all compound work.'},
+    {off:80,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Pre-training meal — eggs + toast',detail:'4 eggs · 2 slices sourdough · spinach',sci:'15 minutes before training. Fast protein + moderate carb, low fat and fibre. Gastric emptying must be near-complete when lifting — fat and fibre significantly slow this.'},
+    {off:88,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Caffeine 200mg (if using)',detail:'45–60 min before first compound lift',key:true,sci:'Caffeine peaks in plasma 45–60 min post-ingestion. Timed to coincide with the first heavy compound set — maximises pain tolerance, power output, and focus.'},
+    {off:90,type:'train',glyph:'▲',gClass:'g-train',node:'pn-train',action:'Train — Upper Push',detail:'Bench → Incline → Shoulder press → Laterals → Triceps · 60 min',key:true,sci:'90 minutes post-wake is the evidence-based morning strength window. Core temperature has risen, testosterone-to-cortisol ratio is improving, and neuromuscular activation approaches daily peak. Training immediately on waking misses this by 60–90 minutes.'},
+    {off:150,type:'window',glyph:'!',gClass:'g-window',node:'pn-window',action:'Post-workout — 30g whey immediately',detail:'In water · within 30 min · non-negotiable',urgent:true,sci:'MPS peaks in the 30–60 minute post-training window. The leucine threshold must be hit now to maximally activate mTOR at the point of peak anabolic signalling. This is the most time-sensitive nutrition decision of the training day.'},
+    {off:240,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Main meal — chicken + rice + greens',detail:'200g chicken · 200g basmati · spinach · Greek yoghurt',sci:'Fat is fine now — gastric emptying speed is no longer a constraint. High protein extends MPS elevation. Carbs replenish depleted glycogen. Yoghurt adds casein for sustained amino acid release.'},
+    {off:480,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Magnesium glycinate 400mg',detail:'With dinner or shortly before bed',sci:'Taking magnesium 2–3 hours before bed allows plasma levels to peak during the first slow-wave sleep cycle — when GH is released and the magnesium–NMDA interaction that improves sleep depth is most relevant.'},
+    {off:600,type:'sleep',glyph:'◑',gClass:'g-sleep',node:'pn-sleep',action:'Sleep — 8 hours minimum',detail:'Lights down. 18°C room temperature optimal.',sci:'GH secretion peaks 60–90 minutes after sleep onset during slow-wave sleep. One week of sub-6h sleep reduces testosterone by 10–15%. 8 hours is not a preference — it is the minimum operating condition.'},
+  ],
+  pull:[
+    {off:0,type:'wake',glyph:'○',gClass:'',node:'',action:'Wake + 500ml water',detail:'Every morning. Non-negotiable.',sci:'Hydration first. Even mild dehydration impairs grip endurance and cognitive performance relevant to technique cues — both critical for weighted pull-ups.'},
+    {off:15,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'D3 + K2, Omega-3',detail:'With small fat-containing food',sci:'Omega-3 is particularly relevant today — training increases systemic inflammation; EPA/DHA moderates the response. D3 absorption requires fat.'},
+    {off:20,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Breakfast — protein oats + egg whites',detail:'80g oats · 30g whey · 4 egg whites · banana',sci:'Higher protein at breakfast on pull day — the back is a large muscle group with significant MPS demand post-session. Egg whites add protein without excess fat.'},
+    {off:70,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Creatine 5g',detail:'Daily — consistency above all',sci:'Weighted pull-ups under near-maximal load benefit directly from expanded phosphocreatine availability. The ATP-PC energy system covers the 5–8 rep range.'},
+    {off:80,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Pre-training — bagel + turkey + OJ',detail:'1 bagel · 120g turkey · 250ml OJ',sci:'Higher GI pre-training because weighted pull-ups are neurologically demanding and glycogen-intensive. OJ provides fast carbohydrate. Turkey delivers pre-workout leucine.'},
+    {off:88,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Caffeine 200mg (if using)',detail:'45–60 min before pull-ups',key:true,sci:'Timed to peak at weighted pull-up compound work. Pull-ups require high neural drive and grip endurance — both benefit from adenosine antagonism.'},
+    {off:90,type:'train',glyph:'▲',gClass:'g-train',node:'pn-train',action:'Train — Upper Pull',detail:'Pull-ups → Chest-supported row → Cable row → Face pull → Curls · 65 min',key:true,sci:'Pull-ups first — highest neural demand, requires freshest CNS. Face pulls are non-negotiable for shoulder health in heavy pressers.'},
+    {off:155,type:'window',glyph:'!',gClass:'g-window',node:'pn-window',action:'Post-workout — 30g whey immediately',detail:'Within 30 min · do not delay',urgent:true,sci:'The back muscles trained today — lats, rhomboids, rear delt — are large with significant MPS demand. Leucine threshold must be cleared now.'},
+    {off:240,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Main meal — tuna + pasta + rocket',detail:'2 tins tuna · 180g pasta · capers · olive oil',sci:'High carb restores glycogen. Tuna provides complete protein with minimal fat. Olive oil delivers oleocanthal — a natural COX inhibitor relevant for the knee.'},
+    {off:480,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Magnesium glycinate 400mg',detail:'Before bed',sci:'Evening magnesium supports slow-wave sleep and GH release. Connective tissue repair — particularly relevant given today\'s shoulder loading — runs on the same GH cascade.'},
+    {off:600,type:'sleep',glyph:'◑',gClass:'g-sleep',node:'pn-sleep',action:'Sleep — 8 hours minimum',detail:'Non-negotiable.',sci:'The back is a large muscle group. The recovery demand tonight is significant. Slow-wave sleep drives the GH pulse that builds and repairs the tissue trained today.'},
+  ],
+  posterior:[
+    {off:0,type:'wake',glyph:'○',gClass:'',node:'',action:'Wake + 500ml water — the week\'s most important day starts here',detail:'Performance is built in the next 90 minutes',sci:'Core temperature is lowest on waking. The 90-minute window is where today\'s performance is built — not in the gym. Hydration begins the thermal and metabolic activation process.'},
+    {off:15,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-knee',action:'Collagen 15g + Vitamin C 50mg',detail:'Take now — 90 min before training · knee priority',key:true,knee:true,sci:'Shaw et al. (2019): collagen + vitamin C taken 45–60 min before training doubles connective tissue collagen synthesis vs. placebo. Vitamin C is required for hydroxylation of proline in collagen. Exercise increases collagen turnover — supplementing now primes the synthesis pool at exactly the right moment. Do not skip this on posterior chain days.'},
+    {off:15,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'D3 + K2, Omega-3',detail:'With small fat-containing food or milk',sci:'Friday is your highest-stress training day. Omega-3 is particularly important today — the inflammatory response will be the largest of the week. Supplement now to moderate synovial inflammation from heavy compound loading.'},
+    {off:20,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Breakfast — big oat bowl',detail:'100g oats · 30g whey · 300ml milk · banana · peanut butter',sci:'Highest calorie breakfast of the week. Oats provide slow-release glycogen. Whey hits the leucine threshold. Banana adds fast carbohydrate. Peanut butter provides fat for hormonal stability. This meal is building the glycogen store you will burn in the RDL.'},
+    {off:70,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Creatine 5g',detail:'With water — daily non-negotiable',sci:'Heavy RDL and hip thrust are the highest PCr-demand movements in the programme. Full phosphocreatine saturation maintained by daily creatine directly supports power output in these key compounds.'},
+    {off:80,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Pre-training — whey + banana + 3 dates',detail:'40g whey · 300ml milk · banana · dates',key:true,sci:'High GI is deliberate. Dates and banana provide rapid glucose that bypasses slower gastric emptying. You are loading the immediate energy system that heavy hip hinge work depletes. This is performance fuel with a specific mechanism.'},
+    {off:88,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Caffeine 200mg (if using)',detail:'45 min before first RDL set',sci:'RDL requires sustained tension across 6–8 slow, controlled reps with large ROM. Caffeine\'s pain tolerance and force production benefits are most relevant for this prolonged isometric and eccentric pattern.'},
+    {off:90,type:'train',glyph:'▲',gClass:'g-train',node:'pn-train',action:'Train — Posterior Chain',detail:'RDL → Hip thrust → Leg press 0–70° → Leg curl → Step-ups → Kickback → Calf · 65 min',key:true,knee:true,sci:'Hip hinge movements keep knee flexion minimal — load passes through the hip, not the joint. Strong glutes reduce medial compartment load ~40%. This session is simultaneously the highest-value muscle-building stimulus and the most direct therapeutic intervention for the knee.'},
+    {off:160,type:'window',glyph:'!',gClass:'g-window',node:'pn-window',action:'POST-SESSION — whey immediately. Do not delay.',detail:'30g whey in water · right now · within 30 min',urgent:true,sci:'This is the most important 30 minutes of the nutrition week. MPS peaks now. Cortisol is still elevated from the session. Leucine from fast protein simultaneously triggers mTOR activation and begins cortisol clearance. If doing sauna: protein first, then sauna. Never the reverse.'},
+    {off:180,type:'knee',glyph:'◈',gClass:'g-knee',node:'pn-knee',action:'Sauna (if planned) — max 20 min',detail:'Only after protein. Fully hydrated. 500ml before entering.',knee:true,sci:'Post-workout sauna activates heat shock proteins that enhance muscle protein folding. Under 20 minutes: net anabolic. Over 30 minutes: cortisol elevation competes with MPS and cancels the benefit. Sequence is critical: protein → sauna. Electrolytes after — sodium specifically, lost in significant quantities during sauna.'},
+    {off:300,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Main meal — steak + potatoes + greens',detail:'220g sirloin · 250g potatoes · broccoli · garlic butter',sci:'Fat is fine now. Red meat provides zinc (lost in sweat, critical for testosterone) and iron. Potato carbs complete glycogen restoration. This meal builds overnight — the GH pulse during slow-wave sleep uses these amino acids.'},
+    {off:480,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'ZMA + Magnesium glycinate',detail:'Zinc 30mg · Mg 450mg · Magnesium glycinate 400mg',sci:'Zinc is the priority tonight — heavy training and potential sauna causes significant zinc excretion through sweat. ZMA before bed on the heaviest training day ensures the hormonal environment for overnight recovery is optimal.'},
+    {off:600,type:'sleep',glyph:'◑',gClass:'g-sleep',node:'pn-sleep',action:'Sleep — 8 hours minimum. Non-negotiable tonight.',detail:'GH peaks 60–90 min after sleep onset. Tonight builds this week\'s lean mass.',sci:'The posterior chain session creates the largest anabolic signal of the week. GH and testosterone released during slow-wave sleep tonight directly converts that signal into lean tissue. Connective tissue remodelling also runs on this cascade. Short sleep tonight wastes the entire session.'},
+  ],
+  rest:[
+    {off:0,type:'wake',glyph:'○',gClass:'',node:'',action:'Wake — no rush today',detail:'500ml water. Slow morning is the protocol.',sci:'MPS from yesterday\'s session peaked 24–36 hours post-training — which is now. The amino acids you provide today are being used for muscle repair. No urgency in timing, but precision in quantity.'},
+    {off:20,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'D3 + K2, Omega-3, Ashwagandha',detail:'With breakfast',sci:'Omega-3 is the priority supplement on rest days. EPA and DHA reduce synovial inflammation during the repair window. The meniscus environment is most actively remodelling in the 24–48h post heavy training.'},
+    {off:30,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Breakfast — anti-inflammatory focus',detail:'Eggs · sourdough · spinach · berries · ginger tea',sci:'Rest day breakfast prioritises anti-inflammatory ingredients. Turmeric with eggs, berries for polyphenols, olive oil for oleocanthal. These are specific interventions for the synovial environment.'},
+    {off:120,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Creatine 5g',detail:'Any time — consistency above all',sci:'Daily creatine maintains phosphocreatine saturation regardless of training day. Rest day dosing is as important as training days.'},
+    {off:240,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Lunch — fatty fish for omega-3',detail:'50g+ protein. Mackerel or salmon preferred.',sci:'Midday protein maintains MPS elevation. Fatty fish on rest days delivers the highest EPA/DHA per gram of any whole food — the anti-inflammatory strategy is most concentrated here.'},
+    {off:300,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-knee',action:'30–40 min easy cycling or walking',detail:'Zone 2 — conversational pace · HR 120–140 · knee nutrition',knee:true,sci:'Articular cartilage has no blood supply — it receives nutrients exclusively via synovial fluid, which only circulates during joint movement. Rest day cycling and walking is cartilage nutrition delivery. Not optional cardio — it is the mechanism by which chondromalacia does not progress.'},
+    {off:420,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Snack — protein maintained',detail:'Cottage cheese or whey + fruit',sci:'The most common rest-day error: unconsciously reducing protein because you feel you haven\'t "earned" it. MPS elevation from yesterday\'s session is still active. The muscle does not stop building because you didn\'t train today.'},
+    {off:540,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Dinner — lean protein + vegetables',detail:'Reduced carbs vs training day. Same protein and fat.',sci:'Rest day carb reduction (~60g less) mildly enhances fat oxidation during low-activity hours without impairing MPS or recovery. Protein and fat stay identical — carbs are the only adjusted variable.'},
+    {off:600,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Magnesium glycinate 400mg',detail:'Before bed. Every night.',sci:'Rest day sleep is when connective tissue remodelling is most active. The training stimulus has been delivered; the repair is underway. Magnesium deepens slow-wave sleep and supports the GH pulse driving both muscle repair and connective tissue synthesis.'},
+    {off:660,type:'sleep',glyph:'◑',gClass:'g-sleep',node:'pn-sleep',action:'Sleep — 7.5 hours minimum',detail:'Rest day sleep is still training.',sci:'GH release during slow-wave sleep does not distinguish rest days from training days. The repair initiated by yesterday\'s session continues overnight.'},
+  ],
+  rest_pre:[
+    {off:0,type:'wake',glyph:'○',gClass:'',node:'',action:'Wake — tomorrow is the priority',detail:'500ml water. Today protects Friday.',sci:'Thursday is pre-posterior-chain rest day. Everything today serves one purpose: ensuring the highest-value session of the week is fully loaded, fully rested, and neurologically fresh.'},
+    {off:20,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-knee',action:'Collagen 15g + Vitamin C — double dose',detail:'Thursday dose creates 24h priming elevation',knee:true,sci:'Taking collagen today in addition to pre-training tomorrow creates a sustained elevation of collagen synthesis precursors. The Thursday morning dose creates a background elevation that amplifies Friday\'s pre-training dose — a compounding effect on connective tissue synthesis.'},
+    {off:25,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'D3 + K2, Omega-3',detail:'With breakfast — anti-inflammatory pre-load',sci:'Omega-3 rich breakfast the day before heavy compound work reduces baseline inflammatory markers going into the session. Smoked salmon is the highest omega-3 whole food after fresh fatty fish.'},
+    {off:30,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Breakfast — smoked salmon + eggs',detail:'3 eggs + 3 whites · 100g smoked salmon · sourdough',sci:'Omega-3 rich breakfast the day before heavy compound work reduces baseline inflammatory markers. Complete amino acid profile including leucine for MPS maintenance.'},
+    {off:120,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Creatine 5g',detail:'Daily — maintaining phosphocreatine saturation for tomorrow',sci:'Phosphocreatine stores take 3–5 days to fully saturate. Today\'s dose maintains the full saturation that Friday\'s RDL and hip thrust will draw on.'},
+    {off:300,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Lunch — carb load begins now',detail:'Lentil soup · 150g chicken · wholegrain pitta',key:true,sci:'Starting the carbohydrate load Thursday afternoon ensures full glycogen saturation by training time. The liver takes 12–24 hours to fully replenish muscle glycogen. Thursday lunch carbs are Friday\'s fuel.'},
+    {off:360,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-knee',action:'20–30 min easy cycling',detail:'Zone 2 only — final pre-training synovial loading',knee:true,sci:'The last synovial fluid circulation session before heavy knee-adjacent loading. Maintains the cartilage nutrition delivery that protects the joint. Light movement today also ensures musculature is not stiff going into tomorrow.'},
+    {off:480,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Dinner — lean mince + roasted veg',detail:'250g lean mince · courgette · new potatoes · tomato sauce',sci:'Pre-posterior-chain dinner. Moderate carbs continue the glycogen load. Lean mince provides iron and zinc in preparation for tomorrow\'s heavy training demand.'},
+    {off:570,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Magnesium glycinate 400mg + Ashwagandha',detail:'Before bed — this night\'s sleep determines tomorrow',sci:'The sleep tonight is the most strategically important of the week. Magnesium deepens slow-wave sleep. Ashwagandha reduces pre-sleep cortisol. The GH pulse tonight supports neuromuscular readiness for Friday\'s compound work.'},
+    {off:600,type:'sleep',glyph:'◑',gClass:'g-sleep',node:'pn-sleep',action:'Sleep — 8.5 hours target. Earlier to bed tonight.',detail:'Extra 30 min = extra GH pulse = better Friday session.',sci:'Going to bed 30–60 minutes earlier provides an additional slow-wave sleep cycle. The extra GH pulse tonight is the single best pre-workout preparation available — more impactful than any supplement or meal timing adjustment.'},
+  ],
+  upper:[
+    {off:0,type:'wake',glyph:'○',gClass:'',node:'',action:'Wake + 500ml water',detail:'Saturday. Second upper stimulus.',sci:'Saturday training benefits from accumulated week-1 anabolic signalling. MPS from Wednesday\'s pull session is still mildly elevated — today re-stimulates before that elevation fully decays.'},
+    {off:20,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'D3 + K2, Omega-3',detail:'Weekend supplement consistency matters',sci:'The week\'s anti-inflammatory strategy only works if it runs seven days. Omega-3 skipped on Saturday is a gap in the synovial inflammation management that Friday\'s session created.'},
+    {off:30,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Breakfast — eggs + avocado + sourdough',detail:'4 eggs · sourdough · avocado · tomatoes',sci:'Higher fat breakfast is fine on Saturday — training is later, gastric emptying time is sufficient. Avocado provides oleic acid and potassium.'},
+    {off:70,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Creatine 5g',detail:'Daily. No exceptions weekends.',sci:'Daily creatine. No exceptions.'},
+    {off:80,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Pre-training — yoghurt + whey + granola',detail:'200g yoghurt · 30g whey · granola · banana',sci:'Saturday pre-training meal has more time before training. Yoghurt provides casein protein for sustained amino acid release alongside the fast whey spike.'},
+    {off:88,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Caffeine 200mg (if using)',detail:'45–60 min before pressing',sci:'Saturday energy levels often lower from accumulated training week. Caffeine bridges the gap without increasing training volume beyond recovery capacity.'},
+    {off:90,type:'train',glyph:'▲',gClass:'g-train',node:'pn-train',action:'Train — Upper Full',detail:'Shoulder press → Row → Cable fly → Pulldown → Arms · 60 min',key:true,sci:'Second upper stimulus ensures chest, shoulders, triceps, and back are stimulated before MPS elevation from Monday and Wednesday decays. Not trying to set PRs — maintaining the frequency that produces 70% more hypertrophy.'},
+    {off:150,type:'window',glyph:'!',gClass:'g-window',node:'pn-window',action:'Post-workout — 30g whey immediately',detail:'Within 30 min',urgent:true,sci:'MPS peak post-session applies regardless of session intensity. The upper muscles trained today still require the leucine threshold to be cleared in the 30-minute window.'},
+    {off:300,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Main meal — roast chicken + sweet potato',detail:'2 chicken thighs · sweet potato · green beans',sci:'Saturday main meal is the most social of the week. Skin-on chicken thighs provide appropriate fat intake without impacting recovery.'},
+    {off:540,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Magnesium glycinate 400mg',detail:'Before bed',sci:'Saturday night sleep consolidates the week\'s full training adaptation. Every session from Monday through Saturday delivered stimuli — tonight\'s GH pulse processes a significant portion of that accumulated anabolic signal.'},
+    {off:600,type:'sleep',glyph:'◑',gClass:'g-sleep',node:'pn-sleep',action:'Sleep — 8+ hours',detail:'Don\'t sacrifice it for Saturday night.',sci:'Saturday night is the second most important sleep window for training adaptation. Alcohol post-training suppresses MPS by 15–25% and disrupts GH release tonight.'},
+  ],
+  rest_end:[
+    {off:0,type:'wake',glyph:'○',gClass:'',node:'',action:'Wake when rested — no alarm if possible',detail:'Sunday sleep-in is physiologically justified.',sci:'Sunday sleep-in allows extended slow-wave sleep. The adaptation from a full training week continues during this extended cycle. The extra GH pulse builds more lean mass than an earlier alarm.'},
+    {off:45,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Brunch — slow breakfast',detail:'Eggs · smoked salmon · rye · yoghurt · coffee',sci:'No pre-training urgency. Fat and fibre timing constraints don\'t apply. One rule: protein must be present. 50g+ at this meal starts the day\'s protein accounting correctly.'},
+    {off:120,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Full supplement stack — consistency matters',detail:'D3, omega-3, creatine, ashwagandha',sci:'Sunday supplement adherence is where protocols most commonly slip. The stack works through cumulative daily dosing — a missed Sunday degrades D3 plasma levels and breaks the cortisol management ashwagandha requires.'},
+    {off:240,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Lunch — flexible. Hit 50g protein.',detail:'Eat what you enjoy.',sci:'Rigidity destroys long-term adherence. Sunday flexibility is built into the protocol deliberately. One flexible meal per week reduces the psychological friction that causes people to abandon structured eating entirely.'},
+    {off:300,type:'knee',glyph:'◈',gClass:'g-knee',node:'pn-knee',action:'Walk — not a workout. Pleasure.',detail:'Flat surface. Easy pace. Joint nutrition.',knee:true,sci:'Final synovial fluid circulation of the week. Walking for pleasure at easy pace is biologically equivalent to prescribed zone-2 walking for joint nutrition purposes.'},
+    {off:480,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Dinner — lean Sunday roast',detail:'250g beef or turkey · root veg · greens',sci:'Sunday dinner is the week\'s final protein loading opportunity before Monday resets the cycle.'},
+    {off:570,type:'food',glyph:'◉',gClass:'g-food',node:'pn-food',action:'Before bed — cottage cheese',detail:'250g cottage cheese · cinnamon · walnuts',sci:'Cottage cheese is the highest casein-to-whey ratio whole food. Casein digests over 6–8 hours — providing sustained amino acid release throughout the first sleep cycles when GH is highest. The week\'s final MPS support.'},
+    {off:600,type:'supp',glyph:'●',gClass:'g-supp',node:'pn-supp',action:'Magnesium glycinate 400mg',detail:'Weekly close.',sci:'Sunday night sleep consolidates the full week. The week\'s training adaptation — every session from Monday through Saturday — is processed during this and the following nights.'},
+    {off:660,type:'sleep',glyph:'◑',gClass:'g-sleep',node:'pn-sleep',action:'Sleep — 8+ hours. The week ends here.',detail:'Tomorrow the loop starts again. Slightly heavier.',sci:'Sunday night sleep consolidates a full week of training stimuli. Monday you will be fractionally stronger, fractionally leaner. That is the whole game.'},
+  ],
+};
+
+// ─── CURRENT STATE ────────────────────────────────────────
+let currentDay = 4;
+
+function getDayCtx() {
+  const d = DAYS[currentDay];
+  return `Current day: ${d.name} ${d.type}. Wake time selected: ${document.getElementById('wake-select').options[document.getElementById('wake-select').selectedIndex].text}.`;
+}
+
+function addMins(base, offset) {
+  const t = parseInt(base) + offset;
+  return String(Math.floor(t/60)%24).padStart(2,'0') + ':' + String(t%60).padStart(2,'0');
+}
+
+// ─── RENDER PROTOCOL ─────────────────────────────────────
+function renderProtocol(idx) {
+  const d = DAYS[idx];
+  const items = PROTOCOLS[d.protocol] || PROTOCOLS.rest;
+  const wakeMin = parseInt(document.getElementById('wake-select').value);
+  const stream = document.getElementById('proto-stream');
+  stream.innerHTML = items.map(item => {
+    const t = addMins(wakeMin, item.off);
+    const cardCls = ['proto-card', item.urgent?'is-urgent':'', item.key?'is-key':'', item.knee?'is-knee':''].filter(Boolean).join(' ');
+    return `<div class="proto-item">
+      <div class="proto-time-col">
+        <div class="proto-time">${t}</div>
+        <div class="proto-node ${item.node||''}"></div>
+      </div>
+      <div class="${cardCls}" onclick="toggleProto(this)">
+        <div class="pcm">
+          <div class="pcm-left">
+            <div class="pcm-glyph ${item.gClass}">${item.glyph}</div>
+            <div class="pcm-body">
+              <div class="pcm-action">${item.action}</div>
+              <div class="pcm-detail">${item.detail}</div>
+            </div>
+          </div>
+          <div class="pcm-right">
+            ${item.urgent ? `<span class="pill pill-da" style="font-size:9px;">Urgent</span>` : ''}
+            ${item.key ? `<span class="pill pill-ac" style="font-size:9px;">Key</span>` : ''}
+            ${item.knee ? `<span class="pill pill-go" style="font-size:9px;">Knee</span>` : ''}
+            <span class="pcm-chev">▾</span>
+          </div>
+        </div>
+        <div class="proto-science">
+          <div class="ps-lbl">Why this · tap to collapse</div>
+          <div class="ps-text">${item.sci}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── RENDER TRAINING ─────────────────────────────────────
+function renderTraining(idx) {
+  const d = DAYS[idx];
+  const container = document.getElementById('training-content');
+  if (!d.exercises) {
+    container.innerHTML = `<div style="text-align:center;padding:40px 20px;color:var(--tx-3);">
+      <div style="font-family:var(--serif);font-size:28px;margin-bottom:8px;">Rest day</div>
+      <div class="body-sm">No resistance training. See Protocol tab for the full day plan.</div>
+    </div>`;
+    document.getElementById('qq-row-train').innerHTML = '';
+    return;
+  }
+  let html = '';
+  if (d.type === 'Posterior') {
+    html += `<div class="knee-note" style="margin-bottom:14px"><strong>◈ Knee protocol active:</strong> Every movement today passes load through the hip, not the knee. Hip hinge mechanics keep flexion minimal. Strong glutes reduce medial compartment load by ~40% — you are training the knee's defenders.</div>`;
+  }
+  html += `<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><div class="title-md">${d.name} — ${d.type}</div><span class="pill pill-ac">${d.exercises.length} exercises</span></div>`;
+  html += `<div style="display:flex;flex-direction:column;gap:7px;">`;
+  d.exercises.forEach(ex => {
+    html += `<div class="ex-card ${ex.type}">
+      <div>
+        <div class="ex-name">${ex.name}</div>
+        <div class="ex-detail"><strong>${ex.meta.split('·')[0].trim()}</strong> · ${ex.meta.split('·').slice(1).join('·').trim()}</div>
+        <div class="ex-detail" style="margin-top:2px;">${ex.detail}</div>
+        ${ex.mod ? `<div class="ex-mod">◈ ${ex.mod}</div>` : ''}
+      </div>
+      <span class="pill ${ex.badgeClass}">${ex.badge}</span>
+    </div>`;
+  });
+  html += '</div>';
+  container.innerHTML = html;
+  document.getElementById('qq-row-train').innerHTML = (d.qq||[]).map(q =>
+    `<button class="qq" onclick="askCoach(this,'ai-inp-t','ai-resp-t','ai-btn-t','${getDayCtx()}')">${q}</button>`).join('');
+}
+
+// ─── RENDER MODS ──────────────────────────────────────────
+function renderMods(idx) {
+  const d = DAYS[idx];
+  const container = document.getElementById('mods-content');
+  if (!d.mods_data) {
+    container.innerHTML = `<div class="mod-card no-mod">
+      <div class="no-mod-body">
+        <div class="nm-icon">✓</div>
+        <div class="body-sm"><strong style="color:var(--tx-1);">${d.name} is unmodified.</strong> ${d.exercises ? 'All exercises run as standard. No knee constraints apply to any movement in this session.' : 'Rest day — no training modifications applicable.'}</div>
+      </div>
+    </div>`;
+    return;
+  }
+  const net = idx === 4 ? '~97%' : '100%';
+  const lost = idx === 4 ? '~3%' : '0';
+  let html = `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px;">
+    <div class="card card-pad"><div class="label" style="margin-bottom:3px;">Modifications</div><div style="font-family:var(--serif);font-size:24px;color:var(--go);">${d.mods}</div></div>
+    <div class="card card-pad"><div class="label" style="margin-bottom:3px;">Stimulus lost</div><div style="font-family:var(--serif);font-size:24px;color:var(--ac-hi);">${lost}</div></div>
+    <div class="card card-pad"><div class="label" style="margin-bottom:3px;">Net stimulus</div><div style="font-family:var(--serif);font-size:24px;color:var(--ac-hi);">${net}</div></div>
+  </div>`;
+  d.mods_data.forEach(m => {
+    html += `<div class="mod-card has-mod">
+      <div class="mc-head">
+        <div><div class="mc-name">${m.name}</div><div class="mc-muscle">${m.muscle}</div></div>
+        <span class="pill ${m.vClass}">${m.verdict}</span>
+      </div>
+      <div class="mc-cols">
+        <div class="mc-col"><div class="mc-col-lbl lbl-std">Standard</div><div class="mc-cname std">${m.stdName}</div><div class="mc-cdetail">${m.stdDetail}</div></div>
+        <div class="mc-col"><div class="mc-col-lbl lbl-mod">Modified</div><div class="mc-cname mod">${m.modName}</div><div class="mc-cdetail">${m.modDetail}</div></div>
+      </div>
+      <div class="mc-bottom">
+        <div class="mc-loss"><div class="mc-blbl lbl-loss">What's lost</div>${m.losses.map(l=>`<div class="loss-row"><div class="dot-loss"></div><div class="bt-text">${l}</div></div>`).join('')}</div>
+        <div class="mc-offset"><div class="mc-blbl lbl-off">How it's offset</div>${m.offsets.map(o=>`<div class="off-row"><div class="dot-off"></div><div class="bt-text"><strong>${o.split(' ').slice(0,3).join(' ')}</strong> ${o.split(' ').slice(3).join(' ')}</div></div>`).join('')}</div>
+      </div>
+    </div>`;
+  });
+  container.innerHTML = html;
+}
+
+// ─── RENDER NUTRITION ────────────────────────────────────
+function renderNutrition(idx) {
+  const d = DAYS[idx];
+  const n = d.meals;
+  const pPct = Math.round(parseInt(n.p)*4/(parseInt(n.kcal.replace(',',''))-0)*100)||25;
+  const cPct = Math.round(parseInt(n.c)*4/(parseInt(n.kcal.replace(',','')))*100)||45;
+  const fPct = 100-pPct-cPct;
+  const html = `
+    <div class="macro-bar">
+      <div class="mb-cell"><div class="mb-lbl">Calories</div><div class="mb-val mv-k">${n.kcal}</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Protein</div><div class="mb-val mv-p">${n.p}</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Carbs</div><div class="mb-val mv-c">${n.c}</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Fat</div><div class="mb-val mv-f">${n.f}</div></div>
+      <div class="mb-cell" style="flex:2;">
+        <div class="mb-lbl" style="margin-bottom:5px;">Split</div>
+        <div style="height:6px;border-radius:3px;display:flex;gap:2px;overflow:hidden;margin-bottom:4px;">
+          <div style="width:${pPct}%;background:var(--ac);border-radius:3px;"></div>
+          <div style="width:${cPct}%;background:#c0a040;border-radius:3px;"></div>
+          <div style="width:${fPct}%;background:var(--tx-2);border-radius:3px;"></div>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <div style="display:flex;align-items:center;gap:3px;font-size:10px;color:var(--tx-2);"><div style="width:6px;height:6px;border-radius:50%;background:var(--ac);"></div>P ${pPct}%</div>
+          <div style="display:flex;align-items:center;gap:3px;font-size:10px;color:var(--tx-2);"><div style="width:6px;height:6px;border-radius:50%;background:#c0a040;"></div>C ${cPct}%</div>
+          <div style="display:flex;align-items:center;gap:3px;font-size:10px;color:var(--tx-2);"><div style="width:6px;height:6px;border-radius:50%;background:var(--tx-2);"></div>F ${fPct}%</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      ${n.items.map(m=>`<div class="meal-card">
+        <div class="meal-time">${m.time}</div>
+        <div class="meal-name">${m.name}</div>
+        <div class="meal-items">${m.items.replace(/·/g,'<br>')}</div>
+        <div class="meal-macros"><span class="mm mm-p">P ${m.p}</span><span class="mm mm-c">C ${m.c}</span><span class="mm mm-f">F ${m.f}</span></div>
+      </div>`).join('')}
+    </div>`;
+  document.getElementById('nutrition-content').innerHTML = html;
+}
+
+// ─── SET DAY ─────────────────────────────────────────────
+function setDay(idx, btn) {
+  currentDay = idx;
+  document.querySelectorAll('.dsb').forEach((b,i) => b.classList.toggle('active', i===idx));
+  const d = DAYS[idx];
+
+  // Priority band
+  const band = document.getElementById('priority-band');
+  band.className = 'priority-band ' + d.priority;
+  document.getElementById('pb-icon').textContent = d.icon;
+  document.getElementById('pb-label').textContent = d.label;
+  document.getElementById('pb-title').textContent = d.title;
+  document.getElementById('pb-brief').textContent = d.brief;
+
+  // Macros
+  document.getElementById('p-kcal').textContent = d.kcal;
+  document.getElementById('p-prot').textContent = d.p;
+  document.getElementById('p-carbs').textContent = d.c;
+  document.getElementById('p-fat').textContent = d.f;
+
+  // Protocol header
+  document.getElementById('proto-title').textContent = `${d.name} — ${d.type}`;
+
+  // Dots
+  const dotBar = document.getElementById('dot-bar');
+  dotBar.innerHTML = d.prog.map(c=>`<div class="db-seg ${c}"></div>`).join('');
+
+  // Spoken summary
+  document.getElementById('ss-text').textContent = d.spoken;
+
+  // Mod badge
+  const badge = document.getElementById('mod-badge');
+  const modTab = document.getElementById('tab-mods');
+  badge.textContent = d.mods;
+  badge.style.display = d.mods > 0 ? 'inline-block' : 'none';
+
+  // Re-render
+  renderProtocol(idx);
+  renderTraining(idx);
+  renderMods(idx);
+  renderNutrition(idx);
+
+  // Go to protocol tab
+  switchTabLocal('pane-protocol', document.querySelector('.tab-btn'));
+}
+
+// ─── TAB SWITCH (local, scoped) ──────────────────────────
+function switchTabLocal(paneId, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const pane = document.getElementById(paneId);
+  if (pane) pane.classList.add('active');
+}
+
+// ─── INIT ─────────────────────────────────────────────────
+setDay(4, null);
+document.querySelector('.dsb.active') || document.querySelectorAll('.dsb')[4].classList.add('active');
+</script>
+</body>
+</html>

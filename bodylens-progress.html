@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BodyLens — Progress</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-brand">Body<em>Lens</em></div>
+  <div class="nav-links">
+    <a class="nav-link" href="bodylens-profile.html">Profile</a>
+    <a class="nav-link" href="bodylens-today.html">Today</a>
+    <a class="nav-link" href="bodylens-week.html">Week</a>
+    <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
+    <a class="nav-link" href="bodylens-progress.html">Progress</a>
+    <a class="nav-link" href="bodylens-science.html">Science</a>
+  </div>
+  <div class="nav-meta">
+    <span class="nav-tag nt-go">Meniscus protocol</span>
+    <span class="nav-tag nt-ac">Balanced precision</span>
+  </div>
+</nav>
+
+<div class="page" style="padding-top:40px;">
+
+  <div class="spoken-summary">
+    <div class="ss-head"><div class="ss-dot"></div><div class="ss-label">From your coach</div></div>
+    <div class="ss-text">Progress here is measured against four things, not one. Lean mass direction, because you are here to build. Knee status, because everything else is contingent on it. Training compliance, because the programme only works if it is executed. And benchmarks against a healthy active 44-year-old male, because context matters and you are performing well above population average across most metrics. The check-in at the end of each session takes 20 seconds. It is the feedback loop that lets the programme adapt. If the knee flags twice in one week, load drops automatically and depth resets. Fill it in.</div>
+  </div>
+
+  <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:22px;">
+    <div class="title-lg">Progress</div>
+    <div class="label">Week 1 of 12 · Accumulation · Balanced precision</div>
+  </div>
+
+  <!-- Session check-in -->
+  <div class="sec-rule">End-of-session check-in</div>
+  <div class="card card-pad" style="border-left:2px solid var(--ac);margin-bottom:28px;">
+    <div class="title-sm" style="margin-bottom:18px;">Friday — Posterior Chain</div>
+
+    <div style="margin-bottom:14px;">
+      <div class="label" style="margin-bottom:7px;">Session completed?</div>
+      <div class="ci-options" style="display:flex;gap:6px;">
+        <button class="ci-opt" onclick="selectOpt(this,'s')">Full session</button>
+        <button class="ci-opt" onclick="selectOpt(this,'s')">Partial</button>
+        <button class="ci-opt" onclick="selectOpt(this,'s',true)">Missed</button>
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px;">
+      <div class="label" style="margin-bottom:7px;">Knee status during training?</div>
+      <div class="ci-options" style="display:flex;gap:6px;">
+        <button class="ci-opt sel" onclick="selectOpt(this,'k')">No issue</button>
+        <button class="ci-opt" onclick="selectOpt(this,'k',true)">Minor tightness</button>
+        <button class="ci-opt" onclick="selectOpt(this,'k',true)">Swelling noted</button>
+      </div>
+    </div>
+
+    <div style="margin-bottom:18px;">
+      <div class="label" style="margin-bottom:7px;">Hit protein target today?</div>
+      <div class="ci-options" style="display:flex;gap:6px;">
+        <button class="ci-opt sel" onclick="selectOpt(this,'p')">Yes, ~190g</button>
+        <button class="ci-opt" onclick="selectOpt(this,'p')">Close (160g+)</button>
+        <button class="ci-opt" onclick="selectOpt(this,'p',true)">Missed</button>
+      </div>
+    </div>
+
+    <button class="ci-submit" onclick="this.textContent='Logged ✓';this.style.background='#1a5c40';setTimeout(()=>{this.textContent=\'Log this session →\';this.style.background=\'\';},3000)">Log this session →</button>
+  </div>
+
+  <!-- Weekly metrics -->
+  <div class="sec-rule">Week 1 metrics</div>
+  <div class="two-col-equal" style="margin-bottom:28px;">
+    <div class="card card-pad">
+      <div class="label" style="margin-bottom:12px;">Training compliance</div>
+      <div class="metric-row"><div class="metric-lbl">Sessions completed</div><div><span class="metric-val" style="color:var(--ac-hi);">4</span><span class="trend-up" style="margin-left:8px;">/ 4 target</span></div></div>
+      <div class="metric-row"><div class="metric-lbl">Knee flares</div><div><span class="metric-val" style="color:var(--ac-hi);">0</span><span class="trend-up" style="margin-left:8px;">clean week</span></div></div>
+      <div class="metric-row"><div class="metric-lbl">Protein target hit</div><div><span class="metric-val">5</span><span class="trend-flat" style="margin-left:8px;">/ 7 days</span></div></div>
+      <div class="metric-row"><div class="metric-lbl">Week 2 target</div><div><span class="metric-val" style="color:var(--wa);">+1 set</span><span class="trend-flat" style="margin-left:8px;">per compound</span></div></div>
+    </div>
+
+    <div class="card card-pad">
+      <div class="label" style="margin-bottom:12px;">Supplement adherence</div>
+      <div class="metric-row"><div class="metric-lbl">Creatine</div><div><span class="metric-val" style="color:var(--ac-hi);">7/7</span><span class="trend-up" style="margin-left:8px;">↑ consistent</span></div></div>
+      <div class="metric-row"><div class="metric-lbl">Omega-3</div><div><span class="metric-val" style="color:var(--wa);">5/7</span><span class="trend-flat" style="margin-left:8px;">→ improve</span></div></div>
+      <div class="metric-row"><div class="metric-lbl">Collagen pre-training</div><div><span class="metric-val" style="color:var(--wa);">3/4</span><span class="trend-flat" style="margin-left:8px;">→ target 4/4</span></div></div>
+      <div class="metric-row"><div class="metric-lbl">Magnesium (bed)</div><div><span class="metric-val" style="color:var(--ac-hi);">6/7</span><span class="trend-up" style="margin-left:8px;">↑ good</span></div></div>
+    </div>
+
+    <div class="card card-pad">
+      <div class="label" style="margin-bottom:12px;">Cardio — Zone 2</div>
+      <div class="metric-row"><div class="metric-lbl">Minutes this week</div><div><span class="metric-val" style="color:var(--wa);">95</span><span class="trend-flat" style="margin-left:8px;">/ 150 target</span></div></div>
+      <div class="metric-row"><div class="metric-lbl">Average session</div><div><span class="metric-val">32 min</span><span class="trend-up" style="margin-left:8px;">↑ building</span></div></div>
+      <div class="metric-row"><div class="metric-lbl">Modality</div><div><span class="metric-val" style="font-size:14px;">Cycling</span></div></div>
+      <div class="metric-row"><div class="metric-lbl">Week 2 target</div><div><span class="metric-val" style="color:var(--ac-hi);">150 min</span></div></div>
+    </div>
+
+    <div class="card card-pad">
+      <div class="label" style="margin-bottom:12px;">Knee status trend</div>
+      <div class="metric-row"><div class="metric-lbl">Week 1 status</div><div><span class="metric-val" style="color:var(--ac-hi);">Clean</span><span class="trend-up" style="margin-left:8px;">no swelling</span></div></div>
+      <div class="metric-row"><div class="metric-lbl">Catching episodes</div><div><span class="metric-val" style="color:var(--ac-hi);">0</span><span class="trend-up" style="margin-left:8px;">in training</span></div></div>
+      <div class="metric-row"><div class="metric-lbl">Leg press depth</div><div><span class="metric-val">70°</span><span class="trend-flat" style="margin-left:8px;">hold this week</span></div></div>
+      <div class="metric-row"><div class="metric-lbl">Week 5 target</div><div><span class="metric-val" style="color:var(--go);">80° trial</span></div></div>
+    </div>
+  </div>
+
+  <!-- Benchmarks -->
+  <div class="sec-rule">How you benchmark — healthy active 44-year-old male</div>
+  <div class="card card-pad" style="margin-bottom:28px;">
+    <div class="body-sm" style="margin-bottom:20px;">Population average = sedentary 44M. Healthy active = recreational exerciser, 3–4 sessions/week. You = current programme targets.</div>
+
+    <div style="margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
+        <div class="label">VO₂max (ml/kg/min)</div>
+        <div class="body-xs">Pop avg 38 · Healthy active 52 · You est. 54</div>
+      </div>
+      <div class="bm-track" style="height:6px;">
+        <div class="bm-avg" style="width:73%;"></div>
+        <div class="bm-you" style="width:77%;"></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
+        <div class="label">Weekly sets / muscle group</div>
+        <div class="body-xs">Pop avg 4 · Healthy active 10 · You 14–16</div>
+      </div>
+      <div class="bm-track" style="height:6px;">
+        <div class="bm-avg" style="width:40%;"></div>
+        <div class="bm-you" style="width:88%;"></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
+        <div class="label">Zone 2 cardio (min/week)</div>
+        <div class="body-xs">Pop avg 45 · Healthy active 150 · You target 150</div>
+      </div>
+      <div class="bm-track" style="height:6px;">
+        <div class="bm-avg" style="width:30%;"></div>
+        <div class="bm-you" style="width:63%;"></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
+        <div class="label">Daily protein (g/kg bodyweight)</div>
+        <div class="body-xs">Pop avg 0.8 · Healthy active 1.4 · You 2.2</div>
+      </div>
+      <div class="bm-track" style="height:6px;">
+        <div class="bm-avg" style="width:36%;"></div>
+        <div class="bm-you" style="width:100%;"></div>
+      </div>
+    </div>
+
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
+        <div class="label">Sleep (hours/night avg)</div>
+        <div class="body-xs">Pop avg 6.5 · Healthy active 7.5 · You target 8.0</div>
+      </div>
+      <div class="bm-track" style="height:6px;">
+        <div class="bm-avg" style="width:81%;"></div>
+        <div class="bm-you" style="width:94%;"></div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:14px;margin-top:12px;">
+      <div style="display:flex;align-items:center;gap:5px;"><div style="width:10px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);"></div><div class="body-xs">Healthy active 44M</div></div>
+      <div style="display:flex;align-items:center;gap:5px;"><div style="width:10px;height:4px;border-radius:2px;background:var(--ac);"></div><div class="body-xs">You</div></div>
+    </div>
+  </div>
+
+  <!-- 12 week arc -->
+  <div class="sec-rule">12-week progress arc</div>
+  <div class="four-col" style="margin-bottom:32px;">
+    <div class="card card-pad" style="border-top:2px solid var(--go);">
+      <div class="eyebrow eyebrow-go" style="margin-bottom:5px;">Now — Weeks 1–4</div>
+      <div class="title-sm" style="margin-bottom:8px;">Accumulation</div>
+      <div class="body-xs">Volume building. Compliance establishing. Knee monitored every session. Zero swelling is the gate to proceed.</div>
+    </div>
+    <div class="card card-pad" style="border-top:2px solid var(--wa);">
+      <div class="eyebrow eyebrow-wa" style="margin-bottom:5px;">Weeks 5–8</div>
+      <div class="title-sm" style="margin-bottom:8px;">Intensification</div>
+      <div class="body-xs">Rep range drops to 5–8. Load increases. Leg press depth trialled at 80°. Straight-line running begins if knee clean.</div>
+    </div>
+    <div class="card card-pad" style="border-top:2px solid var(--ac);">
+      <div class="eyebrow eyebrow-ac" style="margin-bottom:5px;">Weeks 9–12</div>
+      <div class="title-sm" style="margin-bottom:8px;">Peak + return</div>
+      <div class="body-xs">Controlled squat reintroduced. Tennis baseline groundstrokes. Running continuous 20–30 min. Peak programme.</div>
+    </div>
+    <div class="card card-pad" style="border-top:2px solid var(--tx-3);">
+      <div class="eyebrow" style="margin-bottom:5px;">Week 13+</div>
+      <div class="title-sm" style="margin-bottom:8px;">Full athletic return</div>
+      <div class="body-xs">Full court tennis. Full squat depth. 1–2kg lean mass added. The habits are no longer a plan — they are how you operate.</div>
+    </div>
+  </div>
+
+  <!-- AI coach -->
+  <div class="sec-rule">Ask about your progress</div>
+  <div class="coach-box" style="max-width:600px;margin-bottom:32px;">
+    <div class="cb-head"><div class="cb-dot"></div><div class="cb-label">Coach</div></div>
+    <div class="qq-row">
+      <button class="qq" onclick="askCoach(this,'ai-inp-prog','ai-resp-prog','ai-btn-prog','Page: Progress. Week 1.')">Am I progressing fast enough?</button>
+      <button class="qq" onclick="askCoach(this,'ai-inp-prog','ai-resp-prog','ai-btn-prog','Page: Progress. Week 1.')">When should I increase leg press depth?</button>
+      <button class="qq" onclick="askCoach(this,'ai-inp-prog','ai-resp-prog','ai-btn-prog','Page: Progress. Week 1.')">What would cause me to plateau?</button>
+    </div>
+    <div class="inp-row">
+      <input class="ai-inp" id="ai-inp-prog" type="text" placeholder="Ask about progress, timelines, benchmarks…" onkeydown="if(event.key==='Enter')sendCoach('ai-inp-prog','ai-resp-prog','ai-btn-prog','Page: Progress. Week 1.')">
+      <button class="ai-btn" id="ai-btn-prog" onclick="sendCoach('ai-inp-prog','ai-resp-prog','ai-btn-prog','Page: Progress. Week 1.')">Ask</button>
+    </div>
+    <div class="ai-resp" id="ai-resp-prog"></div>
+  </div>
+
+  <div class="page-end"></div>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

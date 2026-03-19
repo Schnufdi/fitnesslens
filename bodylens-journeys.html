@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BodyLens — Journeys</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-brand">Body<em>Lens</em></div>
+  <div class="nav-links">
+    <a class="nav-link" href="bodylens-profile.html">Profile</a>
+    <a class="nav-link" href="bodylens-today.html">Today</a>
+    <a class="nav-link" href="bodylens-week.html">Week</a>
+    <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
+    <a class="nav-link" href="bodylens-progress.html">Progress</a>
+    <a class="nav-link" href="bodylens-science.html">Science</a>
+  </div>
+  <div class="nav-meta">
+    <span class="nav-tag nt-go">Meniscus protocol</span>
+    <span class="nav-tag nt-ac" id="journey-chip">Balanced precision</span>
+  </div>
+</nav>
+
+<div class="page" style="padding-top:40px;">
+
+  <div class="spoken-summary">
+    <div class="ss-head"><div class="ss-dot"></div><div class="ss-label">From your coach</div></div>
+    <div class="ss-text">The nutrition journey you choose reconfigures every food decision in the app — macros, meal timing, shopping kit, and the avoid list. The training programme stays identical across all three. This is not a preference decision; it is a strategic one with real trade-offs. Ketogenic offers the strongest anti-inflammatory ceiling and may help the knee, but heavy compound work under ketosis carries a measurable performance cost. High-carb performance maximises what you are training for but demands precise meal timing and has the lowest joint health score. Balanced precision is second across every metric and first on adherence — and adherence is the variable that compounds over 12 weeks. Read the honest take before choosing.</div>
+  </div>
+
+  <div style="margin-bottom:28px;">
+    <div class="eyebrow eyebrow-ac">Nutrition architecture</div>
+    <div class="title-lg" style="margin-bottom:8px;">Choose your journey</div>
+    <div class="body-sm">One choice reconfigures your entire food layer. Training programme unchanged across all three.</div>
+  </div>
+
+  <!-- Journey cards -->
+  <div class="three-col" style="margin-bottom:32px;">
+
+    <!-- KETO -->
+    <div class="j-card keto" id="jcard-keto" onclick="selectJourney('keto')">
+      <div class="pill pill-go" style="margin-bottom:12px;" id="jbadge-keto">Journey 1</div>
+      <div class="title-md" style="margin-bottom:6px;">Ketogenic</div>
+      <div class="body-sm" style="margin-bottom:14px;">High fat, minimal carbs, ketosis as metabolic state. Strongest anti-inflammatory ceiling. Measurable performance cost on heavy compound work.</div>
+      <div style="display:flex;gap:14px;margin-bottom:14px;">
+        <div><div class="label" style="margin-bottom:2px;">Protein</div><div style="font-family:var(--serif);font-size:20px;color:var(--ac-hi);">187g</div></div>
+        <div><div class="label" style="margin-bottom:2px;">Carbs</div><div style="font-family:var(--serif);font-size:20px;color:#b09040;">45g</div></div>
+        <div><div class="label" style="margin-bottom:2px;">Fat</div><div style="font-family:var(--serif);font-size:20px;color:var(--tx-2);">238g</div></div>
+      </div>
+      <div style="margin-bottom:14px;">
+        <div class="jcb-row"><div class="jcb-lbl">Muscle gain</div><div class="jcb-track"><div class="jcb-fill bf-muscle" style="width:55%;"></div></div></div>
+        <div class="jcb-row"><div class="jcb-lbl">Fat loss</div><div class="jcb-track"><div class="jcb-fill bf-fat" style="width:80%;"></div></div></div>
+        <div class="jcb-row"><div class="jcb-lbl">Performance</div><div class="jcb-track"><div class="jcb-fill bf-perf" style="width:42%;"></div></div></div>
+        <div class="jcb-row"><div class="jcb-lbl">Joint health</div><div class="jcb-track"><div class="jcb-fill bf-joint" style="width:82%;"></div></div></div>
+        <div class="jcb-row"><div class="jcb-lbl">Adherence</div><div class="jcb-track"><div class="jcb-fill bf-adhere" style="width:48%;"></div></div></div>
+      </div>
+      <div class="body-xs" style="border-top:1px solid var(--br);padding-top:12px;margin-bottom:12px;"><strong style="color:var(--tx-1);">Honest take:</strong> Heavy RDLs and hip thrusts run on glycogen, not ketones. Peak power under ketosis is measurably lower for 4–6 weeks during adaptation and may never fully recover for high-intensity compound work. Choose this if inflammation management outweighs maximal strength output.</div>
+      <button class="ai-btn" style="width:100%;background:transparent;border:1px solid var(--br);color:var(--tx-2);" id="jbtn-keto" onclick="event.stopPropagation();selectJourney('keto')">Select ketogenic</button>
+    </div>
+
+    <!-- HIGH CARB -->
+    <div class="j-card performance" id="jcard-performance" onclick="selectJourney('performance')">
+      <div class="pill pill-ac" style="margin-bottom:12px;" id="jbadge-performance">Journey 2</div>
+      <div class="title-md" style="margin-bottom:6px;">High-carb performance</div>
+      <div class="body-sm" style="margin-bottom:14px;">Maximum fuel for maximum output. Closest to current programme. Requires precise meal timing around sessions.</div>
+      <div style="display:flex;gap:14px;margin-bottom:14px;">
+        <div><div class="label" style="margin-bottom:2px;">Protein</div><div style="font-family:var(--serif);font-size:20px;color:var(--ac-hi);">170g</div></div>
+        <div><div class="label" style="margin-bottom:2px;">Carbs</div><div style="font-family:var(--serif);font-size:20px;color:#b09040;">323g</div></div>
+        <div><div class="label" style="margin-bottom:2px;">Fat</div><div style="font-family:var(--serif);font-size:20px;color:var(--tx-2);">77g</div></div>
+      </div>
+      <div style="margin-bottom:14px;">
+        <div class="jcb-row"><div class="jcb-lbl">Muscle gain</div><div class="jcb-track"><div class="jcb-fill bf-muscle" style="width:95%;"></div></div></div>
+        <div class="jcb-row"><div class="jcb-lbl">Fat loss</div><div class="jcb-track"><div class="jcb-fill bf-fat" style="width:40%;"></div></div></div>
+        <div class="jcb-row"><div class="jcb-lbl">Performance</div><div class="jcb-track"><div class="jcb-fill bf-perf" style="width:95%;"></div></div></div>
+        <div class="jcb-row"><div class="jcb-lbl">Joint health</div><div class="jcb-track"><div class="jcb-fill bf-joint" style="width:50%;"></div></div></div>
+        <div class="jcb-row"><div class="jcb-lbl">Adherence</div><div class="jcb-track"><div class="jcb-fill bf-adhere" style="width:68%;"></div></div></div>
+      </div>
+      <div class="body-xs" style="border-top:1px solid var(--br);padding-top:12px;margin-bottom:12px;"><strong style="color:var(--tx-1);">Honest take:</strong> Fat drops to ~77g/day — testosterone synthesis requires fat; D3+K2 and omega-3 supplementation becomes even more critical. Requires carbs front-loaded around sessions or the surplus goes to fat storage. Highest ceiling, highest execution demand.</div>
+      <button class="ai-btn" style="width:100%;background:transparent;border:1px solid var(--br);color:var(--tx-2);" id="jbtn-performance" onclick="event.stopPropagation();selectJourney('performance')">Select high-carb</button>
+    </div>
+
+    <!-- BALANCED -->
+    <div class="j-card balanced selected" id="jcard-balanced" onclick="selectJourney('balanced')">
+      <div class="pill pill-sl" style="margin-bottom:12px;" id="jbadge-balanced">Journey 3 — Active</div>
+      <div class="title-md" style="margin-bottom:6px;">Balanced precision</div>
+      <div class="body-sm" style="margin-bottom:14px;">Moderate carbs timed around training, higher fat on rest days. Highest adherence. Second-best across every metric.</div>
+      <div style="display:flex;gap:14px;margin-bottom:14px;">
+        <div><div class="label" style="margin-bottom:2px;">Protein</div><div style="font-family:var(--serif);font-size:20px;color:var(--ac-hi);">185g</div></div>
+        <div><div class="label" style="margin-bottom:2px;">Carbs</div><div style="font-family:var(--serif);font-size:20px;color:#b09040;">190g</div></div>
+        <div><div class="label" style="margin-bottom:2px;">Fat</div><div style="font-family:var(--serif);font-size:20px;color:var(--tx-2);">122g</div></div>
+      </div>
+      <div style="margin-bottom:14px;">
+        <div class="jcb-row"><div class="jcb-lbl">Muscle gain</div><div class="jcb-track"><div class="jcb-fill bf-muscle" style="width:83%;"></div></div></div>
+        <div class="jcb-row"><div class="jcb-lbl">Fat loss</div><div class="jcb-track"><div class="jcb-fill bf-fat" style="width:65%;"></div></div></div>
+        <div class="jcb-row"><div class="jcb-lbl">Performance</div><div class="jcb-track"><div class="jcb-fill bf-perf" style="width:80%;"></div></div></div>
+        <div class="jcb-row"><div class="jcb-lbl">Joint health</div><div class="jcb-track"><div class="jcb-fill bf-joint" style="width:68%;"></div></div></div>
+        <div class="jcb-row"><div class="jcb-lbl">Adherence</div><div class="jcb-track"><div class="jcb-fill bf-adhere" style="width:88%;"></div></div></div>
+      </div>
+      <div class="body-xs" style="border-top:1px solid var(--br);padding-top:12px;margin-bottom:12px;"><strong style="color:var(--tx-1);">Honest take:</strong> The best diet is the one you actually execute. Balanced precision scores second across every metric and first on adherence — which over 12 weeks outperforms a theoretically superior plan executed at 70%. Currently active.</div>
+      <button class="ai-btn" style="width:100%;" id="jbtn-balanced" onclick="event.stopPropagation();selectJourney('balanced')">Currently selected ✓</button>
+    </div>
+
+  </div>
+
+  <!-- Shopping kit -->
+  <div class="sec-rule">Weekly food kit — Balanced precision</div>
+  <div class="body-sm" style="margin-bottom:16px;">Buy these 11 items. They cover all macro targets for the week. Every meal: protein source + starch + vegetable + fat. No recipes needed.</div>
+  <div class="two-col-equal" style="margin-bottom:32px;">
+    <div>
+      <div class="shop-item"><div><div class="si-name">Chicken breast</div><div class="si-why">Primary lean protein · 4 meals/week</div></div><div class="si-qty">1.4kg</div></div>
+      <div class="shop-item"><div><div class="si-name">Salmon fillets</div><div class="si-why">Omega-3 + protein · anti-inflammatory anchor</div></div><div class="si-qty">800g</div></div>
+      <div class="shop-item"><div><div class="si-name">Whole eggs</div><div class="si-why">Complete protein · fat-soluble vitamin delivery</div></div><div class="si-qty">21 eggs</div></div>
+      <div class="shop-item"><div><div class="si-name">Whey protein</div><div class="si-why">Fast-absorbing · pre/post workout windows</div></div><div class="si-qty">250g</div></div>
+      <div class="shop-item"><div><div class="si-name">Oats (rolled)</div><div class="si-why">Morning slow carb · training day fuel base</div></div><div class="si-qty">560g</div></div>
+      <div class="shop-item"><div><div class="si-name">White rice</div><div class="si-why">Fast glycogen replenishment · training days only</div></div><div class="si-qty">800g dry</div></div>
+    </div>
+    <div>
+      <div class="shop-item"><div><div class="si-name">Sweet potato</div><div class="si-why">Complex carbs + anti-inflammatory beta-carotene</div></div><div class="si-qty">1.2kg</div></div>
+      <div class="shop-item"><div><div class="si-name">Full-fat Greek yoghurt</div><div class="si-why">Casein protein · gut health · fat floor</div></div><div class="si-qty">1kg</div></div>
+      <div class="shop-item"><div><div class="si-name">Extra virgin olive oil</div><div class="si-why">Oleocanthal = natural COX inhibitor · joint benefit</div></div><div class="si-qty">1 bottle</div></div>
+      <div class="shop-item"><div><div class="si-name">Broccoli + spinach</div><div class="si-why">Vitamin K · magnesium · fibre · micronutrient base</div></div><div class="si-qty">1kg mixed</div></div>
+      <div class="shop-item"><div><div class="si-name">Bananas + blueberries</div><div class="si-why">Bananas: pre-workout carbs · Berries: polyphenol anti-inflammatory</div></div><div class="si-qty">7 + 400g</div></div>
+    </div>
+  </div>
+
+  <!-- Avoid this week -->
+  <div class="sec-rule">Avoid this week — and why</div>
+  <div class="body-sm" style="margin-bottom:14px;">Not prohibition — optimisation. Each of these is working against specific goals right now.</div>
+  <div style="max-width:720px;">
+    <div class="avoid-item"><div class="avoid-x">✕</div><div><div class="avoid-name">Refined seed oils (sunflower, vegetable, corn)</div><div class="avoid-why">High omega-6 linoleic acid competes with omega-3 for COX enzymes — directly amplifying the inflammatory pathway you're suppressing for the knee. Use olive oil or butter only.</div></div></div>
+    <div class="avoid-item"><div class="avoid-x">✕</div><div><div class="avoid-name">Alcohol post-training</div><div class="avoid-why">Ethanol inhibits mTOR signalling directly — the exact pathway leucine activates. Even 2–3 drinks post-session suppresses MPS by ~25% and disrupts overnight GH release. Drink on full rest days if at all, never training days.</div></div></div>
+    <div class="avoid-item"><div class="avoid-x">✕</div><div><div class="avoid-name">High-fructose foods on rest days</div><div class="avoid-why">Fructose is metabolised in the liver, not stored as muscle glycogen. On rest days when glycogen demand is low, excess fructose converts to liver fat. Fine pre-training; poor choice when inactive.</div></div></div>
+    <div class="avoid-item"><div class="avoid-x">✕</div><div><div class="avoid-name">Processed deli meats as protein sources</div><div class="avoid-why">High sodium disrupts fluid balance. Nitrites in processed meats are associated with low-grade systemic inflammation. Use whole cuts — better protein quality, no additives.</div></div></div>
+    <div class="avoid-item"><div class="avoid-x">✕</div><div><div class="avoid-name">Large meals within 90 min of training</div><div class="avoid-why">Fat and fibre slow gastric emptying significantly. A heavy meal close to compound work diverts blood to digestion, raises RPE, and can cause nausea under load. The pre-workout meal is specifically designed to be fast-digesting.</div></div></div>
+    <div class="avoid-item"><div class="avoid-x">✕</div><div><div class="avoid-name">Protein bars as primary protein sources</div><div class="avoid-why">Most use hydrolysed collagen or low-quality blends that don't clear the leucine threshold for MPS activation. Chicken, eggs, Greek yoghurt, and fish have superior amino acid profiles for muscle synthesis.</div></div></div>
+  </div>
+
+  <div class="page-end"></div>
+</div>
+
+<script src="nav.js"></script>
+<script>
+let currentJourney = 'balanced';
+
+function selectJourney(j) {
+  currentJourney = j;
+  ['keto','performance','balanced'].forEach(id => {
+    const card  = document.getElementById('jcard-' + id);
+    const btn   = document.getElementById('jbtn-' + id);
+    const badge = document.getElementById('jbadge-' + id);
+    const isSelected = id === j;
+    card.classList.toggle('selected', isSelected);
+    const base = { keto:'Journey 1', performance:'Journey 2', balanced:'Journey 3' }[id];
+    badge.textContent = isSelected ? base + ' — Active' : base;
+    if (id === 'balanced') {
+      btn.textContent = isSelected ? 'Currently selected ✓' : 'Select balanced';
+      btn.style.background = isSelected ? 'var(--ac)' : 'transparent';
+      btn.style.color = isSelected ? '#04100c' : 'var(--tx-2)';
+    } else {
+      btn.textContent = isSelected ? 'Selected ✓' : (id === 'keto' ? 'Select ketogenic' : 'Select high-carb');
+    }
+  });
+  const labels = { keto:'Ketogenic', performance:'High-carb performance', balanced:'Balanced precision' };
+  document.getElementById('journey-chip').textContent = labels[j];
+}
+</script>
+</body>
+</html>
