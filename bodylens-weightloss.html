@@ -110,6 +110,18 @@ body { background: var(--ink); color: var(--dk-1); }
   padding:22px 24px;margin-bottom:10px;transition:all 0.15s;
 }
 .lcard:hover { border-color:var(--bl-2);box-shadow:0 2px 14px rgba(0,0,0,0.07); }
+/* Dark variant for use in dark sections */
+.dcard {
+  background:var(--ink-2);border:1px solid var(--bd);border-radius:6px;
+  padding:22px 24px;margin-bottom:10px;transition:border-color 0.15s;
+}
+.dcard:hover { border-color:var(--bd-2); }
+.dcard.jade-l { border-left:3px solid var(--jade); }
+.dcard.amber-l { border-left:3px solid var(--amber); }
+.dcard .lc-label { color: inherit; }
+.dcard .lc-title { color: var(--dk-1); }
+.dcard .mc-body { color: var(--dk-2); }
+.dcard .mc-body strong { color: var(--dk-1); font-weight:500; }
 .lcard.jade-l { border-left:3px solid var(--jade); }
 .lcard.amber-l{ border-left:3px solid var(--amber); }
 .lcard.red-l  { border-left:3px solid var(--red); }
@@ -216,9 +228,9 @@ body { background: var(--ink); color: var(--dk-1); }
 <nav class="site-nav">
   <div class="nav-brand">Body<em>Lens</em></div>
   <div class="nav-links">
-    <a class="nav-link" href="bodylens-today.html">Today</a>
-    <a class="nav-link" href="bodylens-week.html">Week</a>
-    <a class="nav-link" href="bodylens-progress.html">Progress</a>
+    <a class="nav-link nav-daily" href="bodylens-today.html">Today</a>
+    <a class="nav-link nav-daily" href="bodylens-week.html">Week</a>
+    <a class="nav-link nav-daily" href="bodylens-progress.html">Progress</a>
     <div class="nav-sep"></div>
     <a class="nav-link" href="bodylens-profile.html">Profile</a>
     <a class="nav-link" href="bodylens-nonneg.html">Non-Neg</a>
@@ -581,24 +593,24 @@ body { background: var(--ink); color: var(--dk-1); }
      P6 — FAT LOSS VS WEIGHT LOSS
 ══════════════════════════════ -->
 <div class="pane" id="p6">
-<div class="paper">
+<div class="dk1">
 <div class="w">
-  <div class="lr" style="margin-top:0;">Fat loss vs weight loss <em>— why the scale lies</em></div>
-  <div class="body-sm" style="color:var(--lt-2);margin-bottom:40px;max-width:640px;">Body weight fluctuates by 1–3kg daily in a healthy person from hydration, glycogen, food mass, and hormonal cycles. Tracking only body weight mistakes noise for signal — and frequently produces the wrong conclusion.</div>
+  <div class="dr" style="margin-top:0;">Fat loss vs weight loss <em>— why the scale lies</em></div>
+  <div class="body-sm" style="color:var(--dk-2);margin-bottom:40px;max-width:640px;">Body weight fluctuates by 1–3kg daily in a healthy person from hydration, glycogen, food mass, and hormonal cycles. Tracking only body weight mistakes noise for signal — and frequently produces the wrong conclusion.</div>
 
-  <div class="lcard jade-l" style="margin-bottom:10px;">
+  <div class="dcard jade-l" style="margin-bottom:10px;">
     <div class="lc-label" style="color:var(--jade);">What the scale measures</div>
     <div class="lc-title">Total body mass — including everything that isn't fat</div>
-    <div class="lc-body">Body weight includes: fat mass, lean muscle mass, bone density, organ mass, blood volume, glycogen (~500g stored in muscle + liver + 3× its weight in water), intestinal contents, and fluid balance. <strong>A single meal containing 200g of carbohydrates can raise scale weight by 0.8–1.2kg within 24 hours</strong> purely from glycogen and its associated water. This is not fat. It is biochemically reversible. Similarly, starting creatine supplementation raises scale weight 0.5–1.5kg from intramuscular water retention — while simultaneously improving performance and potentially accelerating fat loss.</div>
+    <div class="mc-body">Body weight includes: fat mass, lean muscle mass, bone density, organ mass, blood volume, glycogen (~500g stored in muscle + liver + 3× its weight in water), intestinal contents, and fluid balance. <strong>A single meal containing 200g of carbohydrates can raise scale weight by 0.8–1.2kg within 24 hours</strong> purely from glycogen and its associated water. This is not fat. It is biochemically reversible. Similarly, starting creatine supplementation raises scale weight 0.5–1.5kg from intramuscular water retention — while simultaneously improving performance and potentially accelerating fat loss.</div>
   </div>
 
-  <div class="lcard amber-l" style="margin-bottom:28px;">
+  <div class="dcard amber-l" style="margin-bottom:28px;">
     <div class="lc-label" style="color:var(--amber);">What you actually want to measure</div>
     <div class="lc-title">Body composition change — fat mass vs lean mass separately</div>
-    <div class="lc-body"><strong>The ideal outcome for most performance-focused goals: lose fat, preserve or gain muscle.</strong> This can mean the scale barely moves — or moves in the "wrong" direction — while body composition improves significantly. A scenario common in the first 8–12 weeks of resistance training: 1kg of lean mass gained, 1kg of fat lost. Scale weight unchanged. Body composition measurably improved. Using the scale as the sole metric would tell you the programme is not working. Using body composition metrics would show significant progress.</div>
+    <div class="mc-body"><strong>The ideal outcome for most performance-focused goals: lose fat, preserve or gain muscle.</strong> This can mean the scale barely moves — or moves in the "wrong" direction — while body composition improves significantly. A scenario common in the first 8–12 weeks of resistance training: 1kg of lean mass gained, 1kg of fat lost. Scale weight unchanged. Body composition measurably improved. Using the scale as the sole metric would tell you the programme is not working. Using body composition metrics would show significant progress.</div>
   </div>
 
-  <div class="lr">Practical measurement tools</div>
+  <div class="dr">Practical measurement tools</div>
 
   <div class="two-truth" style="margin-bottom:16px;">
     <div class="tt-cell good">
@@ -619,10 +631,10 @@ body { background: var(--ink); color: var(--dk-1); }
     </div>
   </div>
 
-  <div class="lcard jade-l">
+  <div class="dcard jade-l">
     <div class="lc-label" style="color:var(--jade);">The recomp scenario — your current situation</div>
     <div class="lc-title">Gaining muscle and losing fat simultaneously is possible — and you are likely doing it</div>
-    <div class="lc-body">Body recomposition — simultaneous fat loss and muscle gain — is generally considered impossible in sports science textbooks. In practice, it occurs reliably in three populations: beginners, people returning to training after a break, and people with above-average protein intake and training quality. <strong>You are in the third category.</strong> At a +200 kcal lean surplus, with 185g protein daily, and four quality resistance training sessions per week, your body is in an environment where muscle gain is occurring while simultaneously preferential fat loss (particularly visceral fat) is happening. The scale may show only 0.5–1kg gain over 12 weeks. A DEXA scan would show several kg of lean mass gained and several kg of fat lost simultaneously. This is the most valuable body composition outcome available — and the one that produces the lasting metabolic improvement.</div>
+    <div class="mc-body">Body recomposition — simultaneous fat loss and muscle gain — is generally considered impossible in sports science textbooks. In practice, it occurs reliably in three populations: beginners, people returning to training after a break, and people with above-average protein intake and training quality. <strong>You are in the third category.</strong> At a +200 kcal lean surplus, with 185g protein daily, and four quality resistance training sessions per week, your body is in an environment where muscle gain is occurring while simultaneously preferential fat loss (particularly visceral fat) is happening. The scale may show only 0.5–1kg gain over 12 weeks. A DEXA scan would show several kg of lean mass gained and several kg of fat lost simultaneously. This is the most valuable body composition outcome available — and the one that produces the lasting metabolic improvement.</div>
   </div>
 
 </div>
@@ -636,8 +648,8 @@ body { background: var(--ink); color: var(--dk-1); }
 <div class="pane" id="p7">
 <div class="paper1">
 <div class="w">
-  <div class="lr" style="margin-top:0;">Myths demolished <em>— the most widely believed falsehoods</em></div>
-  <div class="body-sm" style="color:var(--lt-2);margin-bottom:36px;max-width:640px;">Each of these myths is believed by millions and actively harms fat loss outcomes. The mechanism for why it is wrong is more useful than simply knowing it is wrong.</div>
+  <div class="dr" style="margin-top:0;">Myths demolished <em>— the most widely believed falsehoods</em></div>
+  <div class="body-sm" style="color:var(--dk-2);margin-bottom:36px;max-width:640px;">Each of these myths is believed by millions and actively harms fat loss outcomes. The mechanism for why it is wrong is more useful than simply knowing it is wrong.</div>
 
   <div class="myth-grid">
 

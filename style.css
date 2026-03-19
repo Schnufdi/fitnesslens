@@ -184,6 +184,11 @@ select, input, textarea { font-family: var(--sans); }
 .nav-link:hover { color: var(--dk-2); }
 .nav-link.active { color: var(--dk-1); background: rgba(255,255,255,0.06); }
 
+/* Daily group — lighter jade tint so Today/Week/Progress stand out */
+.nav-link.nav-daily { color: rgba(0,200,160,0.55); }
+.nav-link.nav-daily:hover { color: var(--jade); }
+.nav-link.nav-daily.active { color: var(--jade); background: var(--jade-dim); }
+
 
 .nav-tag {
   font-size: 9px;
