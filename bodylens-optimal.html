@@ -272,7 +272,8 @@ body { background: var(--ink); color: var(--dk-1); }
 </section>
 
 <div class="tabs">
-  <button class="tab active" onclick="show('activity',this)">Activity map</button>
+  <button class="tab active" onclick="show('machine',this)">⚡ The machine</button>
+  <button class="tab" onclick="show('activity',this)">Activity map</button>
   <button class="tab" onclick="show('week',this)">My optimal week</button>
   <button class="tab" onclick="show('gut',this)">Gut &amp; digestion</button>
   <button class="tab" onclick="show('energy',this)">Energy systems</button>
@@ -288,9 +289,263 @@ body { background: var(--ink); color: var(--dk-1); }
      GUT & DIGESTION
 ════════════════════════════════════ -->
 <!-- ════════════════════════════════════
+     THE MACHINE
+════════════════════════════════════ -->
+<div class="pane active" id="machine">
+<div class="dk"><div class="w">
+
+  <!-- Opening statement -->
+  <div style="padding:48px 0 40px;border-bottom:1px solid var(--bd);margin-bottom:48px;">
+    <div style="font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--jade);margin-bottom:20px;display:flex;align-items:center;gap:12px;"><span style="display:inline-block;width:28px;height:1px;background:var(--jade);"></span>AI directive · Full protocol · No compromises</div>
+    <div style="font-family:var(--serif);font-size:52px;font-weight:300;line-height:0.95;letter-spacing:-0.025em;color:var(--dk-1);margin-bottom:28px;">If I ran your body,<br><em style="color:var(--dk-3);">this is exactly<br>what I would do.</em></div>
+    <div style="font-family:var(--serif);font-size:18px;font-weight:300;font-style:italic;line-height:1.82;color:var(--dk-2);border-left:2px solid var(--jade-br);padding-left:22px;max-width:600px;">You are 44, 85kg, advanced lifter, degenerative medial meniscus tear, returning to tennis, targeting lean muscle gain. Every decision below is calibrated to those exact facts. Nothing is generic. This is the protocol I would run — not because it is comfortable, but because it is correct.</div>
+  </div>
+
+  <!-- MORNING PROTOCOL -->
+  <div class="dr">06:00 — Morning ignition <em>sequence</em></div>
+  <div style="border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:36px;">
+
+    <div style="display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-2);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--bd);padding:16px 8px;text-align:center;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--jade);">06:00</div>
+      <div style="padding:14px 22px;"><div style="font-size:13px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Wake. No phone. 500ml water immediately.</div><div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.65;">The first thing the nervous system receives sets the neurochemical tone for the next 4 hours. Phone = dopamine fragmentation before the cortisol awakening response has completed. Water = gut motility activation, dehydration reversal, ghrelin management. Non-negotiable order: water before anything else.</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-2);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--bd);padding:16px 8px;text-align:center;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--jade);">06:05</div>
+      <div style="padding:14px 22px;"><div style="font-size:13px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">10 minutes outside. Eyes toward sky. No sunglasses.</div><div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.65;">Retinal photoreceptors signal the suprachiasmatic nucleus. Cortisol awakening response is anchored. Serotonin synthesis begins in the raphe nuclei. Circadian timer starts. This single act improves sleep onset by 1–2 hours tonight, sharpens the morning cognitive window, and raises serotonin baseline for the day. Takes 10 minutes. Costs nothing.</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-2);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--bd);padding:16px 8px;text-align:center;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--jade);">06:15</div>
+      <div style="padding:14px 22px;"><div style="font-size:13px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Hip flexor stretch 90s/side + thoracic rotation + ankle circles. Every morning.</div><div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.65;">Tight hip flexors inhibit glute activation through reciprocal inhibition — the single most common reason hip thrusts feel weak despite adequate load. This 8-minute sequence, done every morning without exception, produces measurable improvements in glute recruitment within 10 days and directly protects the meniscal environment by restoring correct pelvic alignment.</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-2);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--bd);padding:16px 8px;text-align:center;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--jade);">06:30</div>
+      <div style="padding:14px 22px;"><div style="font-size:13px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Cold finish on the shower. 30–60 seconds. Every training morning.</div><div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.65;">Noradrenaline surge of 200–300%. Dopamine elevation lasting 2–4 hours. Cortisol baseline reduction over weeks of consistent practice. The HPA axis learns that acute stress is manageable — this is anxiety inoculation through deliberate discomfort. The effect compounds. After 3 weeks it becomes the morning's most anticipated moment rather than its most dreaded one.</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:90px 1fr;">
+      <div style="background:var(--ink-2);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--bd);padding:16px 8px;text-align:center;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--jade);">07:30</div>
+      <div style="padding:14px 22px;"><div style="font-size:13px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">First coffee. With 200mg L-Theanine. Not before.</div><div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.65;">Cortisol has peaked and is declining. Caffeine now amplifies the alerting signal rather than duplicating it — the effect is measurably stronger, lasts longer, and does not produce the 11am crash that early coffee creates. L-Theanine produces alpha brain wave state alongside the caffeine stimulation: alert without wired, focused without anxious. This combination is the cleanest cognitive performance stack available before training.</div></div>
+    </div>
+
+  </div>
+
+  <!-- SUPPLEMENT STACK -->
+  <div class="dr">The full supplement stack <em>— timing is the protocol</em></div>
+  <div style="font-size:12px;font-weight:300;color:var(--dk-2);margin-bottom:20px;max-width:600px;line-height:1.7;">The stack is not a collection of individual choices. It is a system where each compound interacts with the others and with your training and nutrition windows. Timing matters as much as dose.</div>
+
+  <div style="border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:36px;">
+    <!-- Headers -->
+    <div style="display:grid;grid-template-columns:140px 80px 80px 1fr;background:var(--ink-3);border-bottom:1px solid var(--bd-2);">
+      <div style="padding:10px 14px;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--dk-3);">Compound</div>
+      <div style="padding:10px 14px;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--dk-3);border-left:1px solid var(--bd);">Dose</div>
+      <div style="padding:10px 14px;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--dk-3);border-left:1px solid var(--bd);">When</div>
+      <div style="padding:10px 14px;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--dk-3);border-left:1px solid var(--bd);">Why it's in the stack</div>
+    </div>
+
+    <!-- Tier 1 — Non-negotiable -->
+    <div style="padding:8px 14px;background:rgba(0,200,160,0.04);border-bottom:1px solid var(--bd);"><div style="font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--jade);">Tier 1 — Non-negotiable</div></div>
+
+    <div style="display:grid;grid-template-columns:140px 80px 80px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="padding:13px 14px;font-size:12px;font-weight:600;color:var(--dk-1);">Creatine monohydrate</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">5g</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">Any time, daily</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);line-height:1.6;">Phosphocreatine replenishment in both muscle and brain. Measurably increases working memory, processing speed under fatigue, and MPS capacity simultaneously. Most evidence-backed performance supplement in existence. Missing a day costs nothing; missing a week reduces brain and muscle phosphocreatine stores below optimal.</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:140px 80px 80px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="padding:13px 14px;font-size:12px;font-weight:600;color:var(--dk-1);">Collagen + Vit C</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">15g + 50mg</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">45–60 min pre-training</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);line-height:1.6;">The most important supplement for your specific situation. Collagen synthesis in connective tissue peaks 60 minutes after ingestion and requires Vitamin C as a cofactor. Training during this window delivers mechanical loading at the precise moment of maximum collagen production — repairing and strengthening the meniscal environment with every session. Shaw et al. 2017: 5.5× collagen synthesis increase vs placebo during this window.</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:140px 80px 80px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="padding:13px 14px;font-size:12px;font-weight:600;color:var(--dk-1);">Omega-3 EPA/DHA</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">3g+</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">With largest fat meal</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);line-height:1.6;">DHA is structural brain tissue. EPA is the primary synovial anti-inflammatory. Together they compete with arachidonic acid for COX enzymes — reducing PGE2 in the meniscal environment, lowering systemic inflammation, improving neuronal membrane fluidity, and boosting insulin receptor sensitivity. Three parallel benefits from one compound.</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:140px 80px 80px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="padding:13px 14px;font-size:12px;font-weight:600;color:var(--dk-1);">Vitamin D3 + K2</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">3,000 IU + 100mcg</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">With fat meal, morning</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);line-height:1.6;">D3 receptors in Leydig cells govern testosterone steroidogenesis. D3 receptors in the hippocampus and prefrontal cortex regulate mood and serotonin synthesis. At UK latitude, 50–60% of the population is D3 insufficient — producing suppressed testosterone, lower mood, and impaired immune function simultaneously. K2 directs calcium to bone rather than arterial walls. Never take D3 without K2.</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:140px 80px 80px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="padding:13px 14px;font-size:12px;font-weight:600;color:var(--dk-1);">Magnesium glycinate</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">400mg</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">30–60 min pre-sleep</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);line-height:1.6;">Required for GABA receptor function. Low magnesium = insufficient inhibitory neurotransmission = anxious baseline + shallow sleep + lower GH pulse amplitude. The glycinate form adds glycine — independently inhibitory, independently sleep-promoting. This is the most evidence-backed non-pharmaceutical anxiolytic and the most accessible sleep architecture intervention available. Takes 2 weeks to notice. After 4 weeks the difference in sleep depth is unmistakeable.</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:140px 80px 80px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="padding:13px 14px;font-size:12px;font-weight:600;color:var(--dk-1);">Ashwagandha KSM-66</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">600mg</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">Morning with breakfast</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);line-height:1.6;">Cortisol reduction of 25–30% in multiple RCTs in resistance-trained men. 10–15% testosterone increase. Withaferin A and withanolides directly down-regulate the HPA axis. For someone managing anxiety, training hard, and optimising testosterone simultaneously — this is doing more work per capsule than almost anything else in the stack. KSM-66 specifically — the extract standardisation matters.</div>
+    </div>
+
+    <!-- Tier 2 -->
+    <div style="padding:8px 14px;background:rgba(196,124,24,0.04);border-bottom:1px solid var(--bd);border-top:1px solid var(--bd);"><div style="font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);">Tier 2 — High leverage additions</div></div>
+
+    <div style="display:grid;grid-template-columns:140px 80px 80px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="padding:13px 14px;font-size:12px;font-weight:600;color:var(--dk-1);">L-Theanine</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">200mg</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">With each coffee</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);line-height:1.6;">Alpha brain wave induction alongside caffeine. Eliminates caffeine-driven anxiety and jitteriness. Produces the calm, alert, focused state that caffeine alone cannot reliably create. If coffee sometimes produces anxiety or an inability to settle — this is the direct fix. The combination is one of the most studied cognitive performance stacks available.</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:140px 80px 80px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="padding:13px 14px;font-size:12px;font-weight:600;color:var(--dk-1);">Lion's Mane</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">500–1,000mg</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">Morning with breakfast</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);line-height:1.6;">Hericenones and erinacines stimulate NGF (Nerve Growth Factor) — the primary growth factor for neurons. NGF promotes synapse formation, neuroplasticity, and long-term cognitive capacity. Double-blind RCTs show improved cognitive function scores at 12 weeks in 40+ adults. This is the most evidence-backed cognitive enhancement supplement not already in the stack. The effect is not acute — it builds over 8–12 weeks.</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:140px 80px 80px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="padding:13px 14px;font-size:12px;font-weight:600;color:var(--dk-1);">L-Tyrosine</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">500–1,000mg</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">Pre-cognitive work or pre-training</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);line-height:1.6;">Precursor to dopamine, noradrenaline, and adrenaline. Under stress and cognitive load, these neurotransmitters deplete faster than the brain replenishes them. L-Tyrosine fills the precursor pool — maintaining dopaminergic drive, working memory, and motivation under pressure. Best effect under conditions of sleep deprivation or high stress — the exact conditions where performance most often degrades. Use situationally, not daily.</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:140px 80px 80px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="padding:13px 14px;font-size:12px;font-weight:600;color:var(--dk-1);">Zinc (ZMA)</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">15–30mg</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">Hard training days, pre-sleep</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);line-height:1.6;">Required cofactor for testosterone synthesis. Heavy training depletes zinc via sweat — measurably on the days you push hardest. ZMA (zinc + magnesium + B6) provides zinc alongside the magnesium glycinate's GABA support. Take on Monday, Wednesday, Friday, Saturday only — not daily, as zinc above requirement saturates the benefit and can compete with copper absorption.</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:140px 80px 80px 1fr;">
+      <div style="padding:13px 14px;font-size:12px;font-weight:600;color:var(--dk-1);">Caffeine</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">200mg</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);">90 min post-wake</div>
+      <div style="padding:13px 14px;font-size:12px;font-weight:300;color:var(--dk-2);border-left:1px solid var(--bd);line-height:1.6;">Not a supplement — a tool. Two flat whites = approximately 200mg. The dose is not the variable; the timing is. After the cortisol peak (90 min post-wake), caffeine lands on a system ready to receive it rather than a system already performing at its natural cortisol-driven alertness ceiling. Cut caffeine by 14:00 to protect adenosine pressure and sleep architecture.</div>
+    </div>
+  </div>
+
+  <!-- IN THE GYM -->
+  <div class="dr">In the gym <em>— what the machine demands</em></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:36px;">
+
+    <div class="mc jade">
+      <div class="mc-eye" style="color:var(--jade);">The non-negotiable rule</div>
+      <div class="mc-t">Progressive overload, every session, every week</div>
+      <div class="mc-body">If the weight, reps, or density did not increase this week versus last week, the session did not count for muscle growth. The body adapts to the stimulus it received — not the one you planned. <strong>Track every working set. Log every number. The log is the programme.</strong> Without progressive overload there is stimulus maintenance, not growth. This is the line between training and exercising.</div>
+      <div class="mc-action act-j">Log every set. Increase something every session. When you cannot — deload, then push harder.</div>
+    </div>
+
+    <div class="mc amber">
+      <div class="mc-eye" style="color:var(--amber);">The execution standard</div>
+      <div class="mc-t">Full range, controlled eccentric, 2 second pause on key lifts</div>
+      <div class="mc-body">Half reps produce half the stimulus. The eccentric (lowering) phase produces more mechanical tension than the concentric — slowing it to 2–3 seconds on hip thrusts, RDLs, and rows doubles the effective stimulus per set without adding a single extra set. <strong>A 2-second pause at the top of the hip thrust forces a held contraction under load — the highest-quality glute stimulus available per rep.</strong> Standard matters more than load. Ego loads with poor range are the primary cause of plateau.</div>
+      <div class="mc-action act-a">2–3s eccentric. Pause at peak contraction. Every rep of every working set.</div>
+    </div>
+
+    <div class="mc jade">
+      <div class="mc-eye" style="color:var(--jade);">The Friday directive</div>
+      <div class="mc-t">Posterior chain Friday is the most important session of the week</div>
+      <div class="mc-body">Hip thrusts, RDLs, step-ups, and hip thrust finisher generate the largest acute testosterone and GH response of any session in the programme. They directly address the glute weakness that is both the aesthetic goal and the therapeutic priority for knee biomechanics. <strong>Everything in the week — Thursday's carb-load, Thursday's sleep, Thursday's no-alcohol rule — exists to make Friday optimal.</strong> Protect Friday above all other sessions.</div>
+      <div class="mc-action act-j">Thursday is Friday's preparation. Arrive fuelled, rested, and ready to push the hip thrust number.</div>
+    </div>
+
+    <div class="mc amber">
+      <div class="mc-eye" style="color:var(--amber);">The knee protocol</div>
+      <div class="mc-t">The modification is the programme — not a limitation of it</div>
+      <div class="mc-body">RDL replaces squat. Partial leg press (0–70°) replaces full depth. Low box step-up replaces lunge. These are not compromises — they deliver 97% of the original stimulus while the meniscal environment recovers and strengthens. <strong>Collagen timing, swimming, hip flexor stretching, and Zone 2 cardio are all active therapeutic interventions.</strong> You are not training around an injury. You are training the injury back to function.</div>
+      <div class="mc-action act-a">The modified programme is the optimal programme for your current biology. Run it fully.</div>
+    </div>
+
+  </div>
+
+  <!-- NUTRITION DIRECTIVES -->
+  <div class="dr">Nutrition <em>— the fuel system</em></div>
+  <div style="border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:36px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bd);">
+      <div style="background:var(--ink-2);padding:20px 18px;">
+        <div style="font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--jade);margin-bottom:10px;">The one number</div>
+        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:var(--jade);line-height:1;margin-bottom:8px;">185g</div>
+        <div style="font-size:11px;font-weight:600;color:var(--dk-1);margin-bottom:6px;">Protein daily. Non-negotiable.</div>
+        <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.65;">Everything else in the nutrition system is adjustable day-to-day. This number is not. 185g provides the amino acid substrate for MPS, the leucine threshold at every meal, and the satiety that makes the rest of the protocol manageable. Distribute across 4 meals — the leucine threshold (2.5g+) must be hit at each one.</div>
+      </div>
+      <div style="background:var(--ink-2);padding:20px 18px;">
+        <div style="font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;">The surplus logic</div>
+        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:var(--amber);line-height:1;margin-bottom:8px;">+200</div>
+        <div style="font-size:11px;font-weight:600;color:var(--dk-1);margin-bottom:6px;">Lean surplus. Not a bulk.</div>
+        <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.65;">A larger surplus does not produce faster muscle growth — it produces faster fat gain alongside the same rate of muscle growth. The +200 kcal ceiling is calibrated to maximise the lean gain rate while preventing the fat accumulation that would require a cut to undo. Disciplined now means no regret later.</div>
+      </div>
+      <div style="background:var(--ink-2);padding:20px 18px;">
+        <div style="font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--jade);margin-bottom:10px;">The meal architecture</div>
+        <div style="font-family:var(--serif);font-size:36px;font-weight:300;color:var(--jade);line-height:1;margin-bottom:8px;">P→C→F</div>
+        <div style="font-size:11px;font-weight:600;color:var(--dk-1);margin-bottom:6px;">Protein first. Always.</div>
+        <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.65;">Eating protein before carbohydrates at every meal reduces the post-meal glucose spike by 20–40%, extends satiety, and ensures the leucine threshold is met before appetite drives the plate toward bread, rice or whatever's easiest. The order is the intervention. It requires no willpower — just sequencing.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECOVERY DIRECTIVES -->
+  <div class="dr">Recovery <em>— where the gains actually happen</em></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:36px;">
+
+    <div class="mc jade">
+      <div class="mc-eye" style="color:var(--jade);">Sleep</div>
+      <div class="mc-t">8 hours. Architecture matters more than duration.</div>
+      <div class="mc-body">GH pulses in the first slow-wave cycle. Testosterone is synthesised overnight. Muscle protein synthesis peaks during sleep. The glymphatic system clears beta-amyloid from the brain. Cortisol reaches its nadir. Every adaptation from every training session is actualised during sleep — not during the session. <strong>The training session is the stimulus. Sleep is the adaptation.</strong> Cutting sleep to train more is the single most counterproductive decision in a programme. 8h non-negotiable. Cool room (17–19°C). Dark. Magnesium glycinate 30 min before.</div>
+      <div class="mc-action act-j">Sleep is training. Protect it with the same priority as the gym session.</div>
+    </div>
+
+    <div class="mc amber">
+      <div class="mc-eye" style="color:var(--amber);">Swimming</div>
+      <div class="mc-t">1–2× weekly. Thursday ideal. Unhurried.</div>
+      <div class="mc-body">Zero axial joint load. Synovial circulation without compression. Cardiovascular stimulus without the impact that the meniscal environment must currently absorb. Parasympathetic activation via hydrostatic pressure and breath rhythm — measurably reducing cortisol and anxiety. <strong>Swimming is the only activity that simultaneously delivers cardiovascular training, joint recovery, and nervous system reset.</strong> No other modality does all three. Once the habit is established it becomes one of the week's most looked-forward-to sessions.</div>
+      <div class="mc-action act-a">Add swimming before any other cardio addition. The joint and nervous system benefit is immediate.</div>
+    </div>
+
+  </div>
+
+  <!-- THE OUTCOMES -->
+  <div class="dr">What the machine produces <em>— measurable outcomes by phase</em></div>
+  <div style="border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:40px;">
+
+    <div style="display:grid;grid-template-columns:100px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-2);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--bd);padding:20px 8px;font-family:var(--serif);font-size:28px;font-weight:300;color:var(--jade);">4w</div>
+      <div style="padding:18px 22px;">
+        <div style="font-size:13px;font-weight:600;color:var(--jade);margin-bottom:6px;">Weeks 1–4 — The foundation sets</div>
+        <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.72;">No knee swelling on training days. Hip thrust establishing baseline. Sleep noticeably deeper within 2 weeks (magnesium). Morning energy more consistent (caffeine timing + sunlight). Gut health improving — fibre + fermented foods beginning to diversify microbiome. Cold shower no longer dreaded. L-Theanine producing calmer focus during cognitively demanding work. Collagen + Vit C protocol repairing connective tissue environment every training day.</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:100px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-2);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--bd);padding:20px 8px;font-family:var(--serif);font-size:28px;font-weight:300;color:var(--amber);">8w</div>
+      <div style="padding:18px 22px;">
+        <div style="font-size:13px;font-weight:600;color:var(--amber);margin-bottom:6px;">Weeks 5–8 — The machine accelerates</div>
+        <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.72;">Straight-line running begins. Hip thrust and RDL weights meaningfully above starting numbers. Visible lean mass change in the mirror — particularly shoulders, back, glutes. Body fat redistributing (visceral down, subcutaneous maintained). Lion's Mane cognitive effect becoming apparent. VO₂max improving from Zone 2 accumulation. Anxiety baseline measurably lower from Ashwagandha + cold exposure + exercise compound effect. Testosterone environment at its highest since the programme began.</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:100px 1fr;">
+      <div style="background:rgba(0,200,160,0.06);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--jade-br);padding:20px 8px;font-family:var(--serif);font-size:28px;font-weight:300;color:var(--jade);">12w</div>
+      <div style="padding:18px 22px;background:rgba(0,200,160,0.02);">
+        <div style="font-size:13px;font-weight:600;color:var(--jade);margin-bottom:6px;">Week 12 — The machine is running</div>
+        <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.72;">1–2kg lean mass added. DEXA would show simultaneous fat loss and muscle gain (recomposition). Full court tennis cleared. Controlled squat depth re-introduced. Hip thrust substantially above baseline — the single composite indicator that every system worked. Sleep, nutrition, hormones, training, and recovery all functioning as an interconnected system. The biology of someone 5–8 years younger by every measurable marker. This is what the machine produces when the protocol is followed without compromise.</div>
+      </div>
+    </div>
+
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ════════════════════════════════════
      ACTIVITY MAP
 ════════════════════════════════════ -->
-<div class="pane active" id="activity">
+<div class="pane" id="activity">
 <div class="dk"><div class="w">
   <div class="dr" style="margin-top:0;">Activity map <em>— every modality, what it uniquely delivers</em></div>
   <div class="body-sm" style="color:var(--dk-2);margin-bottom:36px;max-width:660px;">Swimming, running, step machine, cycling, gym, yoga — they are not interchangeable. Each one does something the others cannot. The optimal programme uses all of them because the gaps they fill are different. Here is the full map of what each delivers, followed by how to combine them.</div>
