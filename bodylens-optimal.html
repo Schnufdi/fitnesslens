@@ -150,7 +150,54 @@ body { background: var(--ink); color: var(--dk-1); }
   .w{padding:0 18px;} .tabs{padding:0 18px;}
   .lever-grid{grid-template-columns:1fr;} .dash{grid-template-columns:1fr 1fr;}
   .bsc{grid-template-columns:40px 1fr auto;} .dk,.dk1,.lt,.lt1{padding:48px 0;}
+  .activity-grid{grid-template-columns:1fr;}
+  .week-grid{grid-template-columns:60px repeat(7,1fr);font-size:9px;}
+  .wg-cell,.wg-head,.wg-label{padding:6px 4px;}
 }
+
+/* ── ACTIVITY MAP ── */
+.activity-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:28px;}
+.act-card{background:var(--ink-2);padding:22px 20px;transition:background 0.15s;position:relative;}
+.act-card:hover{background:rgba(255,255,255,0.025);}
+.act-card.primary{background:rgba(0,200,160,0.04);}
+.act-bar{position:absolute;top:0;left:0;right:0;height:3px;}
+.act-icon{font-size:24px;margin-bottom:10px;}
+.act-name{font-family:var(--serif);font-size:19px;font-weight:500;color:var(--dk-1);margin-bottom:3px;line-height:1.1;}
+.act-tag{font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.act-what{font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.68;margin-bottom:10px;}
+.act-what strong{color:var(--dk-1);font-weight:500;}
+.act-unique{background:rgba(0,200,160,0.06);border:1px solid var(--jade-br);border-radius:4px;padding:8px 10px;font-size:11px;font-weight:300;color:var(--jade);line-height:1.5;}
+.act-unique::before{content:'Unique benefit: ';font-weight:600;}
+.score-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.score-label{font-size:9px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--dk-3);width:90px;flex-shrink:0;}
+.score-track{flex:1;height:4px;background:var(--ink-3);border-radius:2px;overflow:hidden;}
+.score-fill{height:100%;border-radius:2px;}
+
+/* ── OPTIMAL WEEK ── */
+.week-grid{display:grid;grid-template-columns:90px repeat(7,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:28px;}
+.wg-head{background:var(--ink-2);padding:10px 6px;text-align:center;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--dk-3);}
+.wg-head.hl{color:var(--jade);}
+.wg-label{background:var(--ink-2);padding:10px 10px;font-size:9px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--dk-3);display:flex;align-items:center;border-right:1px solid var(--bd);}
+.wg-cell{background:var(--ink-1);padding:8px 6px;text-align:center;font-size:10px;font-weight:300;color:var(--dk-3);line-height:1.4;}
+.wg-cell.gym{background:rgba(0,200,160,0.06);color:var(--jade);font-weight:500;}
+.wg-cell.step{background:rgba(0,168,114,0.07);color:#00a872;font-weight:500;}
+.wg-cell.swim{background:rgba(74,98,117,0.1);color:#6a9ab0;font-weight:500;}
+.wg-cell.run{background:rgba(200,148,30,0.07);color:var(--gold);font-weight:500;}
+.wg-cell.mob{background:rgba(196,124,24,0.06);color:var(--amber);font-weight:500;}
+.wg-cell.rest{color:var(--dk-3);font-style:italic;}
+.wg-cell.key{border:1px solid var(--jade-br);}
+
+.int-row{display:grid;grid-template-columns:48px 1fr;border-top:1px solid var(--bd);transition:background 0.15s;}
+.int-row:hover{background:rgba(255,255,255,0.018);}
+.int-n{padding:24px 0;display:flex;align-items:flex-start;justify-content:center;border-right:1px solid var(--bd);font-family:var(--serif);font-size:36px;font-weight:300;color:var(--dk-3);line-height:1;}
+.int-b{padding:22px 28px;}
+.int-t{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--dk-1);margin-bottom:8px;line-height:1.1;}
+.int-p{font-size:13px;font-weight:300;color:var(--dk-2);line-height:1.88;max-width:580px;}
+.int-p strong{color:var(--dk-1);font-weight:500;}
+.tag-pill{display:inline-flex;align-items:center;margin-top:12px;font-size:11px;font-weight:600;letter-spacing:0.04em;padding:5px 13px;border-radius:20px;}
+.tp-j{color:var(--jade);background:var(--jade-dim);border:1px solid var(--jade-br);}
+.tp-a{color:var(--amber);background:var(--amber-dim);border:1px solid var(--amber-br);}
+.tp-sl{color:#6a9ab0;background:rgba(74,98,117,0.1);border:1px solid rgba(74,98,117,0.25);}
 </style>
 </head>
 <body>
@@ -163,14 +210,14 @@ body { background: var(--ink); color: var(--dk-1); }
     <a class="nav-link nav-daily" href="bodylens-progress.html">Progress</a>
     <div class="nav-sep"></div>
     <a class="nav-link" href="bodylens-profile.html">Profile</a>
-    <a class="nav-link" href="bodylens-nonneg.html">Non-Neg</a>
+    <a class="nav-link" href="bodylens-nonneg.html">My Rules</a>
     <div class="nav-sep"></div>
     <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
-    <a class="nav-link" href="bodylens-fuel.html">Fuel</a>
+    <a class="nav-link" href="bodylens-fuel.html">Food System</a>
     <a class="nav-link" href="bodylens-hunger.html">Hunger</a>
     <a class="nav-link" href="bodylens-alcohol.html">Alcohol</a>
     <div class="nav-sep"></div>
-    <a class="nav-link" href="bodylens-body.html">Body</a>
+    <a class="nav-link" href="bodylens-body.html">Muscle Guide</a>
     <a class="nav-link" href="bodylens-training.html">Training</a>
     <div class="nav-sep"></div>
     <a class="nav-link" href="bodylens-weightloss.html">Weight Loss</a>
@@ -210,7 +257,9 @@ body { background: var(--ink); color: var(--dk-1); }
 </section>
 
 <div class="tabs">
-  <button class="tab active" onclick="show('gut',this)">Gut &amp; digestion</button>
+  <button class="tab active" onclick="show('activity',this)">Activity map</button>
+  <button class="tab" onclick="show('week',this)">My optimal week</button>
+  <button class="tab" onclick="show('gut',this)">Gut &amp; digestion</button>
   <button class="tab" onclick="show('energy',this)">Energy systems</button>
   <button class="tab" onclick="show('brain',this)">Brain &amp; focus</button>
   <button class="tab" onclick="show('anxiety',this)">Anxiety &amp; stress</button>
@@ -223,7 +272,322 @@ body { background: var(--ink); color: var(--dk-1); }
 <!-- ════════════════════════════════════
      GUT & DIGESTION
 ════════════════════════════════════ -->
-<div class="pane active" id="gut">
+<!-- ════════════════════════════════════
+     ACTIVITY MAP
+════════════════════════════════════ -->
+<div class="pane active" id="activity">
+<div class="dk"><div class="w">
+  <div class="dr" style="margin-top:0;">Activity map <em>— every modality, what it uniquely delivers</em></div>
+  <div class="body-sm" style="color:var(--dk-2);margin-bottom:36px;max-width:660px;">Swimming, running, step machine, cycling, gym, yoga — they are not interchangeable. Each one does something the others cannot. The optimal programme uses all of them because the gaps they fill are different. Here is the full map of what each delivers, followed by how to combine them.</div>
+
+  <div class="activity-grid">
+
+    <!-- GYM -->
+    <div class="act-card primary">
+      <div class="act-bar" style="background:var(--jade);"></div>
+      <div class="act-icon">🏋️</div>
+      <div class="act-name">Strength training</div>
+      <div class="act-tag" style="color:var(--jade);">Your foundation · 4× weekly</div>
+      <div class="act-what">Progressive resistance training — the non-negotiable core of everything. Drives muscle protein synthesis, hormonal output (testosterone, GH, IGF-1), bone density, and metabolic rate. Every other modality supports this. Nothing replaces it.<br><br><strong>Posterior chain focus (hip thrusts, RDLs) generates the largest anabolic hormone response of any training category.</strong> This makes Friday the most important session of the week systemically, not just for glutes.</div>
+      <div style="margin-bottom:12px;">
+        <div class="score-row"><div class="score-label">Muscle growth</div><div class="score-track"><div class="score-fill" style="width:100%;background:var(--jade);"></div></div></div>
+        <div class="score-row"><div class="score-label">Cardiovascular</div><div class="score-track"><div class="score-fill" style="width:30%;background:var(--amber);"></div></div></div>
+        <div class="score-row"><div class="score-label">Joint load</div><div class="score-track"><div class="score-fill" style="width:60%;background:var(--red);opacity:0.7;"></div></div></div>
+        <div class="score-row"><div class="score-label">Mental health</div><div class="score-track"><div class="score-fill" style="width:80%;background:var(--jade);opacity:0.7;"></div></div></div>
+        <div class="score-row"><div class="score-label">Tennis carryover</div><div class="score-track"><div class="score-fill" style="width:85%;background:var(--jade);"></div></div></div>
+      </div>
+      <div class="act-unique">Progressive overload — the only stimulus that builds lasting lean mass and raises BMR permanently</div>
+    </div>
+
+    <!-- STEP MACHINE -->
+    <div class="act-card">
+      <div class="act-bar" style="background:#00a872;"></div>
+      <div class="act-icon">⬆️</div>
+      <div class="act-name">Step machine</div>
+      <div class="act-tag" style="color:#00a872;">Tue + Thu + post-Friday · 20–25 min</div>
+      <div class="act-what">Posterior-loaded cardiovascular training. Every step activates glute max and glute med simultaneously — no other cardio machine achieves this. Zone 2 on the step machine builds the cardiovascular base AND adds glute conditioning volume that the gym sessions alone cannot cover.<br><br><strong>At moderate resistance (no rails, full step depression), glute EMG rivals some gym exercises.</strong> This is not incidental — it is your most time-efficient dual-purpose tool.</div>
+      <div style="margin-bottom:12px;">
+        <div class="score-row"><div class="score-label">Muscle growth</div><div class="score-track"><div class="score-fill" style="width:40%;background:var(--jade);"></div></div></div>
+        <div class="score-row"><div class="score-label">Cardiovascular</div><div class="score-track"><div class="score-fill" style="width:80%;background:var(--amber);"></div></div></div>
+        <div class="score-row"><div class="score-label">Joint load</div><div class="score-track"><div class="score-fill" style="width:30%;background:var(--red);opacity:0.5;"></div></div></div>
+        <div class="score-row"><div class="score-label">Mental health</div><div class="score-track"><div class="score-fill" style="width:60%;background:var(--jade);opacity:0.7;"></div></div></div>
+        <div class="score-row"><div class="score-label">Tennis carryover</div><div class="score-track"><div class="score-fill" style="width:75%;background:var(--jade);"></div></div></div>
+      </div>
+      <div class="act-unique">Glute-dominant cardiovascular training — the only cardio that builds the posterior chain while building the aerobic base</div>
+    </div>
+
+    <!-- SWIMMING -->
+    <div class="act-card">
+      <div class="act-bar" style="background:#6a9ab0;"></div>
+      <div class="act-icon">🏊</div>
+      <div class="act-name">Swimming</div>
+      <div class="act-tag" style="color:#6a9ab0;">1–2× weekly · ideal rest day or morning</div>
+      <div class="act-what">The most underutilised tool in your current programme. Zero axial joint load — every other cardiovascular modality compresses the spine or loads the knee. Swimming decompresses. The horizontal body position elongates the spine, the water supports full bodyweight, and the joint is loaded through full range without impact.<br><br><strong>For the meniscal environment specifically: swimming on rest days increases synovial circulation without mechanical compression</strong> — delivering nutrients to the cartilage that compression-based exercise cannot reach the same way.</div>
+      <div style="margin-bottom:12px;">
+        <div class="score-row"><div class="score-label">Muscle growth</div><div class="score-track"><div class="score-fill" style="width:25%;background:var(--jade);"></div></div></div>
+        <div class="score-row"><div class="score-label">Cardiovascular</div><div class="score-track"><div class="score-fill" style="width:90%;background:var(--amber);"></div></div></div>
+        <div class="score-row"><div class="score-label">Joint load</div><div class="score-track"><div class="score-fill" style="width:5%;background:var(--jade);"></div></div></div>
+        <div class="score-row"><div class="score-label">Mental health</div><div class="score-track"><div class="score-fill" style="width:90%;background:var(--jade);opacity:0.8;"></div></div></div>
+        <div class="score-row"><div class="score-label">Tennis carryover</div><div class="score-track"><div class="score-fill" style="width:55%;background:var(--jade);opacity:0.7;"></div></div></div>
+      </div>
+      <div class="act-unique">Zero axial joint load + full cardiovascular stimulus + decompression + parasympathetic activation — no other modality does all four</div>
+    </div>
+
+    <!-- RUNNING -->
+    <div class="act-card">
+      <div class="act-bar" style="background:var(--gold);"></div>
+      <div class="act-icon">🏃</div>
+      <div class="act-name">Running</div>
+      <div class="act-tag" style="color:var(--gold);">Phase 2+ · weeks 5–8 · straight-line only</div>
+      <div class="act-what">The highest VO₂max stimulus per minute of any accessible cardio modality. Impact loading also produces osteogenic (bone-building) stimulus that swimming and cycling cannot — at 44, bone density maintenance requires impact. Running is also the direct cardiovascular foundation for tennis.<br><br><strong>Not available yet — straight-line running begins at weeks 5–8.</strong> The step machine and swimming are building the cardiovascular base that running will build on. When running starts, it begins conservatively: 5-minute walk/run intervals, flat surface, no direction changes.</div>
+      <div style="margin-bottom:12px;">
+        <div class="score-row"><div class="score-label">Muscle growth</div><div class="score-track"><div class="score-fill" style="width:20%;background:var(--jade);"></div></div></div>
+        <div class="score-row"><div class="score-label">Cardiovascular</div><div class="score-track"><div class="score-fill" style="width:100%;background:var(--amber);"></div></div></div>
+        <div class="score-row"><div class="score-label">Joint load</div><div class="score-track"><div class="score-fill" style="width:75%;background:var(--red);opacity:0.7;"></div></div></div>
+        <div class="score-row"><div class="score-label">Mental health</div><div class="score-track"><div class="score-fill" style="width:85%;background:var(--jade);opacity:0.8;"></div></div></div>
+        <div class="score-row"><div class="score-label">Tennis carryover</div><div class="score-track"><div class="score-fill" style="width:95%;background:var(--jade);"></div></div></div>
+      </div>
+      <div class="act-unique">Highest VO₂max stimulus available + impact-driven bone density + direct sport-specific cardiovascular base for tennis</div>
+    </div>
+
+    <!-- CYCLING -->
+    <div class="act-card">
+      <div class="act-bar" style="background:var(--amber);"></div>
+      <div class="act-icon">🚴</div>
+      <div class="act-name">Cycling</div>
+      <div class="act-tag" style="color:var(--amber);">Backup / recovery · when knee is sensitive</div>
+      <div class="act-what">Pure cardiovascular stimulus with zero axial joint load. Not as glute-dominant as the step machine, not as decompressive as swimming, but more accessible than either when time is tight or the knee is playing up. Seat height is critical — 15–20° knee flexion at the bottom of the pedal stroke stays well within your safe range.<br><br>Best use: active recovery days when HRV is low or the knee needs a lighter touch than the step machine provides.</div>
+      <div style="margin-bottom:12px;">
+        <div class="score-row"><div class="score-label">Muscle growth</div><div class="score-track"><div class="score-fill" style="width:15%;background:var(--jade);"></div></div></div>
+        <div class="score-row"><div class="score-label">Cardiovascular</div><div class="score-track"><div class="score-fill" style="width:78%;background:var(--amber);"></div></div></div>
+        <div class="score-row"><div class="score-label">Joint load</div><div class="score-track"><div class="score-fill" style="width:15%;background:var(--red);opacity:0.4;"></div></div></div>
+        <div class="score-row"><div class="score-label">Mental health</div><div class="score-track"><div class="score-fill" style="width:50%;background:var(--jade);opacity:0.6;"></div></div></div>
+        <div class="score-row"><div class="score-label">Tennis carryover</div><div class="score-track"><div class="score-fill" style="width:40%;background:var(--jade);opacity:0.5;"></div></div></div>
+      </div>
+      <div class="act-unique">Accessible knee-safe cardiovascular backup — the modality to reach for when anything else needs to step back</div>
+    </div>
+
+    <!-- MOBILITY / YOGA -->
+    <div class="act-card">
+      <div class="act-bar" style="background:var(--amber);opacity:0.7;"></div>
+      <div class="act-icon">🧘</div>
+      <div class="act-name">Mobility / yoga</div>
+      <div class="act-tag" style="color:var(--amber);">Daily 10 min + 1× weekly longer session</div>
+      <div class="act-what">Connective tissue health, joint range of motion, parasympathetic nervous system activation. Tight hip flexors limit glute activation — stretching them daily improves every gym session. Thoracic mobility limits overhead pressing. Ankle mobility limits squat depth.<br><br><strong>Yin yoga specifically targets fascia through 3–5 minute holds</strong> — producing structural changes that dynamic stretching cannot. A single 30-minute yin yoga session on Sunday produces mobility improvements that persist through the training week. The nervous system reset it provides also functions as an anxiety intervention.</div>
+      <div style="margin-bottom:12px;">
+        <div class="score-row"><div class="score-label">Muscle growth</div><div class="score-track"><div class="score-fill" style="width:5%;background:var(--jade);"></div></div></div>
+        <div class="score-row"><div class="score-label">Cardiovascular</div><div class="score-track"><div class="score-fill" style="width:10%;background:var(--amber);"></div></div></div>
+        <div class="score-row"><div class="score-label">Joint load</div><div class="score-track"><div class="score-fill" style="width:5%;background:var(--jade);"></div></div></div>
+        <div class="score-row"><div class="score-label">Mental health</div><div class="score-track"><div class="score-fill" style="width:95%;background:var(--jade);opacity:0.9;"></div></div></div>
+        <div class="score-row"><div class="score-label">Tennis carryover</div><div class="score-track"><div class="score-fill" style="width:65%;background:var(--jade);opacity:0.7;"></div></div></div>
+      </div>
+      <div class="act-unique">Parasympathetic activation + fascial remodelling + hip flexibility that improves every other modality — including the quality of your gym sessions</div>
+    </div>
+
+  </div>
+
+  <!-- Integration principles -->
+  <div class="dr">Why you need all of them <em>— the gaps they fill</em></div>
+  <div class="body-sm" style="color:var(--dk-2);margin-bottom:24px;max-width:640px;">Each modality addresses a deficit the others create. This is why elite performers use multiple disciplines rather than one — not for variety, but because the body genuinely needs inputs that no single modality provides.</div>
+
+  <div>
+    <div class="int-row">
+      <div class="int-n" style="color:var(--jade);">1</div>
+      <div class="int-b">
+        <div class="int-t">Gym builds the muscle — swimming protects the joint that carries it</div>
+        <div class="int-p">Heavy resistance training creates mechanical stress on joints as an unavoidable consequence of producing the overload stimulus that drives muscle growth. Swimming on rest days creates the opposite condition: full-body movement, zero joint compression, synovial circulation without loading. <strong>The combination produces something neither achieves alone: muscular development in a joint environment that is actively recovering rather than accumulating stress.</strong> This is particularly relevant to the meniscal tear — swimming is therapeutic, not just supplementary.</div>
+        <div class="tag-pill tp-sl">Gym drives adaptation · Swimming enables it to continue</div>
+      </div>
+    </div>
+    <div class="int-row">
+      <div class="int-n" style="color:#00a872;">2</div>
+      <div class="int-b">
+        <div class="int-t">Step machine builds the aerobic base — running activates it for tennis</div>
+        <div class="int-p">The step machine builds Zone 2 mitochondrial density and glute conditioning safely within Phase 1 constraints. Running takes that cardiovascular base and converts it into sport-specific fitness — the lateral loading, the impact patterns, the stride mechanics that tennis requires. You cannot run immediately because the knee needs the preparatory phase. <strong>But every step machine session is building the aerobic foundation that will make your eventual running (and tennis return) more capable than if you had been sedentary.</strong> The step machine is not a substitute for running — it is the prerequisite for it.</div>
+        <div class="tag-pill" style="color:#00a872;background:rgba(0,168,114,0.08);border:1px solid rgba(0,168,114,0.25);">Step machine now · Running when the gate opens</div>
+      </div>
+    </div>
+    <div class="int-row">
+      <div class="int-n" style="color:var(--amber);">3</div>
+      <div class="int-b">
+        <div class="int-t">Mobility isn't recovery — it's the hidden performance multiplier</div>
+        <div class="int-p">Tight hip flexors reduce glute activation through reciprocal inhibition. Limited thoracic rotation reduces the power transfer in a tennis groundstroke. Restricted ankle mobility changes knee mechanics under load. <strong>Ten minutes of mobility work daily — hip flexor stretching, thoracic rotation, ankle circles — produces measurable improvements in the quality of every gym session, every step machine session, and eventually every tennis session.</strong> It is the intervention with the highest carry-over to everything else, and the one most consistently skipped because it does not feel like training.</div>
+        <div class="tag-pill tp-a">The multiplier that makes every other modality work better</div>
+      </div>
+    </div>
+    <div class="int-row">
+      <div class="int-n" style="color:#6a9ab0;">4</div>
+      <div class="int-b">
+        <div class="int-t">Swimming is the mental reset no other modality provides</div>
+        <div class="int-p">Swimming in water produces a measurable parasympathetic (rest-and-digest) nervous system response — the combination of sensory restriction, breath-regulated rhythm, and hydrostatic pressure reduces cortisol and activates the vagus nerve more reliably than any land-based exercise. <strong>At 44, with significant professional and life demands, a 30-minute swim once or twice a week is not just physical training — it is one of the most powerful cortisol management tools available.</strong> The anxiety, stress, and nervous system chapters all point toward this same result through different mechanisms. Swimming achieves it through direct physiological action.</div>
+        <div class="tag-pill tp-sl">The cortisol reset · anxiety intervention · recovery tool</div>
+      </div>
+    </div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     MY OPTIMAL WEEK
+════════════════════════════════════ -->
+<div class="pane" id="week">
+<div class="dk1"><div class="w">
+  <div class="dr" style="margin-top:0;">My optimal week <em>— the full prescription, everything combined</em></div>
+  <div class="body-sm" style="color:var(--dk-2);margin-bottom:36px;max-width:660px;">This is the one-stop view. Every modality, every nutrition principle, every recovery intervention — integrated into a single weekly structure. This is what the optimal version of your week looks like right now, in Phase 1. It evolves as the programme progresses.</div>
+
+  <!-- Weekly schedule grid -->
+  <div class="dr">Phase 1 optimal week <em>— weeks 1–4</em></div>
+  <div class="week-grid">
+    <!-- Headers -->
+    <div class="wg-head"></div>
+    <div class="wg-head hl">Mon</div>
+    <div class="wg-head">Tue</div>
+    <div class="wg-head hl">Wed</div>
+    <div class="wg-head">Thu</div>
+    <div class="wg-head hl">Fri</div>
+    <div class="wg-head">Sat</div>
+    <div class="wg-head">Sun</div>
+
+    <!-- Gym -->
+    <div class="wg-label">Gym</div>
+    <div class="wg-cell gym key">Push session<br>06:00</div>
+    <div class="wg-cell rest">—</div>
+    <div class="wg-cell gym key">Pull session<br>06:00</div>
+    <div class="wg-cell rest">—</div>
+    <div class="wg-cell gym key">Posterior<br>chain 06:00</div>
+    <div class="wg-cell gym">Upper<br>session</div>
+    <div class="wg-cell rest">—</div>
+
+    <!-- Step machine -->
+    <div class="wg-label">Step machine</div>
+    <div class="wg-cell rest">—</div>
+    <div class="wg-cell step key">Zone 2<br>20–25 min</div>
+    <div class="wg-cell rest">—</div>
+    <div class="wg-cell step key">Zone 2<br>20–25 min</div>
+    <div class="wg-cell step">Post-session<br>finisher 10 min</div>
+    <div class="wg-cell rest">—</div>
+    <div class="wg-cell rest">—</div>
+
+    <!-- Swimming -->
+    <div class="wg-label">Swimming</div>
+    <div class="wg-cell rest">—</div>
+    <div class="wg-cell swim">Optional<br>30 min</div>
+    <div class="wg-cell rest">—</div>
+    <div class="wg-cell swim key">Ideal slot<br>30–40 min</div>
+    <div class="wg-cell rest">—</div>
+    <div class="wg-cell rest">—</div>
+    <div class="wg-cell swim">Optional<br>30 min</div>
+
+    <!-- Mobility -->
+    <div class="wg-label">Mobility</div>
+    <div class="wg-cell mob">10 min<br>morning</div>
+    <div class="wg-cell mob">10 min<br>morning</div>
+    <div class="wg-cell mob">10 min<br>morning</div>
+    <div class="wg-cell mob">10 min<br>morning</div>
+    <div class="wg-cell mob">Hip flexors<br>pre-session</div>
+    <div class="wg-cell mob">10 min<br>morning</div>
+    <div class="wg-cell mob key">Yin yoga<br>30 min</div>
+
+    <!-- Nutrition focus -->
+    <div class="wg-label">Nutrition</div>
+    <div class="wg-cell" style="font-size:9px;">Training day<br>2,950 kcal</div>
+    <div class="wg-cell" style="font-size:9px;">Rest day<br>2,700 kcal</div>
+    <div class="wg-cell" style="font-size:9px;">Training day<br>2,950 kcal</div>
+    <div class="wg-cell" style="font-size:9px;">Carb load<br>for Friday</div>
+    <div class="wg-cell" style="font-size:9px;color:var(--jade);font-weight:500;">Peak day<br>3,050 kcal</div>
+    <div class="wg-cell" style="font-size:9px;">Training day<br>2,950 kcal</div>
+    <div class="wg-cell" style="font-size:9px;">Flex day<br>one rule</div>
+
+    <!-- Priority -->
+    <div class="wg-label">Priority</div>
+    <div class="wg-cell" style="font-size:9px;color:var(--jade);">Chest/push<br>stimulus</div>
+    <div class="wg-cell" style="font-size:9px;color:#6a9ab0;">Recovery<br>+ aerobic</div>
+    <div class="wg-cell" style="font-size:9px;color:var(--jade);">Back/pull<br>stimulus</div>
+    <div class="wg-cell" style="font-size:9px;color:var(--gold);">Prep Friday<br>sleep early</div>
+    <div class="wg-cell" style="font-size:9px;color:var(--jade);font-weight:600;">GLUTES<br>POSTERIOR</div>
+    <div class="wg-cell" style="font-size:9px;color:var(--jade);">Upper body<br>volume</div>
+    <div class="wg-cell" style="font-size:9px;color:var(--amber);">Reset<br>recharge</div>
+  </div>
+
+  <!-- Phase 2 evolution note -->
+  <div class="lv jade" style="margin-bottom:28px;">
+    <div class="lv-eye" style="color:var(--jade);">Phase 2 evolution (weeks 5–8)</div>
+    <div class="lv-t">Running enters. Swimming becomes more structured. Step machine intensity increases.</div>
+    <div class="lv-b">At weeks 5–8: straight-line running begins — 5-minute walk/run intervals on Tuesday, replacing or supplementing the step machine session. Target 20 continuous minutes by week 8. Thursday swimming becomes the non-negotiable recovery session given the increased load. Saturday can add optional HIIT on the step machine (10 min, 30s on/90s off × 5) for those weeks when recovery is confirmed clean.</div>
+  </div>
+
+  <!-- Integration principles -->
+  <div class="dr">How the pieces interact <em>— the logic behind the schedule</em></div>
+  <div>
+    <div class="int-row">
+      <div class="int-n">1</div>
+      <div class="int-b">
+        <div class="int-t">Thursday is the most strategically important non-training day of the week</div>
+        <div class="int-p">Thursday determines Friday. Sleep quality, glycogen loading (the carb-heavy Thursday lunch), swimming for joint decompression, and the hip flexor mobility work all serve one purpose: arriving at Friday's posterior chain session in the best possible physiological state. <strong>The step machine on Tuesday depletes glycogen slightly, making Thursday's carb load more effective — a mild glycogen supercompensation effect going into the week's most important session.</strong> Thursday evening: no alcohol, early bed, magnesium glycinate. The system is designed around Friday.</div>
+        <div class="tag-pill tp-j">Thursday is Friday's preparation</div>
+      </div>
+    </div>
+    <div class="int-row">
+      <div class="int-n">2</div>
+      <div class="int-b">
+        <div class="int-t">Swimming goes on rest days — specifically because they're rest days</div>
+        <div class="int-p">The physiological benefit of swimming for recovery depends on it occurring when the muscular and nervous system stress from resistance training is at its highest — the day after a session. Tuesday swimming follows Monday's push session. Thursday swimming follows Wednesday's pull session. The joint decompression, synovial circulation, and parasympathetic activation are most valuable precisely when the gym has created the conditions that need them. <strong>Swimming on a training day would reduce its recovery value significantly and create additional fatigue before the next session.</strong></div>
+        <div class="tag-pill tp-sl">Rest day swimming amplifies recovery from training day gym</div>
+      </div>
+    </div>
+    <div class="int-row">
+      <div class="int-n">3</div>
+      <div class="int-b">
+        <div class="int-t">Sunday is the reset — not just a rest day</div>
+        <div class="int-p">The one-rule Sunday nutrition protocol (protein only, everything else flexible) serves psychological recovery as much as physiological. The yin yoga session on Sunday produces the mobility improvements that persist through the following training week. <strong>Sunday swimming, when it happens, should be unhurried — recreational rather than structured. The goal is parasympathetic reset, not cardiovascular adaptation.</strong> The body needs one day per week where effort is absent and recovery is the only agenda.</div>
+        <div class="tag-pill tp-a">Sunday is active recovery, not additional training</div>
+      </div>
+    </div>
+    <div class="int-row">
+      <div class="int-n">4</div>
+      <div class="int-b">
+        <div class="int-t">The nutrition system is already integrated with the activity system</div>
+        <div class="int-p">Training day calories (2,950 kcal) vs rest day calories (2,700 kcal) vs Thursday carb-load vs Friday peak (3,050 kcal) are not arbitrary — they are calculated against the energy demands of each day's specific activity combination. <strong>When swimming is added on Tuesday or Thursday, the caloric requirement adjusts: a 30-minute swim burns approximately 250–350 kcal depending on intensity and stroke.</strong> On days combining step machine and swimming, total expenditure increases meaningfully — eat to target, not to restriction. The surplus goal (+200 kcal) applies to net intake after all activity expenditure.</div>
+        <div class="tag-pill tp-j">Add swimming → add ~250–350 kcal to that day's target</div>
+      </div>
+    </div>
+    <div class="int-row">
+      <div class="int-n">5</div>
+      <div class="int-b">
+        <div class="int-t">The single metric that tells you if the week was optimal</div>
+        <div class="int-p">You do not need to track every variable to know if the system is working. One number tells you everything: <strong>did the hip thrust go up this week?</strong> The hip thrust requires adequate sleep (for hormones and recovery), adequate nutrition (for energy and MPS), managed stress (for cortisol:testosterone ratio), progressive mobility (for full hip extension), and quality training (for the actual stimulus). If all of those things are working correctly, the hip thrust progresses. If it stalls for two consecutive weeks, something in the system has failed — and the system above tells you where to look.</div>
+        <div class="tag-pill tp-j">Hip thrust progression = proof of concept for the entire week</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- The full system summary -->
+  <div class="dr" style="margin-top:40px;">Everything in one place <em>— the complete optimised system</em></div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:40px;">
+    <div style="background:var(--ink-2);padding:20px 18px;">
+      <div style="font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--jade);margin-bottom:10px;">Training</div>
+      <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.75;">4× gym (push/pull/posterior/upper) · 2× step machine Zone 2 · 1× step machine finisher · 1–2× swimming · Daily mobility 10 min · 1× yin yoga Sunday</div>
+    </div>
+    <div style="background:var(--ink-2);padding:20px 18px;">
+      <div style="font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;">Nutrition</div>
+      <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.75;">185g protein daily · 2,700–3,050 kcal by day type · Thursday carb-load · Post-session protein within 30 min · Fermented food daily · 30g fibre daily · Adjust upward on swim days</div>
+    </div>
+    <div style="background:var(--ink-2);padding:20px 18px;">
+      <div style="font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#6a9ab0;margin-bottom:10px;">Recovery &amp; wellbeing</div>
+      <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.75;">8h sleep non-negotiable · Morning sunlight 10 min · Magnesium glycinate nightly · Ashwagandha daily · Physiological sigh when stress arrives · No alcohol Thursday · Sunday as reset</div>
+    </div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     GUT & DIGESTION (existing — unchanged)
+════════════════════════════════════ -->
+<div class="pane" id="gut">
 <div class="dk"><div class="w">
 
   <div class="dr" style="margin-top:0;">Gut &amp; digestion <em>— your second brain</em></div>
