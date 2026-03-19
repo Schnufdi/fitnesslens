@@ -94,6 +94,21 @@ body { background: var(--ink); color: var(--dk-1); }
 .ldo-j { background:var(--jade-dim);border:1px solid var(--jade-br);color:var(--jade); }
 .ldo-a { background:rgba(196,124,24,0.08);border:1px solid rgba(196,124,24,0.25);color:var(--amber); }
 
+/* DARK MECHANISM CARDS */
+.mc { background:var(--ink-2);border:1px solid var(--bd);border-radius:6px;padding:20px 22px;margin-bottom:10px;transition:border-color 0.15s; }
+.mc:hover { border-color:var(--bd-2); }
+.mc.jade  { border-left:3px solid var(--jade); }
+.mc.amber { border-left:3px solid var(--amber); }
+.mc.red   { border-left:3px solid var(--red); }
+.mc-eye  { font-size:9px;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;margin-bottom:7px; }
+.mc-t    { font-family:var(--serif);font-size:20px;font-weight:500;color:var(--dk-1);margin-bottom:7px;line-height:1.15; }
+.mc-body { font-size:13px;font-weight:300;color:var(--dk-2);line-height:1.78; }
+.mc-body strong { color:var(--dk-1);font-weight:500; }
+.mc-action { margin-top:10px;padding:9px 13px;border-radius:4px;font-size:12px;font-weight:300;line-height:1.6; }
+.mc-action::before { content:'→ ';font-weight:600; }
+.act-j { background:rgba(0,200,160,0.06);border:1px solid var(--jade-br);color:var(--jade); }
+.act-a { background:var(--amber-dim);border:1px solid var(--amber-br);color:var(--amber); }
+
 /* BRISTOL STOOL CHART */
 .bsc { display:grid;grid-template-columns:60px 1fr auto;gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:28px; }
 .bsc-row { display:contents; }
@@ -890,35 +905,35 @@ body { background: var(--ink); color: var(--dk-1); }
     <div class="mc-eye" style="color:var(--jade);">Serotonin — the mood stabiliser</div>
     <div class="mc-t">Produced in the gut · activated by sunlight, exercise, and social connection</div>
     <div class="mc-body">95% gut-produced (see Gut section). Serotonin provides emotional stability, delayed gratification, and resistance to low mood — not euphoria (that's dopamine). <strong>The primary serotonin activators: morning sunlight (direct effect on serotonin synthesis in the raphe nuclei), vigorous exercise (increases tryptophan transport across the blood-brain barrier, the precursor to serotonin), gut health (the primary production site), and social connection.</strong> Tryptophan-rich foods (turkey, eggs, oats, Greek yoghurt) provide the raw material. Your programme covers exercise, gut foods, and the protein sources — morning sunlight is the gap.</div>
-    <div class="lc-do ldo-j">10–15 min morning sunlight + daily exercise + gut health + tryptophan-rich protein = serotonin activation stack</div>
+    <div class="mc-action act-j">10–15 min morning sunlight + daily exercise + gut health + tryptophan-rich protein = serotonin activation stack</div>
   </div>
 
   <div class="mc amber">
     <div class="mc-eye" style="color:var(--amber);">Dopamine — the motivation and reward molecule</div>
     <div class="mc-t">Drives towards goals · depleted by shortcuts · built by delayed gratification</div>
     <div class="mc-body">Dopamine is not the pleasure molecule — it is the anticipation and motivation molecule. It is released before reward, not during it. <strong>The modern environment provides constant low-effort dopamine (social media, food delivery, streaming) that raises the baseline required for satisfaction and makes effortful activities feel less rewarding.</strong> The protocol for healthy dopamine: complete effortful tasks before accessing easy rewards; limit passive scrolling to defined windows; allow boredom occasionally (it resets the dopamine baseline); celebrate genuine achievements with non-food, non-screen rewards. Your training programme is one of the strongest natural dopamine systems available — progressive overload provides a continuous stream of genuine, earned accomplishment.</div>
-    <div class="lc-do ldo-a">Effortful goals before easy rewards · training provides sustainable dopamine · limit passive dopamine sources</div>
+    <div class="mc-action act-a">Effortful goals before easy rewards · training provides sustainable dopamine · limit passive dopamine sources</div>
   </div>
 
   <div class="mc jade">
     <div class="mc-eye" style="color:var(--jade);">Endorphins — the exercise reward</div>
     <div class="mc-t">Released during sustained moderate-to-high intensity work</div>
     <div class="mc-body">Endorphins are endogenous opioids released during sustained exercise, social laughter, and certain music experiences. <strong>The endorphin release from your training sessions contributes directly to post-workout mood elevation and the sense of wellbeing that follows hard physical work.</strong> Research shows the endorphin response is highest from moderate-to-high intensity work sustained for 20+ minutes — which encompasses your Monday, Wednesday, Friday, and Saturday sessions. Social laughter produces equivalent endorphin release to exercise — a genuine physiological reason that social connection matters for mood beyond psychology.</div>
-    <div class="lc-do ldo-j">Sustained training releases endorphins · so does genuine social laughter · both are physiological interventions</div>
+    <div class="mc-action act-j">Sustained training releases endorphins · so does genuine social laughter · both are physiological interventions</div>
   </div>
 
   <div class="mc amber">
     <div class="mc-eye" style="color:var(--amber);">The hedonic baseline — why more doesn't feel like more</div>
     <div class="mc-t">Hedonic adaptation and how to work with it</div>
     <div class="mc-body">Humans adapt to positive circumstances faster than to negative ones. A pay rise, a new home, an achievement — the mood boost is real but typically decays within weeks to months as the new baseline is established. <strong>This is not cynicism — it is the hedonic treadmill, and understanding it changes strategy.</strong> The interventions that resist hedonic adaptation: variety and novelty in experiences rather than possessions; genuine social connection (adapts more slowly than material goods); regular exposure to mild difficulty (resets appreciation for the baseline); and the gratitude practice — not as spiritual exercise but as deliberate attentional direction toward what already exists, which measurably slows hedonic adaptation.</div>
-    <div class="lc-do ldo-j">Novel experiences + social connection + managed difficulty + attentional practice = hedonic adaptation resistance</div>
+    <div class="mc-action act-j">Novel experiences + social connection + managed difficulty + attentional practice = hedonic adaptation resistance</div>
   </div>
 
   <div class="mc jade">
     <div class="mc-eye" style="color:var(--jade);">The Vitamin D connection — light, mood, and season</div>
     <div class="mc-t">Your D3 supplementation is mood medicine as well as performance medicine</div>
     <div class="mc-body">Vitamin D receptors are present throughout the brain, including in areas governing mood regulation (hippocampus, prefrontal cortex). Vitamin D deficiency is strongly associated with depression and seasonal affective disorder. <strong>Your D3 3,000 IU daily is the direct intervention for UK latitude-induced Vitamin D insufficiency</strong> — which affects 50–60% of the UK population during October–April. At the dose you're taking, this is a genuine mood stabilisation intervention, not just bone health. Serotonin synthesis is also partially regulated by D3 — another connection between your supplementation and the serotonin system.</div>
-    <div class="lc-do ldo-j">D3 3,000 IU already in your stack · mood, serotonin, and seasonal affective protection · active year-round</div>
+    <div class="mc-action act-j">D3 3,000 IU already in your stack · mood, serotonin, and seasonal affective protection · active year-round</div>
   </div>
 
 </div></div>
