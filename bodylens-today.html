@@ -56,19 +56,25 @@ body{display:flex;flex-direction:column;background:var(--ink);color:var(--dk-1);
   <div class="nav-links">
     <a class="nav-link active" href="bodylens-today.html">Today</a>
     <a class="nav-link" href="bodylens-week.html">Week</a>
+    <a class="nav-link" href="bodylens-progress.html">Progress</a>
+    <div class="nav-sep"></div>
     <a class="nav-link" href="bodylens-profile.html">Profile</a>
+    <a class="nav-link" href="bodylens-nonneg.html">Non-Neg</a>
+    <div class="nav-sep"></div>
     <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
     <a class="nav-link" href="bodylens-fuel.html">Fuel</a>
-    <a class="nav-link" href="bodylens-body.html">Body</a>
-    <a class="nav-link" href="bodylens-training.html">Training</a>
-    <a class="nav-link" href="bodylens-weightloss.html">Weight Loss</a>
     <a class="nav-link" href="bodylens-hunger.html">Hunger</a>
     <a class="nav-link" href="bodylens-alcohol.html">Alcohol</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-body.html">Body</a>
+    <a class="nav-link" href="bodylens-training.html">Training</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-weightloss.html">Weight Loss</a>
     <a class="nav-link" href="bodylens-longevity.html">Longevity</a>
-    <a class="nav-link" href="bodylens-progress.html">Progress</a>
+    <a class="nav-link" href="bodylens-optimal.html">Optimal</a>
     <a class="nav-link" href="bodylens-science.html">Science</a>
-    <a class="nav-link" href="bodylens-nonneg.html">Non-Neg</a>
-    <a class="nav-link" href="bodylens-studio.html" style="border-left:1px solid var(--bd);color:var(--dk-3);opacity:0.5;">Studio</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-studio.html" style="opacity:0.4;">Studio</a>
   </div>
   <div class="nav-meta">
     <span class="nav-tag nt-go">Meniscus protocol</span>
@@ -210,16 +216,15 @@ body{display:flex;flex-direction:column;background:var(--ink);color:var(--dk-1);
 
         <!-- Recipe inspiration -->
         <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--bd);">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-            <div>
-              <div class="title-sm">Recipe inspiration</div>
-              <div class="body-sm" style="margin-top:2px;">Loose ideas — not measured to the gram. Throw these things together.</div>
-            </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <div class="title-sm">Recipe inspiration</div>
             <button class="shuffle-btn" onclick="refreshRecipes()">
               <span class="shuffle-icon">✦</span>
               New ideas
             </button>
           </div>
+          <!-- Narrator voice -->
+          <div id="recipe-narrator" style="font-family:var(--serif);font-size:16px;font-weight:300;font-style:italic;line-height:1.75;color:var(--dk-2);border-left:2px solid var(--jade-br);padding-left:16px;margin-bottom:18px;"></div>
           <div id="recipe-cards"></div>
         </div>
       </div>
@@ -793,6 +798,22 @@ function renderRecipes(idx) {
     currentRecipeIndices = pickRandom(pool.length, 3);
   }
 
+  // Narrator voice — different by day type
+  const narratorLines = d.exercises ? [
+    'Go wild on the spinach — pile it in, wilt it down, eat the whole bag if you want. The protein portion is doing the heavy lifting so keep that measured, but everything green? Unlimited. This is a training day, so the carbs earn their place.',
+    'Load up on the vegetables — they\'re free calories that fill you up and feed the gut. The chicken or fish is the anchor; everything else is just playing around it. Build the plate, don\'t overthink it.',
+    'The protein is the one thing to be precise about. Everything else — the greens, the herbs, the olive oil, the lemon — just be generous. Cooking should feel relaxed. The macros are already doing the work.',
+    'Think of it this way: protein portion is measured, greens are unlimited, carbs are timed. Within that structure, you\'re free to play. These are loose ideas — throw them together, eat well, don\'t stress the gram.',
+  ] : [
+    'Rest day means leaning into the anti-inflammatory stuff — the salmon, the mackerel, the olive oil, the turmeric. Go heavy on the vegetables, light on the starchy carbs. The gut is doing repair work today.',
+    'No training means no urgency around fast carbs. Fill the plate with colour — roasted veg, leafy greens, a handful of walnuts, some good fat. The protein anchors everything; the rest is you being generous with the good stuff.',
+    'Today is about quality over structure. The omega-3 sources (salmon, mackerel, sardines) are the stars today. Add as many vegetables as you want — they\'re working for you at a cellular level, not just filling space.',
+    'Spinach, broccoli, rocket — pile it all in. It\'s all going somewhere useful. Keep the protein measured and lean on rest days, let everything else be abundant. This is food as medicine and it should feel like a decent meal too.',
+  ];
+  const narrator = narratorLines[Math.floor(Math.random() * narratorLines.length)];
+  const narratorEl = document.getElementById('recipe-narrator');
+  if (narratorEl) narratorEl.textContent = narrator;
+
   const container = document.getElementById('recipe-cards');
   if (!container) return;
 
@@ -814,7 +835,7 @@ function refreshRecipes() {
   const d = DAYS[currentDay];
   const pool = d.exercises ? RECIPES.training : RECIPES.rest;
   currentRecipeIndices = pickRandom(pool.length, 3);
-  renderRecipes(currentDay);
+  renderRecipes(currentDay);  // narrator refresh is inside renderRecipes
 }
 
 function pickRandom(max, n) {

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BodyLens — Optimal Machine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+body { background: var(--ink); color: var(--dk-1); }
+
+/* HERO */
+.hero { padding:72px 48px 68px; border-bottom:1px solid var(--bd); position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 900px 500px at 60% 50%, rgba(0,200,160,0.04) 0%, rgba(200,148,30,0.02) 50%, transparent 70%); pointer-events:none; }
+.hi { max-width:1080px; margin:0 auto; position:relative; z-index:1; }
+.h-eye { font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--jade);margin-bottom:18px;display:flex;align-items:center;gap:12px; }
+.h-eye::before { content:'';width:28px;height:1px;background:var(--jade); }
+.h-title { font-family:var(--serif);font-size:76px;font-weight:300;line-height:0.9;letter-spacing:-0.03em;color:var(--dk-1);margin-bottom:28px; }
+.h-title em { font-style:italic;color:var(--dk-3); }
+.h-grid { display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:36px;align-items:start; }
+.h-voice { font-family:var(--serif);font-size:18px;font-weight:300;font-style:italic;line-height:1.82;color:var(--dk-2);border-left:2px solid var(--jade-br);padding-left:22px; }
+.h-systems { display:flex;flex-direction:column;gap:0; }
+.hs { display:grid;grid-template-columns:120px 1fr;border-bottom:1px solid var(--bd);padding:10px 0;align-items:baseline;gap:16px; }
+.hs:first-child { border-top:1px solid var(--bd); }
+.hs-sys { font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--dk-3); }
+.hs-status { font-size:12px;font-weight:500; }
+
+/* STICKY TABS */
+.tabs { background:var(--ink-1);border-bottom:1px solid var(--bd);position:sticky;top:60px;z-index:100;padding:0 48px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none; }
+.tabs::-webkit-scrollbar { display:none; }
+.tab { font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:13px 18px;border:none;background:transparent;color:var(--dk-3);cursor:pointer;font-family:var(--sans);white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color 0.15s; }
+.tab:hover { color:var(--dk-2); }
+.tab.active { color:var(--jade);border-bottom-color:var(--jade); }
+
+/* PANES */
+.pane { display:none; }
+.pane.active { display:block; }
+.dk  { background:var(--ink);   padding:64px 0; }
+.dk1 { background:var(--ink-1); padding:64px 0; border-top:1px solid var(--bd); }
+.lt  { background:var(--paper); padding:64px 0; }
+.lt1 { background:var(--paper-1);padding:64px 0; }
+.w   { max-width:1080px;margin:0 auto;padding:0 48px; }
+
+/* RULES */
+.dr { display:flex;align-items:center;gap:14px;margin:0 0 32px;font-size:10px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--dk-3); }
+.dr em { font-style:normal;color:var(--jade); }
+.dr::after { content:'';flex:1;height:1px;background:var(--bd); }
+.lr { display:flex;align-items:center;gap:14px;margin:0 0 28px;font-size:10px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--lt-3); }
+.lr::after { content:'';flex:1;height:1px;background:var(--bl-2); }
+
+/* STATEMENT BLOCK */
+.stm { display:grid;grid-template-columns:56px 1fr;border-top:1px solid var(--bd);transition:background 0.15s; }
+.stm:hover { background:rgba(255,255,255,0.018); }
+.stm:hover .sn { color:var(--jade); }
+.sn { padding:32px 0;display:flex;align-items:flex-start;justify-content:center;border-right:1px solid var(--bd);font-family:var(--serif);font-size:44px;font-weight:300;color:var(--dk-3);line-height:1;transition:color 0.2s; }
+.sb { padding:28px 36px; }
+.st { font-family:var(--serif);font-size:27px;font-weight:400;color:var(--dk-1);margin-bottom:10px;line-height:1.1;letter-spacing:-0.01em; }
+.sp { font-size:13px;font-weight:300;color:var(--dk-2);line-height:1.9;max-width:600px; }
+.sp strong { color:var(--dk-1);font-weight:500; }
+.tag { display:inline-flex;align-items:center;margin-top:12px;font-size:11px;font-weight:600;letter-spacing:0.04em;padding:5px 13px;border-radius:20px; }
+.tg { color:var(--jade); background:var(--jade-dim); border:1px solid var(--jade-br); }
+.ta { color:var(--amber);background:var(--amber-dim);border:1px solid var(--amber-br); }
+.tr { color:var(--red);  background:var(--red-dim);  border:1px solid var(--red-br); }
+.tl { color:var(--gold); background:var(--gold-dim); border:1px solid var(--gold-br); }
+
+/* LEVER CARD (dark) */
+.lv { background:var(--ink-2);border:1px solid var(--bd);border-radius:6px;padding:20px 22px;margin-bottom:10px;transition:border-color 0.15s; }
+.lv:hover { border-color:var(--bd-2); }
+.lv.jade  { border-left:3px solid var(--jade); }
+.lv.amber { border-left:3px solid var(--amber); }
+.lv.red   { border-left:3px solid var(--red); }
+.lv.gold  { border-left:3px solid var(--gold);background:var(--gold-dim);border-color:var(--gold-br); }
+.lv-eye  { font-size:9px;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;margin-bottom:7px; }
+.lv-t    { font-family:var(--serif);font-size:20px;font-weight:500;color:var(--dk-1);margin-bottom:7px;line-height:1.15; }
+.lv-b    { font-size:13px;font-weight:300;color:var(--dk-2);line-height:1.78; }
+.lv-b strong { color:var(--dk-1);font-weight:500; }
+.lv-do { margin-top:10px;padding:9px 13px;border-radius:4px;font-size:12px;font-weight:300;line-height:1.6; }
+.lv-do::before { content:'→ ';font-weight:600; }
+.do-j { background:rgba(0,200,160,0.06);border:1px solid var(--jade-br);color:var(--jade); }
+.do-a { background:var(--amber-dim);border:1px solid var(--amber-br);color:var(--amber); }
+
+/* LIGHT CARD */
+.lc { background:var(--paper-1);border:1px solid var(--bl);border-radius:6px;padding:20px 22px;margin-bottom:10px;transition:all 0.15s; }
+.lc:hover { border-color:var(--bl-2);box-shadow:0 2px 14px rgba(0,0,0,0.07); }
+.lc.jade  { border-left:3px solid var(--jade); }
+.lc.amber { border-left:3px solid var(--amber); }
+.lc-eye { font-size:9px;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;margin-bottom:7px; }
+.lc-t   { font-family:var(--serif);font-size:20px;font-weight:500;color:var(--lt-1);margin-bottom:7px;line-height:1.15; }
+.lc-b   { font-size:13px;font-weight:300;color:var(--lt-2);line-height:1.78; }
+.lc-b strong { color:var(--lt-1);font-weight:500; }
+.lc-do { margin-top:10px;padding:9px 13px;border-radius:4px;font-size:12px;font-weight:300;line-height:1.6; }
+.lc-do::before { content:'→ ';font-weight:600; }
+.ldo-j { background:var(--jade-dim);border:1px solid var(--jade-br);color:var(--jade); }
+.ldo-a { background:rgba(196,124,24,0.08);border:1px solid rgba(196,124,24,0.25);color:var(--amber); }
+
+/* BRISTOL STOOL CHART */
+.bsc { display:grid;grid-template-columns:60px 1fr auto;gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:28px; }
+.bsc-row { display:contents; }
+.bsc-row > div { padding:12px 16px;background:var(--ink-2); }
+.bsc-row.target > div { background:rgba(0,200,160,0.06); }
+.bsc-row.ok > div     { background:rgba(196,124,24,0.05); }
+.bsc-row.flag > div   { background:rgba(217,78,53,0.05); }
+.bsc-num { font-family:var(--serif);font-size:28px;font-weight:300;line-height:1;display:flex;align-items:center;justify-content:center; }
+.bsc-row.target .bsc-num { color:var(--jade); }
+.bsc-row.ok     .bsc-num { color:var(--amber); }
+.bsc-row.flag   .bsc-num { color:var(--red); }
+.bsc-desc { }
+.bsc-name { font-size:13px;font-weight:600;color:var(--dk-1);margin-bottom:2px; }
+.bsc-body { font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.55; }
+.bsc-status { display:flex;align-items:center;font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap; }
+
+/* ENERGY CURVE VISUAL */
+.curve-container { margin-bottom:28px; }
+.curve-label { font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px; }
+.curve-track { display:flex;align-items:flex-end;height:48px;gap:2px;background:var(--ink-3);border-radius:4px;padding:4px; }
+.curve-bar { flex:1;border-radius:2px;transition:height 0.3s; }
+.curve-times { display:flex;gap:0;margin-top:4px; }
+.ct { flex:1;font-family:var(--mono);font-size:9px;color:var(--dk-3);text-align:center; }
+
+/* LEVER GRID */
+.lever-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px; }
+.lever-tile { background:var(--ink-2);border:1px solid var(--bd);border-radius:6px;padding:18px 20px; }
+.lever-tile.on  { border-top:2px solid var(--jade); }
+.lever-tile.off { border-top:2px solid var(--red);opacity:0.6; }
+.lever-tile.neutral { border-top:2px solid var(--dk-3); }
+.lt-eye { font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px; }
+.lt-t   { font-family:var(--serif);font-size:17px;font-weight:500;color:var(--dk-1);margin-bottom:5px;line-height:1.15; }
+.lt-b   { font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.65; }
+.lt-b strong { color:var(--dk-1);font-weight:500; }
+
+/* DAILY DASHBOARD */
+.dash { display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:28px; }
+.dash-cell { background:var(--ink-2);padding:18px 16px; }
+.dash-cell.highlight { background:rgba(0,200,160,0.06);border:1px solid var(--jade-br); }
+.dc-icon { font-size:20px;margin-bottom:8px; }
+.dc-label { font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--dk-3);margin-bottom:6px; }
+.dc-title { font-size:13px;font-weight:600;color:var(--dk-1);margin-bottom:5px;line-height:1.2; }
+.dc-body  { font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.6; }
+
+/* CALLOUT */
+.callout { background:var(--ink-2);border:1px solid var(--jade-br);border-radius:6px;padding:28px 32px;position:relative;overflow:hidden;margin-bottom:14px; }
+.callout::before { content:'Your profile';position:absolute;top:14px;right:16px;font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--jade);background:var(--jade-dim);border:1px solid var(--jade-br);padding:3px 10px;border-radius:20px; }
+.co-t { font-family:var(--serif);font-size:26px;font-weight:400;color:var(--jade);margin-bottom:10px;line-height:1.1; }
+.co-b { font-size:13px;font-weight:300;color:var(--dk-2);line-height:1.85; }
+.co-b strong { color:var(--dk-1);font-weight:500; }
+
+@media(max-width:900px){
+  .hero{padding:40px 18px 48px;} .h-grid{grid-template-columns:1fr;}
+  .w{padding:0 18px;} .tabs{padding:0 18px;}
+  .lever-grid{grid-template-columns:1fr;} .dash{grid-template-columns:1fr 1fr;}
+  .bsc{grid-template-columns:40px 1fr auto;} .dk,.dk1,.lt,.lt1{padding:48px 0;}
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-brand">Body<em>Lens</em></div>
+  <div class="nav-links">
+    <a class="nav-link" href="bodylens-today.html">Today</a>
+    <a class="nav-link" href="bodylens-week.html">Week</a>
+    <a class="nav-link" href="bodylens-progress.html">Progress</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-profile.html">Profile</a>
+    <a class="nav-link" href="bodylens-nonneg.html">Non-Neg</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
+    <a class="nav-link" href="bodylens-fuel.html">Fuel</a>
+    <a class="nav-link" href="bodylens-hunger.html">Hunger</a>
+    <a class="nav-link" href="bodylens-alcohol.html">Alcohol</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-body.html">Body</a>
+    <a class="nav-link" href="bodylens-training.html">Training</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-weightloss.html">Weight Loss</a>
+    <a class="nav-link" href="bodylens-longevity.html">Longevity</a>
+    <a class="nav-link active" href="bodylens-optimal.html">Optimal</a>
+    <a class="nav-link" href="bodylens-science.html">Science</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-studio.html" style="opacity:0.4;">Studio</a>
+  </div>
+  <div class="nav-meta">
+    <span class="nav-tag nt-go">Meniscus protocol</span>
+    <span class="nav-tag nt-jade">Balanced precision</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hi">
+    <div class="h-eye">Optimal machine · Whole-person systems</div>
+    <div class="h-title">Every system.<br><em>Every lever.</em></div>
+    <div class="h-grid">
+      <div class="h-voice">
+        Your body is not a collection of separate parts. Gut health changes mood. Sleep quality drives testosterone. Anxiety amplifies cortisol which promotes visceral fat which disrupts insulin which impairs energy. Everything is connected. This page maps every system — gut, brain, energy, mood, anxiety, focus — identifies the levers that move them, and connects them to what you are already doing. The goal is not peak performance in one area. It is the stable, interconnected baseline where everything works together.
+      </div>
+      <div class="h-systems">
+        <div class="hs"><div class="hs-sys">Gut health</div><div class="hs-status" style="color:var(--amber);">Manageable · fibre + fermented foods key</div></div>
+        <div class="hs"><div class="hs-sys">Energy</div><div class="hs-status" style="color:var(--jade);">Strong foundation · timing optimises it</div></div>
+        <div class="hs"><div class="hs-sys">Brain power</div><div class="hs-status" style="color:var(--jade);">Significant levers available</div></div>
+        <div class="hs"><div class="hs-sys">Anxiety</div><div class="hs-status" style="color:var(--amber);">Hormonal roots · addressable directly</div></div>
+        <div class="hs"><div class="hs-sys">Mood</div><div class="hs-status" style="color:var(--jade);">Gut-brain axis + sleep + training</div></div>
+        <div class="hs"><div class="hs-sys">Focus</div><div class="hs-status" style="color:var(--jade);">Dopamine management + glycaemic stability</div></div>
+        <div class="hs"><div class="hs-sys">Hormones</div><div class="hs-status" style="color:var(--amber);">44 · actively managed · stack doing heavy lifting</div></div>
+        <div class="hs"><div class="hs-sys">Inflammation</div><div class="hs-status" style="color:var(--jade);">Well-controlled · omega-3 stack working</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="tabs">
+  <button class="tab active" onclick="show('gut',this)">Gut &amp; digestion</button>
+  <button class="tab" onclick="show('energy',this)">Energy systems</button>
+  <button class="tab" onclick="show('brain',this)">Brain &amp; focus</button>
+  <button class="tab" onclick="show('anxiety',this)">Anxiety &amp; stress</button>
+  <button class="tab" onclick="show('mood',this)">Mood &amp; happiness</button>
+  <button class="tab" onclick="show('hormones',this)">Hormones</button>
+  <button class="tab" onclick="show('dashboard',this)">Daily dashboard</button>
+</div>
+
+
+<!-- ════════════════════════════════════
+     GUT & DIGESTION
+════════════════════════════════════ -->
+<div class="pane active" id="gut">
+<div class="dk"><div class="w">
+
+  <div class="dr" style="margin-top:0;">Gut &amp; digestion <em>— your second brain</em></div>
+  <div class="body-sm" style="color:var(--dk-2);margin-bottom:36px;max-width:640px;">The gut is not a passive tube. It contains 500 million neurons (the enteric nervous system), produces 95% of your serotonin, houses 70% of your immune system, and communicates bidirectionally with the brain via the vagus nerve. Gut health is mood health, immune health, and metabolic health simultaneously.</div>
+
+  <!-- Bristol Stool Chart -->
+  <div class="dr">The Bristol Stool Chart <em>— your daily diagnostic</em></div>
+  <div class="body-sm" style="color:var(--dk-2);margin-bottom:16px;max-width:540px;">The most accessible real-time gut health marker available. What you produce every morning tells you whether yesterday's food, hydration, fibre, and stress were optimal.</div>
+  <div class="bsc">
+    <div class="bsc-row flag"><div class="bsc-num">1</div><div class="bsc-desc"><div class="bsc-name">Separate hard lumps</div><div class="bsc-body">Severe constipation. Transit time too long. Insufficient water and fibre. Dehydration, low movement, or too much processed food.</div></div><div class="bsc-status" style="color:var(--red);">⚠ Act</div></div>
+    <div class="bsc-row flag"><div class="bsc-num">2</div><div class="bsc-desc"><div class="bsc-name">Lumpy, sausage-shaped</div><div class="bsc-body">Mild constipation. Transit time slightly long. Add 500ml more water, more fibre, more movement. Usually resolves in 24–48h.</div></div><div class="bsc-status" style="color:var(--amber);">↑ Fibre</div></div>
+    <div class="bsc-row target"><div class="bsc-num">3</div><div class="bsc-desc"><div class="bsc-name">Sausage with surface cracks</div><div class="bsc-body">Normal. Slightly firm. Acceptable but could be better. Slightly more fibre and hydration would improve to Type 4.</div></div><div class="bsc-status" style="color:var(--jade);">✓ Good</div></div>
+    <div class="bsc-row target"><div class="bsc-num">4</div><div class="bsc-desc"><div class="bsc-name">Smooth sausage or snake</div><div class="bsc-body"><strong>The target.</strong> Optimal transit time. Fibre, hydration, and gut motility all working. Consistent Type 4 = gut is in good shape. This is what a well-fed, well-hydrated, active person produces.</div></div><div class="bsc-status" style="color:var(--jade);">✦ Target</div></div>
+    <div class="bsc-row ok"><div class="bsc-num">5</div><div class="bsc-desc"><div class="bsc-name">Soft blobs with clear edges</div><div class="bsc-body">Slightly fast transit. Borderline soft. Usually still normal — common after a high-fibre day or during heavy training. Monitor pattern over 2–3 days.</div></div><div class="bsc-status" style="color:var(--amber);">↓ Watch</div></div>
+    <div class="bsc-row flag"><div class="bsc-num">6</div><div class="bsc-desc"><div class="bsc-name">Fluffy, mushy, ragged edges</div><div class="bsc-body">Mild diarrhoea. Transit time too fast. Possible causes: stress, alcohol, food sensitivity, gut inflammation, or gut dysbiosis. If persistent 3+ days: investigate.</div></div><div class="bsc-status" style="color:var(--red);">⚠ Monitor</div></div>
+    <div class="bsc-row flag"><div class="bsc-num">7</div><div class="bsc-desc"><div class="bsc-name">Entirely liquid, no solids</div><div class="bsc-body">Acute diarrhoea. GI infection, severe dysbiosis, or serious reaction. Rehydrate with electrolytes. If lasting more than 48h, seek medical advice.</div></div><div class="bsc-status" style="color:var(--red);">⚠ Act</div></div>
+  </div>
+
+  <!-- Gut levers -->
+  <div class="stm">
+    <div class="sn">1</div>
+    <div class="sb">
+      <div class="st">30 plants per week — the microbiome diversity target</div>
+      <div class="sp">The gut microbiome contains approximately 38 trillion microorganisms. The single strongest predictor of microbiome diversity — and diversity correlates directly with health outcomes including immune function, mood, and metabolic health — is the variety of plant foods consumed. <strong>Eating 30 different plant foods per week produces measurably more diverse and healthier microbiomes than eating fewer, according to the American Gut Project.</strong> Each plant contains different fibres (prebiotics) that feed different bacterial populations. The spinach, broccoli, blueberries, oats, walnuts, sweet potato, and other plant foods already in your protocol are accumulating toward this target. Count them: each different plant is one point regardless of amount.</div>
+      <div class="tag tg">30 plants/week · count varieties not portions · already building toward this</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">2</div>
+    <div class="sb">
+      <div class="st">The gut-brain axis — your serotonin is made in your gut, not your brain</div>
+      <div class="sp">95% of serotonin (the primary mood-regulating neurotransmitter) is produced and stored in the enteric nervous system of the gut. The vagus nerve carries signals from gut to brain (not primarily brain to gut — that is a common misconception). <strong>Gut dysbiosis — an imbalance in the gut bacteria population — directly reduces serotonin production and alters the signals sent up the vagus nerve, producing measurable anxiety, low mood, and cognitive impairment independent of any psychological cause.</strong> This means fixing gut health is, mechanistically, fixing mood and anxiety. It is not metaphorical. The fermented foods (Greek yoghurt), diverse plant fibre, and omega-3 in your protocol are all gut-brain axis interventions.</div>
+      <div class="tag tg">95% of serotonin is gut-made · gut dysbiosis produces anxiety and low mood mechanistically</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">3</div>
+    <div class="sb">
+      <div class="st">Fibre — the most important gut variable and the most under-consumed nutrient in Western diets</div>
+      <div class="sp">The UK average fibre intake is 17–18g per day. The target is 30g. Fibre serves three distinct gut functions: <strong>insoluble fibre</strong> (broccoli, spinach, oats) adds bulk and speeds transit, preventing constipation. <strong>Soluble fibre</strong> (oats, legumes, apples) forms a gel in the gut, slowing glucose absorption and feeding beneficial bacteria. <strong>Prebiotic fibre</strong> (garlic, onions, bananas, oats) specifically feeds Bifidobacterium and Lactobacillus — the anti-inflammatory, mood-supporting bacterial populations. Your oats (4g fibre), spinach (2g per 100g), blueberries (2.4g per 100g), and sweet potato (3g per 100g) are the primary fibre contributors. Add more legumes (lentils, chickpeas) and you hit 30g easily.</div>
+      <div class="tag tg">Target 30g fibre daily · diverse types matter as much as total · legumes are the gap-filler</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">4</div>
+    <div class="sb">
+      <div class="st">Fermented foods — the fastest microbiome diversity intervention available</div>
+      <div class="sp">A landmark 2021 Stanford study compared high-fibre vs high-fermented-food diets for microbiome impact. <strong>High-fermented food consumption (yoghurt, kefir, kimchi, sauerkraut, kombucha) produced rapid microbiome diversification within 6 weeks, while high-fibre alone was slower and more variable.</strong> The combination was the most powerful. Your daily Greek yoghurt is the minimum effective dose. Adding one additional fermented food (a tablespoon of kimchi or sauerkraut with dinner, or kefir instead of milk in the morning) measurably amplifies the effect. These are not health trends — they are bacterial inoculation events that actively populate the gut with beneficial species.</div>
+      <div class="tag tg">Greek yoghurt daily + 1 additional fermented food = fastest microbiome improvement available</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">5</div>
+    <div class="sb">
+      <div class="st">Gut motility — why your training, hydration, and meal timing all affect digestion</div>
+      <div class="sp">Gut motility (the rate at which food moves through the digestive tract) is regulated by the enteric nervous system, vagal tone, and the migrating motor complex (MMC) — a wave of muscular contractions that "sweeps" the intestines clean during fasting periods. <strong>The MMC activates between meals, not during them.</strong> This is one of the strongest arguments for consistent meal timing with 4-hour gaps: the MMC has time to function between meals. Grazing continuously disrupts MMC activity and reduces gut motility. Exercise (your daily training) is also a powerful MMC stimulant — a primary mechanism behind why regular exercisers have better gut health and fewer digestive complaints than sedentary individuals. Hydration (1.5–2L daily minimum) is the mechanical lubricant for the whole system.</div>
+      <div class="tag ta">4h gaps between meals + 2L water daily + daily movement = optimal gut motility</div>
+    </div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     ENERGY SYSTEMS
+════════════════════════════════════ -->
+<div class="pane" id="energy">
+<div class="dk1"><div class="w">
+  <div class="dr" style="margin-top:0;">Energy systems <em>— the architecture of your day</em></div>
+  <div class="body-sm" style="color:var(--dk-2);margin-bottom:36px;max-width:640px;">Human energy is not a battery that depletes linearly. It operates as interlocking systems — ATP-PCr for explosive work, glycolytic for high-intensity, oxidative for endurance — plus a chronobiological pattern that determines when in the day each system is most available.</div>
+
+  <!-- Energy curve -->
+  <div class="curve-container">
+    <div class="curve-label" style="color:var(--jade);">Optimised energy curve (your current protocol)</div>
+    <div class="curve-track">
+      <div class="curve-bar" style="height:30%;background:var(--dk-3);opacity:0.5;"></div>
+      <div class="curve-bar" style="height:55%;background:var(--jade);opacity:0.7;"></div>
+      <div class="curve-bar" style="height:85%;background:var(--jade);"></div>
+      <div class="curve-bar" style="height:95%;background:var(--jade);"></div>
+      <div class="curve-bar" style="height:90%;background:var(--jade);opacity:0.9;"></div>
+      <div class="curve-bar" style="height:80%;background:var(--amber);opacity:0.8;"></div>
+      <div class="curve-bar" style="height:60%;background:var(--amber);opacity:0.6;"></div>
+      <div class="curve-bar" style="height:45%;background:var(--dk-3);opacity:0.5;"></div>
+    </div>
+    <div class="curve-times"><div class="ct">06</div><div class="ct">07:30</div><div class="ct">09</div><div class="ct">11</div><div class="ct">13</div><div class="ct">15</div><div class="ct">17</div><div class="ct">21</div></div>
+  </div>
+  <div class="curve-container" style="margin-bottom:28px;">
+    <div class="curve-label" style="color:var(--red);">Unmanaged energy curve (poor sleep, skipped breakfast, early coffee)</div>
+    <div class="curve-track">
+      <div class="curve-bar" style="height:15%;background:var(--red);opacity:0.4;"></div>
+      <div class="curve-bar" style="height:60%;background:var(--amber);opacity:0.7;"></div>
+      <div class="curve-bar" style="height:85%;background:var(--jade);"></div>
+      <div class="curve-bar" style="height:40%;background:var(--red);opacity:0.6;"></div>
+      <div class="curve-bar" style="height:65%;background:var(--amber);opacity:0.7;"></div>
+      <div class="curve-bar" style="height:30%;background:var(--red);opacity:0.5;"></div>
+      <div class="curve-bar" style="height:70%;background:var(--amber);opacity:0.6;"></div>
+      <div class="curve-bar" style="height:85%;background:var(--red);opacity:0.5;"></div>
+    </div>
+    <div class="curve-times"><div class="ct">06</div><div class="ct">07:30</div><div class="ct">09</div><div class="ct">11</div><div class="ct">13</div><div class="ct">15</div><div class="ct">17</div><div class="ct">21</div></div>
+    <div style="font-size:11px;color:var(--dk-3);margin-top:6px;font-style:italic;">Caffeine spike → crash → glucose crash → artificial boost → cortisol dip → second wind → can't sleep.</div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">1</div>
+    <div class="sb">
+      <div class="st">Mitochondrial density is the biological foundation of sustained energy</div>
+      <div class="sp">Energy (ATP) is produced in mitochondria. The more mitochondria your cells contain, and the more efficiently they operate, the more sustainable energy you have throughout the day. <strong>Zone 2 cardio (your Tuesday/Thursday step machine protocol) is the primary stimulus for mitochondrial biogenesis</strong> — it activates PGC-1α, the master regulator of mitochondrial production. This is why aerobically fit people have consistently better energy levels at rest — it is not psychological, it is cellular. More mitochondria = more ATP production capacity = less fatigue at the same effort level. Every Zone 2 session is an energy system investment that pays dividends for years.</div>
+      <div class="tag tg">Zone 2 cardio → mitochondrial biogenesis → more cellular energy capacity permanently</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">2</div>
+    <div class="sb">
+      <div class="st">Glycaemic stability is the single most controllable energy variable day-to-day</div>
+      <div class="sp">Blood glucose fluctuations drive energy peaks and crashes directly. The insulin spike from a high-GI breakfast produces a blood glucose rise that the body overshoots with insulin, causing a rapid fall — the 10am energy crash. <strong>Replacing high-GI breakfast items with slow-carb + protein + fat (your oats + whey + peanut butter protocol) produces a flat glucose curve that sustains energy for 3–4 hours without the crash.</strong> Continuous glucose monitoring studies show that two people eating the same meal can have completely different glucose responses — but the structure of slow carb + protein + fat consistently produces flatter curves than fast carb + low protein. The mid-afternoon energy dip (14:00–15:00) has a similar mechanism: a lunch with inadequate protein and high-GI carbs produces a glucose crash 2 hours later. Protein-first lunch with slow carbs prevents it.</div>
+      <div class="tag tg">Flat glucose curve = flat energy curve · protein + slow carbs + fat at every meal</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">3</div>
+    <div class="sb">
+      <div class="st">The caffeine timing equation — you're probably using it wrong</div>
+      <div class="sp">Adenosine is the sleep pressure molecule — it accumulates throughout the day and binds to receptors in the brain, producing fatigue. Caffeine works by blocking adenosine receptors. <strong>The problem: cortisol naturally peaks in the first 90 minutes after waking and already blocks many adenosine receptors. Caffeine taken during this window produces tolerance faster, blunts the effect, and then the double drop (cortisol fall + caffeine metabolisation) creates the afternoon energy crash.</strong> Delaying your first coffee 60–90 minutes after waking means the caffeine lands after the cortisol peak — amplifying rather than duplicating the natural alerting signal. The caffeine effect is stronger, lasts longer, and the afternoon drop is smaller. Same two flat whites. Meaningfully different energy architecture.</div>
+      <div class="tag ta">Move first coffee 60–90 min post-wake · same caffeine · better energy curve all day</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">4</div>
+    <div class="sb">
+      <div class="st">Creatine is an energy supplement — not just a muscle supplement</div>
+      <div class="sp">The phosphocreatine system (ATP-PCr) provides energy for the first 10–15 seconds of high-intensity effort and also supports rapid cognitive tasks that require short burst energy. <strong>Creatine supplementation increases phosphocreatine stores in both muscle and brain.</strong> Multiple studies in the last decade show creatine supplementation improves cognitive performance — particularly working memory, processing speed, and mental fatigue resistance — especially under sleep deprivation. At 44, the cognitive energy benefits of creatine are increasingly well-evidenced. Your 5g daily dose is doing this. It is an energy supplement for the brain as much as a performance supplement for the gym.</div>
+      <div class="tag tg">Creatine improves brain energy (phosphocreatine) as well as muscle performance · already in your stack</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">5</div>
+    <div class="sb">
+      <div class="st">Iron and B12 — the two deficiencies most responsible for unexplained fatigue</div>
+      <div class="sp">Iron is required for haemoglobin (oxygen transport to cells) and for mitochondrial function. B12 is required for red blood cell production and myelin sheath maintenance in neurons. <strong>Both deficiencies produce fatigue that exercise and caffeine cannot override — because they are producing cellular energy failure, not motivational failure.</strong> Ferritin (stored iron) below 50 µg/L is associated with fatigue even when haemoglobin is still normal. B12 deficiency is more common in men in their 40s who have been taking metformin, PPIs, or have lower gastric acid production. Test both annually. Your red meat consumption (steak, sirloin) and the vitamin C in your collagen protocol both support iron absorption.</div>
+      <div class="tag ta">Test ferritin + B12 annually · fatigue that doesn't resolve with sleep is often nutritional</div>
+    </div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     BRAIN & FOCUS
+════════════════════════════════════ -->
+<div class="pane" id="brain">
+<div class="lt"><div class="w">
+  <div class="lr" style="margin-top:0;">Brain &amp; focus <em>— the neuroscience of peak cognitive function</em></div>
+  <div class="body-sm" style="color:var(--lt-2);margin-bottom:36px;max-width:640px;">Cognitive performance follows the same principles as physical performance — it requires appropriate fuel, recovery, and stimulus. The levers for improving focus, memory, and cognitive endurance are specific and evidence-based.</div>
+
+  <div class="lever-grid">
+    <div class="lever-tile on">
+      <div class="lt-eye" style="color:var(--jade);">✓ Already active</div>
+      <div class="lt-t">Exercise — the strongest cognitive enhancer available</div>
+      <div class="lt-b">Resistance training and Zone 2 cardio both increase BDNF (brain-derived neurotrophic factor) — the primary growth factor for neurons. <strong>A single session of moderate-intensity exercise increases BDNF for 2–4 hours post-session</strong> — this is the "runner's high" mechanism extended to cognitive function. BDNF promotes neuroplasticity, new synapse formation, and hippocampal volume. Training 4 days per week provides regular BDNF pulses that cumulatively maintain and improve cognitive function. At 44, this is also the primary Alzheimer's prevention intervention available.</div>
+    </div>
+    <div class="lever-tile on">
+      <div class="lt-eye" style="color:var(--jade);">✓ Already active</div>
+      <div class="lt-t">Omega-3 EPA/DHA — neuronal membrane fluidity</div>
+      <div class="lt-b">DHA is the primary structural fatty acid in neuronal cell membranes — it determines how fluidly and efficiently signals propagate across synapses. <strong>Low DHA is associated with slower processing speed, lower working memory, and increased depression risk.</strong> Your 3g EPA/DHA daily is directly maintaining neuronal membrane composition. Multiple meta-analyses confirm omega-3 supplementation improves cognitive performance, particularly in the 40+ age group where DHA accumulation in the brain begins declining.</div>
+    </div>
+    <div class="lever-tile on">
+      <div class="lt-eye" style="color:var(--jade);">✓ Already active</div>
+      <div class="lt-t">Creatine — phosphocreatine for the brain</div>
+      <div class="lt-b">The brain uses creatine for rapid energy during cognitive tasks. <strong>Creatine supplementation improves working memory and processing speed under fatigue</strong> — the conditions most common during a demanding work day. The 5g daily dose is sufficient for both muscle and brain saturation.</div>
+    </div>
+    <div class="lever-tile on">
+      <div class="lt-eye" style="color:var(--jade);">✓ Already active</div>
+      <div class="lt-t">Sleep — the glymphatic clearance system</div>
+      <div class="lt-b">During sleep, the glymphatic system (a fluid clearance network in the brain) is 60% more active than during waking. <strong>It clears beta-amyloid and tau proteins — the same proteins that accumulate in Alzheimer's.</strong> Chronic sleep deprivation impairs glymphatic clearance and is associated with accelerated cognitive decline. Your 8h sleep target directly addresses this.</div>
+    </div>
+    <div class="lever-tile neutral">
+      <div class="lt-eye" style="color:var(--amber);">↑ Add this</div>
+      <div class="lt-t">Morning sunlight — the circadian anchor for cortisol and alertness</div>
+      <div class="lt-b"><strong>10–15 minutes of morning sunlight within 30–60 minutes of waking</strong> sets the circadian rhythm via retinal photoreceptors signalling the suprachiasmatic nucleus. This anchors the cortisol awakening response, improves focus for the subsequent 2–4 hours, and advances sleep onset in the evening. Free, immediate, and one of the highest-evidence alertness interventions available. Open a window or step outside while drinking water on waking.</div>
+    </div>
+    <div class="lever-tile neutral">
+      <div class="lt-eye" style="color:var(--amber);">↑ Add this</div>
+      <div class="lt-t">Lion's Mane mushroom — NGF stimulation</div>
+      <div class="lt-b">Lion's Mane (Hericium erinaceus) contains hericenones and erinacines that stimulate NGF (nerve growth factor) — promoting neurite outgrowth and neuroplasticity. <strong>Double-blind studies show improved cognitive function scores in adults over 40.</strong> 500–1,000mg daily with breakfast. Not a replacement for any existing supplement — an additive layer for cognitive optimisation. The most evidence-backed cognitive supplement not already in your stack.</div>
+    </div>
+    <div class="lever-tile neutral">
+      <div class="lt-eye" style="color:var(--amber);">↑ Add this</div>
+      <div class="lt-t">L-Tyrosine — dopamine and noradrenaline precursor for focus</div>
+      <div class="lt-b">L-Tyrosine is the amino acid precursor to dopamine, noradrenaline, and adrenaline. <strong>Under stress or cognitive load, dopamine and noradrenaline are depleted faster than the brain can replenish them.</strong> 500–1,000mg L-Tyrosine 30–60 minutes before demanding cognitive work repletes the precursor pool, maintaining dopaminergic focus and working memory under pressure. Best effect under conditions of stress or sleep deprivation — exactly the conditions where focus degrades fastest.</div>
+    </div>
+    <div class="lever-tile neutral">
+      <div class="lt-eye" style="color:var(--amber);">↑ Optimise timing</div>
+      <div class="lt-t">Cognitive work timing — peak performance window</div>
+      <div class="lt-b">For most chronotypes, peak cognitive performance (highest processing speed, working memory, and attention) occurs 2–4 hours after waking. <strong>For a 06:00 wake time, this is 08:00–10:00.</strong> Schedule the most cognitively demanding work here — creative problem-solving, complex analysis, writing. Administrative tasks, meetings, and reactive work belong in the afternoon where cognitive performance is lower but social/emotional processing is actually better.</div>
+    </div>
+  </div>
+
+  <!-- Focus killers -->
+  <div class="lr">The biggest focus killers — what degrades cognitive performance</div>
+  <div class="lc red">
+    <div class="lc-eye" style="color:var(--red);">Focus killer #1</div>
+    <div class="lc-t">Glucose crashes — the mid-morning and post-lunch brain fog</div>
+    <div class="lc-b">As described in Energy Systems, a high-GI breakfast produces a glucose crash 90–120 minutes later. This crash is registered by the brain as a mild hypoglycaemic event — producing impaired concentration, working memory failure, and what feels like brain fog. <strong>The oats + whey + peanut butter breakfast specifically prevents this by producing a flat glucose curve.</strong> Post-lunch brain fog has the same mechanism — high-GI lunch → insulin spike → glucose crash → 2pm cognitive impairment. Fix the lunch: protein first, slow carbs, good fat.</div>
+  </div>
+  <div class="lc amber">
+    <div class="lc-eye" style="color:var(--amber);">Focus killer #2</div>
+    <div class="lc-t">Notification-driven dopamine fragmentation</div>
+    <div class="lc-b">Each notification ping produces a small dopamine hit. Over time, the brain becomes habituated to these frequent micro-rewards and finds sustained focused work — which requires longer dopamine buildup cycles — progressively harder. <strong>Phone notifications during cognitively demanding work do not just distract — they chemically interrupt the neurological state required for deep focus.</strong> The practical fix: phone in another room during peak cognitive hours (08:00–10:00). This is not productivity advice. It is dopamine system management.</div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     ANXIETY & STRESS
+════════════════════════════════════ -->
+<div class="pane" id="anxiety">
+<div class="dk"><div class="w">
+  <div class="dr" style="margin-top:0;">Anxiety &amp; stress <em>— the biology, the levers, the protocol</em></div>
+  <div class="body-sm" style="color:var(--dk-2);margin-bottom:36px;max-width:640px;">Anxiety is not a psychological weakness. It is a physiological state — elevated amygdala activity, dysregulated HPA axis, cortisol-noradrenaline co-activation — that can be measured, addressed with specific interventions, and managed at the hormonal level. The tools exist. Most people never use them.</div>
+
+  <div class="stm">
+    <div class="sn">1</div>
+    <div class="sb">
+      <div class="st">The HPA axis is the anxiety machine — and it is directly modifiable</div>
+      <div class="sp">The hypothalamic-pituitary-adrenal (HPA) axis is the primary stress response system. In response to perceived threat (real or psychological), the hypothalamus releases CRH, which triggers ACTH from the pituitary, which triggers cortisol from the adrenal glands. Cortisol then activates the sympathetic nervous system, producing the physical symptoms of anxiety: racing heart, tight chest, shallow breathing, heightened vigilance. <strong>Chronic anxiety is chronic HPA axis hyperactivation</strong> — a system stuck in elevated alert. This is not a character failing. It is a physiological dysregulation that responds to specific interventions: Ashwagandha (your stack already includes this, reducing cortisol 25–30%), magnesium (your magnesium glycinate directly downregulates NMDA receptors that drive HPA hyperactivation), Zone 2 exercise (reduces HPA axis reactivity over time), and deep breathing (directly activates the vagus nerve, shifting the autonomic nervous system toward parasympathetic/calm).</div>
+      <div class="tag tg">HPA axis hyperactivation = anxiety · Ashwagandha + Mg + Zone 2 + breathing = direct intervention</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">2</div>
+    <div class="sb">
+      <div class="st">The physiological sigh — the fastest anxiety intervention available, anywhere, any time</div>
+      <div class="sp">This specific breathing pattern — one normal inhale through the nose, followed by a second shorter inhale through the nose (double inhale), followed by a long slow exhale through the mouth — activates the parasympathetic nervous system more rapidly than any other breathing technique. Research by Huberman et al. shows the physiological sigh produces <strong>the fastest real-time reduction in subjective anxiety and physiological stress markers of any tested intervention.</strong> The mechanism: the double inhale re-inflates alveoli (small air sacs) that have collapsed under stress, and the extended exhale stimulates vagal tone. One to three physiological sighs produce measurable calm within 30–60 seconds. Use it whenever anxiety is acute: before a difficult meeting, when cortisol spikes, or when an anxious thought loop begins.</div>
+      <div class="tag tg">Double inhale through nose → long exhale through mouth · 1–3 repetitions · 30–60 seconds to effect</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">3</div>
+    <div class="sb">
+      <div class="st">Magnesium glycinate — the most evidence-backed non-pharmaceutical anxiolytic</div>
+      <div class="sp">Magnesium is required for GABA receptor function — GABA is the primary inhibitory neurotransmitter that counterbalances glutamate-driven excitation. Low magnesium means insufficient GABA signalling, which produces a more easily triggered, more persistent anxiety response. <strong>Magnesium glycinate (400mg before bed, already in your stack) reduces amygdala excitability, downregulates NMDA receptor hyperactivation, and improves sleep architecture</strong> — all three of which are primary anxiety maintenance mechanisms. The glycinate form is used because glycine is also inhibitory and has independent anxiolytic effects. This is not a sedative. It is a neurological quieter that restores appropriate inhibition to an overactive system.</div>
+      <div class="tag tg">Already in your stack · taking effect nightly · most evidence-backed anxiolytic supplement available</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">4</div>
+    <div class="sb">
+      <div class="st">Exercise is anxiety medicine — more reliably than most people realise</div>
+      <div class="sp">A single session of moderate-intensity exercise produces anxiolytic effects lasting 2–4 hours via multiple pathways: <strong>GABA release during exercise; endorphin-mediated opioid receptor activation; noradrenaline modulation in the locus coeruleus (the brain's primary anxiety generator); and sustained reduction in amygdala reactivity</strong> with regular training. Meta-analyses comparing exercise to pharmaceutical anxiolytics in generalised anxiety disorder find effect sizes that are broadly comparable, with exercise showing superior long-term outcomes at 6 and 12 months. Your Monday push session produces the most acute anxiolytic effect of the week — training a hard session when anxiety is elevated is neurologically rational, not avoidant.</div>
+      <div class="tag tg">Session produces 2–4h anxiolytic effect · regular training reduces baseline amygdala reactivity</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">5</div>
+    <div class="sb">
+      <div class="st">L-Theanine — the calm focus compound in your morning tea</div>
+      <div class="sp">L-Theanine is an amino acid found in green tea that produces calm alertness without sedation. It works by increasing alpha brain wave activity (the relaxed, creative state) while simultaneously modulating glutamate and GABA pathways. <strong>Combined with caffeine, it produces what the research describes as "alert calmness" — the focus of caffeine without the jitteriness or anxiety amplification that caffeine alone can produce in anxious individuals.</strong> 200mg L-Theanine with your coffee is one of the cleanest, most evidence-backed combinations for calm cognitive performance under pressure. It is available as a supplement or consumed naturally in 2–3 cups of green tea. If your flat whites sometimes produce anxiety or jitteriness, L-Theanine is the direct pharmacological fix.</div>
+      <div class="tag ta">200mg L-Theanine with coffee · cancels caffeine anxiety · adds calm focus · green tea naturally contains it</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">6</div>
+    <div class="sb">
+      <div class="st">Cold exposure — deliberate discomfort as a stress inoculation tool</div>
+      <div class="sp">Brief cold exposure (a cold shower for 30–90 seconds, or cold water immersion) produces a powerful noradrenaline and dopamine surge — 200–300% increases have been measured. Critically, the anxiety and aversion of cold exposure teaches the prefrontal cortex to regulate the stress response under discomfort. <strong>Regular cold exposure effectively trains the HPA axis response — lowering baseline cortisol and improving the speed of cortisol recovery after acute stress.</strong> The dopamine release also has a mood-enhancing effect that lasts 2–4 hours. This is not a fringe biohack — Huberman, Attia, and the research literature consistently support it. A cold shower ending of 30–60 seconds 3–4 mornings per week is sufficient for the neurological adaptation.</div>
+      <div class="tag ta">Cold shower finish 30–60s · 3–4 mornings/week · HPA calibration + dopamine + mood effect</div>
+    </div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     MOOD & HAPPINESS
+════════════════════════════════════ -->
+<div class="pane" id="mood">
+<div class="lt1"><div class="w">
+  <div class="lr" style="margin-top:0;">Mood &amp; happiness <em>— the neuroscience of wellbeing</em></div>
+  <div class="body-sm" style="color:var(--lt-2);margin-bottom:36px;max-width:640px;">Happiness is not a mindset. It is a neurochemical state produced by specific inputs: serotonin, dopamine, oxytocin, and endorphins — each with specific biological drivers. The goal is not happiness as a constant state but as a stable baseline that is resilient to external disruption.</div>
+
+  <div class="lc jade">
+    <div class="lc-eye" style="color:var(--jade);">Serotonin — the mood stabiliser</div>
+    <div class="lc-t">Produced in the gut · activated by sunlight, exercise, and social connection</div>
+    <div class="lc-b">95% gut-produced (see Gut section). Serotonin provides emotional stability, delayed gratification, and resistance to low mood — not euphoria (that's dopamine). <strong>The primary serotonin activators: morning sunlight (direct effect on serotonin synthesis in the raphe nuclei), vigorous exercise (increases tryptophan transport across the blood-brain barrier, the precursor to serotonin), gut health (the primary production site), and social connection.</strong> Tryptophan-rich foods (turkey, eggs, oats, Greek yoghurt) provide the raw material. Your programme covers exercise, gut foods, and the protein sources — morning sunlight is the gap.</div>
+    <div class="lc-do ldo-j">10–15 min morning sunlight + daily exercise + gut health + tryptophan-rich protein = serotonin activation stack</div>
+  </div>
+
+  <div class="lc amber">
+    <div class="lc-eye" style="color:var(--amber);">Dopamine — the motivation and reward molecule</div>
+    <div class="lc-t">Drives towards goals · depleted by shortcuts · built by delayed gratification</div>
+    <div class="lc-b">Dopamine is not the pleasure molecule — it is the anticipation and motivation molecule. It is released before reward, not during it. <strong>The modern environment provides constant low-effort dopamine (social media, food delivery, streaming) that raises the baseline required for satisfaction and makes effortful activities feel less rewarding.</strong> The protocol for healthy dopamine: complete effortful tasks before accessing easy rewards; limit passive scrolling to defined windows; allow boredom occasionally (it resets the dopamine baseline); celebrate genuine achievements with non-food, non-screen rewards. Your training programme is one of the strongest natural dopamine systems available — progressive overload provides a continuous stream of genuine, earned accomplishment.</div>
+    <div class="lc-do ldo-a">Effortful goals before easy rewards · training provides sustainable dopamine · limit passive dopamine sources</div>
+  </div>
+
+  <div class="lc jade">
+    <div class="lc-eye" style="color:var(--jade);">Endorphins — the exercise reward</div>
+    <div class="lc-t">Released during sustained moderate-to-high intensity work</div>
+    <div class="lc-b">Endorphins are endogenous opioids released during sustained exercise, social laughter, and certain music experiences. <strong>The endorphin release from your training sessions contributes directly to post-workout mood elevation and the sense of wellbeing that follows hard physical work.</strong> Research shows the endorphin response is highest from moderate-to-high intensity work sustained for 20+ minutes — which encompasses your Monday, Wednesday, Friday, and Saturday sessions. Social laughter produces equivalent endorphin release to exercise — a genuine physiological reason that social connection matters for mood beyond psychology.</div>
+    <div class="lc-do ldo-j">Sustained training releases endorphins · so does genuine social laughter · both are physiological interventions</div>
+  </div>
+
+  <div class="lc amber">
+    <div class="lc-eye" style="color:var(--amber);">The hedonic baseline — why more doesn't feel like more</div>
+    <div class="lc-t">Hedonic adaptation and how to work with it</div>
+    <div class="lc-b">Humans adapt to positive circumstances faster than to negative ones. A pay rise, a new home, an achievement — the mood boost is real but typically decays within weeks to months as the new baseline is established. <strong>This is not cynicism — it is the hedonic treadmill, and understanding it changes strategy.</strong> The interventions that resist hedonic adaptation: variety and novelty in experiences rather than possessions; genuine social connection (adapts more slowly than material goods); regular exposure to mild difficulty (resets appreciation for the baseline); and the gratitude practice — not as spiritual exercise but as deliberate attentional direction toward what already exists, which measurably slows hedonic adaptation.</div>
+    <div class="lc-do ldo-j">Novel experiences + social connection + managed difficulty + attentional practice = hedonic adaptation resistance</div>
+  </div>
+
+  <div class="lc jade">
+    <div class="lc-eye" style="color:var(--jade);">The Vitamin D connection — light, mood, and season</div>
+    <div class="lc-t">Your D3 supplementation is mood medicine as well as performance medicine</div>
+    <div class="lc-b">Vitamin D receptors are present throughout the brain, including in areas governing mood regulation (hippocampus, prefrontal cortex). Vitamin D deficiency is strongly associated with depression and seasonal affective disorder. <strong>Your D3 3,000 IU daily is the direct intervention for UK latitude-induced Vitamin D insufficiency</strong> — which affects 50–60% of the UK population during October–April. At the dose you're taking, this is a genuine mood stabilisation intervention, not just bone health. Serotonin synthesis is also partially regulated by D3 — another connection between your supplementation and the serotonin system.</div>
+    <div class="lc-do ldo-j">D3 3,000 IU already in your stack · mood, serotonin, and seasonal affective protection · active year-round</div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     HORMONES
+════════════════════════════════════ -->
+<div class="pane" id="hormones">
+<div class="dk1"><div class="w">
+  <div class="dr" style="margin-top:0;">Hormones at 44 <em>— the full picture and every lever</em></div>
+  <div class="body-sm" style="color:var(--dk-2);margin-bottom:36px;max-width:640px;">The hormonal environment at 44 is significantly different from 30 — but it is far more modifiable than most people realise. Every hormone with a meaningful lever is covered here.</div>
+
+  <div class="stm">
+    <div class="sn">1</div>
+    <div class="sb">
+      <div class="st">Testosterone — the master performance hormone, and what actually moves it</div>
+      <div class="sp">Testosterone at 44 is typically 20–30% lower than peak (late 20s). The levers that meaningfully raise it without pharmaceutical intervention:
+        <br><br><strong>Sleep (most powerful):</strong> 8h produces 15–20% higher testosterone than 6h — independently measured across multiple studies.
+        <br><strong>Resistance training (especially posterior chain):</strong> Heavy compound movements (deadlift, hip thrust, squat) produce the largest acute testosterone spike of any exercise.
+        <br><strong>Dietary fat:</strong> Testosterone is synthesised from cholesterol. The hormonal floor of 80–85g fat per day is not an arbitrary number — it is the minimum substrate for testosterone production. Low-fat diets measurably suppress testosterone.
+        <br><strong>Ashwagandha KSM-66 600mg:</strong> 10–15% testosterone increase in multiple RCTs in resistance-trained men. Already in your stack.
+        <br><strong>Zinc:</strong> Required cofactor for testosterone synthesis. Heavy training depletes zinc through sweat. ZMA on hard training days addresses this.
+        <br><strong>Vitamin D3:</strong> D3 receptors in the Leydig cells govern steroidogenesis. Deficiency directly reduces testosterone synthesis. Your 3,000 IU already addresses this.
+        <br><br>The combination of all six levers — optimised sleep, heavy posterior chain training, adequate dietary fat, Ashwagandha, zinc, and D3 — can maintain a testosterone level equivalent to a biological age 5–8 years younger. The stack is not incidental. It is deliberately engineered for this outcome.</div>
+      <div class="tag tg">Six levers · all active · equivalent to 5–8 biological years of testosterone advantage</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">2</div>
+    <div class="sb">
+      <div class="st">Cortisol management — the ratio matters as much as the absolute level</div>
+      <div class="sp">Cortisol is not the enemy — it is the primary stress adaptation hormone and essential for morning alerting and acute performance. The problem is the cortisol-to-testosterone ratio and the duration of cortisol elevation. <strong>Chronic high cortisol, regardless of absolute testosterone level, produces a net catabolic state: muscle breakdown accelerates, visceral fat accumulates, and the brain's anxiety system hyperactivates.</strong> The levers: Ashwagandha directly reduces cortisol output. Zone 2 cardio reduces HPA axis reactivity over weeks. Adequate sleep allows the natural cortisol night-time nadir to reach its lowest point, preventing the chronically elevated baseline that disturbs the next morning's cortisol awakening response. Rest days are cortisol management as much as recovery.</div>
+      <div class="tag tg">Cortisol:testosterone ratio is the key metric · Ashwagandha + sleep + rest days manage it</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">3</div>
+    <div class="sb">
+      <div class="st">Growth hormone — the overnight repairman you are either funding or denying</div>
+      <div class="sp">GH is released in pulses, primarily during slow-wave sleep in the first 90 minutes after sleep onset. It drives muscle protein synthesis, fat oxidation, connective tissue repair, and immune function. <strong>GH output declines approximately 15% per decade from the 20s — but sleep quality is a more powerful GH determinant than age.</strong> A 44-year-old with 8h high-quality sleep produces more GH per night than a 35-year-old with 5h. The GH levers: deep slow-wave sleep (magnesium glycinate extends this); collagen + Vitamin C pre-training (both directly stimulate collagen synthesis alongside GH); heavy resistance training (largest acute GH stimulus available); and avoiding alcohol within 3–4h of sleep (which suppresses the hypothalamic GHRH signal that initiates GH release).</div>
+      <div class="tag tg">Sleep quality determines GH more than age · your stack specifically maximises the GH window</div>
+    </div>
+  </div>
+
+  <div class="stm">
+    <div class="sn">4</div>
+    <div class="sb">
+      <div class="st">Insulin sensitivity — the metabolic lever that affects everything else</div>
+      <div class="sp">Insulin sensitivity determines how efficiently glucose is removed from the bloodstream and directed to muscle (good) versus stored as fat (less good). <strong>Poor insulin sensitivity produces higher circulating insulin, which suppresses GH, promotes fat storage, and increases SHBG (which binds testosterone, reducing the free fraction available to tissues).</strong> The levers for improving insulin sensitivity are cumulative: resistance training (the most powerful single intervention — muscle is the primary site of glucose disposal), Zone 2 cardio, high-protein diet (protein has the lowest insulin response of any macronutrient), adequate sleep (one night of sub-6h sleep measurably reduces insulin sensitivity), and omega-3 supplementation (improves insulin receptor sensitivity directly).</div>
+      <div class="tag tg">Resistance training + Zone 2 + high protein + sleep + omega-3 = optimal insulin sensitivity</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="co-t">When to consider bloodwork</div>
+    <div class="co-b">Annual panel recommended at 44: <strong>Free and total testosterone, SHBG</strong> (bound vs available testosterone), <strong>LH and FSH</strong> (pituitary output — distinguishes primary from secondary hypogonadism), <strong>DHEA-S</strong> (adrenal androgen), <strong>oestradiol</strong> (aromatisation level), <strong>cortisol (morning)</strong>, <strong>TSH, free T3, free T4</strong> (thyroid — the most common undiagnosed cause of fatigue, weight gain, and mood disturbance), <strong>fasting insulin + HbA1c</strong> (metabolic health), <strong>Vitamin D</strong>, <strong>ferritin + B12</strong>. This panel costs approximately £200–350 privately and provides the objective hormonal picture that makes all further optimisation decisions specific rather than generic. Biomarker Health, Medichecks, and Randox all offer comprehensive private panels in the UK.</div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     DAILY DASHBOARD
+════════════════════════════════════ -->
+<div class="pane" id="dashboard">
+<div class="dk"><div class="w">
+  <div class="dr" style="margin-top:0;">Daily dashboard <em>— the complete operating system</em></div>
+  <div class="body-sm" style="color:var(--dk-2);margin-bottom:36px;max-width:640px;">Every system on this page converges into a single daily operating system. This is what the optimal machine looks like in practice — not as an ideal, but as a liveable, sustainable daily structure.</div>
+
+  <div class="dash">
+    <div class="dash-cell highlight">
+      <div class="dc-icon">🌅</div>
+      <div class="dc-label">On waking</div>
+      <div class="dc-title">Light · Water · No phone</div>
+      <div class="dc-body"><strong>10–15 min morning sunlight</strong> (circadian anchor, serotonin, cortisol timing). <strong>500ml water</strong> (gut motility, dehydration prevention). <strong>No phone for 20–30 min</strong> (prevents dopamine fragmentation before the day's baseline is set).</div>
+    </div>
+    <div class="dash-cell">
+      <div class="dc-icon">☕</div>
+      <div class="dc-label">60–90 min post-wake</div>
+      <div class="dc-title">Coffee + L-Theanine</div>
+      <div class="dc-body">First caffeine hits after the cortisol peak — amplifies rather than duplicates. 200mg L-Theanine with the coffee if anxiety is a factor — calm alertness, not jittery focus.</div>
+    </div>
+    <div class="dash-cell">
+      <div class="dc-icon">🥣</div>
+      <div class="dc-label">Breakfast</div>
+      <div class="dc-title">Slow carbs · High protein · Fat</div>
+      <div class="dc-body">Flat glucose curve for 3–4h. Ghrelin suppressed. MPS initiated. Serotonin precursors delivered (tryptophan in eggs, yoghurt, oats). Cognitive fuel loaded for the peak performance window.</div>
+    </div>
+    <div class="dash-cell highlight">
+      <div class="dc-icon">🧠</div>
+      <div class="dc-label">08:00–10:00</div>
+      <div class="dc-title">Deep work window</div>
+      <div class="dc-body"><strong>Peak cognitive performance window.</strong> Phone away. Single task. Most difficult, creative, or strategic work scheduled here. Cortisol + testosterone at daily high. BDNF elevated from morning exercise if trained.</div>
+    </div>
+    <div class="dash-cell">
+      <div class="dc-icon">🏋️</div>
+      <div class="dc-label">Training (session days)</div>
+      <div class="dc-title">Post-session: protein first</div>
+      <div class="dc-body">Training → BDNF pulse → 2–4h of enhanced neuroplasticity and cognitive capacity. Post-training protein within 30 min (MPS + ghrelin management). 2h post-session: NEAT + cognitive clarity window.</div>
+    </div>
+    <div class="dash-cell">
+      <div class="dc-icon">🥗</div>
+      <div class="dc-label">Lunch</div>
+      <div class="dc-title">Protein first · Slow carbs · Vegetables</div>
+      <div class="dc-body">Diagnose before eating: genuine hunger or food noise? Protein-first prevents the 2pm glucose crash and cognitive dip. At least one fermented food (yoghurt, kimchi) for gut microbiome.</div>
+    </div>
+    <div class="dash-cell highlight">
+      <div class="dc-icon">😮‍💨</div>
+      <div class="dc-label">If stress arrives</div>
+      <div class="dc-title">Physiological sigh</div>
+      <div class="dc-body">Double inhale (nose) → long exhale (mouth). 1–3 repetitions. 30–60 seconds to measurable cortisol reduction. Deployable anywhere, anytime, invisibly. The fastest anxiety intervention available.</div>
+    </div>
+    <div class="dash-cell">
+      <div class="dc-icon">🚶</div>
+      <div class="dc-label">14:00–15:00</div>
+      <div class="dc-title">Movement break</div>
+      <div class="dc-body">10-minute walk at the circadian dip and decision fatigue peak. Resets food noise, ghrelin, cortisol, and dopamine simultaneously. More effective than caffeine at this point in the day for sustained afternoon performance.</div>
+    </div>
+    <div class="dash-cell">
+      <div class="dc-icon">🍽️</div>
+      <div class="dc-label">Dinner</div>
+      <div class="dc-title">Protein · Training-appropriate carbs · Eat slowly</div>
+      <div class="dc-body">Ravenous at dinner = something earlier failed. Protein first, eat slowly — satiety hormones lag 15–20 min. Fat with dinner is fine now. One fermented food if not at lunch. No screens at the table (dopamine baseline protection).</div>
+    </div>
+    <div class="dash-cell highlight">
+      <div class="dc-icon">🌙</div>
+      <div class="dc-label">90 min pre-sleep</div>
+      <div class="dc-title">Wind down · Supplements · No screens</div>
+      <div class="dc-body"><strong>Magnesium glycinate 400mg</strong> (GABA, anxiety, sleep depth). <strong>No bright screens</strong> (melatonin protection, ghrelin management). Dim lights. Cool room 17–19°C. Optional: casein snack for overnight MPS. This window determines tomorrow's entire energy, focus, and mood baseline.</div>
+    </div>
+  </div>
+
+  <!-- The five metrics that tell you if the system is working -->
+  <div class="dr">The five metrics that tell you the machine is running well</div>
+  <div style="border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:40px;">
+    <div style="display:grid;grid-template-columns:60px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-2);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--bd);padding:18px 0;"><span style="font-family:var(--serif);font-size:32px;font-weight:300;color:var(--jade);">1</span></div>
+      <div style="padding:16px 22px;"><div style="font-size:13px;font-weight:600;color:var(--jade);margin-bottom:4px;">You wake naturally before or at your alarm</div><div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.65;">Sleep architecture is completing full cycles. GH has pulsed. Cortisol awakening response is initiating naturally. The body is not being dragged out of a cycle by an alarm — it is completing the cycle. This is the most reliable single indicator that sleep is working correctly.</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:60px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-2);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--bd);padding:18px 0;"><span style="font-family:var(--serif);font-size:32px;font-weight:300;color:var(--jade);">2</span></div>
+      <div style="padding:16px 22px;"><div style="font-size:13px;font-weight:600;color:var(--jade);margin-bottom:4px;">Hunger arrives gently 3–4h after meals</div><div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.65;">Ghrelin rhythm is trained. Leptin is stable. Protein targets are being hit. If you are ravenous between meals or not hungry at meal times, the ghrelin system is not in its optimal state — investigate sleep, protein targets, or meal timing first.</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:60px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-2);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--bd);padding:18px 0;"><span style="font-family:var(--serif);font-size:32px;font-weight:300;color:var(--jade);">3</span></div>
+      <div style="padding:16px 22px;"><div style="font-size:13px;font-weight:600;color:var(--jade);margin-bottom:4px;">Type 4 Bristol Stool most mornings</div><div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.65;">Transit time is optimal. Fibre, hydration, and gut motility are working. Microbiome is in reasonable health. The most immediate daily diagnostic available — and the one most people never think to use.</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:60px 1fr;border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-2);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--bd);padding:18px 0;"><span style="font-family:var(--serif);font-size:32px;font-weight:300;color:var(--jade);">4</span></div>
+      <div style="padding:16px 22px;"><div style="font-size:13px;font-weight:600;color:var(--jade);margin-bottom:4px;">Resting morning heart rate stable or improving over weeks</div><div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.65;">Cardiovascular fitness is improving. Nervous system recovery is adequate. HRV (if tracked) is the more sensitive version of this metric. Elevated resting HR is an early signal of inadequate recovery, overtraining, or illness — before any subjective symptoms appear.</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:60px 1fr;">
+      <div style="background:rgba(0,200,160,0.06);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--jade-br);padding:18px 0;"><span style="font-family:var(--serif);font-size:32px;font-weight:300;color:var(--jade);">5</span></div>
+      <div style="padding:16px 22px;background:rgba(0,200,160,0.03);"><div style="font-size:13px;font-weight:600;color:var(--jade);margin-bottom:4px;">Hip thrust weight is moving upward weekly</div><div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.65;">The single most reliable composite indicator of whether the entire system is working — sleep, nutrition, hormones, recovery, and training all need to be functioning correctly for the hip thrust to progress. When it stalls, something in the system has failed. When it is moving, everything is working.</div></div>
+    </div>
+  </div>
+
+</div></div>
+</div>
+
+<div class="page-end"></div>
+<script src="nav.js"></script>
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  document.querySelector('.tabs').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// Build nav via nav.js pattern — inline since nav.js uses its own init
+document.addEventListener('DOMContentLoaded', () => {
+  // Nav is injected by the canonical approach below
+});
+</script>
+</body>
+</html>
