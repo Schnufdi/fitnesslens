@@ -48,6 +48,10 @@ button{font-family:var(--sans);cursor:pointer;}
 .nl{font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:5px 13px;border:none;background:transparent;color:var(--on-dark-3);cursor:pointer;font-family:var(--sans);transition:color 0.15s;text-decoration:none;border-radius:3px;}
 .nl:hover{color:var(--on-dark-2);}
 .nl.active{color:var(--on-dark-1);background:rgba(255,255,255,0.06);}
+/* nav-link aliases so canonical nav works on this page */
+.nav-link{font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:5px 13px;border:none;background:transparent;color:var(--on-dark-3);cursor:pointer;font-family:var(--sans);transition:color 0.15s;text-decoration:none;border-radius:3px;display:inline-flex;align-items:center;}
+.nav-link:hover{color:var(--on-dark-2);}
+.nav-link.active{color:var(--on-dark-1);background:rgba(255,255,255,0.06);}
 .nav-right{display:flex;align-items:center;gap:8px;}
 .np{font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:4px 11px;border-radius:20px;}
 .np-ac{color:var(--ac);background:var(--ac-dim);border:1px solid var(--ac-br);}
@@ -253,14 +257,19 @@ button{font-family:var(--sans);cursor:pointer;}
 <nav class="nav">
   <div class="nav-brand">Body<em>Lens</em></div>
   <div class="nav-links">
-    <a class="nl active" href="bodylens-profile.html">Profile</a>
-    <a class="nl" href="bodylens-today.html">Today</a>
-    <a class="nl" href="bodylens-week.html">Week</a>
-    <a class="nl" href="bodylens-journeys.html">Journeys</a>
-    <a class="nl" href="bodylens-progress.html">Progress</a>
-    <a class="nl" href="bodylens-science.html">Science</a>
-    <a class="nl" href="bodylens-nonneg.html">Non-Negotiables</a>
-    <a class="nl" href="bodylens-studio.html" style="opacity:0.4;">Studio</a>
+    <a class="nav-link" href="bodylens-today.html">Today</a>
+    <a class="nav-link" href="bodylens-week.html">Week</a>
+    <a class="nav-link active" href="bodylens-profile.html">Profile</a>
+    <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
+    <a class="nav-link" href="bodylens-fuel.html">Fuel</a>
+    <a class="nav-link" href="bodylens-body.html">Body</a>
+    <a class="nav-link" href="bodylens-training.html">Training</a>
+    <a class="nav-link" href="bodylens-weightloss.html">Weight Loss</a>
+    <a class="nav-link" href="bodylens-longevity.html">Longevity</a>
+    <a class="nav-link" href="bodylens-progress.html">Progress</a>
+    <a class="nav-link" href="bodylens-science.html">Science</a>
+    <a class="nav-link" href="bodylens-nonneg.html">Non-Neg</a>
+    <a class="nav-link" href="bodylens-studio.html" style="border-left:1px solid var(--bd);color:var(--dk-3);opacity:0.5;">Studio</a>
   </div>
   <div class="nav-right">
     <span class="np np-go">Meniscus protocol</span>
