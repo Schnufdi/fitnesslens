@@ -40,7 +40,88 @@ body{background:var(--ink);color:var(--on-dark-1);font-family:var(--sans);font-s
 a{color:inherit;text-decoration:none;}
 button{font-family:var(--sans);cursor:pointer;}
 
-/* ── NAV — inherited from style.css (site-nav, nav-link, nav-daily, nav-sep, nav-meta) ── */
+/* ── NAV — self-contained, matches style.css ── */
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 60px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  background: rgba(12,16,16,0.97);
+  backdrop-filter: blur(24px);
+  position: sticky;
+  top: 0;
+  z-index: 300;
+}
+.nav-brand {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: #e8e3da;
+  flex-shrink: 0;
+  margin-right: 16px;
+}
+.nav-brand em { font-style: normal; color: #00c8a0; }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-sep {
+  width: 1px;
+  height: 20px;
+  background: rgba(255,255,255,0.13);
+  flex-shrink: 0;
+  margin: 0 6px;
+}
+.nav-link {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border: none;
+  background: transparent;
+  color: #3e504a;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: color 0.15s;
+  text-decoration: none;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-link:hover { color: #8a9490; }
+.nav-link.active { color: #e8e3da; background: rgba(255,255,255,0.06); }
+.nav-link.nav-daily { color: rgba(0,200,160,0.55); }
+.nav-link.nav-daily:hover { color: #00c8a0; }
+.nav-link.nav-daily.active { color: #00c8a0; background: rgba(0,200,160,0.08); }
+.nav-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+.nav-tag {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 11px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.nt-go   { color: #c8941e; background: rgba(200,148,30,0.1);  border: 1px solid rgba(200,148,30,0.28); }
+.nt-jade { color: #00c8a0; background: rgba(0,200,160,0.08);  border: 1px solid rgba(0,200,160,0.25); }
 
 /* ═══════════════════════════
    1 · HERO
