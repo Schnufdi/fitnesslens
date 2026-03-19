@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MacroLens — Ideas Engine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1A1714;--ink2:#3D3A35;--ink3:#7A766E;
+  --ground:#EDE8DF;--white:#FAF8F4;--surface:#E6E0D5;
+  --border:rgba(26,23,20,.07);--border2:rgba(26,23,20,.14);
+  --teal:#2D6B68;--teal-l:#EAF2F1;--teal-d:#1A4A47;
+  --navy:#111E2B;--navy2:#1C2E3F;
+  --amber:#A05C0A;--amber-l:#FBF0E0;--amber-d:#6B3D07;
+  --purple:#5B3FA8;--purple-l:#EEE9F8;--purple-d:#3B2670;
+  --coral:#A83228;--coral-l:#F8EEEC;
+  --green:#1A6640;--green-l:#E8F4EE;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Instrument Sans','DM Sans',sans-serif;
+  --r:8px;--rl:12px
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--ground);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:56px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200}
+.nav-brand{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink);text-decoration:none;position:relative;padding-bottom:5px;display:inline-block}
+.nav-brand::after{content:'';position:absolute;bottom:0;left:0;width:28px;height:2px;background:var(--teal)}
+.nav-r{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.btn{font-size:11px;font-weight:500;padding:6px 16px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--ink2);cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block;letter-spacing:.02em;font-family:var(--sans);white-space:nowrap}
+.btn:hover{border-color:var(--ink2);color:var(--ink)}
+.btn-today{background:var(--teal);color:#fff;border-color:var(--teal);font-weight:600}
+.btn-today:hover{background:var(--teal-d);color:#fff}
+.nav-studio-divider{width:1px;height:18px;background:var(--border2);margin:0 6px;flex-shrink:0}
+.nav-studio-group{display:flex;align-items:center;gap:4px;background:var(--navy);padding:4px 6px 4px 10px;border-radius:20px}
+.nav-studio-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);padding-right:4px;white-space:nowrap;user-select:none}
+.btn-studio{font-size:11px;font-weight:500;padding:5px 12px;border-radius:14px;background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.22);text-decoration:none;display:inline-block;font-family:var(--sans);transition:background .15s;white-space:nowrap}
+.btn-studio:hover{background:rgba(255,255,255,.28)}
+.btn-studio.btn-p{background:rgba(255,255,255,.3);border-color:rgba(255,255,255,.4)}
+.nav-fpa-wrap{display:inline-flex;align-items:center}
+.nav-tpicap-sub{font-size:10px;font-weight:500;padding:5px 10px;border-radius:4px 20px 20px 4px;background:rgba(45,107,104,.08);color:var(--teal-d);border:1px solid rgba(45,107,104,.2);text-decoration:none;display:inline-block;font-family:var(--sans);white-space:nowrap;border-left:none;margin-left:-1px}
+
+/* HERO */
+.hero{background:var(--navy);padding:44px 40px 40px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal) 0%,var(--purple) 50%,var(--amber) 100%)}
+.hero-inner{max-width:1100px;margin:0 auto}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:12px}
+.hero-title{font-family:var(--serif);font-size:40px;font-weight:400;color:rgba(255,255,255,.93);line-height:1.1;letter-spacing:-.02em;margin-bottom:10px}
+.hero-title em{font-style:italic}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.45);line-height:1.8;max-width:620px}
+
+/* PAGE */
+.page{max-width:1100px;margin:0 auto;padding:36px 32px 80px}
+
+/* ZONE TABS */
+.zone-tabs{display:flex;gap:3px;background:var(--white);border-radius:var(--rl);padding:5px;margin-bottom:28px;box-shadow:0 1px 3px rgba(26,23,20,.07)}
+.zone-tab{flex:1;padding:11px 16px;border-radius:var(--r);font-size:12px;font-weight:600;color:var(--ink3);cursor:pointer;transition:all .18s;text-align:center;border:none;background:transparent;font-family:var(--sans)}
+.zone-tab:hover{color:var(--ink)}
+.zone-tab.z-teal{background:var(--teal-l);color:var(--teal-d)}
+.zone-tab.z-purple{background:var(--purple-l);color:var(--purple-d)}
+.zone-tab.z-amber{background:var(--amber-l);color:var(--amber-d)}
+
+/* ZONE PANELS */
+.zone-panel{display:none}
+.zone-panel.active{display:block}
+
+/* SECTION DIVIDER */
+.zone-header{margin-bottom:20px}
+.zone-eyebrow{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}
+.zone-eyebrow.teal{color:var(--teal)}
+.zone-eyebrow.purple{color:var(--purple)}
+.zone-eyebrow.amber{color:var(--amber)}
+.zone-title{font-family:var(--serif);font-size:26px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:4px}
+.zone-sub{font-size:13px;color:var(--ink3);line-height:1.6}
+
+/* IDEA CARDS */
+.ideas-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+.idea-card{background:var(--white);border-radius:var(--rl);padding:18px 20px;box-shadow:0 1px 3px rgba(26,23,20,.07);display:flex;flex-direction:column;gap:10px;transition:all .2s;animation:fadeUp .35s ease both}
+.idea-card:hover{box-shadow:0 4px 16px rgba(26,23,20,.1);transform:translateY(-2px)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.idea-type{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.idea-title{font-family:var(--serif);font-size:19px;font-weight:500;color:var(--ink);line-height:1.2}
+.idea-body{font-size:12px;color:var(--ink2);line-height:1.7;flex:1}
+.idea-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-top:8px;border-top:1px solid var(--border)}
+.idea-pills{display:flex;gap:5px;flex-wrap:wrap}
+.pill{font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;letter-spacing:.04em}
+.pill-green{background:var(--green-l);color:var(--green)}
+.pill-teal{background:var(--teal-l);color:var(--teal-d)}
+.pill-amber{background:var(--amber-l);color:var(--amber-d)}
+.pill-navy{background:rgba(17,30,43,.08);color:var(--navy)}
+.pill-purple{background:var(--purple-l);color:var(--purple-d)}
+.idea-actions{display:flex;gap:6px}
+.idea-btn{font-size:10px;font-weight:500;padding:4px 11px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--ink3);cursor:pointer;transition:all .15s;font-family:var(--sans)}
+.idea-btn:hover{border-color:var(--teal);color:var(--teal)}
+.idea-btn.saved{background:var(--green-l);border-color:var(--green);color:var(--green)}
+
+/* EXPAND BLOCK */
+.idea-expand{display:none;font-size:12px;color:var(--teal-d);line-height:1.7;padding:11px 14px;background:var(--teal-l);border-radius:var(--r);border-left:3px solid var(--teal);margin-top:4px}
+.idea-expand.open{display:block}
+.idea-expand.purple{color:var(--purple-d);background:var(--purple-l);border-left-color:var(--purple)}
+.idea-expand.amber{color:var(--amber-d);background:var(--amber-l);border-left-color:var(--amber)}
+
+/* LENS CARDS — Engine zone */
+.lens-card{background:var(--white);border-radius:var(--rl);box-shadow:0 1px 3px rgba(26,23,20,.07);overflow:hidden;margin-bottom:12px;animation:fadeUp .35s ease both;transition:box-shadow .2s}
+.lens-card:hover{box-shadow:0 4px 16px rgba(26,23,20,.1)}
+.lens-header{padding:16px 20px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid var(--border)}
+.lens-name{font-family:var(--serif);font-size:26px;font-weight:500;color:var(--ink);line-height:1;margin-bottom:3px}
+.lens-tagline{font-size:13px;color:var(--ink3);font-style:italic}
+.lens-badges{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;margin-top:2px}
+.lens-body{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
+.lens-col{padding:14px 18px;border-right:1px solid var(--border)}
+.lens-col:last-child{border-right:none}
+.lens-col-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px}
+.lens-col-text{font-size:12px;color:var(--ink2);line-height:1.6}
+.lens-foot{padding:10px 18px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--ink3)}
+
+/* GENERATE MORE */
+.generate-more{background:var(--white);border-radius:var(--rl);padding:18px 22px;box-shadow:0 1px 3px rgba(26,23,20,.07);margin-top:8px}
+.gm-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+.gm-row{display:flex;gap:8px}
+.gm-input{flex:1;font-size:13px;color:var(--ink);border:1px solid var(--border2);background:var(--white);border-radius:var(--r);padding:9px 13px;font-family:var(--sans);outline:none;transition:border-color .15s}
+.gm-input:focus{border-color:var(--teal)}
+.gm-btn{display:flex;align-items:center;gap:7px;border:none;padding:9px 20px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:all .2s;white-space:nowrap;flex-shrink:0}
+.gm-btn:disabled{opacity:.5;cursor:not-allowed}
+.gm-btn.teal{background:var(--teal);color:#fff}
+.gm-btn.teal:hover:not(:disabled){background:var(--teal-d)}
+.gm-btn.purple{background:var(--purple);color:#fff}
+.gm-btn.purple:hover:not(:disabled){background:var(--purple-d)}
+.gm-btn.amber{background:var(--amber);color:#fff}
+.gm-btn.amber:hover:not(:disabled){background:var(--amber-d)}
+
+/* SAVED */
+.saved-wrap{background:var(--navy);border-radius:var(--rl);padding:20px 24px;margin-top:28px;display:none}
+.saved-wrap.show{display:block}
+.saved-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
+.saved-list{display:flex;flex-direction:column;gap:7px}
+.saved-item{background:rgba(255,255,255,.06);border-radius:var(--r);padding:10px 14px;display:flex;align-items:flex-start;gap:10px}
+.saved-text{font-family:var(--serif);font-size:14px;font-style:italic;color:rgba(255,255,255,.75);flex:1;line-height:1.5}
+.saved-rm{font-size:16px;color:rgba(255,255,255,.2);cursor:pointer;flex-shrink:0;line-height:1;padding-top:2px;transition:color .15s}
+.saved-rm:hover{color:rgba(255,255,255,.6)}
+
+/* SPIN */
+.spin{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:720px){
+  .ideas-grid{grid-template-columns:1fr}
+  .lens-body{grid-template-columns:1fr}
+  .lens-col{border-right:none;border-bottom:1px solid var(--border)}
+  .lens-col:last-child{border-bottom:none}
+  .hero{padding:28px 20px}
+  .page{padding:20px 16px 60px}
+  nav{padding:0 16px}
+}
+
+/* ── CRITIQUE ZONE ── */
+.zone-tab.z-critique{background:#F8EEEC;color:#A83228}
+.zone-eyebrow.critique{color:#A83228}
+
+/* VERDICT CARD */
+.verdict-card{border-radius:var(--rl);padding:22px 26px;margin-bottom:14px;animation:fadeUp .35s ease both}
+.verdict-card.red{background:#F8EEEC;border-left:4px solid #A83228}
+.verdict-card.amber{background:var(--amber-l);border-left:4px solid var(--amber)}
+.verdict-card.green{background:var(--green-l);border-left:4px solid var(--green)}
+.verdict-card.navy{background:var(--navy);border-left:4px solid var(--teal)}
+.verdict-label{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+.verdict-card.red .verdict-label{color:#A83228}
+.verdict-card.amber .verdict-label{color:var(--amber)}
+.verdict-card.green .verdict-label{color:var(--green)}
+.verdict-card.navy .verdict-label{color:rgba(255,255,255,.4)}
+.verdict-title{font-family:var(--serif);font-size:20px;font-weight:500;line-height:1.25;margin-bottom:8px}
+.verdict-card.navy .verdict-title{color:rgba(255,255,255,.88)}
+.verdict-card:not(.navy) .verdict-title{color:var(--ink)}
+.verdict-body{font-size:12px;line-height:1.75}
+.verdict-card.navy .verdict-body{color:rgba(255,255,255,.55)}
+.verdict-card:not(.navy) .verdict-body{color:var(--ink2)}
+
+/* SCORE BAR */
+.score-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.score-card{background:var(--white);border-radius:var(--rl);padding:16px 18px;box-shadow:0 1px 3px rgba(26,23,20,.07)}
+.score-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.score-num{font-family:var(--serif);font-size:22px;font-weight:500}
+.score-num.high{color:var(--green)}
+.score-num.mid{color:var(--amber)}
+.score-num.low{color:#A83228}
+.score-bar-track{height:6px;background:var(--ground);border-radius:20px;overflow:hidden;margin-top:6px}
+.score-bar-fill{height:100%;border-radius:20px;transition:width .6s ease}
+.score-bar-fill.high{background:var(--green)}
+.score-bar-fill.mid{background:var(--amber)}
+.score-bar-fill.low{background:#A83228}
+.score-note{font-size:11px;color:var(--ink3);margin-top:4px;line-height:1.5}
+
+/* COMPARISON TABLE */
+.comp-table{background:var(--white);border-radius:var(--rl);overflow:hidden;box-shadow:0 1px 3px rgba(26,23,20,.07);margin-bottom:20px}
+.comp-row{display:grid;grid-template-columns:200px 1fr 1fr;border-bottom:1px solid var(--border)}
+.comp-row:last-child{border-bottom:none}
+.comp-row.comp-header{background:var(--navy)}
+.comp-cell{font-size:12px;color:var(--ink2);padding:11px 14px;line-height:1.45}
+.comp-cell:first-child{font-weight:500;color:var(--ink)}
+.comp-row.comp-header .comp-cell{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.comp-row.comp-header .comp-cell:first-child{color:rgba(255,255,255,.5)}
+.comp-cell.win{color:var(--green);font-weight:600}
+.comp-cell.lose{color:#A83228}
+.comp-cell.neutral{color:var(--amber)}
+.comp-row.hl{background:rgba(45,107,104,.03)}
+
+/* FIX CARD */
+.fix-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.fix-card{background:var(--white);border-radius:var(--rl);padding:18px 20px;box-shadow:0 1px 3px rgba(26,23,20,.07);animation:fadeUp .35s ease both}
+.fix-priority{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.fix-title{font-family:var(--serif);font-size:17px;font-weight:500;color:var(--ink);margin-bottom:8px;line-height:1.2}
+.fix-body{font-size:12px;color:var(--ink2);line-height:1.7;margin-bottom:10px}
+.fix-action{font-size:11px;font-weight:600;color:var(--teal);padding-top:8px;border-top:1px solid var(--border);line-height:1.5}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" style="text-decoration:none;color:inherit"><div class="nav-brand">MacroLens</div></a>
+  <div class="nav-r">
+    <a href="index.html" class="btn btn-today">Daily briefing</a>
+    <a href="economy.html" class="btn">Macro</a>
+    <div class="nav-fpa-wrap">
+      <a href="fpa.html" class="btn">FP&amp;A</a>
+      <a href="tpicap.html" class="nav-tpicap-sub">TP ICAP</a>
+    </div>
+    <a href="activities.html" class="btn">Playbook</a>
+    <a href="finance-map.html" class="btn">Finance map</a>
+    <div class="nav-studio-divider"></div>
+    <div class="nav-studio-group">
+      <span class="nav-studio-label">Studio</span>
+      <a href="twitter.html" class="btn-studio">Content</a>
+      <a href="plan.html" class="btn-studio">Roadmap</a>
+      <a href="newsletter.html" class="btn-studio">Newsletter</a>
+      <a href="technical.html" class="btn-studio">Technical</a>
+      <a href="ideas.html" class="btn-studio btn-p">Ideas</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">MacroLens Studio &mdash; Ideas Engine</div>
+    <h1 class="hero-title">Think bigger.<br><em style="color:rgba(91,63,168,.8)">What else is there?</em></h1>
+    <p class="hero-sub">Three lenses on the same engine. Evolve what exists. Replicate the model elsewhere. Go completely off-piste. Add your own prompt to generate more at the bottom of each section.</p>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ZONE TABS -->
+  <div class="zone-tabs">
+    <button class="zone-tab z-teal" id="tab-ev" onclick="switchZone('ev')">&#x1F4F0; MacroLens evolution</button>
+    <button class="zone-tab" id="tab-en" onclick="switchZone('en')">&#x2699;&#xFE0F; The Lens engine</button>
+    <button class="zone-tab" id="tab-bs" onclick="switchZone('bs')">&#x1F680; Blue sky</button>
+    <button class="zone-tab" id="tab-cr" onclick="switchZone('cr')">&#x1F9E0; Product critique</button>
+  </div>
+
+  <!-- ════════════════════ EVOLUTION ════════════════════ -->
+  <div class="zone-panel active" id="zone-ev">
+    <div class="zone-header">
+      <div class="zone-eyebrow teal">MacroLens evolution</div>
+      <div class="zone-title">Where this product goes next</div>
+      <div class="zone-sub">Based on the current build: 7 live stories, automated pipeline, FP&A toolkit, 5 domain primers, 3-tier pricing architecture, and a 30-field story schema. These are the highest-leverage next moves.</div>
+    </div>
+
+    <div class="ideas-grid" id="grid-ev">
+
+      <div class="idea-card" style="animation-delay:.04s">
+        <div class="idea-type" style="color:var(--teal)">Content format</div>
+        <div class="idea-title">The Weekly Synthesis email</div>
+        <div class="idea-body">Every Saturday, a 600-word email connects the week's five stories into one macro narrative. One theory that ran through all of them. What to watch next week. This is the subscription's emotional hook — the moment a Pro subscriber feels the full value. No additional story generation needed: Claude writes it from the week's existing JSON in 30 seconds.</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-green">Quick win</span><span class="pill pill-teal">High retention</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this)">Why this works</button>
+            <button class="idea-btn" onclick="saveIdea(this,'The Weekly Synthesis email — connects 5 stories into one macro narrative, written by Claude from existing JSON. Saturday delivery. Core Pro subscriber value.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand">Churn in newsletter businesses almost always starts when subscribers feel they are not keeping up. The Weekly Synthesis solves this without adding any production work — the raw material already exists in the JSON. It also creates a shareable artefact: a subscriber who forwards the Saturday synthesis to a colleague is the most powerful acquisition channel you have.</div>
+      </div>
+
+      <div class="idea-card" style="animation-delay:.08s">
+        <div class="idea-type" style="color:var(--teal)">Paywall</div>
+        <div class="idea-title">Archive blur — the 7-day soft gate</div>
+        <div class="idea-body">Stories older than 7 days show the entry point (pullquote, 90-second summary) free. Everything below — causal chain, global picture, signals — blurs with a "Continue reading with Pro" overlay. No backend. No authentication. Pure CSS and a JS date check against the story's date field. Builds urgency to subscribe without breaking the reader experience.</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-green">2–3 hours to build</span><span class="pill pill-amber">Revenue trigger</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this)">The mechanism</button>
+            <button class="idea-btn" onclick="saveIdea(this,'Archive blur paywall — 7-day soft gate. CSS blur + JS date check. No backend. Builds subscription urgency.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand">The blur is technically bypassable (CSS can be disabled) but psychologically effective. The Economist uses this exact model. The subscriber who would circumvent a CSS paywall is not your subscriber anyway. This is about converting readers who are on the fence — they read a story from 10 days ago, hit the blur at the good bit, and subscribe. That conversion moment is the business.</div>
+      </div>
+
+      <div class="idea-card" style="animation-delay:.12s">
+        <div class="idea-type" style="color:var(--teal)">B2B product</div>
+        <div class="idea-title">The CFO Morning Brief — a white-label format</div>
+        <div class="idea-body">Sell a customised version of MacroLens's daily briefing to a FTSE 250 finance team. They get a story every morning that is pre-selected for their sector, with their company's specific exposures annotated. The story schema already supports this — sector signals, country impacts, FP&A implications are all structured fields. One team client at £99/seat × 10 seats = £990/month = 66 Pro subscribers.</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-navy">High value</span><span class="pill pill-amber">Direct outreach</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this)">How to sell it</button>
+            <button class="idea-btn" onclick="saveIdea(this,'CFO Morning Brief — white-label MacroLens for FTSE 250 finance teams. Sector-customised. £99/seat. Direct from network.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand">The pitch: "I give your Head of FP&A the macro context they need to brief the board, every morning, in 4 minutes." You have 18 years of contacts who know exactly what that problem feels like. One email to five former colleagues this week. You do not need a deck. You need the URL and one sentence.</div>
+      </div>
+
+      <div class="idea-card" style="animation-delay:.16s">
+        <div class="idea-type" style="color:var(--teal)">Archive &amp; search</div>
+        <div class="idea-title">archive.html — the browsable library</div>
+        <div class="idea-body">A dedicated page where every story is filterable by category (Technology, Geopolitics, Monetary Policy), searchable by keyword, and grouped by month. Uses Fuse.js client-side search across headlines, summaries, tags, and signal labels. At 7 stories it feels unnecessary. At 50 stories it becomes the most-visited page by returning subscribers. Build it before you need it.</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-teal">1 day to build</span><span class="pill pill-teal">Retention tool</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this)">What makes it valuable</button>
+            <button class="idea-btn" onclick="saveIdea(this,'archive.html — searchable library with Fuse.js. Filter by category, month. The thing subscribers pay for over time.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand">A subscriber who can type "ECB" and find every MacroLens story that mentioned the ECB — with the causal chain, the signal analysis, the historical parallel — has a research tool worth £15/month by itself. The structured JSON schema means search is free: every field is already labelled. This turns MacroLens from a news product into an intelligence database.</div>
+      </div>
+
+      <div class="idea-card" style="animation-delay:.20s">
+        <div class="idea-type" style="color:var(--teal)">Distribution</div>
+        <div class="idea-title">The LinkedIn Article strategy</div>
+        <div class="idea-body">Every Friday, publish one MacroLens story as a full LinkedIn Article — not a summary, the whole thing. LinkedIn's algorithm heavily promotes Articles from individuals (not company pages) with institutional credibility. 18 years at Barclays, HSBC, Lloyds, TP ICAP in the headline. The Article ends with "I publish this analysis every weekday at MacroLens." LinkedIn drives to Substack. Substack converts to paid.</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-green">Zero cost</span><span class="pill pill-green">Fastest acquisition</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this)">The playbook</button>
+            <button class="idea-btn" onclick="saveIdea(this,'LinkedIn Article strategy — publish one full story per week as an Article. 18yr institutional credibility as the hook. Drives Substack.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand">One LinkedIn Article from a credible senior finance professional on a topic their network cares about (Iran war + Fed + oil prices right now) routinely gets 5,000–50,000 views. If 1% click through to subscribe free and 5% of those convert to paid over 30 days, one article generates 2–10 paying subscribers. Publish 50 articles in a year = 100–500 subscribers from one channel alone.</div>
+      </div>
+
+      <div class="idea-card" style="animation-delay:.24s">
+        <div class="idea-type" style="color:var(--teal)">Feature</div>
+        <div class="idea-title">The theory tracker — which frameworks are trending</div>
+        <div class="idea-body">A small widget in the sidebar showing which economic theories have appeared most in the last 30 days. "Taylor Rule has appeared in 4 of the last 8 stories." Clicking a theory filters the archive to show all stories that used it. Turns the 142-term glossary from a reference into a navigation layer. No additional data needed — the theory references are already in the JSON schema.</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-teal">Weekend build</span><span class="pill pill-teal">Unique to MacroLens</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this)">Why this is differentiating</button>
+            <button class="idea-btn" onclick="saveIdea(this,'Theory tracker sidebar widget — shows trending frameworks across recent stories. Turns glossary into navigation. Already in JSON.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand">No other publication in this space tracks which economic frameworks are structurally relevant at a given moment. "The Taylor Rule has been invoked in 4 of the last 5 monetary policy stories — the Fed is trapped between its mandates and every central bank is using the same tool for a problem it was not designed to solve." That is a sentence worth a subscription on its own.</div>
+      </div>
+
+      <div class="idea-card" style="animation-delay:.28s">
+        <div class="idea-type" style="color:var(--teal)">Monetisation</div>
+        <div class="idea-title">Founding member cohort — 50 at £25</div>
+        <div class="idea-body">Launch a Founding Member tier at £25/month: locked for life at that price, name in every issue's footer, access to a monthly 45-minute group call. Target: 50 people. Revenue: £1,250/month from 50 people who believed early. Social proof: "Read by founding members at Barclays, HSBC, Goldman..." The founding cohort becomes the credibility signal that sells everyone else.</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-amber">Launch moment</span><span class="pill pill-green">£1,250/mo from 50 people</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this)">How to fill it</button>
+            <button class="idea-btn" onclick="saveIdea(this,'Founding member cohort — 50 at £25/mo, lifetime price lock, monthly group call, name in footer. £1,250/mo social proof engine.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand">Email 100 people you genuinely respect in financial services. Not a mass mail — personal one-liners. "I built something. I want 50 people who will tell me honestly if it is worth anything. First 50 get it at £25 forever." The scarcity is real (50 slots) and the pitch is honest. You do not need a pitch deck. You need 100 emails and the URL.</div>
+      </div>
+
+      <div class="idea-card" style="animation-delay:.32s">
+        <div class="idea-type" style="color:var(--teal)">Content</div>
+        <div class="idea-title">The "What the textbooks missed" series</div>
+        <div class="idea-body">A monthly deep-dive into one economic theory, written specifically for people who studied economics 10–20 years ago and want to understand what has changed. "The Taylor Rule worked until it didn't — here is why 2026 broke it." The Iran conflict alone gives you four months of content. These pieces drive student and professional subscriber acquisition through SEO and LinkedIn shares.</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-teal">SEO value</span><span class="pill pill-teal">Evergreen content</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this)">The content calendar</button>
+            <button class="idea-btn" onclick="saveIdea(this,'What the textbooks missed series — monthly deep dives on economic theories tested by current events. SEO + student acquisition.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand">Month 1: The Taylor Rule. Month 2: Supply shock theory and why monetary policy cannot fix it. Month 3: Hegemonic Stability Theory and what China is actually doing. Month 4: The Minsky Moment — what it means and whether 2026 is one. Every piece links to the MacroLens stories that illustrate the theory in action. This is the content that earns the £15/month from the smart generalist who reads broadly.</div>
+      </div>
+
+    </div>
+
+    <!-- GENERATE MORE — EVOLUTION -->
+    <div class="generate-more">
+      <div class="gm-label">Generate more evolution ideas</div>
+      <div class="gm-row">
+        <input class="gm-input" id="inp-ev" placeholder="e.g. &ldquo;How could MacroLens build a podcast format?&rdquo; or &ldquo;What would a MacroLens API look like?&rdquo;" />
+        <button class="gm-btn teal" id="gbtn-ev" onclick="generateMore('ev')">
+          <span id="gspinner-ev">&#x26A1;</span> Generate
+        </button>
+      </div>
+    </div>
+    <div id="gen-output-ev"></div>
+  </div>
+
+  <!-- ════════════════════ ENGINE ════════════════════ -->
+  <div class="zone-panel" id="zone-en">
+    <div class="zone-header">
+      <div class="zone-eyebrow purple">The Lens engine</div>
+      <div class="zone-title">The same engine. Different domains.</div>
+      <div class="zone-sub">The MacroLens architecture — structured JSON schema, automated content pipeline, premium design system, domain primers, ecosystem maps — can be applied to any intelligence domain. These are six businesses you could build, license, or sell.</div>
+    </div>
+
+    <div id="grid-en">
+
+      <div class="lens-card" style="animation-delay:.04s">
+        <div class="lens-header">
+          <div>
+            <div class="lens-name">FitnessLens</div>
+            <div class="lens-tagline">"Sports science applied to your training, daily."</div>
+          </div>
+          <div class="lens-badges">
+            <span class="pill pill-purple">Health &amp; Performance</span>
+            <span class="pill pill-green">£500k ARR potential</span>
+          </div>
+        </div>
+        <div class="lens-body">
+          <div class="lens-col">
+            <div class="lens-col-lbl">Audience &amp; angle</div>
+            <div class="lens-col-text"><strong>Serious amateur athletes, personal trainers, sport scientists.</strong> Not "5 tips for abs" — the daily application of peer-reviewed sports science to training decisions. Sleep research, HRV, periodisation theory, nutrition science, recovery mechanisms. The thing coaches know and clients never hear explained properly.</div>
+          </div>
+          <div class="lens-col">
+            <div class="lens-col-lbl">Revenue model</div>
+            <div class="lens-col-text">Free: today's study analysis. Pro £12/mo: full archive + weekly training synthesis. Team £49/seat: gym owners, sports clubs, PT businesses. The ecosystem map becomes a physiology map (CNS, metabolic, hormonal layers). The causal chain becomes "this study → this mechanism → this training implication."</div>
+          </div>
+          <div class="lens-col">
+            <div class="lens-col-lbl">Why the engine wins</div>
+            <div class="lens-col-text">Sports science publishes 500+ studies per week. 99% of athletes never see them. The engine reads the headline, identifies the mechanism, maps it to the training ecosystem, and generates the implication in 30 seconds. The expert curator validates and adds the nuance. The reader gets research-grade insight in 4 minutes.</div>
+          </div>
+        </div>
+        <div class="lens-foot">
+          <span>Founder profile: CSCS-qualified coach with 10+ years competitive sport background</span>
+          <button class="idea-btn" onclick="saveIdea(this,'FitnessLens — sports science applied daily. Same engine, physiology domain. £12/mo Pro, £49/seat for gyms. £500k ARR potential.')">Save idea</button>
+        </div>
+      </div>
+
+      <div class="lens-card" style="animation-delay:.08s">
+        <div class="lens-header">
+          <div>
+            <div class="lens-name">RegLens</div>
+            <div class="lens-tagline">"Regulatory intelligence for in-house counsel. Daily."</div>
+          </div>
+          <div class="lens-badges">
+            <span class="pill pill-purple">Legal &amp; Compliance</span>
+            <span class="pill pill-green">£1m ARR potential</span>
+          </div>
+        </div>
+        <div class="lens-body">
+          <div class="lens-col">
+            <div class="lens-col-lbl">Audience &amp; angle</div>
+            <div class="lens-col-text"><strong>In-house counsel, compliance officers, risk directors at financial services firms.</strong> Every regulatory development — FCA, SEC, Basel, ESG — analysed through the lens of "what does this mean for your business this quarter?" Not law firm commentary (too expensive, too slow, too defensive). Intelligence that tells you what to do, not just what happened.</div>
+          </div>
+          <div class="lens-col">
+            <div class="lens-col-lbl">Revenue model</div>
+            <div class="lens-col-text">No free tier — straight to Pro at £25/mo (legal professionals expense easily). Team tier £149/seat (law firms, compliance teams). Enterprise £10k/yr for full regulatory domain coverage. The ecosystem map becomes the regulatory stack (primary legislation → secondary rules → guidance → enforcement). Higher price point than MacroLens is justified by decision value.</div>
+          </div>
+          <div class="lens-col">
+            <div class="lens-col-lbl">Why the engine wins</div>
+            <div class="lens-col-text">Law firms charge £500/hour for this context. RegLens delivers it for £25/month. The causal chain ("FCA proposes X → financial firms must implement Y by Z → cost to implement is approximately £W") is exactly what an in-house lawyer needs before a Monday board meeting. Seamus's marketing background is directly applicable to financial services compliance buyers.</div>
+          </div>
+        </div>
+        <div class="lens-foot">
+          <span>Founder profile: Qualified solicitor with 5+ years financial services in-house or regulatory practice</span>
+          <button class="idea-btn" onclick="saveIdea(this,'RegLens — regulatory intelligence for in-house counsel. £25/mo Pro, £149/seat Team, £10k Enterprise. £1m ARR potential.')">Save idea</button>
+        </div>
+      </div>
+
+      <div class="lens-card" style="animation-delay:.12s">
+        <div class="lens-header">
+          <div>
+            <div class="lens-name">ClimateLens</div>
+            <div class="lens-tagline">"The financial implications of climate science, applied daily."</div>
+          </div>
+          <div class="lens-badges">
+            <span class="pill pill-purple">Climate &amp; Energy</span>
+            <span class="pill pill-green">£750k ARR potential</span>
+          </div>
+        </div>
+        <div class="lens-body">
+          <div class="lens-col">
+            <div class="lens-col-lbl">Audience &amp; angle</div>
+            <div class="lens-col-text"><strong>ESG analysts, sustainability officers, asset managers with climate mandates, CFOs of carbon-intensive businesses.</strong> Not climate activism, not net-zero pledges — the hard financial analysis of what physical and transition risk actually cost. IPCC reports translated into IRR implications. Tipping points translated into stranded asset risk. Science → finance, daily.</div>
+          </div>
+          <div class="lens-col">
+            <div class="lens-col-lbl">Revenue model</div>
+            <div class="lens-col-text">Free: today's climate-finance story. Pro £18/mo: full archive + weekly physical risk synthesis. Team £99/seat: asset managers, ESG research teams, corporate sustainability functions. The ecosystem map becomes the climate risk stack (physical risk → transition risk → liability risk → stranded asset risk). Directly adjacent to MacroLens's energy primer.</div>
+          </div>
+          <div class="lens-col">
+            <div class="lens-col-lbl">Why the engine wins</div>
+            <div class="lens-col-text">The gap between climate science publishing and financial market pricing of climate risk is one of the largest analytical blind spots in institutional finance. ClimateLens sits exactly in that gap. The MacroLens schema's "who wins / who loses" and "global picture" fields map perfectly onto physical risk geography. The Iran energy stories already demonstrate this type of analysis.</div>
+          </div>
+        </div>
+        <div class="lens-foot">
+          <span>Founder profile: CFA with climate finance specialism, TCFD experience, or physical science PhD with finance translation skills</span>
+          <button class="idea-btn" onclick="saveIdea(this,'ClimateLens — climate science → financial implications. ESG analysts, asset managers. £18/mo Pro, £99/seat Team.')">Save idea</button>
+        </div>
+      </div>
+
+      <div class="lens-card" style="animation-delay:.16s">
+        <div class="lens-header">
+          <div>
+            <div class="lens-name">DealLens</div>
+            <div class="lens-tagline">"M&amp;A intelligence for the people doing the deals, not watching them."</div>
+          </div>
+          <div class="lens-badges">
+            <span class="pill pill-purple">M&amp;A &amp; Corporate Finance</span>
+            <span class="pill pill-green">£1.5m ARR potential</span>
+          </div>
+        </div>
+        <div class="lens-body">
+          <div class="lens-col">
+            <div class="lens-col-lbl">Audience &amp; angle</div>
+            <div class="lens-col-text"><strong>Corporate development professionals, PE deal teams, M&amp;A advisors, investment bankers.</strong> Every significant deal analysed through valuation theory, deal structure, synergy logic, and integration risk. Not the press release — the deal mechanic. "Why did they pay 14x EBITDA and what theory justifies it?" The causal chain becomes the deal thesis chain.</div>
+          </div>
+          <div class="lens-col">
+            <div class="lens-col-lbl">Revenue model</div>
+            <div class="lens-col-text">Pro £25/mo (deal professionals expense without asking). Team £199/seat for advisory firms. Enterprise £15k/yr for PE funds and corporate development teams. This is the highest-WTP audience in the Lens universe — people who transact hundreds of millions and need this context before every management presentation. Price accordingly.</div>
+          </div>
+          <div class="lens-col">
+            <div class="lens-col-lbl">Why the engine wins</div>
+            <div class="lens-col-text">Deal commentary exists (Bloomberg, Dealreporter) but it is transactional — who bought what for how much. DealLens applies theory: DCF mechanics, EV/EBITDA context, synergy frameworks, integration failure rates, regulatory risk mapping. Your 18 years in institutional finance means you have run these analyses. The engine writes the first draft. You edit for 15 minutes.</div>
+          </div>
+        </div>
+        <div class="lens-foot">
+          <span>Founder profile: You. Corporate finance + M&A experience from Barclays, HSBC, TP ICAP is exactly the credential.</span>
+          <button class="idea-btn" onclick="saveIdea(this,'DealLens — M&A intelligence for deal professionals. £25/mo Pro, £199/seat Team. Closest to your existing background.')">Save idea</button>
+        </div>
+      </div>
+
+      <div class="lens-card" style="animation-delay:.20s">
+        <div class="lens-header">
+          <div>
+            <div class="lens-name">TechLens</div>
+            <div class="lens-tagline">"Technology strategy for the executive, not the engineer."</div>
+          </div>
+          <div class="lens-badges">
+            <span class="pill pill-purple">Technology &amp; AI</span>
+            <span class="pill pill-green">£800k ARR potential</span>
+          </div>
+        </div>
+        <div class="lens-body">
+          <div class="lens-col">
+            <div class="lens-col-lbl">Audience &amp; angle</div>
+            <div class="lens-col-text"><strong>Non-technical C-suite, board members, strategy directors who need to make technology decisions without understanding the technology.</strong> "What does the Tencent AI result mean for our AI strategy?" "Should we be worried about our ERP vendor's AI roadmap?" The audience already exists — it reads McKinsey and HBR but wants something more current and less generic.</div>
+          </div>
+          <div class="lens-col">
+            <div class="lens-col-lbl">Revenue model</div>
+            <div class="lens-col-text">Free: today's story. Pro £20/mo. Team £149/seat for strategy teams and boards. The MacroLens AI primer and ecosystem map are already the best explanation of the AI stack for non-technical executives that exists anywhere. TechLens simply makes this the primary product rather than a supporting feature.</div>
+          </div>
+          <div class="lens-col">
+            <div class="lens-col-lbl">Why the engine wins</div>
+            <div class="lens-col-text">The AI ecosystem map you built for MacroLens — Infrastructure → Models → Applications → Monetisation with the maturity cycle bar — is already TechLens's core visual. It took one session to build. Replicating it for other technology domains (cloud, cybersecurity, quantum, biotech) is a template exercise. The content engine applies identical logic to different RSS feeds.</div>
+          </div>
+        </div>
+        <div class="lens-foot">
+          <span>Founder profile: Former Big Tech product or strategy role, or management consultant with deep technology sector specialisation</span>
+          <button class="idea-btn" onclick="saveIdea(this,'TechLens — technology strategy for C-suite executives. AI ecosystem map already built. £20/mo Pro, £149/seat Team.')">Save idea</button>
+        </div>
+      </div>
+
+      <div class="lens-card" style="animation-delay:.24s">
+        <div class="lens-header">
+          <div>
+            <div class="lens-name">Lens Studio</div>
+            <div class="lens-tagline">"We build your intelligence product. You run it."</div>
+          </div>
+          <div class="lens-badges">
+            <span class="pill pill-purple">Agency / Platform</span>
+            <span class="pill pill-green">£60k/yr from 4 clients</span>
+          </div>
+        </div>
+        <div class="lens-body">
+          <div class="lens-col">
+            <div class="lens-col-lbl">The offer</div>
+            <div class="lens-col-text"><strong>Build a complete Lens product for a subject matter expert in 30 days.</strong> Custom JSON schema for their domain. Custom ecosystem map. Custom Claude prompt. GitHub/Vercel deployment. Branded design. Substack integration. Handover with training. Fixed price £15,000. Monthly retainer option £1,500/mo for ongoing evolution. Sven and Seamus as the delivery team.</div>
+          </div>
+          <div class="lens-col">
+            <div class="lens-col-lbl">Target clients</div>
+            <div class="lens-col-text">Subject matter experts with an audience but no product. The sports scientist with 50k Instagram followers who does not know how to productise their knowledge. The regulatory lawyer with a niche practice and no time to build. The climate scientist who gives keynotes to asset managers but earns £500/talk. They have the expertise. You have the engine.</div>
+          </div>
+          <div class="lens-col">
+            <div class="lens-col-lbl">Why this works now</div>
+            <div class="lens-col-text">MacroLens is the proof of concept. You can show a prospective client a fully working intelligence product — 7 live stories, automated pipeline, premium design, domain primers, ecosystem maps — and say "I built this in a few weeks. I can build yours in 30 days." Four clients per year at £15k = £60k on top of MacroLens recurring revenue. This is Senior Signal.</div>
+          </div>
+        </div>
+        <div class="lens-foot">
+          <span>This is Senior Signal — the advisory studio concept you and Seamus discussed. MacroLens is the flagship case study.</span>
+          <button class="idea-btn" onclick="saveIdea(this,'Lens Studio — build Lens products for SMEs. £15k fixed, £1.5k/mo retainer. MacroLens is the proof of concept. This is Senior Signal.')">Save idea</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- GENERATE MORE — ENGINE -->
+    <div class="generate-more" style="margin-top:8px">
+      <div class="gm-label">Generate a new Lens concept</div>
+      <div class="gm-row">
+        <input class="gm-input" id="inp-en" placeholder="e.g. &ldquo;Build me a SportingLens for professional football clubs&rdquo; or &ldquo;What would a HRLens for talent directors look like?&rdquo;" />
+        <button class="gm-btn purple" id="gbtn-en" onclick="generateMore('en')">
+          <span id="gspinner-en">&#x26A1;</span> Build a Lens
+        </button>
+      </div>
+    </div>
+    <div id="gen-output-en"></div>
+  </div>
+
+  <!-- ════════════════════ BLUE SKY ════════════════════ -->
+  <div class="zone-panel" id="zone-bs">
+    <div class="zone-header">
+      <div class="zone-eyebrow amber">Blue sky</div>
+      <div class="zone-title">What else could you build?</div>
+      <div class="zone-sub">No constraints. 18 years of institutional finance, a working AI automation stack, creative pursuits (songwriting, photography, literary fiction), and a genuine ability to make complex things understandable. What does that combination unlock?</div>
+    </div>
+
+    <div class="ideas-grid" id="grid-bs">
+
+      <div class="idea-card" style="animation-delay:.04s">
+        <div class="idea-type" style="color:var(--amber)">B2B SaaS</div>
+        <div class="idea-title">The FP&A Intelligence API</div>
+        <div class="idea-body">MacroLens's structured JSON — signals, causal chains, country impacts, sector effects, theory references — becomes a commercial data product. FP&A software vendors (Workday Adaptive, Anaplan, OneStream) embed MacroLens intelligence directly into their platforms. When a user builds a revenue forecast, MacroLens signals appear inline: "Brent crude up 25% — your energy cost model is materially wrong."</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-amber">Month 18+</span><span class="pill pill-amber">High ceiling</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this,'amber')">The licensing model</button>
+            <button class="idea-btn" onclick="saveIdea(this,'FP&A Intelligence API — license MacroLens structured JSON to FP&A software vendors. Workday, Anaplan, OneStream embed inline signals.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand amber">£500–5,000/month per integration. One FP&A software vendor with 10,000 customers is worth more than 10,000 individual subscribers. The data is already structured for this — every story has sector impacts, country codes, signal directions, and FP&A-specific "so what" sections. This is the Version 3 architecture in the business plan. The prerequisite: 200+ stories in the archive and a defensible editorial process.</div>
+      </div>
+
+      <div class="idea-card" style="animation-delay:.08s">
+        <div class="idea-type" style="color:var(--amber)">Creative &amp; Publishing</div>
+        <div class="idea-title">Ashes of Us — published with AI-assisted production</div>
+        <div class="idea-body">The literary novel in progress — three young men, London across three decades, masculinity and betrayal, fire as a recurring motif. What if you used Claude not to write it but to build the production apparatus around it: structural analysis, pacing feedback, line-level consistency checking, query letter drafting. Then self-publish with the same design quality as MacroLens. The novel as a product, not a manuscript.</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-amber">Personal</span><span class="pill pill-amber">Long game</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this,'amber')">Why now, not later</button>
+            <button class="idea-btn" onclick="saveIdea(this,'Ashes of Us — AI-assisted production for the novel. Claude as structural editor. Self-publish with MacroLens-quality design.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand amber">The MacroLens audience — finance professionals who read and think — is the exact audience for literary fiction about power, masculinity, and institutional life. A novel from "the author of MacroLens" has a built-in pre-order list. The AI production workflow you have already built applies directly: structured feedback loops, consistent style checking, editorial rhythm. The novel is not a side project. It is the thing that makes MacroLens a person, not just a product.</div>
+      </div>
+
+      <div class="idea-card" style="animation-delay:.12s">
+        <div class="idea-type" style="color:var(--amber)">Community &amp; events</div>
+        <div class="idea-title">The MacroLens Roundtable — quarterly dinners</div>
+        <div class="idea-body">Twelve senior finance professionals, one MacroLens story, one dinner. London. £200/head. Sven facilitates: opens with the pullquote, walks the causal chain, asks the counterintuitive question, lets the room argue. The dinner is the product. MacroLens is the intellectual agenda. The subscription pays for the brief. The dinner pays for the experience. This is the Chatham House model at a fraction of the cost.</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-amber">£2,400 per dinner</span><span class="pill pill-amber">Credibility multiplier</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this,'amber')">Why this builds the business</button>
+            <button class="idea-btn" onclick="saveIdea(this,'MacroLens Roundtable — quarterly dinners, 12 senior finance pros, £200/head. Sven facilitates. £2,400/dinner, institutional credibility.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand amber">One roundtable dinner generates: £2,400 revenue, 12 potential enterprise clients in the room, 3–5 LinkedIn posts from attendees (better marketing than any paid campaign), two or three "I want this for my whole team" conversations, and one request for a bespoke company briefing. The dinner is the funnel. MacroLens is the product at the end of it. Four dinners per year = £9,600 + pipeline worth multiples of that.</div>
+      </div>
+
+      <div class="idea-card" style="animation-delay:.16s">
+        <div class="idea-type" style="color:var(--amber)">Digital product</div>
+        <div class="idea-title">The Third Shore — fine art print series</div>
+        <div class="idea-body">The AI-generated photography project (bodies, light, intimacy) as a commercial fine art series. Limited edition prints, 50 per image, numbered and signed. £150–500 per print. The MacroLens design sensibility applied to art: same restraint, same attention to composition, completely different emotional register. Sold to the same audience who buys MacroLens: professionals with taste and disposable income.</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-amber">Creative</span><span class="pill pill-amber">Existing work</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this,'amber')">The product model</button>
+            <button class="idea-btn" onclick="saveIdea(this,'The Third Shore print series — limited edition AI photography prints, £150-500, numbered. MacroLens audience crossover.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand amber">The work already exists on Instagram. The question is whether the audience is large enough to support a print market. The answer is: not yet, but it will be. MacroLens's growing audience is the exact demographic for considered art purchases. A "MacroLens subscriber special" — 10% discount on Third Shore prints, early access to new series — creates a cross-pollination between the two projects that builds both simultaneously.</div>
+      </div>
+
+      <div class="idea-card" style="animation-delay:.20s;border:1px solid var(--amber)">
+        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:5px">&#x1F4A1; Wildcard</div>
+        <div class="idea-type" style="color:var(--amber)">10x ambition</div>
+        <div class="idea-title">The Institutional Intelligence Bureau</div>
+        <div class="idea-body">MacroLens, RegLens, ClimateLens, DealLens as a single subscription for institutional asset managers. £50,000/year. Full intelligence coverage across economics, regulation, climate, and M&A. Staffed by four domain experts (you find and revenue-share with them) using the shared Lens engine. Pitched as the alternative to a £500k/year in-house research team. Addressable market: 2,000 institutional asset managers globally.</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-amber">Year 3+</span><span class="pill pill-amber">10x ceiling</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this,'amber')">The path to it</button>
+            <button class="idea-btn" onclick="saveIdea(this,'Institutional Intelligence Bureau — MacroLens + RegLens + ClimateLens + DealLens as bundle. £50k/yr institutional. 20 clients = £1m.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand amber">20 institutional clients at £50,000/year = £1m ARR. The path: MacroLens proves the model (year 1), DealLens proves it in M&A (year 2), the bundle sells itself to the institution that already pays for MacroLens and wants the rest (year 3). The prerequisite is not technology — the engine already exists. It is editorial credibility in each domain. That takes time. But it is a clear path, not a moonshot.</div>
+      </div>
+
+      <div class="idea-card" style="animation-delay:.24s">
+        <div class="idea-type" style="color:var(--amber)">Education</div>
+        <div class="idea-title">MacroLens University Partnership</div>
+        <div class="idea-body">A single annual licence for a university's economics or finance department: £5,000/year, unlimited student access, faculty briefing package, integration with course reading lists. MacroLens stories become case studies in real time — the Iran conflict as a live supply shock analysis, the Fed hold as a live Taylor Rule case study. Pilot with one London Business School or Imperial professor you know.</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-amber">Pipeline for Pro subs</span><span class="pill pill-green">£5k/yr per university</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this,'amber')">The long-game value</button>
+            <button class="idea-btn" onclick="saveIdea(this,'University partnership — £5k/yr per institution, unlimited students. Pipeline: students convert to £15/mo Pro after graduation.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand amber">A student who reads MacroLens for three years at university and then joins Barclays as an analyst has a non-zero probability of expensing the £15/month Pro subscription from their first week. The university deal pays £5k once. The alumni pipeline pays £15/month for 30 years. The real revenue model from university partnerships is not the £5k — it is the lifetime subscribers it seeds.</div>
+      </div>
+
+      <div class="idea-card" style="animation-delay:.28s">
+        <div class="idea-type" style="color:var(--amber)">Advisory</div>
+        <div class="idea-title">The MacroLens CFO Advisory</div>
+        <div class="idea-body">A structured 90-day engagement for a mid-market CFO: MacroLens as the intelligence layer, weekly 1-hour calls with Sven interpreting the macro in context of their specific business, a deliverable "macro exposure map" at the end showing where their P&L is genuinely exposed to the events MacroLens covers. Fixed price £15,000. The product is Senior Signal. MacroLens is the credibility proof.</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-amber">4 clients/yr = £60k</span><span class="pill pill-amber">Directly sellable now</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this,'amber')">Why this works immediately</button>
+            <button class="idea-btn" onclick="saveIdea(this,'MacroLens CFO Advisory — 90-day engagement £15k. Macro exposure map deliverable. 4 clients/yr = £60k. Sellable now from network.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand amber">You do not need MacroLens to have 1,000 subscribers to sell this. You need the URL, the TP ICAP deep dive as a proof of work, and one warm introduction to a CFO at a company with meaningful macro exposure (energy costs, FX, supply chain). The first client generates the case study. The case study generates the next three. This is the fastest path to meaningful revenue from the MacroLens asset — and it does not require a single new subscriber.</div>
+      </div>
+
+      <div class="idea-card" style="animation-delay:.32s">
+        <div class="idea-type" style="color:var(--amber)">Content &amp; Media</div>
+        <div class="idea-title">MacroLens on Substack Notes — the micro-insight feed</div>
+        <div class="idea-body">Substack Notes is an emerging social layer where brief insights travel fast within the Substack ecosystem. Post one MacroLens pullquote per day to Notes with a 2-sentence explanation. "The Fed cannot lower oil prices by raising interest rates. It is being asked to cure a patient with the wrong medicine." These travel faster than full articles and each one drives readers to the full issue. Cost: 5 minutes per day.</div>
+        <div class="idea-footer">
+          <div class="idea-pills"><span class="pill pill-green">5 min/day</span><span class="pill pill-green">Free acquisition</span></div>
+          <div class="idea-actions">
+            <button class="idea-btn" onclick="expandIdea(this,'amber')">The compounding logic</button>
+            <button class="idea-btn" onclick="saveIdea(this,'Substack Notes micro-feed — one pullquote per day, 2-sentence context. Already generated in JSON. 5 min/day, free subscriber acquisition.')">Save</button>
+          </div>
+        </div>
+        <div class="idea-expand amber">The pullquote for every story is already generated in the JSON. The "Before you close this" section provides the 2-sentence context. The total work: copy, paste, post. Substack Notes users who follow MacroLens on Notes see the daily pullquote, click through to the issue, and a percentage subscribe. The MacroLens brand on Substack Notes is distinct from LinkedIn (different audience) and Twitter (different intent). Three channels, same content, compounding acquisition.</div>
+      </div>
+
+    </div>
+
+    <!-- GENERATE MORE — BLUE SKY -->
+    <div class="generate-more" style="margin-top:8px">
+      <div class="gm-label">Explore further</div>
+      <div class="gm-row">
+        <input class="gm-input" id="inp-bs" placeholder="e.g. &ldquo;What would I build if MacroLens had 10,000 subscribers?&rdquo; or &ldquo;Ideas using my songwriting and finance background together?&rdquo;" />
+        <button class="gm-btn amber" id="gbtn-bs" onclick="generateMore('bs')">
+          <span id="gspinner-bs">&#x1F680;</span> Explore
+        </button>
+      </div>
+    </div>
+    <div id="gen-output-bs"></div>
+  </div>
+
+
+  <!-- ════════════════════ CRITIQUE ════════════════════ -->
+  <div class="zone-panel" id="zone-cr">
+    <div class="zone-header">
+      <div class="zone-eyebrow critique">Product critique</div>
+      <div class="zone-title">Brutally honest. Based on the live product.</div>
+      <div class="zone-sub">A full strategic review of MacroLens against the brief: genuinely novel insight engine vs AI summarisation tool. Scored, compared, and followed by specific fixes. Read this before pitching to anyone.</div>
+    </div>
+
+    <!-- SCORES -->
+    <div class="score-grid">
+      <div class="score-card">
+        <div class="score-label">Novelty vs AI tools<span class="score-num high">8/10</span></div>
+        <div class="score-bar-track"><div class="score-bar-fill high" style="width:80%"></div></div>
+        <div class="score-note">The structured schema and causal chain are genuinely differentiated. The visual design and depth of analysis are not replicable in ChatGPT in 30 seconds. But the tagline does not communicate this.</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Second-order thinking<span class="score-num mid">6/10</span></div>
+        <div class="score-bar-track"><div class="score-bar-fill mid" style="width:60%"></div></div>
+        <div class="score-note">The causal chain is excellent. The "ripple effects" and "global picture" show second-order logic. But the counterintuitive questions and bias checkpoints — the most differentiated elements — are buried too deep to register on arrival.</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Insight quality<span class="score-num high">8/10</span></div>
+        <div class="score-bar-track"><div class="score-bar-fill high" style="width:80%"></div></div>
+        <div class="score-note">"Tencent did not build AI. It applied AI to what it already had." That is not a ChatGPT summary. That is a frame. The pullquotes are strong. The mechanism sections are specific. The signal analysis is institutionally grounded.</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Willingness to pay £15/mo<span class="score-num mid">5/10</span></div>
+        <div class="score-bar-track"><div class="score-bar-fill mid" style="width:50%"></div></div>
+        <div class="score-note">The product quality justifies £15/mo. The positioning does not communicate it yet. A visitor landing on the site does not immediately understand why this is worth paying for — the entry point is better than it was but the value proposition is still implicit, not stated.</div>
+      </div>
+    </div>
+
+    <!-- NOVELTY ASSESSMENT -->
+    <div class="verdict-card green" style="animation-delay:.04s">
+      <div class="verdict-label">1 &mdash; Novelty assessment</div>
+      <div class="verdict-title">Genuinely novel. But the novelty is invisible on arrival.</div>
+      <div class="verdict-body">MacroLens is not an AI summarisation tool. The structural differentiator is real and significant: a 30-field schema that forces every story through causal chain analysis, bias checkpoints, second-order country impacts, framework attribution, counterintuitive questions, and resolution scenarios. No other daily publication has this architecture. ChatGPT can produce one of these fields in 30 seconds. It cannot produce all 30 consistently, at the quality level of someone with 18 years of institutional finance experience, every day.
+      <br><br>
+      The problem is that the novelty is in the depth — and depth is invisible until a reader has been reading for 10 minutes. The first 30 seconds of the MacroLens experience does not yet communicate "this is structurally different from anything else you read." The entry point is better since the redesign. But the positioning — "Economic theory, applied daily" — tells you the method, not the benefit. It says what the product is, not what it does for you.</div>
+    </div>
+
+    <!-- GAP ANALYSIS -->
+    <div class="verdict-card amber" style="animation-delay:.08s">
+      <div class="verdict-label">2 &mdash; Gap analysis</div>
+      <div class="verdict-title">The product is stronger than the experience of it.</div>
+      <div class="verdict-body"><strong>Does it feel like summaries?</strong> Sometimes yes. The 90-second version in the entry point reads like a good summary. The impact cards feel like highlights. The mechanism section and causal chain do not feel like summaries — they feel like analysis. The problem is sequencing: the summary-feeling parts come first and set a mental model that undersells what follows.
+      <br><br>
+      <strong>Is second-order thinking strong enough?</strong> The causal chain is excellent — 5 steps, each with a theory attribution and a mechanism explanation. The ripple effects and global picture show third and fourth-order consequences. The bias checkpoints explicitly challenge the analysis. This is strong. The weakness is that these sections are labelled with passive section titles ("Ripple effects", "The global picture") rather than provocative ones that signal this is unusual analysis.
+      <br><br>
+      <strong>Does it deliver an edge?</strong> On the Tencent story: yes. "The Western financial press covers Tencent through a geopolitical lens. The actual business story is underweighted." That is an edge — a specific reframe of what everyone else is covering. But it is in the "What consensus misses" subsection, four scrolls deep. Most readers will never reach it. The product buries its sharpest insights.</div>
+    </div>
+
+    <!-- OUTPUT QUALITY -->
+    <div class="verdict-card green" style="animation-delay:.12s">
+      <div class="verdict-label">3 &mdash; Output quality review</div>
+      <div class="verdict-title">The insights are not obvious. But they are not consistently sharp either.</div>
+      <div class="verdict-body"><strong>Could a user replicate this in ChatGPT in 30 seconds?</strong> No. Not the causal chain with theory attribution. Not the bias checkpoints. Not the resolution scenarios with probability weightings. Not the structured country impact analysis. The product has genuine analytical architecture that requires both the schema and 18 years of institutional knowledge to produce consistently.
+      <br><br>
+      <strong>Where the insights are sharp:</strong> The pullquotes ("Tencent did not build AI. It applied AI to what it already had.") The counterintuitive questions (III — "If AI is doing all the work, what does Tencent's human workforce actually do?" — is a genuinely provocative question). The "Said vs meant" section. The bias checkpoint on Western analytical framework applied to a Chinese platform.
+      <br><br>
+      <strong>Where the insights are generic:</strong> The "So what for me" investor points read like Bloomberg commentary. "Tencent at current valuations prices in significant regulatory discount" is something any analyst would say. The signal analysis ("Tencent Gross Margin ↑ 53%") is factual but the insight density in the explanation is variable. Some signal explanations are sharp. Others are descriptive rather than analytical.
+      <br><br>
+      <strong>The counterintuitive questions are the product's highest-value output.</strong> They are currently the most buried. This is backwards.</div>
+    </div>
+
+    <!-- COMPARATOR TABLE -->
+    <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;margin-top:8px">MacroLens vs the competitive set</div>
+    <div class="comp-table">
+      <div class="comp-row comp-header">
+        <div class="comp-cell">Product</div>
+        <div class="comp-cell">What it does well</div>
+        <div class="comp-cell">MacroLens vs</div>
+      </div>
+      <div class="comp-row hl">
+        <div class="comp-cell">ChatGPT / Claude</div>
+        <div class="comp-cell">On-demand explanation of any topic</div>
+        <div class="comp-cell win">MacroLens wins on structured depth, consistency, institutional credibility, and daily curation. You cannot prompt-engineer 30 fields of consistent analysis every day without the schema.</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell">Morning Brew / Finimize</div>
+        <div class="comp-cell">Accessible daily news digest with personality</div>
+        <div class="comp-cell win">MacroLens wins on depth and analytical rigour. Loses on accessibility and casual reading experience. Different audience — and that is fine.</div>
+      </div>
+      <div class="comp-row hl">
+        <div class="comp-cell">The Economist</div>
+        <div class="comp-cell">Authoritative weekly macro analysis</div>
+        <div class="comp-cell neutral">MacroLens wins on frequency and structural depth. Loses on brand authority and prose quality. The Economist writes better. MacroLens analyses more systematically.</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell">Stratechery</div>
+        <div class="comp-cell">Deep technology strategy analysis, daily</div>
+        <div class="comp-cell neutral">The closest structural parallel. One story, deep analysis, paying audience. MacroLens covers broader domain. Stratechery has 10 years of audience trust. MacroLens has a more systematic framework.</div>
+      </div>
+      <div class="comp-row hl">
+        <div class="comp-cell">Bloomberg Terminal</div>
+        <div class="comp-cell">Comprehensive market data and news</div>
+        <div class="comp-cell win">MacroLens wins on "why it matters" analysis. Bloomberg tells you what happened. MacroLens tells you why it was always going to happen. Different cognitive layer entirely.</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell">Perplexity / AI search</div>
+        <div class="comp-cell">Real-time AI-assisted research</div>
+        <div class="comp-cell win">MacroLens wins on curation, editorial voice, and structured analytical framework. Perplexity answers questions. MacroLens changes how you ask them.</div>
+      </div>
+    </div>
+
+    <!-- PRODUCT IMPROVEMENTS -->
+    <div class="zone-eyebrow critique" style="margin-bottom:12px">4 &mdash; Specific product improvements</div>
+    <div class="fix-grid">
+
+      <div class="fix-card" style="animation-delay:.04s">
+        <div class="fix-priority" style="color:#A83228">Highest impact</div>
+        <div class="fix-title">Surface the counterintuitive questions above the fold</div>
+        <div class="fix-body">The three counterintuitive questions ("Tencent's AI investment is doubling — so isn't this actually a capex acceleration story?") are currently buried past the mechanism, past the pullquote, past the causal chain. They are the most intellectually distinctive output in the entire product. A visitor who reads one counterintuitive question in the first 30 seconds understands immediately that MacroLens is not a summary tool. Move one counterintuitive to the entry point — between the pullquote and the 90-second summary.</div>
+        <div class="fix-action">Build time: 30 minutes. Impact on conversion: high. The counterintuitive is the hook. Use it first.</div>
+      </div>
+
+      <div class="fix-card" style="animation-delay:.08s">
+        <div class="fix-priority" style="color:#A83228">Highest impact</div>
+        <div class="fix-title">Rename sections to communicate insight, not structure</div>
+        <div class="fix-body">"Ripple effects" says nothing. "Who else gets hurt that nobody is talking about" says everything. "The global picture" is a geography lesson. "The countries that win and lose — and why the obvious answer is wrong" creates a reason to read. Every section title is currently a label. Every section title should be a provocation. The sections are excellent — they are just introduced as if they are filing cabinet drawers rather than intellectual challenges.</div>
+        <div class="fix-action">Suggested renames: "Market signals" → "What markets already knew". "The mechanism" → "The thing driving this that the headlines missed". "Resolution scenario" → "How this ends — three versions".</div>
+      </div>
+
+      <div class="fix-card" style="animation-delay:.12s">
+        <div class="fix-priority" style="color:var(--amber)">High impact</div>
+        <div class="fix-title">Add a "What everyone else got wrong" field</div>
+        <div class="fix-body">The "consensus missing" field in the readBetweenLines section ("The Western financial press covers Tencent through a geopolitical lens — the actual business story is underweighted") is the sharpest, most differentiated content in any story. It exists in the JSON schema. It is displayed inside a collapsed tab four scrolls down. It needs to be a first-class, prominently displayed section — not a sub-tab in "Reading between the lines". This single field is worth the subscription.</div>
+        <div class="fix-action">Rename field to "What the mainstream analysis missed" and surface it as a standalone section immediately after the mechanism. Do not hide it in a tab.</div>
+      </div>
+
+      <div class="fix-card" style="animation-delay:.16s">
+        <div class="fix-priority" style="color:var(--amber)">High impact</div>
+        <div class="fix-title">The causal chain needs a "therefore what?" closing beat</div>
+        <div class="fix-body">The causal chain ends at Step 5 ("Capital efficiency improves: capex falls while returns rise") with an explanation. It then stops. The most powerful thing a causal chain can do is show the reader the implication they had not reached on their own. Add a final "therefore what?" beat: "Therefore: the Western analyst assuming AI requires a capital-intensive buildout phase is working from the wrong model. Tencent is the evidence." That is the edge. The chain currently demonstrates the mechanism. It should also deliver the verdict.</div>
+        <div class="fix-action">Add a "Chain verdict" field to the JSON schema. Render it as a highlighted closing statement below the final step. One sentence, sharp, specific to the story.</div>
+      </div>
+
+      <div class="fix-card" style="animation-delay:.20s">
+        <div class="fix-priority" style="color:var(--teal)">Medium impact</div>
+        <div class="fix-title">The "So what for me" section needs to be sharper and shorter</div>
+        <div class="fix-body">The investor tab reads like Bloomberg commentary. "Tencent at current valuations prices in significant regulatory discount" is not an insight — it is a price-to-book observation every sell-side analyst has made. The finance professional points are stronger. The student points are the best. The problem: three personas dilute the impact. Each reader thinks "which one am I?" and then reads the generic one. Consider collapsing to one voice — the serious finance professional — and making every point genuinely actionable.</div>
+        <div class="fix-action">Test removing the persona tabs. One set of "So what" points, written for the most valuable subscriber. Shorter. Harder. More specific. A point that requires knowing something should require knowing something to appreciate.</div>
+      </div>
+
+      <div class="fix-card" style="animation-delay:.24s">
+        <div class="fix-priority" style="color:var(--teal)">Medium impact</div>
+        <div class="fix-title">The ecosystem map is decorative, not analytical</div>
+        <div class="fix-body">The AI ecosystem map shows which layers are active for this story (Monetisation layer lit up for Tencent). It looks good. But it does not tell the reader anything they did not already know — of course the Monetisation layer is active for an earnings story. The map needs to do analytical work, not just visual work. It should show something non-obvious: "This story appears to be about monetisation but the structural driver is at the Infrastructure layer — which is why the Western narrative about AI spend is misdirected." The map should be a thesis, not an illustration.</div>
+        <div class="fix-action">Add a "map insight" field to the ecosystemMap schema: one sentence explaining why the active layers are analytically surprising or significant. Display it prominently inside the map section.</div>
+      </div>
+
+    </div>
+
+    <!-- POSITIONING FIX -->
+    <div class="verdict-card navy" style="animation-delay:.28s">
+      <div class="verdict-label">5 &mdash; Positioning fix</div>
+      <div class="verdict-title" style="font-size:22px">The current tagline sells the method. The new one must sell the outcome.</div>
+      <div class="verdict-body">
+        <strong style="color:rgba(255,255,255,.75)">Current:</strong> "Economic theory, applied daily."<br>
+        <em style="color:rgba(255,255,255,.5)">Problem: This describes what MacroLens does, not what it does for you. It sounds like a course, not a competitive advantage.</em>
+        <br><br>
+        <strong style="color:rgba(255,255,255,.75)">Option A — The edge:</strong><br>
+        <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.85)">"See what the financial press missed. Every day."</span><br>
+        <em style="color:rgba(255,255,255,.5)">Communicates: there is a gap between what is reported and what is true. MacroLens closes it. Slightly adversarial. Strong.</em>
+        <br><br>
+        <strong style="color:rgba(255,255,255,.75)">Option B — The mechanism:</strong><br>
+        <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.85)">"The news tells you what happened. MacroLens tells you why it was always going to."</span><br>
+        <em style="color:rgba(255,255,255,.5)">Communicates: structural inevitability, not just reporting. Positions MacroLens as analytical foresight, not hindsight.</em>
+        <br><br>
+        <strong style="color:rgba(255,255,255,.75)">Option C — The credential:</strong><br>
+        <span style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(255,255,255,.85)">"18 years of institutional finance. One story. Every morning."</span><br>
+        <em style="color:rgba(255,255,255,.5)">Communicates: this is not AI-generated noise. This is a person with a track record, applied to one thing daily. Strongest for the B2B and Pro subscriber audience.</em>
+        <br><br>
+        <strong style="color:rgba(255,255,255,.75)">Recommended:</strong> Option B as the primary tagline. Option C as the sub-line below it. A+B+C as a 3-line hero statement on the homepage.
+      </div>
+    </div>
+
+    <!-- HARSH REALITY CHECK -->
+    <div class="verdict-card red" style="animation-delay:.32s">
+      <div class="verdict-label">6 &mdash; Harsh reality check</div>
+      <div class="verdict-title">Why someone would NOT pay £15/month right now</div>
+      <div class="verdict-body"><strong>1. The entry barrier is too high.</strong> A first-time visitor has to scroll ~3,000px before they encounter something genuinely surprising — the counterintuitive questions. Everything before that is high-quality but familiar: summary, signals, mechanism. The product has not earned the right to ask for £15 by the time most visitors bounce. Fix: counterintuitive question in the first 300px.
+      <br><br>
+      <strong>2. There is no "only here" moment.</strong> Nothing in the first scroll makes the reader think "I have never seen this anywhere else." The pullquote is strong. The impact cards are familiar (every newsletter has 3-bullet summaries). The ecosystem map is visually distinctive but not analytically sharp. The "only here" moment needs to be designed into the first screen — not discovered on the third.
+      <br><br>
+      <strong>3. The product does not have a voice yet.</strong> The analysis is institutionally grounded. The prose is clean. But there is no author. There is no byline on the homepage. There is no "18 years at Barclays, HSBC, TP ICAP" anywhere visible without clicking around. Stratechery charges $14/month because Ben Thompson's name is the guarantee. MacroLens has equivalent credibility and has not used it. Put your name and 18-year credential on the homepage. Not in the about page. On the story itself.
+      <br><br>
+      <strong>4. The paywall does not exist.</strong> There is no reason to pay today because everything is free. The soft paywall (CSS blur on 7-day-old stories) is not built yet. Until it is, "subscribe" is a donation, not a transaction.
+      <br><br>
+      <strong>What must change to make it worth £15/month:</strong> One counterintuitive question above the fold. Author name + credential on every story. Soft paywall on archive. The tagline changed to communicate outcome not method. The "What the mainstream missed" field promoted to a first-class section. Do all five and the product is demonstrably worth £15/month to any serious finance professional. Currently it is worth it — they just cannot tell that yet.
+      </div>
+    </div>
+
+    <!-- GENERATE MORE -->
+    <div class="generate-more" style="margin-top:8px">
+      <div class="gm-label">Push the critique further</div>
+      <div class="gm-row">
+        <input class="gm-input" id="inp-cr" placeholder="e.g. &ldquo;How would you redesign the entry point specifically?&rdquo; or &ldquo;What would a product manager at Stratechery say about MacroLens?&rdquo;" />
+        <button class="gm-btn teal" id="gbtn-cr" onclick="generateMore('cr')">
+          <span id="gspinner-cr">&#x26A1;</span> Go deeper
+        </button>
+      </div>
+    </div>
+    <div id="gen-output-cr"></div>
+
+  </div>
+
+
+  <!-- SAVED IDEAS -->
+  <div class="saved-wrap" id="savedWrap">
+    <div class="saved-lbl">&#x1F4BE; Saved ideas</div>
+    <div class="saved-list" id="savedList"></div>
+  </div>
+
+</div>
+
+<script>
+let savedIdeas = JSON.parse(localStorage.getItem('ml_ideas_v2') || '[]');
+
+function switchZone(z) {
+  document.querySelectorAll('.zone-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('zone-' + z).classList.add('active');
+  const classes = { ev: 'z-teal', en: 'z-purple', bs: 'z-amber', cr: 'z-critique' };
+  document.querySelectorAll('.zone-tab').forEach(t => {
+    t.className = 'zone-tab';
+    if (t.id === 'tab-' + z) t.classList.add(classes[z]);
+  });
+}
+
+function expandIdea(btn, color) {
+  const card = btn.closest('.idea-card');
+  const exp = card.querySelector('.idea-expand');
+  if (!exp) return;
+  const open = exp.classList.contains('open');
+  exp.classList.toggle('open');
+  if (color) { exp.className = 'idea-expand' + (open ? '' : ' open' + (color !== 'teal' ? ' ' + color : '')); }
+  btn.textContent = open ? btn.dataset.orig || btn.textContent : (btn.dataset.orig = btn.textContent, 'Close');
+}
+
+function saveIdea(btn, text) {
+  if (!savedIdeas.includes(text)) {
+    savedIdeas.unshift(text);
+    if (savedIdeas.length > 30) savedIdeas.pop();
+    localStorage.setItem('ml_ideas_v2', JSON.stringify(savedIdeas));
+  }
+  btn.textContent = 'Saved ✓';
+  btn.classList.add('saved');
+  setTimeout(() => { btn.textContent = 'Save'; btn.classList.remove('saved'); }, 2000);
+  renderSaved();
+}
+
+function removeSaved(i) {
+  savedIdeas.splice(i, 1);
+  localStorage.setItem('ml_ideas_v2', JSON.stringify(savedIdeas));
+  renderSaved();
+}
+
+function renderSaved() {
+  const wrap = document.getElementById('savedWrap');
+  const list = document.getElementById('savedList');
+  if (!savedIdeas.length) { wrap.classList.remove('show'); return; }
+  wrap.classList.add('show');
+  list.innerHTML = savedIdeas.map((t, i) =>
+    `<div class="saved-item"><div class="saved-text">${t}</div><span class="saved-rm" onclick="removeSaved(${i})">&#x2715;</span></div>`
+  ).join('');
+}
+
+// ── GENERATE MORE ──
+const ZONE_CONTEXT = {
+  ev: `You are a product strategist for MacroLens — a daily economic intelligence platform with: 7 live stories, automated Zapier+Claude pipeline (£0.20/story), 30-field JSON story schema, FP&A toolkit (Finance Map, Activities Playbook, TP ICAP deep dive), 5 domain primers, 3-tier pricing (Free/£15/£99), premium editorial design, and a founder with 18 years at Barclays, HSBC, Lloyds, ANZ, TP ICAP. Generate specific actionable product evolution ideas. Output JSON array: [{"type":"string","title":"string","body":"string","why":"string","effort":"Quick win|Weekend|Month","potential":"High|Medium|Speculative"}] — just the array, no other text.`,
+  en: `You are a business architect helping build new "Lens" intelligence products using the MacroLens engine (structured JSON schema, Claude API automation, premium design system, domain primers, subscription tiers). Each Lens applies to a specific domain with a credentialed expert curator. Output JSON array: [{"lensName":"string","domain":"string","tagline":"string","audience":"string","uniqueAngle":"string","pricing":"string","revenueModel":"string","competitiveEdge":"string","founderProfile":"string","arrPotential":"string"}] — just the array.`,
+  cr: `You are a brutally honest product strategist reviewing MacroLens — a daily economic intelligence platform built on a 30-field story schema, automated via Claude API and Zapier, with 18 years of institutional finance credibility behind it (Barclays, HSBC, Lloyds, ANZ, TP ICAP). The product has: a causal chain section, bias checkpoints, counterintuitive questions, global country impact analysis, ecosystem maps, resolution scenarios, and structured "so what" sections. It is genuinely analytically differentiated from AI summarisation tools but the positioning does not communicate this yet. Be specific, opinionated, and commercially focused. No generic UX advice. Output JSON array: [{"category":"string","title":"string","diagnosis":"string","fix":"string","impact":"High|Medium|Low"}] — just the array, no other text.`,
+  bs: `You are a visionary advisor to an entrepreneur with 18 years institutional finance (Barclays, HSBC, Lloyds, ANZ, TP ICAP), a working AI automation stack, creative pursuits (songwriting, photography, literary novel in progress), based in London. Generate ambitious business ideas. Output JSON array: [{"category":"string","title":"string","oneLiner":"string","problem":"string","solution":"string","whyYou":"string","market":"string","wildcard":boolean}] — just the array.`
+};
+
+async function generateMore(zone) {
+  const input = document.getElementById('inp-' + zone).value.trim();
+  if (!input) { document.getElementById('inp-' + zone).focus(); return; }
+  const btn = document.getElementById('gbtn-' + zone);
+  const spinner = document.getElementById('gspinner-' + zone);
+  const outputEl = document.getElementById('gen-output-' + zone);
+  const colorMap = { ev: 'teal', en: 'purple', bs: 'amber', cr: 'teal' };
+  const color = colorMap[zone];
+
+  spinner.innerHTML = '<span class="spin"></span>';
+  btn.disabled = true;
+  outputEl.innerHTML = '';
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 2500,
+        system: ZONE_CONTEXT[zone],
+        messages: [{ role: 'user', content: input + '\n\nGenerate 4-6 ideas.' }]
+      })
+    });
+    const data = await res.json();
+    const raw = data.content?.[0]?.text || '';
+    const start = raw.indexOf('['), end = raw.lastIndexOf(']') + 1;
+    const ideas = JSON.parse(raw.substring(start, end));
+    renderGenerated(zone, ideas, color, outputEl);
+  } catch(e) {
+    outputEl.innerHTML = `<div style="background:var(--coral-l);border-radius:var(--rl);padding:14px 18px;font-size:13px;color:var(--coral);margin-top:12px">Could not generate. Error: ${e.message}</div>`;
+  } finally {
+    spinner.innerHTML = zone === 'bs' ? '&#x1F680;' : zone === 'en' ? '&#x26A1;' : '&#x26A1;';
+    btn.disabled = false;
+  }
+}
+
+function renderGenerated(zone, ideas, color, el) {
+  if (zone === 'en') {
+    el.innerHTML = '<div style="margin-top:16px">' + ideas.map((l,i) => `
+      <div class="lens-card" style="animation-delay:${i*.06}s">
+        <div class="lens-header">
+          <div><div class="lens-name">${esc(l.lensName||'')}</div><div class="lens-tagline">${esc(l.tagline||'')}</div></div>
+          <div class="lens-badges"><span class="pill pill-purple">${esc(l.domain||'')}</span>${l.arrPotential?`<span class="pill pill-green">${esc(l.arrPotential)}</span>`:''}</div>
+        </div>
+        <div class="lens-body">
+          <div class="lens-col"><div class="lens-col-lbl">Audience &amp; angle</div><div class="lens-col-text">${esc(l.audience||'')} — ${esc(l.uniqueAngle||'')}</div></div>
+          <div class="lens-col"><div class="lens-col-lbl">Revenue</div><div class="lens-col-text">${esc(l.pricing||'')} — ${esc(l.revenueModel||'')}</div></div>
+          <div class="lens-col"><div class="lens-col-lbl">Edge</div><div class="lens-col-text">${esc(l.competitiveEdge||'')}</div></div>
+        </div>
+        <div class="lens-foot"><span>${esc(l.founderProfile||'')}</span><button class="idea-btn" onclick="saveIdea(this,${JSON.stringify(esc(l.lensName+': '+l.tagline))})">Save</button></div>
+      </div>`).join('') + '</div>';
+  } else {
+    el.innerHTML = '<div class="ideas-grid" style="margin-top:16px">' + ideas.map((idea,i) => `
+      <div class="idea-card" style="animation-delay:${i*.05}s${idea.wildcard ? ';border:1px solid var(--'+color+')' : ''}">
+        ${idea.wildcard?`<div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--${color});margin-bottom:5px">&#x1F4A1; Wildcard</div>`:''}
+        <div class="idea-type" style="color:var(--${color})">${esc(idea.type||idea.category||'Idea')}</div>
+        <div class="idea-title">${esc(idea.title||'')}</div>
+        <div class="idea-body">${esc(idea.body||idea.oneLiner||'')}</div>
+        <div class="idea-footer">
+          <div class="idea-pills">${idea.effort?`<span class="pill pill-${color}">${esc(idea.effort)}</span>`:''}${idea.potential?`<span class="pill pill-teal">${esc(idea.potential)}</span>`:''}</div>
+          <div class="idea-actions"><button class="idea-btn" onclick="saveIdea(this,${JSON.stringify(esc(idea.title+': '+(idea.body||idea.oneLiner||'')))})">Save</button></div>
+        </div>
+      </div>`).join('') + '</div>';
+  }
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+renderSaved();
+document.querySelectorAll('.gm-input').forEach(inp => {
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      const zone = inp.id.replace('inp-','');
+      generateMore(zone);
+    }
+  });
+});
+</script>
+</body>
+</html>
