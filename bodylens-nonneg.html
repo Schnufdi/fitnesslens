@@ -89,7 +89,7 @@
   color:var(--dk-3);font-size:10px;font-weight:600;padding:3px 8px;cursor:pointer;
   transition:all 0.15s;font-family:var(--sans);
 }
-.delete-btn:hover{color:var(--da);border-color:var(--da-br);}
+.delete-btn:hover{color:var(--red);border-color:var(--red-br);}
 
 .today-integration{
   background:var(--ink-3);border:1px solid var(--bd);border-radius:6px;
@@ -118,6 +118,7 @@
     <a class="nav-link" href="bodylens-today.html">Today</a>
     <a class="nav-link" href="bodylens-week.html">Week</a>
     <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
+    <a class="nav-link" href="bodylens-fuel.html">Fuel</a>
     <a class="nav-link" href="bodylens-progress.html">Progress</a>
     <a class="nav-link" href="bodylens-science.html">Science</a>
     <a class="nav-link studio" href="bodylens-studio.html">Studio</a>
@@ -134,7 +135,7 @@
   <!-- HERO -->
   <div class="nn-hero">
     <div class="nn-hero-text">
-      <div class="eyebrow-ac eyebrow" style="color:var(--jade-hi);margin-bottom:10px;">Your life, your rules</div>
+      <div class="eyebrow-ac eyebrow" style="color:var(--jade);margin-bottom:10px;">Your life, your rules</div>
       <div class="title-xl" style="color:var(--dk-1);margin-bottom:12px;">Non-Negotiables</div>
       <div style="font-size:15px;color:rgba(232,228,220,0.7);line-height:1.78;max-width:480px;">
         This is not a list of things you should give up. It is an honest assessment of the things you won't — and a clear-eyed view of what each one costs or contributes to your specific goals. Some will be fine. Some will have a trade-off worth knowing. A few might genuinely be working against something that matters to you. The system tells you which is which, and why, without moralising about it.
@@ -426,7 +427,7 @@ function updateTodayIntegration() {
 
   panel.style.display = 'block';
   itemsEl.innerHTML = relevant.map(item => {
-    const statusColor = { green: 'var(--gr)', amber: 'var(--wa)', red: 'var(--da)' }[item.status];
+    const statusColor = { green: 'var(--green)', amber: 'var(--amber)', red: 'var(--red)' }[item.status];
     return `<div class="ti-item">
       <div class="ti-emoji">${item.emoji}</div>
       <div>

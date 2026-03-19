@@ -14,9 +14,11 @@
     <a class="nav-link" href="bodylens-today.html">Today</a>
     <a class="nav-link" href="bodylens-week.html">Week</a>
     <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
+    <a class="nav-link" href="bodylens-fuel.html">Fuel</a>
     <a class="nav-link" href="bodylens-progress.html">Progress</a>
     <a class="nav-link" href="bodylens-science.html">Science</a>
-    <a class="nav-link" href="bodylens-studio.html" style="border-left:1px solid var(--bd);color:var(--dk-3);">Studio</a>
+    <a class="nav-link" href="bodylens-nonneg.html" style="color:var(--amber);">Non-Neg</a>
+    <a class="nav-link" href="bodylens-studio.html" style="border-left:1px solid var(--bd);color:var(--dk-3);opacity:0.5;">Studio</a>
   </div>
   <div class="nav-meta">
     <span class="nav-tag nt-go">Meniscus protocol</span>
@@ -32,7 +34,7 @@
   </div>
 
   <div style="margin-bottom:28px;">
-    <div class="eyebrow eyebrow-ac">Nutrition architecture</div>
+    <div class="eyebrow eyebrow-jade">Nutrition architecture</div>
     <div class="title-lg" style="margin-bottom:8px;">Choose your journey</div>
     <div class="body-sm">One choice reconfigures your entire food layer. Training programme unchanged across all three.</div>
   </div>
@@ -42,11 +44,11 @@
 
     <!-- KETO -->
     <div class="j-card keto" id="jcard-keto" onclick="selectJourney('keto')">
-      <div class="pill pill-go" style="margin-bottom:12px;" id="jbadge-keto">Journey 1</div>
+      <div class="pill pill-gold" style="margin-bottom:12px;" id="jbadge-keto">Journey 1</div>
       <div class="title-md" style="margin-bottom:6px;">Ketogenic</div>
       <div class="body-sm" style="margin-bottom:14px;">High fat, minimal carbs, ketosis as metabolic state. Strongest anti-inflammatory ceiling. Measurable performance cost on heavy compound work.</div>
       <div style="display:flex;gap:14px;margin-bottom:14px;">
-        <div><div class="label" style="margin-bottom:2px;">Protein</div><div style="font-family:var(--serif);font-size:20px;color:var(--jade-hi);">187g</div></div>
+        <div><div class="label" style="margin-bottom:2px;">Protein</div><div style="font-family:var(--serif);font-size:20px;color:var(--jade);">187g</div></div>
         <div><div class="label" style="margin-bottom:2px;">Carbs</div><div style="font-family:var(--serif);font-size:20px;color:#b09040;">45g</div></div>
         <div><div class="label" style="margin-bottom:2px;">Fat</div><div style="font-family:var(--serif);font-size:20px;color:var(--dk-2);">238g</div></div>
       </div>
@@ -63,11 +65,11 @@
 
     <!-- HIGH CARB -->
     <div class="j-card performance" id="jcard-performance" onclick="selectJourney('performance')">
-      <div class="pill pill-ac" style="margin-bottom:12px;" id="jbadge-performance">Journey 2</div>
+      <div class="pill pill-jade" style="margin-bottom:12px;" id="jbadge-performance">Journey 2</div>
       <div class="title-md" style="margin-bottom:6px;">High-carb performance</div>
       <div class="body-sm" style="margin-bottom:14px;">Maximum fuel for maximum output. Closest to current programme. Requires precise meal timing around sessions.</div>
       <div style="display:flex;gap:14px;margin-bottom:14px;">
-        <div><div class="label" style="margin-bottom:2px;">Protein</div><div style="font-family:var(--serif);font-size:20px;color:var(--jade-hi);">170g</div></div>
+        <div><div class="label" style="margin-bottom:2px;">Protein</div><div style="font-family:var(--serif);font-size:20px;color:var(--jade);">170g</div></div>
         <div><div class="label" style="margin-bottom:2px;">Carbs</div><div style="font-family:var(--serif);font-size:20px;color:#b09040;">323g</div></div>
         <div><div class="label" style="margin-bottom:2px;">Fat</div><div style="font-family:var(--serif);font-size:20px;color:var(--dk-2);">77g</div></div>
       </div>
@@ -84,11 +86,11 @@
 
     <!-- BALANCED -->
     <div class="j-card balanced selected" id="jcard-balanced" onclick="selectJourney('balanced')">
-      <div class="pill pill-sl" style="margin-bottom:12px;" id="jbadge-balanced">Journey 3 — Active</div>
+      <div class="pill pill-slate" style="margin-bottom:12px;" id="jbadge-balanced">Journey 3 — Active</div>
       <div class="title-md" style="margin-bottom:6px;">Balanced precision</div>
       <div class="body-sm" style="margin-bottom:14px;">Moderate carbs timed around training, higher fat on rest days. Highest adherence. Second-best across every metric.</div>
       <div style="display:flex;gap:14px;margin-bottom:14px;">
-        <div><div class="label" style="margin-bottom:2px;">Protein</div><div style="font-family:var(--serif);font-size:20px;color:var(--jade-hi);">185g</div></div>
+        <div><div class="label" style="margin-bottom:2px;">Protein</div><div style="font-family:var(--serif);font-size:20px;color:var(--jade);">185g</div></div>
         <div><div class="label" style="margin-bottom:2px;">Carbs</div><div style="font-family:var(--serif);font-size:20px;color:#b09040;">190g</div></div>
         <div><div class="label" style="margin-bottom:2px;">Fat</div><div style="font-family:var(--serif);font-size:20px;color:var(--dk-2);">122g</div></div>
       </div>
@@ -157,7 +159,7 @@ function selectJourney(j) {
     badge.textContent = isSelected ? base + ' — Active' : base;
     if (id === 'balanced') {
       btn.textContent = isSelected ? 'Currently selected ✓' : 'Select balanced';
-      btn.style.background = isSelected ? 'var(--ac)' : 'transparent';
+      btn.style.background = isSelected ? 'var(--jade)' : 'transparent';
       btn.style.color = isSelected ? '#04100c' : 'var(--dk-2)';
     } else {
       btn.textContent = isSelected ? 'Selected ✓' : (id === 'keto' ? 'Select ketogenic' : 'Select high-carb');

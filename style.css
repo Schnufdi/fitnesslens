@@ -912,3 +912,117 @@ hr.rule-lt { border: none; border-top: 1px solid var(--bl-2); margin: 32px 0; }
   .page, .page-wide, .page-narrow { padding: 0 18px; }
   .section-dark, .section-dark-0, .section-light, .section-light-1 { padding: 48px 18px; }
 }
+
+/* ════════════════════════════════════════════════════════
+   LEGACY CLASS ALIASES
+   Keeps older page markup working with the new design system
+════════════════════════════════════════════════════════ */
+
+/* Card aliases — old pages use "card card-pad", new system uses card-dk card-dk-pad */
+.card { background: var(--ink-2); border: 1px solid var(--bd); border-radius: 6px; }
+.card-pad { padding: 18px 22px; }
+
+/* Eyebrow colour aliases */
+.eyebrow-ac  { color: var(--jade); }
+.eyebrow-go  { color: var(--gold); }
+.eyebrow-wa  { color: var(--amber); }
+.eyebrow-teal{ color: var(--jade); }
+
+/* Two-col-equal alias (older pages) */
+.two-col-equal { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* Body text on dark (explicit) */
+.body-sm { color: var(--dk-2); }
+.body-xs { color: var(--dk-2); }
+.body-lg { color: var(--dk-2); }
+
+/* Spoken summary on dark has correct text */
+.spoken-summary .ss-text { color: var(--dk-1); }
+
+/* Sec rule on dark default */
+.sec-rule { color: var(--dk-3); }
+.sec-rule::after { background: var(--bd-2); }
+
+/* Milestone card text */
+.mc-q-text { color: var(--dk-2); }
+
+/* Progress check-in */
+.ci-options { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* Recipe shuffle button secondary style */
+.shuffle-btn.secondary {
+  background: transparent;
+  border: 1px solid var(--bd-2);
+  color: var(--dk-2);
+}
+.shuffle-btn.secondary:hover {
+  border-color: var(--jade-br);
+  color: var(--jade);
+  background: var(--jade-dim);
+  opacity: 1;
+}
+
+/* Day dots (used on week page) */
+.day-dots { display: flex; gap: 4px; }
+.day-dot  { height: 3px; flex: 1; border-radius: 2px; background: var(--ink-3); }
+.day-dot.done { background: var(--jade); }
+.day-dot.now  { background: rgba(0,200,160,0.35); }
+
+/* Non-negotiable page extras */
+.nn-tag-row { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.delete-btn {
+  background: transparent; border: 1px solid var(--bd-2);
+  border-radius: 3px; color: var(--dk-3); font-size: 10px;
+  font-weight: 600; padding: 3px 8px; cursor: pointer;
+  transition: all 0.15s; font-family: var(--sans);
+}
+.delete-btn:hover { color: var(--red); border-color: var(--red-br); }
+
+/* ════════════════════════════════════════════
+   LEGACY ALIASES & MISSING COMPONENTS
+════════════════════════════════════════════ */
+
+/* Card — old pages use "card card-pad" */
+.card { background: var(--ink-2); border: 1px solid var(--bd); border-radius: 6px; }
+.card-pad { padding: 18px 22px; }
+
+/* Eyebrow colour aliases */
+.eyebrow-ac   { color: var(--jade); }
+.eyebrow-go   { color: var(--gold); }
+.eyebrow-wa   { color: var(--amber); }
+.eyebrow-jade { color: var(--jade); }
+.eyebrow-gold { color: var(--gold); }
+
+/* Grid alias used by older pages */
+.two-col-equal { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* Body text explicit dark colour */
+body .body-sm { color: var(--dk-2); }
+body .body-xs { color: var(--dk-2); }
+
+/* Spoken summary text should be primary on dark */
+.spoken-summary .ss-text { color: var(--dk-1) !important; }
+
+/* Check-in options flex wrapper */
+.ci-options { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* Day dots on week page */
+.day-dots { display: flex; gap: 4px; }
+.day-dot  { height: 3px; flex: 1; border-radius: 2px; background: var(--ink-3); }
+.day-dot.done { background: var(--jade); }
+.day-dot.now  { background: rgba(0,200,160,0.35); }
+
+/* Non-neg extras */
+.nn-tag-row { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.delete-btn {
+  background: transparent; border: 1px solid var(--bd-2);
+  border-radius: 3px; color: var(--dk-3); font-size: 10px;
+  font-weight: 600; padding: 3px 8px; cursor: pointer;
+  transition: all 0.15s; font-family: var(--sans);
+}
+.delete-btn:hover { color: var(--red); border-color: var(--red-br); }
+
+/* Ensure nav tags on older pages render correctly */
+.nt-go   { color: var(--gold); background: var(--gold-dim); border: 1px solid var(--gold-br); }
+.nt-jade { color: var(--jade); background: var(--jade-dim); border: 1px solid var(--jade-br); }
+.nt-ac   { color: var(--jade); background: var(--jade-dim); border: 1px solid var(--jade-br); }

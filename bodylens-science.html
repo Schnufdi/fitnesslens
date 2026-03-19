@@ -14,9 +14,11 @@
     <a class="nav-link" href="bodylens-today.html">Today</a>
     <a class="nav-link" href="bodylens-week.html">Week</a>
     <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
+    <a class="nav-link" href="bodylens-fuel.html">Fuel</a>
     <a class="nav-link" href="bodylens-progress.html">Progress</a>
     <a class="nav-link" href="bodylens-science.html">Science</a>
-    <a class="nav-link" href="bodylens-studio.html" style="border-left:1px solid var(--bd);color:var(--dk-3);">Studio</a>
+    <a class="nav-link" href="bodylens-nonneg.html" style="color:var(--amber);">Non-Neg</a>
+    <a class="nav-link" href="bodylens-studio.html" style="border-left:1px solid var(--bd);color:var(--dk-3);opacity:0.5;">Studio</a>
   </div>
   <div class="nav-meta">
     <span class="nav-tag nt-go">Meniscus protocol</span>
@@ -38,13 +40,13 @@
   <!-- Filter row -->
   <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:22px;" id="filter-row">
     <button class="pill pill-ghost" style="cursor:pointer;padding:5px 11px;" data-filter="all" onclick="filterSci('all',this)">All</button>
-    <button class="pill" style="cursor:pointer;padding:5px 11px;color:var(--da);background:var(--da-dim);border:1px solid var(--da-br);" data-filter="myth" onclick="filterSci('myth',this)">↯ Myths</button>
-    <button class="pill" style="cursor:pointer;padding:5px 11px;color:var(--jade-hi);background:var(--jade-dim);border:1px solid var(--jade-br);" data-filter="syn" onclick="filterSci('syn',this)">⟳ Synergies</button>
-    <button class="pill" style="cursor:pointer;padding:5px 11px;color:var(--sl);background:var(--sl-dim);border:1px solid var(--sl-br);" data-filter="fact" onclick="filterSci('fact',this)">◈ Facts</button>
-    <button class="pill" style="cursor:pointer;padding:5px 11px;color:var(--wa);background:var(--wa-dim);border:1px solid var(--wa-br);" data-filter="warn" onclick="filterSci('warn',this)">⚠ Warnings</button>
-    <button class="pill" style="cursor:pointer;padding:5px 11px;color:var(--go);background:var(--go-dim);border:1px solid var(--go-br);" data-filter="knee-sci" onclick="filterSci('knee-sci',this)">◈ Knee</button>
-    <button class="pill" style="cursor:pointer;padding:5px 11px;color:var(--jade-hi);background:var(--jade-dim);border:1px solid var(--jade-br);" data-filter="supp" onclick="filterSci('supp',this)">● Supplements</button>
-    <button class="pill" style="cursor:pointer;padding:5px 11px;color:var(--go);background:var(--go-dim);border:1px solid var(--go-br);" data-filter="peri" onclick="filterSci('peri',this)">⧗ Peri-workout</button>
+    <button class="pill" style="cursor:pointer;padding:5px 11px;color:var(--red);background:var(--red-dim);border:1px solid var(--red-br);" data-filter="myth" onclick="filterSci('myth',this)">↯ Myths</button>
+    <button class="pill" style="cursor:pointer;padding:5px 11px;color:var(--jade);background:var(--jade-dim);border:1px solid var(--jade-br);" data-filter="syn" onclick="filterSci('syn',this)">⟳ Synergies</button>
+    <button class="pill" style="cursor:pointer;padding:5px 11px;color:var(--slate);background:var(--slate-dim);border:1px solid var(--slate-br);" data-filter="fact" onclick="filterSci('fact',this)">◈ Facts</button>
+    <button class="pill" style="cursor:pointer;padding:5px 11px;color:var(--amber);background:var(--amber-dim);border:1px solid var(--amber-br);" data-filter="warn" onclick="filterSci('warn',this)">⚠ Warnings</button>
+    <button class="pill" style="cursor:pointer;padding:5px 11px;color:var(--gold);background:var(--gold-dim);border:1px solid var(--gold-br);" data-filter="knee-sci" onclick="filterSci('knee-sci',this)">◈ Knee</button>
+    <button class="pill" style="cursor:pointer;padding:5px 11px;color:var(--jade);background:var(--jade-dim);border:1px solid var(--jade-br);" data-filter="supp" onclick="filterSci('supp',this)">● Supplements</button>
+    <button class="pill" style="cursor:pointer;padding:5px 11px;color:var(--gold);background:var(--gold-dim);border:1px solid var(--gold-br);" data-filter="peri" onclick="filterSci('peri',this)">⧗ Peri-workout</button>
   </div>
 
   <!-- Science grid -->

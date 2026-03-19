@@ -58,9 +58,11 @@ body{display:flex;flex-direction:column;background:var(--ink);color:var(--dk-1);
     <a class="nav-link" href="bodylens-today.html">Today</a>
     <a class="nav-link" href="bodylens-week.html">Week</a>
     <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
+    <a class="nav-link" href="bodylens-fuel.html">Fuel</a>
     <a class="nav-link" href="bodylens-progress.html">Progress</a>
     <a class="nav-link" href="bodylens-science.html">Science</a>
-    <a class="nav-link" href="bodylens-studio.html" style="border-left:1px solid var(--bd);color:var(--dk-3);">Studio</a>
+    <a class="nav-link" href="bodylens-nonneg.html" style="color:var(--amber);">Non-Neg</a>
+    <a class="nav-link" href="bodylens-studio.html" style="border-left:1px solid var(--bd);color:var(--dk-3);opacity:0.5;">Studio</a>
   </div>
   <div class="nav-meta">
     <span class="nav-tag nt-go">Meniscus protocol</span>
@@ -240,12 +242,12 @@ const DAYS = [
     prog:['done','now','','','','',''],
     protocol:'push',
     exercises:[
-      {name:'Barbell Bench Press',meta:'4 sets · 6–8 reps · RPE 8 · Rest 3 min',detail:'Primary chest, anterior delt, triceps. 2–3s eccentric. Heaviest compound first.',type:'is-primary',badge:'Compound',badgeClass:'pill-ac'},
-      {name:'Incline Dumbbell Press',meta:'3 sets · 10–12 reps · RPE 7–8 · Rest 2 min',detail:'Upper chest, 30–45°. Seated, knee neutral.',type:'is-primary',badge:'Compound',badgeClass:'pill-ac'},
-      {name:'Seated Dumbbell Shoulder Press',meta:'3 sets · 10–12 reps · RPE 7 · Rest 90s',detail:'Seated eliminates standing knee stress. Lateral head via slight pronation.',type:'',badge:'Compound',badgeClass:'pill-ac'},
-      {name:'Cable Lateral Raise',meta:'3 sets · 15–20 reps · RPE 8 · Rest 60s',detail:'Medial delt. Cable maintains tension at peak abduction.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
-      {name:'Rope Tricep Pushdown',meta:'3 sets · 12–15 reps · RPE 7 · Rest 60s',detail:'Elbows pinned. Flare at extension.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
-      {name:'Overhead Cable Extension',meta:'2 sets · 12–15 reps · RPE 7 · Rest 60s',detail:'Long head — 2/3 of tricep mass.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
+      {name:'Barbell Bench Press',meta:'4 sets · 6–8 reps · RPE 8 · Rest 3 min',detail:'Primary chest, anterior delt, triceps. 2–3s eccentric. Heaviest compound first.',type:'is-primary',badge:'Compound',badgeClass:'pill-jade'},
+      {name:'Incline Dumbbell Press',meta:'3 sets · 10–12 reps · RPE 7–8 · Rest 2 min',detail:'Upper chest, 30–45°. Seated, knee neutral.',type:'is-primary',badge:'Compound',badgeClass:'pill-jade'},
+      {name:'Seated Dumbbell Shoulder Press',meta:'3 sets · 10–12 reps · RPE 7 · Rest 90s',detail:'Seated eliminates standing knee stress. Lateral head via slight pronation.',type:'',badge:'Compound',badgeClass:'pill-jade'},
+      {name:'Cable Lateral Raise',meta:'3 sets · 15–20 reps · RPE 8 · Rest 60s',detail:'Medial delt. Cable maintains tension at peak abduction.',type:'',badge:'Isolation',badgeClass:'pill-amber'},
+      {name:'Rope Tricep Pushdown',meta:'3 sets · 12–15 reps · RPE 7 · Rest 60s',detail:'Elbows pinned. Flare at extension.',type:'',badge:'Isolation',badgeClass:'pill-amber'},
+      {name:'Overhead Cable Extension',meta:'2 sets · 12–15 reps · RPE 7 · Rest 60s',detail:'Long head — 2/3 of tricep mass.',type:'',badge:'Isolation',badgeClass:'pill-amber'},
     ],
     qq:['How do I know bench weight is right?','What if I only have 45 minutes?'],
     mods_data:null,
@@ -274,15 +276,15 @@ const DAYS = [
     prog:['done','done','now','','','',''],
     protocol:'pull',
     exercises:[
-      {name:'Weighted Pull-up',meta:'4 sets · 5–8 reps · RPE 8 · Rest 3 min',detail:'Add 5–10kg via belt. Dead hang to chin. Knees crossed behind — no knee demand.',type:'is-primary',badge:'Compound',badgeClass:'pill-ac'},
-      {name:'Chest-Supported DB Row',meta:'4 sets · 6–8 reps · RPE 8 · Rest 2.5 min',detail:'Modified from standing bent-over row.',mod:'Chest support removes knee-hip isometric hold. Primary stimulus unchanged.',type:'is-modified',badge:'Modified',badgeClass:'pill-go'},
-      {name:'Seated Cable Row (wide)',meta:'3 sets · 10–12 reps · RPE 7 · Rest 90s',detail:'Seated. Full stretch and retraction. 2s pause at peak.',type:'',badge:'Compound',badgeClass:'pill-ac'},
-      {name:'Face Pull (rope)',meta:'3 sets · 15–20 reps · RPE 7 · Rest 60s',detail:'Elbows high. Rear delt and external rotators. Shoulder health insurance.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
-      {name:'Incline Dumbbell Curl',meta:'3 sets · 12–15 reps · RPE 7–8 · Rest 60s',detail:'Seated incline, knee neutral. Long head bicep via shoulder extension.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
-      {name:'Hammer Curl (seated)',meta:'2 sets · 12–15 reps · RPE 7 · Rest 60s',detail:'Seated. Brachialis emphasis. Thickens upper arm from all angles.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
+      {name:'Weighted Pull-up',meta:'4 sets · 5–8 reps · RPE 8 · Rest 3 min',detail:'Add 5–10kg via belt. Dead hang to chin. Knees crossed behind — no knee demand.',type:'is-primary',badge:'Compound',badgeClass:'pill-jade'},
+      {name:'Chest-Supported DB Row',meta:'4 sets · 6–8 reps · RPE 8 · Rest 2.5 min',detail:'Modified from standing bent-over row.',mod:'Chest support removes knee-hip isometric hold. Primary stimulus unchanged.',type:'is-modified',badge:'Modified',badgeClass:'pill-gold'},
+      {name:'Seated Cable Row (wide)',meta:'3 sets · 10–12 reps · RPE 7 · Rest 90s',detail:'Seated. Full stretch and retraction. 2s pause at peak.',type:'',badge:'Compound',badgeClass:'pill-jade'},
+      {name:'Face Pull (rope)',meta:'3 sets · 15–20 reps · RPE 7 · Rest 60s',detail:'Elbows high. Rear delt and external rotators. Shoulder health insurance.',type:'',badge:'Isolation',badgeClass:'pill-amber'},
+      {name:'Incline Dumbbell Curl',meta:'3 sets · 12–15 reps · RPE 7–8 · Rest 60s',detail:'Seated incline, knee neutral. Long head bicep via shoulder extension.',type:'',badge:'Isolation',badgeClass:'pill-amber'},
+      {name:'Hammer Curl (seated)',meta:'2 sets · 12–15 reps · RPE 7 · Rest 60s',detail:'Seated. Brachialis emphasis. Thickens upper arm from all angles.',type:'',badge:'Isolation',badgeClass:'pill-amber'},
     ],
     qq:['Lower back aches on rows — what\'s safer?','How much weight on pull-ups?'],
-    mods_data:[{name:'Bent-Over Row → Chest-Supported Row',muscle:'Mid-back · rhomboids · rear delt',verdict:'Full stimulus',vClass:'pill-ac',
+    mods_data:[{name:'Bent-Over Row → Chest-Supported Row',muscle:'Mid-back · rhomboids · rear delt',verdict:'Full stimulus',vClass:'pill-jade',
       stdName:'Barbell Bent-Over Row',stdDetail:'4×6–8 RPE 8 · Standing hip hinge hold throughout',
       modName:'Chest-Supported DB Row',modDetail:'4×6–8 RPE 8 · Chest on bench · Knee fully unloaded',
       losses:['Standing hip hinge builds lower back isometric endurance — removed by chest support','Slightly lower absolute barbell load'],
@@ -312,27 +314,27 @@ const DAYS = [
     prog:['done','done','done','done','now','',''],
     protocol:'posterior',
     exercises:[
-      {name:'Romanian Deadlift',meta:'4 sets · 6–8 reps · RPE 8 · Rest 3 min',detail:'Hip hinge primary. Soft knee, never deep flexion. Hamstring stretch at bottom.',type:'is-primary',badge:'Primary',badgeClass:'pill-ac'},
-      {name:'Barbell Hip Thrust',meta:'4 sets · 8–12 reps · RPE 8 · Rest 2.5 min',detail:'Highest glute EMG of any exercise. Knee static at ~90° at top.',type:'is-primary',badge:'Compound',badgeClass:'pill-ac'},
-      {name:'Leg Press (partial)',meta:'3 sets · 12–15 reps · RPE 7 · Rest 2 min',detail:'High foot placement.',mod:'0–70° only. +20–30% load to offset shortened ROM.',type:'is-modified',badge:'Modified',badgeClass:'pill-go'},
-      {name:'Seated Leg Curl',meta:'3 sets · 12–15 reps · RPE 7 · Rest 90s',detail:'Machine controls range. Hamstring lengthened = long-head stimulus.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
-      {name:'Step-Up (20–25cm box)',meta:'3 sets · 10–12/leg · RPE 7 · Rest 90s',detail:'Heel drive.',mod:'Replaces lunges. Knee within 70–80°.',type:'is-modified',badge:'Modified',badgeClass:'pill-go'},
-      {name:'Cable Glute Kickback',meta:'3 sets · 15/leg · RPE 7 · Rest 60s',detail:'Hip extension, knee near straight. Zero meniscal demand.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
-      {name:'Standing Calf Raise',meta:'3 sets · 15–20 reps · RPE 7 · Rest 60s',detail:'Full plantar flexion, 3s eccentric. Gastrocnemius adds knee stability.',type:'',badge:'Isolation',badgeClass:'pill-wa'},
+      {name:'Romanian Deadlift',meta:'4 sets · 6–8 reps · RPE 8 · Rest 3 min',detail:'Hip hinge primary. Soft knee, never deep flexion. Hamstring stretch at bottom.',type:'is-primary',badge:'Primary',badgeClass:'pill-jade'},
+      {name:'Barbell Hip Thrust',meta:'4 sets · 8–12 reps · RPE 8 · Rest 2.5 min',detail:'Highest glute EMG of any exercise. Knee static at ~90° at top.',type:'is-primary',badge:'Compound',badgeClass:'pill-jade'},
+      {name:'Leg Press (partial)',meta:'3 sets · 12–15 reps · RPE 7 · Rest 2 min',detail:'High foot placement.',mod:'0–70° only. +20–30% load to offset shortened ROM.',type:'is-modified',badge:'Modified',badgeClass:'pill-gold'},
+      {name:'Seated Leg Curl',meta:'3 sets · 12–15 reps · RPE 7 · Rest 90s',detail:'Machine controls range. Hamstring lengthened = long-head stimulus.',type:'',badge:'Isolation',badgeClass:'pill-amber'},
+      {name:'Step-Up (20–25cm box)',meta:'3 sets · 10–12/leg · RPE 7 · Rest 90s',detail:'Heel drive.',mod:'Replaces lunges. Knee within 70–80°.',type:'is-modified',badge:'Modified',badgeClass:'pill-gold'},
+      {name:'Cable Glute Kickback',meta:'3 sets · 15/leg · RPE 7 · Rest 60s',detail:'Hip extension, knee near straight. Zero meniscal demand.',type:'',badge:'Isolation',badgeClass:'pill-amber'},
+      {name:'Standing Calf Raise',meta:'3 sets · 15–20 reps · RPE 7 · Rest 60s',detail:'Full plantar flexion, 3s eccentric. Gastrocnemius adds knee stability.',type:'',badge:'Isolation',badgeClass:'pill-amber'},
     ],
     qq:['How deep on leg press with my knee?','Why is hip thrust safe for my knee?','What if knee feels tight?'],
     mods_data:[
-      {name:'Back Squat → RDL + Hip Thrust',muscle:'Quad · glute · hamstring · hormonal driver',verdict:'~95%',vClass:'pill-wa',
+      {name:'Back Squat → RDL + Hip Thrust',muscle:'Quad · glute · hamstring · hormonal driver',verdict:'~95%',vClass:'pill-amber',
         stdName:'Barbell Back Squat',stdDetail:'4×5–8 RPE 8–9 · Full depth below parallel',
         modName:'RDL primary + Hip Thrust secondary',modDetail:'Hip hinge + hip extension · Knee flexion minimal and static',
         losses:['Deep quad tension at 70–120° knee flexion — range meniscus cannot tolerate','Systemic GH spike from full squat slightly reduced'],
         offsets:['RDL still drives testosterone/GH via heavy load through large muscle mass','Hip thrust exceeds squat for glute EMG — glute development equal or better','Partial leg press recovers 0–70° quad stimulus — where peak quad tension occurs']},
-      {name:'Walking Lunge → Box Step-Up',muscle:'Quad · glute · unilateral stability',verdict:'Full',vClass:'pill-ac',
+      {name:'Walking Lunge → Box Step-Up',muscle:'Quad · glute · unilateral stability',verdict:'Full',vClass:'pill-jade',
         stdName:'Walking Dumbbell Lunge',stdDetail:'3×12/leg · Full stride · Dynamic knee travel',
         modName:'Step-Up (20–25cm, heel drive)',modDetail:'3×10–12/leg · Controlled unilateral · Knee within 70–80°',
         losses:['Eccentric quad load through fuller ROM from dynamic lunge stride'],
         offsets:['Same quad-glute chain loaded unilaterally','Cable kickback recovers glute isolation from lunge\'s back-leg phase']},
-      {name:'Full Leg Press → Partial (0–70°)',muscle:'Quad · glute',verdict:'~90%',vClass:'pill-wa',
+      {name:'Full Leg Press → Partial (0–70°)',muscle:'Quad · glute',verdict:'~90%',vClass:'pill-amber',
         stdName:'Full-Range Leg Press',stdDetail:'Full ROM including deep knee flexion',
         modName:'Partial Leg Press (0–70° only)',modDetail:'High foot · Stop at 70° · +20–30% load to compensate',
         losses:['70–120° range where peak quad tension occurs — the honest 3% gap'],
@@ -350,11 +352,11 @@ const DAYS = [
     prog:['done','done','done','done','done','now',''],
     protocol:'upper',
     exercises:[
-      {name:'Dumbbell Shoulder Press',meta:'3 sets · 8–10 reps · RPE 8 · Rest 2 min',detail:'Seated. Second weekly shoulder stimulus. Reveals bilateral imbalance.',type:'is-primary',badge:'Compound',badgeClass:'pill-ac'},
-      {name:'Chest-Supported DB Row',meta:'3 sets · 10–12 reps · RPE 8 · Rest 2 min',detail:'Chest support removes lower back and knee demand entirely.',type:'',badge:'Compound',badgeClass:'pill-ac'},
-      {name:'Cable Fly (low-to-high)',meta:'3 sets · 12–15 reps · RPE 7 · Rest 90s',detail:'Upper pec. Cable maintains tension through full arc.',type:'',badge:'Compound',badgeClass:'pill-ac'},
-      {name:'Lat Pulldown (close neutral)',meta:'3 sets · 10–12 reps · RPE 7 · Rest 90s',detail:'Seated. Lower lat emphasis. Lean 15°, elbows drive to hips.',type:'',badge:'Compound',badgeClass:'pill-ac'},
-      {name:'EZ Curl + Pushdown superset',meta:'3 rounds · 12–15 reps · RPE 7 · Rest 60s',detail:'Arms pre-fatigued from compounds. Opposing muscles allow minimal rest.',type:'',badge:'Superset',badgeClass:'pill-wa'},
+      {name:'Dumbbell Shoulder Press',meta:'3 sets · 8–10 reps · RPE 8 · Rest 2 min',detail:'Seated. Second weekly shoulder stimulus. Reveals bilateral imbalance.',type:'is-primary',badge:'Compound',badgeClass:'pill-jade'},
+      {name:'Chest-Supported DB Row',meta:'3 sets · 10–12 reps · RPE 8 · Rest 2 min',detail:'Chest support removes lower back and knee demand entirely.',type:'',badge:'Compound',badgeClass:'pill-jade'},
+      {name:'Cable Fly (low-to-high)',meta:'3 sets · 12–15 reps · RPE 7 · Rest 90s',detail:'Upper pec. Cable maintains tension through full arc.',type:'',badge:'Compound',badgeClass:'pill-jade'},
+      {name:'Lat Pulldown (close neutral)',meta:'3 sets · 10–12 reps · RPE 7 · Rest 90s',detail:'Seated. Lower lat emphasis. Lean 15°, elbows drive to hips.',type:'',badge:'Compound',badgeClass:'pill-jade'},
+      {name:'EZ Curl + Pushdown superset',meta:'3 rounds · 12–15 reps · RPE 7 · Rest 60s',detail:'Arms pre-fatigued from compounds. Opposing muscles allow minimal rest.',type:'',badge:'Superset',badgeClass:'pill-amber'},
     ],
     qq:['Why not go heavy again today?','What\'s the timeline back to tennis?'],
     mods_data:null,
@@ -510,9 +512,9 @@ function renderProtocol(idx) {
             </div>
           </div>
           <div class="pcm-right">
-            ${item.urgent ? `<span class="pill pill-da" style="font-size:9px;">Urgent</span>` : ''}
-            ${item.key ? `<span class="pill pill-ac" style="font-size:9px;">Key</span>` : ''}
-            ${item.knee ? `<span class="pill pill-go" style="font-size:9px;">Knee</span>` : ''}
+            ${item.urgent ? `<span class="pill pill-red" style="font-size:9px;">Urgent</span>` : ''}
+            ${item.key ? `<span class="pill pill-jade" style="font-size:9px;">Key</span>` : ''}
+            ${item.knee ? `<span class="pill pill-gold" style="font-size:9px;">Knee</span>` : ''}
             <span class="pcm-chev">▾</span>
           </div>
         </div>
@@ -541,7 +543,7 @@ function renderTraining(idx) {
   if (d.type === 'Posterior') {
     html += `<div class="knee-note" style="margin-bottom:14px"><strong>◈ Knee protocol active:</strong> Every movement today passes load through the hip, not the knee. Hip hinge mechanics keep flexion minimal. Strong glutes reduce medial compartment load by ~40% — you are training the knee's defenders.</div>`;
   }
-  html += `<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><div class="title-md">${d.name} — ${d.type}</div><span class="pill pill-ac">${d.exercises.length} exercises</span></div>`;
+  html += `<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><div class="title-md">${d.name} — ${d.type}</div><span class="pill pill-jade">${d.exercises.length} exercises</span></div>`;
   html += `<div style="display:flex;flex-direction:column;gap:7px;">`;
   d.exercises.forEach(ex => {
     html += `<div class="ex-card ${ex.type}">
@@ -576,9 +578,9 @@ function renderMods(idx) {
   const net = idx === 4 ? '~97%' : '100%';
   const lost = idx === 4 ? '~3%' : '0';
   let html = `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px;">
-    <div class="card card-pad"><div class="label" style="margin-bottom:3px;">Modifications</div><div style="font-family:var(--serif);font-size:24px;color:var(--go);">${d.mods}</div></div>
-    <div class="card card-pad"><div class="label" style="margin-bottom:3px;">Stimulus lost</div><div style="font-family:var(--serif);font-size:24px;color:var(--jade-hi);">${lost}</div></div>
-    <div class="card card-pad"><div class="label" style="margin-bottom:3px;">Net stimulus</div><div style="font-family:var(--serif);font-size:24px;color:var(--jade-hi);">${net}</div></div>
+    <div class="card card-pad"><div class="label" style="margin-bottom:3px;">Modifications</div><div style="font-family:var(--serif);font-size:24px;color:var(--gold);">${d.mods}</div></div>
+    <div class="card card-pad"><div class="label" style="margin-bottom:3px;">Stimulus lost</div><div style="font-family:var(--serif);font-size:24px;color:var(--jade);">${lost}</div></div>
+    <div class="card card-pad"><div class="label" style="margin-bottom:3px;">Net stimulus</div><div style="font-family:var(--serif);font-size:24px;color:var(--jade);">${net}</div></div>
   </div>`;
   d.mods_data.forEach(m => {
     html += `<div class="mod-card has-mod">
@@ -663,7 +665,7 @@ function renderNutrition(idx) {
   const noteEl = document.getElementById('nutr-protein-note');
   if (noteEl) {
     if (activeProtein) {
-      noteEl.innerHTML = `<span style="color:var(--jade-hi);">${activeProtein.emoji} Shuffled to ${activeProtein.label}</span> <span style="color:var(--dk-3);">— ${activeProtein.note}</span>`;
+      noteEl.innerHTML = `<span style="color:var(--jade);">${activeProtein.emoji} Shuffled to ${activeProtein.label}</span> <span style="color:var(--dk-3);">— ${activeProtein.note}</span>`;
     } else {
       noteEl.innerHTML = `<span style="color:var(--dk-3);">Tap "Roll the dice" to swap the protein source — macros stay on target</span>`;
     }
@@ -825,13 +827,13 @@ const MILESTONES = [
     name: 'Accumulation I — The neural week',
     isActive: true,
     quads: [
-      { label: 'How your body feels', labelColor: 'var(--jade-hi)',
+      { label: 'How your body feels', labelColor: 'var(--jade)',
         text: '<strong>Muscle soreness is not progress, but it is expected.</strong> The delayed onset muscle soreness (the ache 24–48 hours after training) in week 1 is your body responding to unfamiliar loading patterns. It will be more intense than week 2 even if week 2 is harder. First exposure always hurts most.' },
-      { label: 'What the numbers do', labelColor: 'var(--wa)',
+      { label: 'What the numbers do', labelColor: 'var(--amber)',
         text: 'Strength output will feel inconsistent. Some sessions will feel strong, others flat. <strong>This is normal — neural activation patterns are being established, not muscle mass.</strong> Do not judge week 1 performance. Do not chase personal records. Follow the prescribed load.' },
-      { label: 'What the knee should be doing', labelColor: 'var(--go)',
+      { label: 'What the knee should be doing', labelColor: 'var(--gold)',
         text: '<strong>Zero swelling is the gate.</strong> Minor achiness in the days after the posterior chain session is expected. Swelling is not. If swelling appears within 24 hours of any session, reduce depth and load by 30% and log it in the check-in.' },
-      { label: 'What to watch for', labelColor: 'var(--da)',
+      { label: 'What to watch for', labelColor: 'var(--red)',
         text: 'Skipping the collagen and vitamin C before Friday\'s session. It takes 10 seconds — it doubles connective tissue synthesis. Also watch: undereating on rest days. <strong>MPS peaks on Tuesday and Thursday.</strong> The amino acid supply those days determines how much muscle you build from Monday and Wednesday.' },
     ]
   },
@@ -840,13 +842,13 @@ const MILESTONES = [
     name: 'Accumulation II — The first signal',
     isActive: false,
     quads: [
-      { label: 'How your body feels', labelColor: 'var(--jade-hi)',
+      { label: 'How your body feels', labelColor: 'var(--jade)',
         text: 'Soreness reduces significantly. <strong>The same session that left you stiff for two days in week 1 will feel manageable by Thursday.</strong> This is neural adaptation — your motor units are firing more efficiently. It feels like the training is getting easier. It is not. Respond by adding one set or a small amount of load per compound movement.' },
-      { label: 'What the numbers do', labelColor: 'var(--wa)',
+      { label: 'What the numbers do', labelColor: 'var(--amber)',
         text: '<strong>The first measurable strength increase appears this week.</strong> Not because you have built muscle — you have not, not yet. Neural efficiency improvement drives the first 4–6 weeks of strength gains in any new programme. Enjoy it. Bank it. Add load when the set feels like RPE 6.' },
-      { label: 'What the knee should be doing', labelColor: 'var(--go)',
+      { label: 'What the knee should be doing', labelColor: 'var(--gold)',
         text: 'If week 1 was clean, you are accumulating the posterior chain strength that matters. <strong>The hip thrust and Romanian deadlift load are both increasing.</strong> The knee is benefiting from this even if it does not feel like it. The glutes being sore on Saturday is evidence the mechanism is working.' },
-      { label: 'What to watch for', labelColor: 'var(--da)',
+      { label: 'What to watch for', labelColor: 'var(--red)',
         text: 'Ego loading — adding too much weight too fast because week 2 feels good. <strong>The progressive overload target is one additional set OR a small load increase, not both.</strong> Accumulating too much volume or load in week 2 compresses the deload dividend and risks week 3 being a dead session.' },
     ]
   },
@@ -855,13 +857,13 @@ const MILESTONES = [
     name: 'Intensification — The hardest week',
     isActive: false,
     quads: [
-      { label: 'How your body feels', labelColor: 'var(--jade-hi)',
+      { label: 'How your body feels', labelColor: 'var(--jade)',
         text: '<strong>Week 3 will feel hard.</strong> Fatigue has accumulated across 2 weeks of progressive loading and sleep is rarely perfect. This is expected and intentional. The body is being pushed slightly beyond what it has adapted to — which is exactly the stimulus required for the deload to produce supercompensation. Do not add extra rest days. Do not reduce load. Follow the protocol.' },
-      { label: 'What the numbers do', labelColor: 'var(--wa)',
+      { label: 'What the numbers do', labelColor: 'var(--amber)',
         text: 'Rep range drops to 5–8 on compound movements. Load increases. <strong>This is the week the accumulated neuromuscular adaptation from weeks 1–2 is expressed as peak strength output.</strong> RPE 8 should feel genuinely challenging. If it does not, you are underloaded. If sessions 3 and 4 feel flat, that is fatigue accumulation doing its job.' },
-      { label: 'What the knee should be doing', labelColor: 'var(--go)',
+      { label: 'What the knee should be doing', labelColor: 'var(--gold)',
         text: 'The 6 weeks of posterior chain work by now should be producing a measurable difference in glute activation and strength. <strong>Consider trialling leg press at 75° instead of 70°</strong> — one session, no load increase, and monitor for 24 hours. No swelling means 80° is the week 4–5 target.' },
-      { label: 'What to watch for', labelColor: 'var(--da)',
+      { label: 'What to watch for', labelColor: 'var(--red)',
         text: 'Skipping the deload. <strong>Week 3 is when people feel like they are finally making progress and want to push through into week 4 without reducing volume.</strong> This is the worst decision in the programme. The deload is not rest — it is when the fitness gains that have been masked by fatigue are finally expressed. The supercompensation happens in week 4, not week 3.' },
     ]
   },
@@ -870,13 +872,13 @@ const MILESTONES = [
     name: 'Deload — Supercompensation',
     isActive: false,
     quads: [
-      { label: 'How your body feels', labelColor: 'var(--jade-hi)',
+      { label: 'How your body feels', labelColor: 'var(--jade)',
         text: '<strong>You will feel like you are not doing enough.</strong> This feeling is the deload working correctly. Volume drops 40%. Load stays the same. The fatigue that has masked 3 weeks of fitness gains begins to clear. By Thursday of week 4, most people feel noticeably fresher and stronger than at any point in the mesocycle.' },
-      { label: 'What the numbers do', labelColor: 'var(--wa)',
+      { label: 'What the numbers do', labelColor: 'var(--amber)',
         text: 'Perceived exertion drops with the same load. Do not chase it by adding weight. <strong>The 40% volume reduction is the mechanism — do not undermine it.</strong> Track how each compound movement feels at the same load as week 3. The numbers that felt like RPE 8 in week 3 should feel like RPE 6 by week 4\'s last sessions. That gap is the supercompensation.' },
-      { label: 'What the knee should be doing', labelColor: 'var(--go)',
+      { label: 'What the knee should be doing', labelColor: 'var(--gold)',
         text: '<strong>This is the ideal week for a depth progression trial.</strong> With reduced total load and no accumulated fatigue, trialling leg press at 80° or a light goblet squat at 70° carries the lowest risk. One movement, one set, light load, and a 24-hour monitoring window. Week 5 is the official reintroduction week — use this as a test.' },
-      { label: 'What to watch for', labelColor: 'var(--da)',
+      { label: 'What to watch for', labelColor: 'var(--red)',
         text: 'Missing the deload entirely or cutting it short. Also watch: <strong>under-eating during the deload.</strong> The training volume is lower but the adaptation is not — the body is using calories to build the tissue that the previous 3 weeks of loading demanded. Protein targets stay identical. Carbs can come down slightly on the reduced-session days, but the surplus holds.' },
     ]
   },
@@ -890,12 +892,12 @@ function renderMilestones() {
     <div class="milestone-card ${m.isActive ? 'active-week' : ''}" style="margin-bottom:14px;">
       <div class="mc-head-row">
         <div>
-          <div class="mc-wk-num" style="color:${m.isActive ? 'var(--jade-hi)' : 'var(--dk-1)'};">
+          <div class="mc-wk-num" style="color:${m.isActive ? 'var(--jade)' : 'var(--dk-1)'};">
             Week ${m.week}
           </div>
           <div class="mc-wk-name">${m.name}</div>
         </div>
-        ${m.isActive ? `<span class="pill pill-ac" style="font-size:9px;">You are here</span>` : ''}
+        ${m.isActive ? `<span class="pill pill-jade" style="font-size:9px;">You are here</span>` : ''}
       </div>
       <div class="mc-body">
         ${m.quads.map(q => `
