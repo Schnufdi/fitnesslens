@@ -7,36 +7,46 @@
 <link rel="stylesheet" href="style.css">
 <style>
 html,body{height:100%;overflow:hidden;}
-body{display:flex;flex-direction:column;}
-.app-shell{display:grid;grid-template-columns:156px 1fr;flex:1;overflow:hidden;}
-.day-sidebar{border-right:1px solid var(--br);padding:16px 0;overflow-y:auto;}
-.dsb{display:flex;flex-direction:column;padding:9px 14px;border:none;background:transparent;color:var(--tx-2);font-family:var(--sans);cursor:pointer;text-align:left;transition:all 0.15s;border-left:2px solid transparent;gap:1px;width:100%;}
-.dsb:hover{background:rgba(255,255,255,0.03);color:var(--tx-1);}
-.dsb.active{background:var(--ac-dim);color:var(--ac-hi);border-left-color:var(--ac);}
+body{display:flex;flex-direction:column;background:var(--ink);color:var(--dk-1);}
+.app-shell{display:grid;grid-template-columns:160px 1fr;flex:1;overflow:hidden;}
+
+/* Day sidebar */
+.day-sidebar{border-right:1px solid var(--bd);padding:16px 0;overflow-y:auto;background:var(--ink-1);}
+.dsb{display:flex;flex-direction:column;padding:10px 16px;border:none;background:transparent;
+  color:var(--dk-2);font-family:var(--sans);cursor:pointer;text-align:left;
+  transition:all 0.15s;border-left:2px solid transparent;gap:2px;width:100%;}
+.dsb:hover{background:rgba(255,255,255,0.03);color:var(--dk-1);}
+.dsb.active{background:var(--jade-dim);color:var(--jade);border-left-color:var(--jade);}
 .dsb-name{font-size:13px;font-weight:500;}
-.dsb-type{font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;opacity:0.6;}
+.dsb-type{font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;opacity:0.55;}
 .dsb.active .dsb-type{opacity:1;}
-.dsb-kcal{font-size:10px;color:var(--tx-3);}
-.dsb.active .dsb-kcal{color:rgba(58,184,138,0.55);}
-.main-col{overflow-y:auto;display:flex;flex-direction:column;}
-.main-inner{padding:24px 28px;max-width:860px;}
-.priority-band{padding:11px 28px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--br);flex-shrink:0;}
-.priority-band.p-train{background:linear-gradient(90deg,rgba(45,158,120,0.1),transparent);}
-.priority-band.p-food{background:linear-gradient(90deg,rgba(176,120,32,0.1),transparent);}
-.priority-band.p-recovery{background:linear-gradient(90deg,rgba(74,96,128,0.08),transparent);}
+.dsb-kcal{font-size:10px;color:var(--dk-3);font-family:var(--mono);}
+.dsb.active .dsb-kcal{color:rgba(0,200,160,0.5);}
+
+/* Main content column */
+.main-col{overflow-y:auto;display:flex;flex-direction:column;background:var(--ink);}
+.main-inner{padding:24px 32px;max-width:900px;}
+
+/* Priority band */
+.priority-band{padding:11px 32px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--bd);flex-shrink:0;}
+.priority-band.p-train{background:linear-gradient(90deg,rgba(0,200,160,0.08),transparent);}
+.priority-band.p-food{background:linear-gradient(90deg,rgba(196,124,24,0.1),transparent);}
+.priority-band.p-recovery{background:linear-gradient(90deg,rgba(74,98,117,0.08),transparent);}
 .pb-icon{font-size:18px;}
 .pb-content{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
 .pb-label{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;}
-.p-train .pb-label{color:var(--ac-hi);}
-.p-food .pb-label{color:var(--wa);}
-.p-recovery .pb-label{color:var(--sl);}
-.pb-title{font-family:var(--serif);font-size:18px;font-weight:500;}
-.pb-sep{color:var(--tx-3);}
-.pb-brief{font-size:12px;color:var(--tx-2);font-style:italic;}
-.dot-bar{display:flex;gap:3px;padding:10px 28px;border-bottom:1px solid var(--br);flex-shrink:0;}
-.db-seg{height:2px;flex:1;border-radius:2px;background:var(--br);}
-.db-seg.done{background:var(--ac);}
-.db-seg.now{background:rgba(45,158,120,0.45);}
+.p-train   .pb-label{color:var(--jade);}
+.p-food    .pb-label{color:var(--amber);}
+.p-recovery.pb-label{color:var(--slate);}
+.pb-title{font-family:var(--serif);font-size:18px;font-weight:500;color:var(--dk-1);}
+.pb-sep{color:var(--dk-3);}
+.pb-brief{font-size:12px;font-weight:300;color:var(--dk-2);font-style:italic;}
+
+/* Dot progress bar */
+.dot-bar{display:flex;gap:3px;padding:10px 32px;border-bottom:1px solid var(--bd);flex-shrink:0;background:var(--ink-1);}
+.db-seg{height:2px;flex:1;border-radius:2px;background:var(--ink-3);}
+.db-seg.done{background:var(--jade);}
+.db-seg.now{background:rgba(0,200,160,0.35);}
 </style>
 </head>
 <body>
@@ -50,11 +60,11 @@ body{display:flex;flex-direction:column;}
     <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
     <a class="nav-link" href="bodylens-progress.html">Progress</a>
     <a class="nav-link" href="bodylens-science.html">Science</a>
-    <a class="nav-link" href="bodylens-studio.html" style="border-left:1px solid var(--br);color:var(--tx-3);">Studio</a>
+    <a class="nav-link" href="bodylens-studio.html" style="border-left:1px solid var(--bd);color:var(--dk-3);">Studio</a>
   </div>
   <div class="nav-meta">
     <span class="nav-tag nt-go">Meniscus protocol</span>
-    <span class="nav-tag nt-ac">Balanced precision</span>
+    <span class="nav-tag nt-jade">Balanced precision</span>
   </div>
 </nav>
 
@@ -122,7 +132,7 @@ body{display:flex;flex-direction:column;}
           <div style="display:flex;align-items:center;gap:8px;">
             <div class="label">Wake time</div>
             <select id="wake-select" onchange="renderProtocol(currentDay)"
-              style="background:var(--bg-1);border:1px solid var(--br);border-radius:3px;color:var(--tx-1);font-family:var(--sans);font-size:12px;padding:5px 10px;outline:none;">
+              style="background:var(--ink-2);border:1px solid var(--bd);border-radius:3px;color:var(--dk-1);font-family:var(--sans);font-size:12px;padding:5px 10px;outline:none;">
               <option value="330">05:30</option>
               <option value="360" selected>06:00</option>
               <option value="390">06:30</option>
@@ -191,7 +201,7 @@ body{display:flex;flex-direction:column;}
         <div id="nutrition-content"></div>
 
         <!-- Recipe inspiration -->
-        <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--br);">
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--bd);">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
             <div>
               <div class="title-sm">Recipe inspiration</div>
@@ -520,7 +530,7 @@ function renderTraining(idx) {
   const d = DAYS[idx];
   const container = document.getElementById('training-content');
   if (!d.exercises) {
-    container.innerHTML = `<div style="text-align:center;padding:40px 20px;color:var(--tx-3);">
+    container.innerHTML = `<div style="text-align:center;padding:40px 20px;color:var(--dk-3);">
       <div style="font-family:var(--serif);font-size:28px;margin-bottom:8px;">Rest day</div>
       <div class="body-sm">No resistance training. See Protocol tab for the full day plan.</div>
     </div>`;
@@ -558,7 +568,7 @@ function renderMods(idx) {
     container.innerHTML = `<div class="mod-card no-mod">
       <div class="no-mod-body">
         <div class="nm-icon">✓</div>
-        <div class="body-sm"><strong style="color:var(--tx-1);">${d.name} is unmodified.</strong> ${d.exercises ? 'All exercises run as standard. No knee constraints apply to any movement in this session.' : 'Rest day — no training modifications applicable.'}</div>
+        <div class="body-sm"><strong style="color:var(--dk-1);">${d.name} is unmodified.</strong> ${d.exercises ? 'All exercises run as standard. No knee constraints apply to any movement in this session.' : 'Rest day — no training modifications applicable.'}</div>
       </div>
     </div>`;
     return;
@@ -567,8 +577,8 @@ function renderMods(idx) {
   const lost = idx === 4 ? '~3%' : '0';
   let html = `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px;">
     <div class="card card-pad"><div class="label" style="margin-bottom:3px;">Modifications</div><div style="font-family:var(--serif);font-size:24px;color:var(--go);">${d.mods}</div></div>
-    <div class="card card-pad"><div class="label" style="margin-bottom:3px;">Stimulus lost</div><div style="font-family:var(--serif);font-size:24px;color:var(--ac-hi);">${lost}</div></div>
-    <div class="card card-pad"><div class="label" style="margin-bottom:3px;">Net stimulus</div><div style="font-family:var(--serif);font-size:24px;color:var(--ac-hi);">${net}</div></div>
+    <div class="card card-pad"><div class="label" style="margin-bottom:3px;">Stimulus lost</div><div style="font-family:var(--serif);font-size:24px;color:var(--jade-hi);">${lost}</div></div>
+    <div class="card card-pad"><div class="label" style="margin-bottom:3px;">Net stimulus</div><div style="font-family:var(--serif);font-size:24px;color:var(--jade-hi);">${net}</div></div>
   </div>`;
   d.mods_data.forEach(m => {
     html += `<div class="mod-card has-mod">
@@ -653,9 +663,9 @@ function renderNutrition(idx) {
   const noteEl = document.getElementById('nutr-protein-note');
   if (noteEl) {
     if (activeProtein) {
-      noteEl.innerHTML = `<span style="color:var(--ac-hi);">${activeProtein.emoji} Shuffled to ${activeProtein.label}</span> <span style="color:var(--tx-3);">— ${activeProtein.note}</span>`;
+      noteEl.innerHTML = `<span style="color:var(--jade-hi);">${activeProtein.emoji} Shuffled to ${activeProtein.label}</span> <span style="color:var(--dk-3);">— ${activeProtein.note}</span>`;
     } else {
-      noteEl.innerHTML = `<span style="color:var(--tx-3);">Tap "Roll the dice" to swap the protein source — macros stay on target</span>`;
+      noteEl.innerHTML = `<span style="color:var(--dk-3);">Tap "Roll the dice" to swap the protein source — macros stay on target</span>`;
     }
   }
 
@@ -685,14 +695,14 @@ function renderNutrition(idx) {
       <div class="mb-cell" style="flex:2;">
         <div class="mb-lbl" style="margin-bottom:5px;">Split</div>
         <div style="height:6px;border-radius:3px;display:flex;gap:2px;overflow:hidden;margin-bottom:4px;">
-          <div style="width:${pPct}%;background:var(--ac);border-radius:3px;"></div>
-          <div style="width:${cPct}%;background:#c0a040;border-radius:3px;"></div>
-          <div style="width:${fPct}%;background:var(--tx-2);border-radius:3px;"></div>
+          <div style="width:${pPct}%;background:var(--jade);border-radius:3px;"></div>
+          <div style="width:${cPct}%;background:var(--amber);border-radius:3px;"></div>
+          <div style="width:${fPct}%;background:var(--dk-2);border-radius:3px;"></div>
         </div>
         <div style="display:flex;gap:10px;">
-          <span style="display:flex;align-items:center;gap:3px;font-size:10px;color:var(--tx-2);"><span style="width:6px;height:6px;border-radius:50%;background:var(--ac);display:inline-block;"></span>P ${pPct}%</span>
-          <span style="display:flex;align-items:center;gap:3px;font-size:10px;color:var(--tx-2);"><span style="width:6px;height:6px;border-radius:50%;background:#c0a040;display:inline-block;"></span>C ${cPct}%</span>
-          <span style="display:flex;align-items:center;gap:3px;font-size:10px;color:var(--tx-2);"><span style="width:6px;height:6px;border-radius:50%;background:var(--tx-2);display:inline-block;"></span>F ${fPct}%</span>
+          <span style="display:flex;align-items:center;gap:3px;font-size:10px;color:var(--dk-2);"><span style="width:6px;height:6px;border-radius:50%;background:var(--jade);display:inline-block;"></span>P ${pPct}%</span>
+          <span style="display:flex;align-items:center;gap:3px;font-size:10px;color:var(--dk-2);"><span style="width:6px;height:6px;border-radius:50%;background:var(--amber);display:inline-block;"></span>C ${cPct}%</span>
+          <span style="display:flex;align-items:center;gap:3px;font-size:10px;color:var(--dk-2);"><span style="width:6px;height:6px;border-radius:50%;background:var(--dk-2);display:inline-block;"></span>F ${fPct}%</span>
         </div>
       </div>
     </div>
@@ -815,7 +825,7 @@ const MILESTONES = [
     name: 'Accumulation I — The neural week',
     isActive: true,
     quads: [
-      { label: 'How your body feels', labelColor: 'var(--ac-hi)',
+      { label: 'How your body feels', labelColor: 'var(--jade-hi)',
         text: '<strong>Muscle soreness is not progress, but it is expected.</strong> The delayed onset muscle soreness (the ache 24–48 hours after training) in week 1 is your body responding to unfamiliar loading patterns. It will be more intense than week 2 even if week 2 is harder. First exposure always hurts most.' },
       { label: 'What the numbers do', labelColor: 'var(--wa)',
         text: 'Strength output will feel inconsistent. Some sessions will feel strong, others flat. <strong>This is normal — neural activation patterns are being established, not muscle mass.</strong> Do not judge week 1 performance. Do not chase personal records. Follow the prescribed load.' },
@@ -830,7 +840,7 @@ const MILESTONES = [
     name: 'Accumulation II — The first signal',
     isActive: false,
     quads: [
-      { label: 'How your body feels', labelColor: 'var(--ac-hi)',
+      { label: 'How your body feels', labelColor: 'var(--jade-hi)',
         text: 'Soreness reduces significantly. <strong>The same session that left you stiff for two days in week 1 will feel manageable by Thursday.</strong> This is neural adaptation — your motor units are firing more efficiently. It feels like the training is getting easier. It is not. Respond by adding one set or a small amount of load per compound movement.' },
       { label: 'What the numbers do', labelColor: 'var(--wa)',
         text: '<strong>The first measurable strength increase appears this week.</strong> Not because you have built muscle — you have not, not yet. Neural efficiency improvement drives the first 4–6 weeks of strength gains in any new programme. Enjoy it. Bank it. Add load when the set feels like RPE 6.' },
@@ -845,7 +855,7 @@ const MILESTONES = [
     name: 'Intensification — The hardest week',
     isActive: false,
     quads: [
-      { label: 'How your body feels', labelColor: 'var(--ac-hi)',
+      { label: 'How your body feels', labelColor: 'var(--jade-hi)',
         text: '<strong>Week 3 will feel hard.</strong> Fatigue has accumulated across 2 weeks of progressive loading and sleep is rarely perfect. This is expected and intentional. The body is being pushed slightly beyond what it has adapted to — which is exactly the stimulus required for the deload to produce supercompensation. Do not add extra rest days. Do not reduce load. Follow the protocol.' },
       { label: 'What the numbers do', labelColor: 'var(--wa)',
         text: 'Rep range drops to 5–8 on compound movements. Load increases. <strong>This is the week the accumulated neuromuscular adaptation from weeks 1–2 is expressed as peak strength output.</strong> RPE 8 should feel genuinely challenging. If it does not, you are underloaded. If sessions 3 and 4 feel flat, that is fatigue accumulation doing its job.' },
@@ -860,7 +870,7 @@ const MILESTONES = [
     name: 'Deload — Supercompensation',
     isActive: false,
     quads: [
-      { label: 'How your body feels', labelColor: 'var(--ac-hi)',
+      { label: 'How your body feels', labelColor: 'var(--jade-hi)',
         text: '<strong>You will feel like you are not doing enough.</strong> This feeling is the deload working correctly. Volume drops 40%. Load stays the same. The fatigue that has masked 3 weeks of fitness gains begins to clear. By Thursday of week 4, most people feel noticeably fresher and stronger than at any point in the mesocycle.' },
       { label: 'What the numbers do', labelColor: 'var(--wa)',
         text: 'Perceived exertion drops with the same load. Do not chase it by adding weight. <strong>The 40% volume reduction is the mechanism — do not undermine it.</strong> Track how each compound movement feels at the same load as week 3. The numbers that felt like RPE 8 in week 3 should feel like RPE 6 by week 4\'s last sessions. That gap is the supercompensation.' },
@@ -880,7 +890,7 @@ function renderMilestones() {
     <div class="milestone-card ${m.isActive ? 'active-week' : ''}" style="margin-bottom:14px;">
       <div class="mc-head-row">
         <div>
-          <div class="mc-wk-num" style="color:${m.isActive ? 'var(--ac-hi)' : 'var(--tx-1)'};">
+          <div class="mc-wk-num" style="color:${m.isActive ? 'var(--jade-hi)' : 'var(--dk-1)'};">
             Week ${m.week}
           </div>
           <div class="mc-wk-name">${m.name}</div>
