@@ -2,343 +2,563 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>BodyLens — Profile</title>
-<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:     #0e1110;
+  --ink-1:   #141a17;
+  --ink-2:   #1a2420;
+  --ink-3:   #232e29;
+  --surface:   #f4f1ec;
+  --surface-1: #ffffff;
+  --surface-2: #ece8e2;
+  --on-dark-1: #e6e1d8;
+  --on-dark-2: #7a8c82;
+  --on-dark-3: #3c4e44;
+  --on-light-1: #0e1110;
+  --on-light-2: #4c5850;
+  --on-light-3: #9ca89e;
+  --ac:      #00c896;
+  --ac-dim:  rgba(0,200,150,0.08);
+  --ac-br:   rgba(0,200,150,0.22);
+  --go:      #c49028;
+  --go-dim:  rgba(196,144,40,0.1);
+  --go-br:   rgba(196,144,40,0.25);
+  --sig-r:#dc5038; --sig-a:#c87818; --sig-g:#00a870;
+  --bd:rgba(255,255,255,0.07); --bd2:rgba(255,255,255,0.14);
+  --bl:rgba(0,0,0,0.08);       --bl2:rgba(0,0,0,0.16);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Space Grotesk',system-ui,sans-serif;
+  --mono:'Inter',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{background:var(--ink);color:var(--on-dark-1);font-family:var(--sans);font-size:14px;line-height:1.6;min-height:100vh;}
+a{color:inherit;text-decoration:none;}
+button{font-family:var(--sans);cursor:pointer;}
+
+/* ── NAV ── */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:60px;border-bottom:1px solid var(--bd);background:rgba(14,17,16,0.96);backdrop-filter:blur(24px);position:sticky;top:0;z-index:300;}
+.nav-brand{font-family:var(--serif);font-size:22px;font-weight:400;letter-spacing:0.05em;color:var(--on-dark-1);display:flex;align-items:center;}
+.nav-brand em{font-style:normal;color:var(--ac);}
+.nav-links{display:flex;align-items:center;gap:1px;}
+.nl{font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:5px 13px;border:none;background:transparent;color:var(--on-dark-3);cursor:pointer;font-family:var(--sans);transition:color 0.15s;text-decoration:none;border-radius:3px;}
+.nl:hover{color:var(--on-dark-2);}
+.nl.active{color:var(--on-dark-1);background:rgba(255,255,255,0.06);}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.np{font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:4px 11px;border-radius:20px;}
+.np-ac{color:var(--ac);background:var(--ac-dim);border:1px solid var(--ac-br);}
+.np-go{color:var(--go);background:var(--go-dim);border:1px solid var(--go-br);}
+
+/* ═══════════════════════════
+   1 · HERO
+═══════════════════════════ */
+.hero{background:var(--ink);padding:0 48px;position:relative;overflow:hidden;}
+.glow-1{position:absolute;top:-160px;right:-120px;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,150,0.055) 0%,transparent 65%);pointer-events:none;}
+.glow-2{position:absolute;bottom:-240px;left:20%;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(196,144,40,0.035) 0%,transparent 60%);pointer-events:none;}
+
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--bd);}
+
+.hero-l{padding:64px 64px 64px 0;border-right:1px solid var(--bd);display:flex;flex-direction:column;justify-content:space-between;}
+.h-eyebrow{font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--ac);margin-bottom:22px;display:flex;align-items:center;gap:12px;}
+.h-eyebrow::before{content:'';width:28px;height:1px;background:var(--ac);}
+.h-display{font-family:var(--serif);font-size:76px;font-weight:300;line-height:0.9;letter-spacing:-0.035em;color:var(--on-dark-1);margin-bottom:32px;}
+.h-display em{font-style:italic;color:var(--on-dark-3);}
+.h-voice{font-family:var(--serif);font-size:19px;font-weight:300;font-style:italic;line-height:1.78;color:var(--on-dark-2);border-left:2px solid var(--ac-br);padding-left:22px;max-width:400px;}
+.h-meta{display:flex;align-items:center;gap:18px;margin-top:40px;}
+.hm-seg{display:flex;flex-direction:column;gap:2px;}
+.hm-l{font-size:9px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--on-dark-3);}
+.hm-v{font-family:var(--mono);font-size:12px;font-weight:400;color:var(--on-dark-2);}
+.hm-sep{width:1px;height:20px;background:var(--bd2);}
+
+.hero-r{padding:64px 0 64px 64px;display:flex;flex-direction:column;justify-content:space-between;}
+
+.bm-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);}
+.bm{background:var(--ink);padding:24px 26px;}
+.bm-l{font-size:9px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--on-dark-3);margin-bottom:8px;}
+.bm-v{font-family:var(--serif);font-size:42px;font-weight:300;line-height:1;color:var(--on-dark-1);}
+.bm-v sup{font-family:var(--mono);font-size:14px;color:var(--on-dark-3);vertical-align:top;margin-top:8px;display:inline-block;letter-spacing:0.03em;}
+.bm-s{font-size:11px;color:var(--on-dark-3);margin-top:4px;}
+.bm.hi .bm-v{color:var(--ac);}
+
+.goals{display:flex;border-top:1px solid var(--bd);margin-top:0;}
+.goal{flex:1;padding:20px 24px;border-right:1px solid var(--bd);position:relative;transition:background 0.15s;}
+.goal:last-child{border-right:none;}
+.goal:hover{background:rgba(255,255,255,0.02);}
+.goal.p1::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--ac);}
+.goal-n{font-family:var(--serif);font-size:11px;color:var(--on-dark-3);letter-spacing:0.04em;margin-bottom:5px;display:block;}
+.goal-t{font-size:12px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--on-dark-1);margin-bottom:3px;}
+.goal.p1 .goal-t{color:var(--ac);}
+.goal-s{font-size:11px;font-weight:300;color:var(--on-dark-3);line-height:1.5;}
+
+/* ═══════════════════════════
+   2 · THREE LAWS
+═══════════════════════════ */
+.laws{background:var(--ink-1);padding:80px 48px;border-top:1px solid var(--bd);}
+.sec-title{display:flex;align-items:center;gap:14px;margin-bottom:52px;font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--on-dark-3);}
+.sec-title em{font-style:normal;color:var(--ac);}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--bd);}
+
+.law{display:grid;grid-template-columns:72px 1fr 320px;border-top:1px solid var(--bd);cursor:default;transition:background 0.2s;}
+.law:hover{background:rgba(255,255,255,0.02);}
+.law:hover .law-n{color:var(--ac);}
+.law-nc{padding:36px 0;display:flex;align-items:flex-start;justify-content:center;border-right:1px solid var(--bd);}
+.law-n{font-family:var(--serif);font-size:52px;font-weight:300;color:var(--on-dark-3);line-height:1;transition:color 0.2s;}
+.law-m{padding:36px 44px;border-right:1px solid var(--bd);}
+.law-h{font-family:var(--serif);font-size:30px;font-weight:400;line-height:1.12;color:var(--on-dark-1);margin-bottom:14px;letter-spacing:-0.01em;}
+.law-b{font-size:13px;font-weight:300;line-height:1.88;color:var(--on-dark-2);max-width:460px;}
+.law-b strong{color:var(--on-dark-1);font-weight:500;}
+.law-a{padding:36px 36px;}
+.law-al{font-size:9px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--on-dark-3);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.law-al::before{content:'';width:14px;height:1px;background:var(--ac-br);}
+.law-at{font-size:13px;font-weight:300;line-height:1.85;color:var(--on-dark-2);}
+.law-at strong{color:var(--on-dark-1);font-weight:500;}
+
+/* ═══════════════════════════
+   3 · PRINCIPLES
+═══════════════════════════ */
+.principles{background:var(--surface);padding:80px 48px;}
+.sec-title-l{display:flex;align-items:center;gap:14px;margin-bottom:48px;font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--on-light-3);}
+.sec-title-l::after{content:'';flex:1;height:1px;background:var(--bl2);}
+
+.pcols{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bl2);}
+.pcol{background:var(--surface);}
+.pcol:last-child{background:var(--surface-1);}
+.pcol-h{padding:16px 28px;border-bottom:1px solid var(--bl2);display:flex;align-items:center;gap:12px;}
+.pcol-letter{font-family:var(--serif);font-size:34px;font-weight:300;line-height:1;}
+.pcol-meta{display:flex;flex-direction:column;gap:1px;}
+.pcol-name{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--on-light-1);}
+.pcol-sub{font-size:11px;color:var(--on-light-3);}
+
+.p{padding:22px 28px;border-bottom:1px solid var(--bl);position:relative;transition:background 0.15s;}
+.p:last-child{border-bottom:none;}
+.p:hover{background:rgba(0,0,0,0.018);}
+.p-bar{position:absolute;top:0;left:0;bottom:0;width:2px;}
+.p-bar-t{background:var(--ac);}
+.p-bar-n{background:var(--sig-a);}
+.p-num{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:0.1em;color:var(--on-light-3);margin-bottom:4px;}
+.p-title{font-family:var(--serif);font-size:21px;font-weight:500;color:var(--on-light-1);margin-bottom:6px;line-height:1.12;}
+.p-body{font-size:13px;font-weight:300;line-height:1.78;color:var(--on-light-2);}
+.p-body strong{color:var(--on-light-1);font-weight:500;}
+
+/* ═══════════════════════════
+   4 · KNEE
+═══════════════════════════ */
+.knee{background:var(--ink-2);padding:80px 48px;border-top:1px solid var(--bd);}
+
+.knee-top{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--bd);align-items:start;}
+.knee-statement{font-family:var(--serif);font-size:38px;font-weight:300;line-height:1.15;color:var(--on-dark-1);letter-spacing:-0.01em;}
+.knee-statement em{font-style:italic;color:var(--go);}
+.knee-dx{display:flex;flex-direction:column;gap:0;}
+.kd{display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:1px solid var(--bd);}
+.kd:last-child{border-bottom:none;}
+.kd-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+.kd-txt{font-size:13px;font-weight:300;color:var(--on-dark-2);line-height:1.6;}
+.kd-txt strong{color:var(--on-dark-1);font-weight:500;}
+
+.knee-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bd);}
+.kcol{background:var(--ink-1);padding:26px 28px;}
+.kc-ttl{font-size:9px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:7px;}
+.kc-ok{color:var(--sig-g);}
+.kc-mod{color:var(--go);}
+.kc-stop{color:var(--sig-r);}
+.ki{display:flex;gap:9px;align-items:flex-start;margin-bottom:9px;}
+.ki-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.ki-txt{font-size:12px;font-weight:300;color:var(--on-dark-2);line-height:1.5;}
+
+.knee-close{background:rgba(196,144,40,0.04);border:1px solid var(--go-br);padding:20px 28px;margin-top:1px;}
+.knee-quote{font-family:var(--serif);font-size:18px;font-weight:300;font-style:italic;line-height:1.7;color:var(--go);}
+
+/* ═══════════════════════════
+   5 · SUPPLEMENTS
+═══════════════════════════ */
+.supps{background:var(--surface-1);padding:80px 48px;}
+.supp-heading{display:flex;align-items:baseline;gap:16px;margin-bottom:36px;}
+
+.supp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bl2);border-radius:8px;overflow:hidden;}
+.st{background:var(--surface-1);padding:24px 26px;position:relative;transition:background 0.15s;}
+.st:hover{background:var(--surface);}
+.st.t2{background:var(--surface);}
+.st.t2:hover{background:var(--surface-2);}
+.st-bar{position:absolute;top:0;left:0;right:0;height:2px;}
+.t1-bar{background:var(--ac);}
+.t2-bar{background:var(--sig-a);}
+.st-tier{font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--on-light-3);margin-bottom:9px;}
+.st-name{font-family:var(--serif);font-size:20px;font-weight:500;color:var(--on-light-1);margin-bottom:3px;line-height:1.1;}
+.st-dose{font-size:11px;font-weight:600;color:var(--ac);margin-bottom:11px;letter-spacing:0.02em;}
+.st-dose.wa{color:var(--sig-a);}
+.st-body{font-size:12px;font-weight:300;line-height:1.72;color:var(--on-light-2);}
+.st-t{display:inline-block;margin-top:11px;font-size:10px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;padding:3px 10px;border-radius:20px;}
+.tt-pre{color:var(--ac);background:var(--ac-dim);border:1px solid var(--ac-br);}
+.tt-bed{color:var(--on-light-3);background:rgba(0,0,0,0.05);border:1px solid var(--bl2);}
+.tt-any{color:var(--on-light-3);background:rgba(0,0,0,0.04);border:1px solid var(--bl);}
+.tt-meal{color:var(--sig-a);background:rgba(200,120,24,0.08);border:1px solid rgba(200,120,24,0.22);}
+
+.supp-t2-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bl2);border-radius:0 0 8px 8px;overflow:hidden;margin-top:1px;}
+
+/* ═══════════════════════════
+   6 · PROGRESS CONTRACT
+═══════════════════════════ */
+.progress{background:var(--ink);padding:80px 48px;border-top:1px solid var(--bd);}
+
+.dest{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-bottom:64px;padding-bottom:64px;border-bottom:1px solid var(--bd);align-items:center;}
+.dest-eyebrow{font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--ac);margin-bottom:18px;display:flex;align-items:center;gap:12px;}
+.dest-eyebrow::before{content:'';width:28px;height:1px;background:var(--ac);}
+.dest-stmt{font-family:var(--serif);font-size:46px;font-weight:300;line-height:1.1;letter-spacing:-0.02em;color:var(--on-dark-1);margin-bottom:28px;}
+.dest-m{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:300;color:var(--on-dark-2);margin-bottom:8px;}
+.dest-m::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ac);flex-shrink:0;}
+
+.dest-nums{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);}
+.dn{background:var(--ink-1);padding:26px 28px;}
+.dn-l{font-size:9px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--on-dark-3);margin-bottom:8px;}
+.dn-v{font-family:var(--serif);font-size:46px;font-weight:300;color:var(--on-dark-1);line-height:1;}
+.dn-v sup{font-family:var(--mono);font-size:16px;color:var(--on-dark-3);vertical-align:top;margin-top:8px;display:inline-block;}
+.dn.hi{background:rgba(0,200,150,0.06);border:1px solid var(--ac-br);}
+.dn.hi .dn-l{color:var(--ac);}
+.dn.hi .dn-v{color:var(--ac);font-size:32px;}
+
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:6px;overflow:hidden;}
+.tph{background:var(--ink-1);padding:28px 24px;position:relative;}
+.tph::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--bd);}
+.ph-now::before{background:var(--ac);}
+.ph-nxt::before{background:var(--go);}
+.ph-pk::before{background:var(--sig-a);}
+.tph-p{font-family:var(--mono);font-size:10px;font-weight:400;letter-spacing:0.08em;color:var(--on-dark-3);margin-bottom:6px;}
+.tph-n{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--on-dark-1);margin-bottom:16px;line-height:1.1;}
+.ph-now .tph-n{color:var(--ac);}
+.tph-rows{display:flex;flex-direction:column;gap:8px;}
+.tr{display:flex;gap:8px;align-items:flex-start;font-size:11px;font-weight:300;color:var(--on-dark-2);line-height:1.55;}
+.trd{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+
+.page-end{height:80px;}
+
+@media(max-width:900px){
+  .nav{padding:0 18px;}
+  .hero-grid,.dest,.knee-top{grid-template-columns:1fr;}
+  .hero-l{border-right:none;padding-right:0;}
+  .hero-r{padding-left:0;}
+  .law{grid-template-columns:1fr;}.law-nc,.law-a{display:none;}
+  .pcols{grid-template-columns:1fr;}
+  .knee-cols,.supp-grid,.supp-t2-row,.timeline,.dest-nums{grid-template-columns:1fr;}
+  .laws,.principles,.knee,.supps,.progress,.hero{padding-left:18px;padding-right:18px;}
+}
+</style>
 </head>
 <body>
 
-<nav class="site-nav">
+<!-- NAV -->
+<nav class="nav">
   <div class="nav-brand">Body<em>Lens</em></div>
   <div class="nav-links">
-    <a class="nav-link" href="bodylens-profile.html">Profile</a>
-    <a class="nav-link" href="bodylens-today.html">Today</a>
-    <a class="nav-link" href="bodylens-week.html">Week</a>
-    <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
-    <a class="nav-link" href="bodylens-progress.html">Progress</a>
-    <a class="nav-link" href="bodylens-science.html">Science</a>
-    <a class="nav-link" href="bodylens-studio.html" style="border-left:1px solid var(--br);color:var(--tx-3);">Studio</a>
+    <a class="nl active" href="bodylens-profile.html">Profile</a>
+    <a class="nl" href="bodylens-today.html">Today</a>
+    <a class="nl" href="bodylens-week.html">Week</a>
+    <a class="nl" href="bodylens-journeys.html">Journeys</a>
+    <a class="nl" href="bodylens-progress.html">Progress</a>
+    <a class="nl" href="bodylens-science.html">Science</a>
+    <a class="nl" href="bodylens-nonneg.html">Non-Negotiables</a>
+    <a class="nl" href="bodylens-studio.html" style="opacity:0.4;">Studio</a>
   </div>
-  <div class="nav-meta">
-    <span class="nav-tag nt-gold">Meniscus protocol</span>
-    <span class="nav-tag nt-ac">Balanced precision</span>
+  <div class="nav-right">
+    <span class="np np-go">Meniscus protocol</span>
+    <span class="np np-ac">Balanced precision</span>
   </div>
 </nav>
 
-<div class="page" style="padding-top:48px;">
+<!-- ═══ 1 · HERO ═══ -->
+<section class="hero">
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+  <div class="hero-grid">
 
-  <!-- SPOKEN SUMMARY -->
-  <div class="spoken-summary">
-    <div class="ss-head"><div class="ss-dot"></div><div class="ss-label">From your coach</div></div>
-    <div class="ss-text">
-      This profile is the constitution — the document everything else in BodyLens derives from. Before you look at a single exercise or meal, you need to understand the logic that governs every choice. You are 44, advanced, lean, and returning from a knee event that revealed a degenerative medial meniscus tear. That combination — advanced training status, lean physique, and a specific joint constraint — means this programme cannot be generic. The goal is lean muscle gain with a small surplus, a posterior chain that protects your knee, a tennis return by week 9–12, and a hormonal and nutritional environment that makes all of this possible at your age. Every principle here traces back to one of those four outcomes. When you are uncertain about a decision, come back to this page and ask which principle it conflicts with. That answer tells you what to do.
-    </div>
-  </div>
-
-  <!-- MASTHEAD -->
-  <div style="margin-bottom:40px;">
-    <div class="eyebrow eyebrow-ac">BodyLens · Personal performance profile</div>
-    <div class="display" style="margin-bottom:6px;">The plan.<br><em style="color:var(--tx-2)">Everything flows from here.</em></div>
-    <div class="label" style="margin-bottom:28px;">Issued: March 2026 · Week 1 of 12 · Accumulation phase</div>
-
-    <div class="stat-row" style="margin-bottom:20px;">
-      <div class="stat-cell"><div class="label" style="margin-bottom:4px;">Age</div><div class="stat-val">44</div><div class="body-sm">Male</div></div>
-      <div class="stat-cell"><div class="label" style="margin-bottom:4px;">Weight</div><div class="stat-val">85<span style="font-size:16px;color:var(--tx-3)">kg</span></div><div class="body-sm">Target: lean</div></div>
-      <div class="stat-cell"><div class="label" style="margin-bottom:4px;">Training age</div><div class="stat-val" style="font-size:18px;">Advanced</div><div class="body-sm">3+ years consistent</div></div>
-      <div class="stat-cell"><div class="label" style="margin-bottom:4px;">Sessions / wk</div><div class="stat-val">4</div><div class="body-sm">Full commercial gym</div></div>
-      <div class="stat-cell"><div class="label" style="margin-bottom:4px;">Journey</div><div class="stat-val sv-ac" style="font-size:16px;">Balanced</div><div class="body-sm">Precision</div></div>
-      <div class="stat-cell"><div class="label" style="margin-bottom:4px;">Daily surplus</div><div class="stat-val">+200</div><div class="body-sm">kcal lean gain</div></div>
-    </div>
-
-    <div class="three-col">
-      <div class="card card-pad" style="display:flex;gap:14px;align-items:flex-start;">
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300;line-height:1;color:var(--ac-hi);flex-shrink:0;">I</div>
-        <div><div class="label" style="margin-bottom:3px;">Primary goal</div><div class="title-sm" style="margin-bottom:5px;">Lean muscle gain</div><div class="body-sm">Add 1–2kg lean mass over 12 weeks with minimal fat. Advanced lifters gain slowly — the surplus is small because the physiology demands it.</div></div>
-      </div>
-      <div class="card card-pad" style="display:flex;gap:14px;align-items:flex-start;">
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300;line-height:1;color:var(--wa);flex-shrink:0;">II</div>
-        <div><div class="label" style="margin-bottom:3px;">Secondary goal</div><div class="title-sm" style="margin-bottom:5px;">Return to tennis</div><div class="body-sm">Full court play — lateral movement, net play, competitive singles. Requires posterior chain strength and progressive reintroduction. Target: week 9–12.</div></div>
-      </div>
-      <div class="card card-pad" style="display:flex;gap:14px;align-items:flex-start;">
-        <div style="font-family:var(--serif);font-size:36px;font-weight:300;line-height:1;color:var(--tx-3);flex-shrink:0;">III</div>
-        <div><div class="label" style="margin-bottom:3px;">Tertiary goal</div><div class="title-sm" style="margin-bottom:5px;">Athletic longevity</div><div class="body-sm">Maintain VO₂max, joint health, and hormonal profile through the 40s. Any decision that sacrifices longevity for marginal short-term gain is the wrong decision.</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- THREE LAWS -->
-  <div class="sec-rule">The three laws — these override everything else</div>
-
-  <div style="border:1px solid var(--br);border-radius:4px;overflow:hidden;margin-bottom:40px;">
-
-    <div style="display:grid;grid-template-columns:60px 1fr 1fr;border-bottom:1px solid var(--br);">
-      <div style="padding:22px 0;display:flex;justify-content:center;border-right:1px solid var(--br);background:rgba(45,158,120,0.04);">
-        <span style="font-family:var(--serif);font-size:42px;font-weight:300;color:var(--ac-hi);">I</span>
-      </div>
-      <div style="padding:22px 26px;border-right:1px solid var(--br);">
-        <div class="title-md" style="margin-bottom:8px;">Protein is non-negotiable. Every day. No exceptions.</div>
-        <div class="body-sm">185–190g daily across four meals. Each meal must clear the leucine threshold (~2–3g) to trigger mTOR activation — the molecular switch for muscle protein synthesis. Total protein matters. Distribution matters equally. A missed meal doesn't average out; it leaves an MPS window empty and irretrievable.</div>
-      </div>
-      <div style="padding:22px 26px;background:rgba(255,255,255,0.01);">
-        <div class="label" style="color:var(--ac-hi);margin-bottom:8px;">Why this is law, not guideline</div>
-        <div class="body-sm">At 44, muscle protein synthesis efficiency declines. The gap between adequate and inadequate protein is larger than at 25. <strong style="color:var(--tx-1);">Undereating protein on rest days is the single most common reason advanced lifters stall.</strong> Rest days are when MPS from the previous session peaks — the amino acid supply matters most precisely when you feel least inclined to eat purposefully.</div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:60px 1fr 1fr;border-bottom:1px solid var(--br);">
-      <div style="padding:22px 0;display:flex;justify-content:center;border-right:1px solid var(--br);background:rgba(45,158,120,0.04);">
-        <span style="font-family:var(--serif);font-size:42px;font-weight:300;color:var(--ac-hi);">II</span>
-      </div>
-      <div style="padding:22px 26px;border-right:1px solid var(--br);">
-        <div class="title-md" style="margin-bottom:8px;">The posterior chain protects the knee. Training it is medicine.</div>
-        <div class="body-sm">Strong glutes and hamstrings reduce medial compartment compressive load by 30–40%, directly reducing stress on the torn meniscal tissue. Glute maximus controls femoral alignment. Hamstrings resist anterior tibial translation. Every RDL and hip thrust is structural joint therapy with a side effect of muscle gain.</div>
-      </div>
-      <div style="padding:22px 26px;background:rgba(255,255,255,0.01);">
-        <div class="label" style="color:var(--ac-hi);margin-bottom:8px;">Why this is law, not guideline</div>
-        <div class="body-sm">The instinct after a knee injury is to reduce leg training. <strong style="color:var(--tx-1);">This is the single most counterproductive response.</strong> The posterior chain is the knee's external support system. Reducing it accelerates degradation. Friday is posterior chain precisely because it is the therapeutic priority — not because it is convenient.</div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:60px 1fr 1fr;">
-      <div style="padding:22px 0;display:flex;justify-content:center;border-right:1px solid var(--br);background:rgba(45,158,120,0.04);">
-        <span style="font-family:var(--serif);font-size:42px;font-weight:300;color:var(--ac-hi);">III</span>
-      </div>
-      <div style="padding:22px 26px;border-right:1px solid var(--br);">
-        <div class="title-md" style="margin-bottom:8px;">Sleep is training. Skipping it skips the adaptation.</div>
-        <div class="body-sm">GH release peaks during slow-wave sleep 60–90 minutes after sleep onset. Testosterone consolidates overnight. Connective tissue remodelling — including the meniscus — runs on the same hormonal cascade. One week of sub-6h sleep reduces testosterone by 10–15%. The gym session is the stimulus. Sleep is where the body responds to it.</div>
-      </div>
-      <div style="padding:22px 26px;background:rgba(255,255,255,0.01);">
-        <div class="label" style="color:var(--ac-hi);margin-bottom:8px;">Why this is law, not guideline</div>
-        <div class="body-sm">Most people treat sleep as the variable they sacrifice when life is busy. <strong style="color:var(--tx-1);">From a physiology standpoint, this is equivalent to doing the training and then not eating.</strong> The stimulus was delivered; the response was blocked. 8 hours is not a preference — it is the minimum operating condition for this programme to function.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PRINCIPLES -->
-  <div class="sec-rule">Supporting principles — training and nutrition</div>
-
-  <div style="border:1px solid var(--br);border-radius:4px;overflow:hidden;margin-bottom:40px;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;">
-
-      <div style="border-right:1px solid var(--br);">
-        <div style="padding:14px 20px;border-bottom:1px solid var(--br);background:rgba(45,158,120,0.04);">
-          <div class="label" style="color:var(--ac-hi);">Training principles</div>
-        </div>
-
-        <div style="position:relative;padding:16px 20px;border-bottom:1px solid var(--br);border-left:2px solid var(--ac);">
-          <div class="label" style="margin-bottom:4px;">T1</div>
-          <div class="title-sm" style="margin-bottom:6px;">Progressive overload is the only mechanism</div>
-          <div class="body-sm">Add one set or a small amount of load each week on at least one compound movement. Showing up consistently without progression is maintenance, not improvement. <strong style="color:var(--tx-1);">The number must move.</strong></div>
-        </div>
-
-        <div style="position:relative;padding:16px 20px;border-bottom:1px solid var(--br);border-left:2px solid var(--ac);">
-          <div class="label" style="margin-bottom:4px;">T2</div>
-          <div class="title-sm" style="margin-bottom:6px;">Twice-weekly frequency outperforms volume concentration</div>
-          <div class="body-sm">MPS from a session decays within 48–72h. The push/pull/posterior/upper split ensures every major muscle group is stimulated twice weekly — the evidence-based frequency for maximising hypertrophy at matched volume.</div>
-        </div>
-
-        <div style="position:relative;padding:16px 20px;border-bottom:1px solid var(--br);border-left:2px solid var(--ac);">
-          <div class="label" style="margin-bottom:4px;">T3</div>
-          <div class="title-sm" style="margin-bottom:6px;">The deload is supercompensation, not rest</div>
-          <div class="body-sm">Accumulated fatigue masks fitness gains. Week 4 reduces volume 40% while maintaining load. Fatigue clears; fitness rebounds above the pre-fatigue baseline. <strong style="color:var(--tx-1);">Skipping the deload means never collecting the dividend.</strong></div>
-        </div>
-
-        <div style="position:relative;padding:16px 20px;border-bottom:1px solid var(--br);border-left:2px solid var(--ac);">
-          <div class="label" style="margin-bottom:4px;">T4</div>
-          <div class="title-sm" style="margin-bottom:6px;">The eccentric is the stimulus, not the lift</div>
-          <div class="body-sm">Mechanical tension during the lengthening phase drives hypertrophy more than the concentric. A 2–3 second controlled descent is not caution — it is the training mechanism. Dropping the weight rapidly discards most of each rep's value.</div>
-        </div>
-
-        <div style="position:relative;padding:16px 20px;border-left:2px solid var(--ac);">
-          <div class="label" style="margin-bottom:4px;">T5</div>
-          <div class="title-sm" style="margin-bottom:6px;">RPE governs load — not ego, not spreadsheets</div>
-          <div class="body-sm">RPE 8 means two reps left in the tank. If a weight gets you to RPE 6, add load. If it takes you to 9.5, reduce. The number on the bar is feedback. The effort is the prescription.</div>
-        </div>
-      </div>
-
+    <div class="hero-l">
       <div>
-        <div style="padding:14px 20px;border-bottom:1px solid var(--br);background:rgba(176,120,32,0.06);">
-          <div class="label" style="color:var(--wa);">Nutrition principles</div>
-        </div>
+        <div class="h-eyebrow">Personal performance profile</div>
+        <div class="h-display">The plan.<br><em>Everything flows<br>from here.</em></div>
+        <div class="h-voice">You are 44, advanced, and returning from a degenerative meniscus event. This programme is not generic. Every decision traces back to four specific outcomes — and one of them is joint preservation.</div>
+      </div>
+      <div class="h-meta">
+        <div class="hm-seg"><div class="hm-l">Phase</div><div class="hm-v">Accumulation</div></div>
+        <div class="hm-sep"></div>
+        <div class="hm-seg"><div class="hm-l">Week</div><div class="hm-v">1 of 12</div></div>
+        <div class="hm-sep"></div>
+        <div class="hm-seg"><div class="hm-l">Issued</div><div class="hm-v">March 2026</div></div>
+      </div>
+    </div>
 
-        <div style="position:relative;padding:16px 20px;border-bottom:1px solid var(--br);border-left:2px solid var(--wa);">
-          <div class="label" style="margin-bottom:4px;">N1</div>
-          <div class="title-sm" style="margin-bottom:6px;">Carbs are training fuel — not the enemy</div>
-          <div class="body-sm">Training in a glycogen-depleted state catabolises muscle protein to maintain blood glucose — the opposite of the goal. Carbs are front-loaded on training days and timed around sessions. Reducing them on rest days is appropriate. Eliminating them is not.</div>
+    <div class="hero-r">
+      <div class="bm-grid">
+        <div class="bm">
+          <div class="bm-l">Age</div>
+          <div class="bm-v">44<sup>m</sup></div>
+          <div class="bm-s">Advanced lifter</div>
         </div>
+        <div class="bm">
+          <div class="bm-l">Body mass</div>
+          <div class="bm-v">85<sup>kg</sup></div>
+          <div class="bm-s">Target: lean</div>
+        </div>
+        <div class="bm hi">
+          <div class="bm-l">Daily surplus</div>
+          <div class="bm-v">+200<sup>kcal</sup></div>
+          <div class="bm-s">Lean gain calibrated</div>
+        </div>
+        <div class="bm">
+          <div class="bm-l">Training</div>
+          <div class="bm-v">4<sup>×wk</sup></div>
+          <div class="bm-s">Full commercial gym</div>
+        </div>
+      </div>
+      <div class="goals">
+        <div class="goal p1">
+          <span class="goal-n">Goal I</span>
+          <div class="goal-t">Lean muscle</div>
+          <div class="goal-s">1–2 kg lean mass<br>over 12 weeks</div>
+        </div>
+        <div class="goal">
+          <span class="goal-n">Goal II</span>
+          <div class="goal-t">Tennis return</div>
+          <div class="goal-s">Full court play<br>by week 9–12</div>
+        </div>
+        <div class="goal">
+          <span class="goal-n">Goal III</span>
+          <div class="goal-t">Longevity</div>
+          <div class="goal-s">VO₂max, joints,<br>hormonal profile</div>
+        </div>
+      </div>
+    </div>
 
-        <div style="position:relative;padding:16px 20px;border-bottom:1px solid var(--br);border-left:2px solid var(--wa);">
-          <div class="label" style="margin-bottom:4px;">N2</div>
-          <div class="title-sm" style="margin-bottom:6px;">The surplus is small because the physiology is slow</div>
-          <div class="body-sm">An advanced lifter gains 0.5–1kg lean mass per month — a physiological ceiling, not a mindset limitation. A surplus above +300 kcal adds fat without accelerating muscle gain. <strong style="color:var(--tx-1);">The +200 kcal is calibrated to actual accretion rate.</strong></div>
-        </div>
+  </div>
+</section>
 
-        <div style="position:relative;padding:16px 20px;border-bottom:1px solid var(--br);border-left:2px solid var(--wa);">
-          <div class="label" style="margin-bottom:4px;">N3</div>
-          <div class="title-sm" style="margin-bottom:6px;">Fat is a hormonal floor — never drop below it</div>
-          <div class="body-sm">Testosterone synthesis requires dietary fat. Below ~0.7g/kg, testosterone drops measurably. Omega-3s are membrane components in synovial tissue. D3 absorption requires fat. Fat is structural, not caloric noise.</div>
-        </div>
+<!-- ═══ 2 · THREE LAWS ═══ -->
+<section class="laws">
+  <div class="sec-title">The three laws <em>— override everything</em></div>
+  <div>
+    <div class="law">
+      <div class="law-nc"><div class="law-n">I</div></div>
+      <div class="law-m">
+        <div class="law-h">Protein is non-negotiable.<br>Every day. No exceptions.</div>
+        <div class="law-b">185–190g daily across four meals. Each meal must clear the leucine threshold to trigger mTOR activation — the molecular switch for muscle protein synthesis. Total protein matters. <strong>Distribution matters equally.</strong> A missed meal doesn't average out; it leaves an MPS window empty and irretrievable.</div>
+      </div>
+      <div class="law-a">
+        <div class="law-al">Why law, not guideline</div>
+        <div class="law-at">At 44, MPS efficiency declines. The gap between adequate and inadequate protein is larger than at 25. <strong>Undereating protein on rest days is the single most common reason advanced lifters stall.</strong> MPS peaks on rest days — the amino acid supply matters precisely when you feel least inclined to eat purposefully.</div>
+      </div>
+    </div>
+    <div class="law">
+      <div class="law-nc"><div class="law-n">II</div></div>
+      <div class="law-m">
+        <div class="law-h">The posterior chain protects<br>the knee. Training it is medicine.</div>
+        <div class="law-b">Strong glutes and hamstrings reduce medial compartment load by 30–40%, directly reducing stress on the torn meniscal tissue. <strong>Every RDL and hip thrust is structural joint therapy</strong> with a side effect of muscle gain. The two goals are not in conflict — they are the same goal.</div>
+      </div>
+      <div class="law-a">
+        <div class="law-al">Why law, not guideline</div>
+        <div class="law-at">The instinct after a knee injury is to reduce leg training. <strong>This is the single most counterproductive response possible.</strong> The posterior chain is the knee's external support system. Reducing it accelerates degradation. Friday is posterior chain because it is the therapeutic priority.</div>
+      </div>
+    </div>
+    <div class="law">
+      <div class="law-nc"><div class="law-n">III</div></div>
+      <div class="law-m">
+        <div class="law-h">Sleep is training.<br>Skipping it skips the adaptation.</div>
+        <div class="law-b">GH release peaks during slow-wave sleep 60–90 minutes after onset. Testosterone consolidates overnight. Connective tissue remodelling runs on the same hormonal cascade. <strong>One week of sub-6h sleep reduces testosterone by 10–15%.</strong> The gym session is the stimulus. Sleep is where the body responds.</div>
+      </div>
+      <div class="law-a">
+        <div class="law-al">Why law, not guideline</div>
+        <div class="law-at">Most people treat sleep as the variable they sacrifice. From a physiology standpoint, <strong>this is equivalent to training and then not eating.</strong> The stimulus was delivered; the response was blocked. 8 hours is not a preference — it is the minimum operating condition.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div style="position:relative;padding:16px 20px;border-bottom:1px solid var(--br);border-left:2px solid var(--wa);">
-          <div class="label" style="margin-bottom:4px;">N4</div>
-          <div class="title-sm" style="margin-bottom:6px;">Functional food over recipes — simplicity sustains</div>
-          <div class="body-sm">The weekly kit is 11 ingredients. Every meal: protein source + starch + vegetable + fat. Complexity destroys consistency. 500g chicken + rice + olive oil executed daily beats an elaborate plan followed twice a week.</div>
-        </div>
+<!-- ═══ 3 · PRINCIPLES ═══ -->
+<section class="principles">
+  <div class="sec-title-l">Supporting principles</div>
+  <div class="pcols">
 
-        <div style="position:relative;padding:16px 20px;border-left:2px solid var(--wa);">
-          <div class="label" style="margin-bottom:4px;">N5</div>
-          <div class="title-sm" style="margin-bottom:6px;">Anti-inflammatory eating is built into the programme</div>
-          <div class="body-sm">Omega-3s, turmeric, olive oil, and dark leafy greens are not lifestyle choices — they are specific interventions for the synovial environment. Seed oils, excess fructose, and processed meats work against the knee's recovery. <strong style="color:var(--tx-1);">This is not optional for your profile.</strong></div>
-        </div>
+    <div class="pcol">
+      <div class="pcol-h">
+        <div class="pcol-letter" style="color:var(--ac)">T</div>
+        <div class="pcol-meta"><div class="pcol-name">Training</div><div class="pcol-sub">5 governing principles</div></div>
+      </div>
+      <div class="p"><div class="p-bar p-bar-t"></div><div class="p-num">T1</div><div class="p-title">Progressive overload is the only mechanism</div><div class="p-body">Add one set or a small amount of load each week on at least one compound movement. Showing up without progression is maintenance. <strong>The number must move.</strong></div></div>
+      <div class="p"><div class="p-bar p-bar-t"></div><div class="p-num">T2</div><div class="p-title">Twice-weekly frequency outperforms volume concentration</div><div class="p-body">MPS from a session decays within 48–72h. The push/pull/posterior/upper split ensures every major muscle group is stimulated twice weekly — the evidence-based frequency for maximising hypertrophy at matched volume.</div></div>
+      <div class="p"><div class="p-bar p-bar-t"></div><div class="p-num">T3</div><div class="p-title">The deload is supercompensation, not rest</div><div class="p-body">Accumulated fatigue masks fitness gains. Week 4 reduces volume 40% while maintaining load. Fatigue clears; fitness rebounds above the pre-fatigue baseline. <strong>Skipping the deload means never collecting the dividend.</strong></div></div>
+      <div class="p"><div class="p-bar p-bar-t"></div><div class="p-num">T4</div><div class="p-title">The eccentric is the stimulus, not the lift</div><div class="p-body">Mechanical tension during the lengthening phase drives hypertrophy more than the concentric. A 2–3 second controlled descent is the training mechanism — not a technique cue.</div></div>
+      <div class="p"><div class="p-bar p-bar-t"></div><div class="p-num">T5</div><div class="p-title">RPE governs load — not ego, not spreadsheets</div><div class="p-body">RPE 8 means two reps left in the tank. The number on the bar is feedback. The effort is the prescription.</div></div>
+    </div>
+
+    <div class="pcol" style="border-left:1px solid var(--bl2);">
+      <div class="pcol-h" style="border-bottom:1px solid var(--bl2);">
+        <div class="pcol-letter" style="color:var(--sig-a)">N</div>
+        <div class="pcol-meta"><div class="pcol-name">Nutrition</div><div class="pcol-sub">5 governing principles</div></div>
+      </div>
+      <div class="p"><div class="p-bar p-bar-n"></div><div class="p-num">N1</div><div class="p-title">Carbs are training fuel — not the enemy</div><div class="p-body">Training in a glycogen-depleted state catabolises muscle protein. Carbs are front-loaded on training days and timed around sessions. Reducing on rest days is appropriate. Eliminating is not.</div></div>
+      <div class="p"><div class="p-bar p-bar-n"></div><div class="p-num">N2</div><div class="p-title">The surplus is small because the physiology is slow</div><div class="p-body">Advanced lifters gain 0.5–1kg lean mass per month — a physiological ceiling. A surplus above +300 kcal adds fat without accelerating gains. <strong>The +200 kcal is calibrated to actual accretion rate.</strong></div></div>
+      <div class="p"><div class="p-bar p-bar-n"></div><div class="p-num">N3</div><div class="p-title">Fat is a hormonal floor — never drop below it</div><div class="p-body">Testosterone synthesis requires dietary fat. Below ~0.7g/kg, testosterone drops measurably. Omega-3s are membrane components in synovial tissue. Fat is structural, not caloric noise.</div></div>
+      <div class="p"><div class="p-bar p-bar-n"></div><div class="p-num">N4</div><div class="p-title">Functional food over recipes — simplicity sustains</div><div class="p-body">The weekly kit is 11 ingredients. Every meal: protein + starch + vegetable + fat. Complexity destroys consistency. <strong>The best plan is the one you actually execute.</strong></div></div>
+      <div class="p"><div class="p-bar p-bar-n"></div><div class="p-num">N5</div><div class="p-title">Anti-inflammatory eating is part of the programme</div><div class="p-body">Omega-3s, turmeric, olive oil, and dark leafy greens are specific interventions for the synovial environment. This is not optional for your profile.</div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ 4 · KNEE ═══ -->
+<section class="knee">
+  <div class="sec-title">Knee clause <em>— governs all lower body decisions</em></div>
+
+  <div class="knee-top">
+    <div>
+      <div style="font-size:10px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--go);margin-bottom:16px;display:flex;align-items:center;gap:12px;"><span style="display:inline-block;width:20px;height:1px;background:var(--go)"></span>Medial meniscus protocol</div>
+      <div class="knee-statement">The goal is not to protect<br>the knee from training.<br><em>Use training to protect<br>the knee from itself.</em></div>
+    </div>
+    <div class="knee-dx">
+      <div class="kd"><div class="kd-dot" style="background:var(--sig-a)"></div><div class="kd-txt"><strong>Horizontal tear</strong> — medial meniscus body + posterior horn. Degenerative, long-standing. Not an acute rupture.</div></div>
+      <div class="kd"><div class="kd-dot" style="background:var(--sig-a)"></div><div class="kd-txt"><strong>Parameniscal cyst</strong> present. Baker's cyst resolved. Mild chondromalacia noted.</div></div>
+      <div class="kd"><div class="kd-dot" style="background:var(--sig-a)"></div><div class="kd-txt">MCL mildly irritated. <strong>ACL, PCL, LCL intact.</strong></div></div>
+      <div class="kd"><div class="kd-dot" style="background:var(--sig-g)"></div><div class="kd-txt">5 weeks post-MRI. 2 weeks rest completed. No persistent pain, no locking.</div></div>
+    </div>
+  </div>
+
+  <div class="knee-cols">
+    <div class="kcol">
+      <div class="kc-ttl kc-ok">✓ Permitted</div>
+      <div class="ki"><div class="ki-dot" style="background:var(--sig-g)"></div><div class="ki-txt">All straight-line loading</div></div>
+      <div class="ki"><div class="ki-dot" style="background:var(--sig-g)"></div><div class="ki-txt">Hip hinge — RDL, good morning</div></div>
+      <div class="ki"><div class="ki-dot" style="background:var(--sig-g)"></div><div class="ki-txt">Hip thrust — knee static at ~90°</div></div>
+      <div class="ki"><div class="ki-dot" style="background:var(--sig-g)"></div><div class="ki-txt">Seated leg curl, step-ups 20cm</div></div>
+      <div class="ki"><div class="ki-dot" style="background:var(--sig-g)"></div><div class="ki-txt">Cycling, swimming, walking flat</div></div>
+      <div class="ki"><div class="ki-dot" style="background:var(--sig-g)"></div><div class="ki-txt">All upper body movements</div></div>
+    </div>
+    <div class="kcol">
+      <div class="kc-ttl kc-mod">◈ Modified</div>
+      <div class="ki"><div class="ki-dot" style="background:var(--go)"></div><div class="ki-txt"><strong style="color:var(--on-dark-1)">Leg press: 0–70° only.</strong> High foot, +20–30% load</div></div>
+      <div class="ki"><div class="ki-dot" style="background:var(--go)"></div><div class="ki-txt"><strong style="color:var(--on-dark-1)">Squat replaced</strong> by RDL + hip thrust</div></div>
+      <div class="ki"><div class="ki-dot" style="background:var(--go)"></div><div class="ki-txt"><strong style="color:var(--on-dark-1)">Lunge replaced</strong> by box step-up 20cm</div></div>
+      <div class="ki"><div class="ki-dot" style="background:var(--go)"></div><div class="ki-txt"><strong style="color:var(--on-dark-1)">Bent-over row</strong> → chest-supported row</div></div>
+      <div class="ki"><div class="ki-dot" style="background:var(--go)"></div><div class="ki-txt">Running: begin week 5–8, straight only</div></div>
+      <div class="ki"><div class="ki-dot" style="background:var(--go)"></div><div class="ki-txt">Tennis baseline: week 9–12 only</div></div>
+    </div>
+    <div class="kcol">
+      <div class="kc-ttl kc-stop">✕ Prohibited — early phase</div>
+      <div class="ki"><div class="ki-dot" style="background:var(--sig-r)"></div><div class="ki-txt">Deep flexion &gt;90° under load</div></div>
+      <div class="ki"><div class="ki-dot" style="background:var(--sig-r)"></div><div class="ki-txt">Twisting or pivoting under load</div></div>
+      <div class="ki"><div class="ki-dot" style="background:var(--sig-r)"></div><div class="ki-txt">Explosive lateral movement</div></div>
+      <div class="ki"><div class="ki-dot" style="background:var(--sig-r)"></div><div class="ki-txt">Deep kneeling with rotation</div></div>
+      <div class="ki"><div class="ki-dot" style="background:var(--sig-r)"></div><div class="ki-txt">Agility drills, direction changes</div></div>
+      <div class="ki"><div class="ki-dot" style="background:var(--sig-r)"></div><div class="ki-txt" style="color:var(--sig-r)"><strong>Stop immediately if:</strong> swelling within 24h, new locking, sharp medial pain</div></div>
+    </div>
+  </div>
+  <div class="knee-close">
+    <div class="knee-quote">"A degenerative tear is gradual fibrocartilage breakdown over years — not an acute rupture. Appropriate loading does not worsen it. It strengthens the surrounding structures. The programme is the medicine."</div>
+  </div>
+</section>
+
+<!-- ═══ 5 · SUPPLEMENTS ═══ -->
+<section class="supps">
+  <div class="sec-title-l">Supplement stack</div>
+
+  <div class="supp-grid">
+    <div class="st"><div class="st-bar t1-bar"></div><div class="st-tier">Tier 1 · Non-negotiable</div><div class="st-name">Creatine monohydrate</div><div class="st-dose">5g daily</div><div class="st-body">Hundreds of RCTs. Consistent 5–15% strength output improvement. No loading, no cycling, no expensive alternatives needed.</div><div class="st-t tt-any">Any time</div></div>
+    <div class="st"><div class="st-bar t1-bar"></div><div class="st-tier">Tier 1 · Non-negotiable</div><div class="st-name">Collagen + Vitamin C</div><div class="st-dose">15g + 50mg</div><div class="st-body">Shaw et al. (2019): doubles connective tissue collagen synthesis when taken 45–60 min before training. The most targeted meniscus intervention available.</div><div class="st-t tt-pre">Pre-training only</div></div>
+    <div class="st"><div class="st-bar t1-bar"></div><div class="st-tier">Tier 1 · Non-negotiable</div><div class="st-name">Omega-3 EPA + DHA</div><div class="st-dose">2–3g combined</div><div class="st-body">Competes with arachidonic acid for COX enzymes — reduces PGE2, the primary inflammatory mediator in synovial tissue. Joint medicine and performance supplement.</div><div class="st-t tt-meal">With fat meal</div></div>
+    <div class="st"><div class="st-bar t1-bar"></div><div class="st-tier">Tier 1 · Non-negotiable</div><div class="st-name">Vitamin D3 + K2</div><div class="st-dose">3000 IU + 100mcg</div><div class="st-body">UK latitude = near-universal deficiency October–April. D3 drives testosterone synthesis and chondrocyte maintenance. K2 directs calcium to bone.</div><div class="st-t tt-meal">With fat meal</div></div>
+    <div class="st"><div class="st-bar t1-bar"></div><div class="st-tier">Tier 1 · Non-negotiable</div><div class="st-name">Magnesium glycinate</div><div class="st-dose">400mg</div><div class="st-body">Deepens slow-wave sleep, amplifying the GH release window. Glycinate form absorbs without GI issues. Involved in 300+ enzymatic reactions including MPS.</div><div class="st-t tt-bed">Before bed</div></div>
+    <div class="st"><div class="st-bar t1-bar"></div><div class="st-tier">Tier 1 · Non-negotiable</div><div class="st-name">Ashwagandha KSM-66</div><div class="st-dose">600mg daily</div><div class="st-body">Multiple RCTs: 10–15% testosterone increase, significant cortisol reduction. KSM-66 standardisation is critical — generic ashwagandha shows inconsistent results.</div><div class="st-t tt-any">Any time</div></div>
+  </div>
+
+  <div class="supp-t2-row">
+    <div class="st t2"><div class="st-bar t2-bar"></div><div class="st-tier" style="color:var(--sig-a)">Tier 2 · Conditional</div><div class="st-name">Caffeine</div><div class="st-dose wa">200mg</div><div class="st-body">Measurable power output and pain tolerance improvement. Peak at 45–60 min — time to your first compound set. Tolerance builds; consider cycling off monthly.</div><div class="st-t tt-pre">Pre-training</div></div>
+    <div class="st t2"><div class="st-bar t2-bar"></div><div class="st-tier" style="color:var(--sig-a)">Tier 2 · Conditional</div><div class="st-name">ZMA</div><div class="st-dose wa">Zinc 30mg · Mg 450mg</div><div class="st-body">Zinc is lost through sweat and directly suppresses testosterone when deficient. Take on hard training days and after sauna sessions to close the gap.</div><div class="st-t tt-bed">Hard training days</div></div>
+    <div class="st t2" style="display:flex;align-items:center;justify-content:center;text-align:center;">
+      <div><div class="st-tier">Your full stack</div><div style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--on-light-1);line-height:1;">8</div><div style="font-size:12px;font-weight:300;color:var(--on-light-3);">supplements total</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6 · PROGRESS CONTRACT ═══ -->
+<section class="progress">
+  <div class="sec-title">Progress contract <em>— what success looks like</em></div>
+
+  <div class="dest">
+    <div>
+      <div class="dest-eyebrow">12-week destination</div>
+      <div class="dest-stmt">Lean. Structurally strong. Knee stable under load. Back on a tennis court.</div>
+      <div class="dest-m">1–2 kg lean mass added</div>
+      <div class="dest-m">Posterior chain measurably stronger</div>
+      <div class="dest-m">Leg press progressed to 80–90° depth</div>
+      <div class="dest-m">Straight-line running established</div>
+      <div class="dest-m">Zero knee flares in final 4 weeks</div>
+      <div class="dest-m">Supplement stack fully embedded as habit</div>
+    </div>
+    <div class="dest-nums">
+      <div class="dn">
+        <div class="dn-l">Lean mass target</div>
+        <div class="dn-v">+2<sup>kg</sup></div>
+      </div>
+      <div class="dn hi">
+        <div class="dn-l">Current week</div>
+        <div class="dn-v">1<sup> of 12</sup></div>
+      </div>
+      <div class="dn">
+        <div class="dn-l">Tennis return</div>
+        <div class="dn-v">Wk<sup> 9–12</sup></div>
+      </div>
+      <div class="dn">
+        <div class="dn-l">Target VO₂max</div>
+        <div class="dn-v">54<sup>ml/kg</sup></div>
       </div>
     </div>
   </div>
 
-  <!-- KNEE CLAUSE -->
-  <div class="sec-rule">The knee clause — governs all lower body decisions</div>
-
-  <div style="border:1px solid var(--gold-br);border-radius:4px;overflow:hidden;margin-bottom:40px;">
-    <div style="background:var(--gold-dim);padding:18px 24px;border-bottom:1px solid var(--gold-br);display:flex;align-items:center;gap:14px;">
-      <span style="color:var(--go);font-size:16px;">◈</span>
-      <div>
-        <div class="title-md" style="color:var(--go);margin-bottom:3px;">Medial meniscus protocol</div>
-        <div class="body-sm" style="color:rgba(160,132,64,0.7);">Horizontal tear (body + posterior horn) · Parameniscal cyst · Baker's cyst resolved · Mild chondromalacia · MCL mildly irritated · Ligaments intact · 5 weeks post-MRI</div>
+  <div class="timeline">
+    <div class="tph ph-now">
+      <div class="tph-p">Weeks 1–4 · Now</div>
+      <div class="tph-n">Accumulation</div>
+      <div class="tph-rows">
+        <div class="tr"><div class="trd" style="background:var(--ac)"></div>14–16 sets/muscle/wk by week 2</div>
+        <div class="tr"><div class="trd" style="background:var(--ac)"></div>Protein 6/7 days. Kit established.</div>
+        <div class="tr"><div class="trd" style="background:var(--go)"></div>Zero swelling. Leg press 70°.</div>
+        <div class="tr"><div class="trd" style="background:var(--ac)"></div>Deload at week 4 — mandatory</div>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;">
-      <div style="padding:18px 20px;border-right:1px solid var(--gold-br);">
-        <div class="label eyebrow-ac" style="margin-bottom:10px;">Permitted</div>
-        <div style="display:flex;flex-direction:column;gap:5px;">
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--ac);flex-shrink:0;margin-top:5px;"></div><div class="body-sm">All straight-line loading</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--ac);flex-shrink:0;margin-top:5px;"></div><div class="body-sm">Hip hinge movements (RDL)</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--ac);flex-shrink:0;margin-top:5px;"></div><div class="body-sm">Hip thrust — knee static ~90°</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--ac);flex-shrink:0;margin-top:5px;"></div><div class="body-sm">Seated leg curl, step-ups 20cm</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--ac);flex-shrink:0;margin-top:5px;"></div><div class="body-sm">Walking 8–12k steps, flat</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--ac);flex-shrink:0;margin-top:5px;"></div><div class="body-sm">Cycling (low resistance), swimming</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--ac);flex-shrink:0;margin-top:5px;"></div><div class="body-sm">All upper body movements</div></div>
-        </div>
-      </div>
-      <div style="padding:18px 20px;border-right:1px solid var(--gold-br);">
-        <div class="label" style="color:var(--go);margin-bottom:10px;">Modified</div>
-        <div style="display:flex;flex-direction:column;gap:5px;">
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--wa);flex-shrink:0;margin-top:5px;"></div><div class="body-sm"><strong style="color:var(--tx-1);">Leg press: 0–70° only</strong>, high foot, +20–30% load</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--wa);flex-shrink:0;margin-top:5px;"></div><div class="body-sm"><strong style="color:var(--tx-1);">Squat replaced</strong> by RDL + hip thrust</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--wa);flex-shrink:0;margin-top:5px;"></div><div class="body-sm"><strong style="color:var(--tx-1);">Lunge replaced</strong> by step-up (20–25cm, heel drive)</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--wa);flex-shrink:0;margin-top:5px;"></div><div class="body-sm"><strong style="color:var(--tx-1);">Bent-over row replaced</strong> by chest-supported row</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--wa);flex-shrink:0;margin-top:5px;"></div><div class="body-sm">Running: begin week 5–8, straight-line only</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--wa);flex-shrink:0;margin-top:5px;"></div><div class="body-sm">Tennis baseline only: week 9–12</div></div>
-        </div>
-      </div>
-      <div style="padding:18px 20px;">
-        <div class="label" style="color:var(--da);margin-bottom:10px;">Prohibited — early phase</div>
-        <div style="display:flex;flex-direction:column;gap:5px;">
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--da);flex-shrink:0;margin-top:5px;"></div><div class="body-sm">Deep knee flexion &gt;90° under load</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--da);flex-shrink:0;margin-top:5px;"></div><div class="body-sm">Twisting or pivoting under load</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--da);flex-shrink:0;margin-top:5px;"></div><div class="body-sm">Explosive lateral movements</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--da);flex-shrink:0;margin-top:5px;"></div><div class="body-sm">Deep kneeling with rotation</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--da);flex-shrink:0;margin-top:5px;"></div><div class="body-sm">Agility drills, direction changes</div></div>
-          <div style="display:flex;gap:7px;align-items:flex-start;"><div style="width:5px;height:5px;border-radius:50%;background:var(--da);flex-shrink:0;margin-top:5px;"></div><div class="body-sm">HIIT on rest days</div></div>
-        </div>
-        <div style="margin-top:12px;padding:10px 12px;background:var(--coral-dim);border:1px solid var(--coral-br);border-radius:3px;">
-          <div class="body-sm" style="color:var(--da);"><strong>Stop immediately if:</strong> swelling within 24h · new locking · sharp medial pain</div>
-        </div>
+    <div class="tph ph-nxt">
+      <div class="tph-p">Weeks 5–8</div>
+      <div class="tph-n">Intensification</div>
+      <div class="tph-rows">
+        <div class="tr"><div class="trd" style="background:var(--ac)"></div>Rep range drops to 5–8 compounds</div>
+        <div class="tr"><div class="trd" style="background:var(--ac)"></div>Journey in full flow. 90%+ stack.</div>
+        <div class="tr"><div class="trd" style="background:var(--go)"></div>Straight-line running begins</div>
+        <div class="tr"><div class="trd" style="background:var(--go)"></div>Leg press to 80° if weeks 1–4 clean</div>
       </div>
     </div>
-    <div style="padding:14px 20px;border-top:1px solid var(--gold-br);background:rgba(160,132,64,0.04);">
-      <div class="body-sm" style="color:rgba(160,132,64,0.8);">
-        <strong style="color:var(--go);">The mechanism:</strong> This is a degenerative tear — gradual fibrocartilage breakdown, not an acute rupture. Appropriate loading does not worsen it; it strengthens the surrounding structures that compensate. Strong glutes and hamstrings reduce medial compartment load by ~30–40%, directly altering the mechanical environment of the torn tissue. <strong style="color:var(--go);">The goal is not to protect the knee from training. The goal is to use training to protect the knee from itself.</strong>
+    <div class="tph ph-pk">
+      <div class="tph-p">Weeks 9–12</div>
+      <div class="tph-n">Peak + Return</div>
+      <div class="tph-rows">
+        <div class="tr"><div class="trd" style="background:var(--ac)"></div>Controlled squat reintroduced 70°</div>
+        <div class="tr"><div class="trd" style="background:var(--ac)"></div>Journey revisited for tennis load</div>
+        <div class="tr"><div class="trd" style="background:var(--go)"></div>Tennis baseline groundstrokes begin</div>
+        <div class="tr"><div class="trd" style="background:var(--go)"></div>Running continuous 20–30 min</div>
       </div>
     </div>
-  </div>
-
-  <!-- SUPPLEMENT STACK -->
-  <div class="sec-rule">Supplement stack — what works and why</div>
-
-  <div style="border:1px solid var(--br);border-radius:4px;overflow:hidden;margin-bottom:40px;">
-    <div style="padding:12px 18px;border-bottom:1px solid var(--br);background:var(--bg-2);display:flex;justify-content:space-between;align-items:center;">
-      <div class="label" style="color:var(--ac-hi);">Tier 1 — Non-negotiable</div>
-      <div class="body-sm">Tier-1 evidence. Directly relevant to your goals and constraints.</div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;">
-      <div style="padding:14px 18px;border-right:1px solid var(--br);border-bottom:1px solid var(--br);">
-        <div style="font-family:var(--serif);font-size:15px;font-weight:500;margin-bottom:3px;">Creatine monohydrate</div>
-        <div style="font-size:11px;color:var(--ac-hi);font-weight:600;margin-bottom:4px;">5g daily · any time</div>
-        <div class="body-sm">Hundreds of RCTs. Consistent 5–15% strength output improvement via phosphocreatine expansion. No loading, no cycling, no expensive alternatives needed.</div>
-      </div>
-      <div style="padding:14px 18px;border-right:1px solid var(--br);border-bottom:1px solid var(--br);">
-        <div style="font-family:var(--serif);font-size:15px;font-weight:500;margin-bottom:3px;">Collagen + Vitamin C</div>
-        <div style="font-size:11px;color:var(--ac-hi);font-weight:600;margin-bottom:4px;">15g + 50mg · 45–60 min pre-training</div>
-        <div class="body-sm">Shaw et al. (2019): doubles connective tissue collagen synthesis. Vitamin C is required for hydroxylation of proline in collagen. The most targeted meniscus intervention available.</div>
-      </div>
-      <div style="padding:14px 18px;border-bottom:1px solid var(--br);">
-        <div style="font-family:var(--serif);font-size:15px;font-weight:500;margin-bottom:3px;">Omega-3 EPA + DHA</div>
-        <div style="font-size:11px;color:var(--ac-hi);font-weight:600;margin-bottom:4px;">2–3g combined · with fat meal</div>
-        <div class="body-sm">Competes with arachidonic acid for COX enzymes — reduces prostaglandin E2, the primary inflammatory mediator in synovial tissue. Both performance and joint medicine.</div>
-      </div>
-      <div style="padding:14px 18px;border-right:1px solid var(--br);">
-        <div style="font-family:var(--serif);font-size:15px;font-weight:500;margin-bottom:3px;">Vitamin D3 + K2</div>
-        <div style="font-size:11px;color:var(--ac-hi);font-weight:600;margin-bottom:4px;">3000 IU + 100mcg · with fat meal</div>
-        <div class="body-sm">UK latitude = near-universal deficiency. D3 drives testosterone synthesis and chondrocyte maintenance. K2 directs calcium to bone. Non-negotiable October–April.</div>
-      </div>
-      <div style="padding:14px 18px;border-right:1px solid var(--br);">
-        <div style="font-family:var(--serif);font-size:15px;font-weight:500;margin-bottom:3px;">Magnesium glycinate</div>
-        <div style="font-size:11px;color:var(--ac-hi);font-weight:600;margin-bottom:4px;">400mg · before bed</div>
-        <div class="body-sm">Involved in 300+ enzymatic reactions including MPS. Glycinate absorbs without GI issues. Primary function: deepens slow-wave sleep, amplifying the GH release window.</div>
-      </div>
-      <div style="padding:14px 18px;">
-        <div style="font-family:var(--serif);font-size:15px;font-weight:500;margin-bottom:3px;">Ashwagandha KSM-66</div>
-        <div style="font-size:11px;color:var(--ac-hi);font-weight:600;margin-bottom:4px;">600mg · any time</div>
-        <div class="body-sm">Multiple RCTs: 10–15% testosterone increase, significant cortisol reduction. KSM-66 standardisation is critical — generic ashwagandha inconsistent. Additive sleep quality benefit.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROGRESS CONTRACT -->
-  <div class="sec-rule">The progress contract — what success looks like</div>
-
-  <div style="background:var(--ac-dim);border:1px solid var(--ac-br);border-radius:4px;padding:24px 28px;margin-bottom:20px;">
-    <div class="label eyebrow-ac" style="margin-bottom:10px;">12-week destination</div>
-    <div style="font-family:var(--serif);font-size:28px;font-weight:400;line-height:1.3;color:var(--tx-1);margin-bottom:12px;">Lean, structurally strong, knee stable under load,<br>back on a tennis court hitting groundstrokes.</div>
-    <div class="body-sm" style="color:rgba(58,184,138,0.75);">1–2kg lean mass added · Posterior chain measurably stronger · Leg press progressed to 80–90° · Straight-line running established · Cardio capacity at healthy active 44M benchmark · Supplement stack fully embedded · Zero knee flares in final 4 weeks</div>
-  </div>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:40px;">
-    <div class="card">
-      <div style="padding:12px 16px;border-bottom:1px solid var(--br);"><div class="label" style="color:var(--go);">Weeks 1–4</div><div class="title-sm" style="margin-top:3px;">Accumulation + deload</div></div>
-      <div style="padding:12px 16px;display:flex;flex-direction:column;gap:7px;">
-        <div style="display:flex;gap:6px;align-items:flex-start;"><span class="pill pill-ac" style="flex-shrink:0;">Train</span><div class="body-sm">14–16 sets/muscle/wk by week 2. Deload at week 4.</div></div>
-        <div style="display:flex;gap:6px;align-items:flex-start;"><span class="pill pill-wa" style="flex-shrink:0;">Food</span><div class="body-sm">Protein 6/7 days. Shopping kit established.</div></div>
-        <div style="display:flex;gap:6px;align-items:flex-start;"><span class="pill pill-go" style="flex-shrink:0;">Knee</span><div class="body-sm">Zero swelling. Leg press stable 70°.</div></div>
-      </div>
-    </div>
-    <div class="card">
-      <div style="padding:12px 16px;border-bottom:1px solid var(--br);"><div class="label" style="color:var(--wa);">Weeks 5–8</div><div class="title-sm" style="margin-top:3px;">Intensification + reintroduction</div></div>
-      <div style="padding:12px 16px;display:flex;flex-direction:column;gap:7px;">
-        <div style="display:flex;gap:6px;align-items:flex-start;"><span class="pill pill-ac" style="flex-shrink:0;">Train</span><div class="body-sm">Rep range 5–8 on compounds. Box height 30cm.</div></div>
-        <div style="display:flex;gap:6px;align-items:flex-start;"><span class="pill pill-wa" style="flex-shrink:0;">Food</span><div class="body-sm">Journey in full flow. Supplement adherence 90%+.</div></div>
-        <div style="display:flex;gap:6px;align-items:flex-start;"><span class="pill pill-go" style="flex-shrink:0;">Knee</span><div class="body-sm">Straight-line running begins. Leg press to 80° if clean.</div></div>
-      </div>
-    </div>
-    <div class="card">
-      <div style="padding:12px 16px;border-bottom:1px solid var(--br);"><div class="label" style="color:var(--ac-hi);">Weeks 9–12</div><div class="title-sm" style="margin-top:3px;">Full programme + tennis</div></div>
-      <div style="padding:12px 16px;display:flex;flex-direction:column;gap:7px;">
-        <div style="display:flex;gap:6px;align-items:flex-start;"><span class="pill pill-ac" style="flex-shrink:0;">Train</span><div class="body-sm">Controlled squat reintroduced 70°. Peak volume.</div></div>
-        <div style="display:flex;gap:6px;align-items:flex-start;"><span class="pill pill-wa" style="flex-shrink:0;">Food</span><div class="body-sm">Journey revisited if tennis load demands more carbs.</div></div>
-        <div style="display:flex;gap:6px;align-items:flex-start;"><span class="pill pill-go" style="flex-shrink:0;">Knee</span><div class="body-sm">Tennis baseline groundstrokes. Running continuous 20–30 min.</div></div>
-      </div>
-    </div>
-    <div class="card">
-      <div style="padding:12px 16px;border-bottom:1px solid var(--br);"><div class="label" style="color:var(--sl);">Week 13+</div><div class="title-sm" style="margin-top:3px;">Full athletic return</div></div>
-      <div style="padding:12px 16px;display:flex;flex-direction:column;gap:7px;">
-        <div style="display:flex;gap:6px;align-items:flex-start;"><span class="pill pill-ac" style="flex-shrink:0;">Train</span><div class="body-sm">Full squat depth. New mesocycle above week 1 baseline.</div></div>
-        <div style="display:flex;gap:6px;align-items:flex-start;"><span class="pill pill-wa" style="flex-shrink:0;">Food</span><div class="body-sm">Habits embedded. Journey revisited with 12 weeks of data.</div></div>
-        <div style="display:flex;gap:6px;align-items:flex-start;"><span class="pill pill-go" style="flex-shrink:0;">Knee</span><div class="body-sm">Full court tennis. Agility reintroduced. Physio sign-off.</div></div>
+    <div class="tph">
+      <div class="tph-p">Week 13+</div>
+      <div class="tph-n">Full athletic return</div>
+      <div class="tph-rows">
+        <div class="tr"><div class="trd" style="background:var(--ac)"></div>Full squat depth. New mesocycle.</div>
+        <div class="tr"><div class="trd" style="background:var(--ac)"></div>Habits embedded. Not a plan anymore.</div>
+        <div class="tr"><div class="trd" style="background:var(--go)"></div>Full court tennis. Agility returns.</div>
+        <div class="tr"><div class="trd" style="background:var(--on-dark-3)"></div>Physio sign-off recommended</div>
       </div>
     </div>
   </div>
 
   <div class="page-end"></div>
-</div>
+</section>
 
 <script src="nav.js"></script>
 </body>
