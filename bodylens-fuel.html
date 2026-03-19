@@ -406,6 +406,7 @@
     <a class="nav-link" href="bodylens-week.html">Week</a>
     <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
     <a class="nav-link active" href="bodylens-fuel.html">Fuel</a>
+    <a class="nav-link" href="bodylens-body.html">Body</a>
     <a class="nav-link" href="bodylens-progress.html">Progress</a>
     <a class="nav-link" href="bodylens-science.html">Science</a>
     <a class="nav-link" href="bodylens-nonneg.html" style="color:var(--amber);">Non-Neg</a>
@@ -460,6 +461,7 @@
   <button class="ftab" onclick="showPane('pane-timing',this)">Timing map</button>
   <button class="ftab" onclick="showPane('pane-hacks',this)">Satiety &amp; energy</button>
   <button class="ftab" onclick="showPane('pane-avoid',this)">Avoid this week</button>
+  <button class="ftab" onclick="showPane('pane-pyramids',this)">Food pyramids</button>
 </div>
 
 <!-- ═══════════════════════════════════════════
@@ -1169,6 +1171,285 @@
 </div>
 </div>
 </div><!-- pane-avoid -->
+
+<!-- ═══════════════════════════════════════════
+     PANE 6 — FOOD PYRAMIDS
+═══════════════════════════════════════════ -->
+<div class="fuel-pane" id="pane-pyramids">
+<div class="timing-section"><!-- dark bg -->
+<div class="wrap">
+
+  <div class="sec-rule" style="margin-top:0;padding-top:52px;">Food pyramids <em>— macro architecture by goal</em></div>
+  <div class="body-sm" style="color:var(--dk-2);margin-bottom:40px;max-width:620px;">Four distinct nutritional architectures for four distinct goals. Not government plate diagrams — performance pyramids showing proportional macro relationships, timing hierarchy, and what changes between goals. Your current journey (Balanced Precision) is highlighted.</div>
+
+  <!-- Pyramid selector -->
+  <div style="display:flex;gap:8px;margin-bottom:40px;flex-wrap:wrap;" id="pyr-selector">
+    <button class="pyr-btn active" data-pyr="balanced" onclick="selectPyramid('balanced',this)">Balanced Precision <span style="font-size:9px;opacity:0.7;">· Current</span></button>
+    <button class="pyr-btn" data-pyr="muscle" onclick="selectPyramid('muscle',this)">Lean muscle gain</button>
+    <button class="pyr-btn" data-pyr="cut" onclick="selectPyramid('cut',this)">Active fat loss</button>
+    <button class="pyr-btn" data-pyr="maintain" onclick="selectPyramid('maintain',this)">Maintenance / longevity</button>
+  </div>
+
+  <!-- Pyramid visual + breakdown -->
+  <div id="pyramid-display"></div>
+
+</div>
+</div>
+</div><!-- pane-pyramids -->
+
+<style>
+/* Pyramid selector buttons */
+.pyr-btn {
+  font-size:11px;font-weight:600;letter-spacing:0.05em;
+  padding:8px 18px;border-radius:4px;
+  border:1px solid var(--bd-2);background:transparent;
+  color:var(--dk-3);cursor:pointer;font-family:var(--sans);transition:all 0.15s;
+}
+.pyr-btn:hover { color:var(--dk-2);border-color:var(--bd-2); }
+.pyr-btn.active { color:var(--jade);background:var(--jade-dim);border-color:var(--jade-br); }
+
+/* Pyramid SVG container */
+.pyramid-wrap { display:grid;grid-template-columns:480px 1fr;gap:52px;align-items:start;margin-bottom:48px; }
+.pyramid-svg-area { position:relative; }
+.pyramid-svg-area svg { width:100%;height:auto; }
+
+/* Breakdown table */
+.pyramid-breakdown {}
+.pb-title { font-family:var(--serif);font-size:34px;font-weight:300;color:var(--dk-1);margin-bottom:6px;line-height:1.0; }
+.pb-subtitle { font-size:13px;font-weight:300;color:var(--dk-2);margin-bottom:28px;line-height:1.65; }
+.pb-row { display:grid;grid-template-columns:12px 1fr auto auto;gap:10px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--bd); }
+.pb-row:last-child { border-bottom:none; }
+.pb-dot { width:10px;height:10px;border-radius:50%;flex-shrink:0;align-self:center; }
+.pb-macro { font-size:13px;font-weight:500;color:var(--dk-1); }
+.pb-amount { font-family:var(--mono);font-size:13px;font-weight:500;color:var(--dk-1); }
+.pb-pct { font-family:var(--mono);font-size:11px;color:var(--dk-3);width:40px;text-align:right; }
+.pb-note { font-size:11px;font-weight:300;color:var(--dk-2);grid-column:2;margin-top:2px;line-height:1.5; }
+
+/* Timing hierarchy */
+.timing-hierarchy { margin-bottom:40px; }
+.th-row { display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--bd);align-items:flex-start; }
+.th-row:last-child { border-bottom:none; }
+.th-num { font-family:var(--serif);font-size:28px;font-weight:300;color:var(--dk-3);flex-shrink:0;line-height:1;width:28px; }
+.th-body {}
+.th-title { font-size:13px;font-weight:600;color:var(--dk-1);margin-bottom:3px; }
+.th-text { font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.65; }
+.th-text strong { color:var(--dk-1);font-weight:500; }
+
+/* Comparison strip */
+.comparison-strip { display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:6px;overflow:hidden; }
+.cs-cell { background:var(--ink-2);padding:16px 18px; }
+.cs-cell.current { background:rgba(0,200,160,0.06);border:1px solid var(--jade-br); }
+.cs-label { font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--dk-3);margin-bottom:8px; }
+.cs-name { font-family:var(--serif);font-size:16px;font-weight:500;color:var(--dk-1);margin-bottom:12px; }
+.cs-bar-row { display:flex;flex-direction:column;gap:5px;margin-bottom:4px; }
+.cs-br { display:flex;align-items:center;gap:6px; }
+.cs-br-label { font-size:9px;color:var(--dk-3);width:14px; }
+.cs-br-track { flex:1;height:4px;background:var(--ink-3);border-radius:2px;overflow:hidden; }
+.cs-br-fill { height:100%;border-radius:2px; }
+.cs-br-val { font-family:var(--mono);font-size:9px;color:var(--dk-2);width:32px;text-align:right; }
+</style>
+
+<script>
+const PYRAMIDS = {
+  balanced: {
+    name: 'Balanced Precision',
+    subtitle: 'Your current journey. Optimised for lean muscle gain with full performance capacity, anti-inflammatory eating, and long-term adherence. Protein non-negotiable, carbs timed around training, fat as hormonal floor.',
+    current: true,
+    kcal: { train: 2950, rest: 2700, peak: 3050 },
+    macros: [
+      { label:'Protein', amount:'185–190g', pct:'26%', note:'Non-negotiable. Leucine threshold at every meal. Distributed across 4 meals.', color:'#00c8a0', dot:'#00c8a0' },
+      { label:'Carbohydrates', amount:'330g train / 265g rest', pct:'45–47%', note:'Front-loaded on training days. Reduced ~60g on rest days. Fast pre-training, slow post-training.', color:'#c47c18', dot:'#c47c18' },
+      { label:'Fat', amount:'82–85g', pct:'25–27%', note:'Hormonal floor. Testosterone synthesis, fat-soluble vitamin delivery, synovial joint lubrication.', color:'#4a6275', dot:'#4a6275' },
+    ],
+    layers: [
+      { label:'Protein', note:'4 × 45–48g servings', width:40, color:'rgba(0,200,160,0.85)' },
+      { label:'Training-day carbs', note:'Front-loaded, fast/slow', width:55, color:'rgba(196,124,24,0.8)' },
+      { label:'Dietary fat', note:'Every meal, hormonal role', width:68, color:'rgba(74,98,117,0.75)' },
+      { label:'Vegetables & fibre', note:'Unlimited volume eating', width:80, color:'rgba(0,168,114,0.6)' },
+      { label:'Supplements', note:'Creatine, collagen, omega-3, D3, Mg', width:92, color:'rgba(255,255,255,0.1)' },
+    ],
+    timing: [
+      { title:'Protein at every meal', text:'185g distributed across 4 meals. Each clears the 2–3g leucine threshold. <strong>Distribution matters as much as total.</strong>' },
+      { title:'Training-day carbs front-loaded', text:'Higher-GI carbs before training for glycogen. Slow carbs for breakfast and post-training meals. Rest days: –60g carbs, protein and fat unchanged.' },
+      { title:'Fat with fat-soluble vitamins', text:'D3+K2 and omega-3 taken with fat-containing meals for absorption. Fat never removed from any meal.' },
+      { title:'Pre-sleep casein optional but valuable', text:'250g cottage cheese or Greek yoghurt. 6–8h casein digestion covers the overnight GH repair window.' },
+    ],
+  },
+  muscle: {
+    name: 'Lean Muscle Gain',
+    subtitle: 'Maximised for hypertrophy. Higher protein, more carbs, slightly lower fat. The most calorie-dense performance pyramid. Appropriate for phases when muscle gain is the sole priority and fat loss is not a concern.',
+    current: false,
+    kcal: { train: 3200, rest: 2900, peak: 3300 },
+    macros: [
+      { label:'Protein', amount:'200–220g', pct:'27%', note:'Higher protein ceiling. Research shows marginal but real benefit above 190g for maximally trained athletes during hard blocks.', color:'#00c8a0', dot:'#00c8a0' },
+      { label:'Carbohydrates', amount:'390–420g train', pct:'52%', note:'Maximum glycogen loading. Higher carb is the biggest lever for compound lift performance. Timing still critical.', color:'#c47c18', dot:'#c47c18' },
+      { label:'Fat', amount:'75–80g', pct:'21%', note:'Slightly reduced vs Balanced — at the hormonal floor but not exceeding it. Protein and carbs take caloric priority.', color:'#4a6275', dot:'#4a6275' },
+    ],
+    layers: [
+      { label:'High protein', note:'200g+ daily, 5 meals', width:40, color:'rgba(0,200,160,0.9)' },
+      { label:'High carbohydrates', note:'Performance fuel priority', width:58, color:'rgba(196,124,24,0.85)' },
+      { label:'Moderate fat', note:'At hormonal floor', width:70, color:'rgba(74,98,117,0.65)' },
+      { label:'Volume vegetables', note:'Unlimited', width:80, color:'rgba(0,168,114,0.6)' },
+      { label:'Performance supplements', note:'Creatine, beta-alanine, caffeine', width:92, color:'rgba(255,255,255,0.1)' },
+    ],
+    timing: [
+      { title:'5 protein meals if possible', text:'200–220g across 5 meals keeps MPS elevated more continuously than 4. The additional window (mid-afternoon snack at 40g protein) adds a fifth activation.' },
+      { title:'Maximum pre-training carb loading', text:'Dates + banana + whey = the highest-performance pre-training combination. The goal is maximum glycogen for maximal compound performance.' },
+      { title:'Post-workout window is most critical', text:'40g fast protein + 80g fast carbs within 20 minutes. Insulin spike + leucine = peak anabolic environment.' },
+      { title:'Higher calorie — monitor fat gain', text:'At +400–500 kcal surplus, expect 0.3–0.5% body weight change per month. Any more = too much fat being added.' },
+    ],
+  },
+  cut: {
+    name: 'Active Fat Loss',
+    subtitle: 'Cuts calories while protecting muscle. Protein maximised, carbs reduced and timed tightly around training, fat at minimum hormonal floor. The hardest pyramid to execute — adherence is the primary challenge. Not your current goal, but a useful reference.',
+    current: false,
+    kcal: { train: 2400, rest: 2100, peak: 2450 },
+    macros: [
+      { label:'Protein', amount:'200–210g', pct:'36%', note:'<strong>Protein increases during a cut</strong> — higher protein protects against muscle loss when calories are below maintenance. Counter-intuitive but essential.', color:'#00c8a0', dot:'#00c8a0' },
+      { label:'Carbohydrates', amount:'190–220g train', pct:'34%', note:'Significantly reduced. Timed exclusively around training — eliminated on rest days except from vegetable sources. This is where the hunger challenge lives.', color:'#c47c18', dot:'#c47c18' },
+      { label:'Fat', amount:'65–70g', pct:'26–28%', note:'At or near the hormonal floor (0.7g/kg). Do not cut below this — testosterone suppression directly undermines the goal.', color:'#4a6275', dot:'#4a6275' },
+    ],
+    layers: [
+      { label:'High protein — muscle protection', note:'Increase not decrease during cut', width:42, color:'rgba(0,200,160,0.9)' },
+      { label:'Training-timed carbs only', note:'Eliminated on rest days', width:54, color:'rgba(196,124,24,0.7)' },
+      { label:'Minimum fat floor', note:'0.7g/kg · testosterone protection', width:64, color:'rgba(74,98,117,0.65)' },
+      { label:'Maximum vegetable volume', note:'Satiety tool — unlimited', width:80, color:'rgba(0,168,114,0.7)' },
+      { label:'Anti-hunger tools', note:'Fibre, volume eating, casein', width:92, color:'rgba(255,255,255,0.08)' },
+    ],
+    timing: [
+      { title:'Protein maximised — counterintuitive', text:'Reducing protein during a cut causes muscle loss. <strong>Increase protein to 200–210g to protect lean mass</strong> while total calories are below maintenance.' },
+      { title:'Carbs only around training', text:'Rest days: near-zero carbs from starchy sources. Training days: carbs only in the pre and post-training windows. Fat and protein cover all other meals.' },
+      { title:'High-volume, low-calorie foods dominate', text:'Unlimited vegetables, lean proteins, and fibre-rich foods manage hunger without caloric cost. This is the central execution challenge of a cut.' },
+      { title:'Re-feed every 10–14 days', text:'One day at maintenance calories (with normal carbs) maintains leptin levels and prevents metabolic adaptation during extended cuts. Not a cheat day — a protocol.' },
+    ],
+  },
+  maintain: {
+    name: 'Maintenance / Longevity',
+    subtitle: 'The endgame. After the 12-week programme delivers its outcomes — lean mass added, knee stable, tennis return achieved — this is the nutritional architecture for maintaining what was built while prioritising longevity markers: VO₂max, hormonal health, joint integrity.',
+    current: false,
+    kcal: { train: 2700, rest: 2700, peak: 2700 },
+    macros: [
+      { label:'Protein', amount:'160–175g', pct:'26%', note:'Slightly reduced from building phase. Still above RDA by 3×. At maintenance, protein defends lean mass rather than building it.', color:'#00c8a0', dot:'#00c8a0' },
+      { label:'Carbohydrates', amount:'290–310g', pct:'45%', note:'Stable across training and rest days — no need for the cycling strategy when no surplus is required. Timed around training still for performance.', color:'#c47c18', dot:'#c47c18' },
+      { label:'Fat', amount:'90–100g', pct:'30%', note:'Higher fat allocation — appropriate when not needing to prioritise carb loading. Supports testosterone and fat-soluble vitamin absorption throughout longevity phase.', color:'#4a6275', dot:'#4a6275' },
+    ],
+    layers: [
+      { label:'Moderate protein', note:'Muscle defence, not building', width:38, color:'rgba(0,200,160,0.8)' },
+      { label:'Balanced carbohydrates', note:'Consistent — no cycling needed', width:54, color:'rgba(196,124,24,0.75)' },
+      { label:'Higher fat for hormones', note:'Testosterone + longevity markers', width:70, color:'rgba(74,98,117,0.8)' },
+      { label:'Anti-inflammatory foods', note:'Joint, gut, brain longevity', width:82, color:'rgba(0,168,114,0.65)' },
+      { label:'Longevity supplements', note:'Omega-3, D3, Mg, collagen ongoing', width:92, color:'rgba(255,255,255,0.1)' },
+    ],
+    timing: [
+      { title:'Protein still distributed — just lower total', text:'160g across 4 meals still clears the leucine threshold. The distribution rule does not change. Only the total comes down slightly.' },
+      { title:'No training/rest day cycling required', text:'At maintenance calories with no surplus goal, carb cycling complexity is unnecessary. Consistent eating is more sustainable and adherence-friendly.' },
+      { title:'Prioritise anti-inflammatory pattern', text:'Mediterranean diet research is the longevity benchmark — olive oil, fatty fish, legumes, whole grains, vegetables dominate. This is the foundation of what you are already eating.' },
+      { title:'Zone 2 cardio becomes the primary training focus', text:'Research on VO₂max as longevity predictor: maintaining aerobic capacity in the 60s and 70s requires consistent Zone 2 investment in the 40s. The running and step machine work continues beyond the 12-week programme.' },
+    ],
+  }
+};
+
+function selectPyramid(id, btn) {
+  document.querySelectorAll('.pyr-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPyramid(id);
+}
+
+function renderPyramid(id) {
+  const p = PYRAMIDS[id];
+  const cont = document.getElementById('pyramid-display');
+
+  // Build pyramid SVG layers
+  const layerH = 52;
+  const totalH = p.layers.length * layerH + 40;
+  const svgW = 480;
+  const cx = svgW / 2;
+  const baseY = totalH - 20;
+  const topW = 20;
+
+  const svgLayers = p.layers.map((l, i) => {
+    const y = 20 + i * layerH;
+    const halfW = (topW + (l.width - topW) * (i / (p.layers.length - 1))) * svgW / 200;
+    const x1 = cx - halfW;
+    const x2 = cx + halfW;
+    const nextHalfW = i < p.layers.length - 1
+      ? (topW + (p.layers[i+1].width - topW) * ((i+1) / (p.layers.length - 1))) * svgW / 200
+      : halfW;
+    const nx1 = cx - nextHalfW;
+    const nx2 = cx + nextHalfW;
+    const midY = y + layerH;
+
+    return `
+    <polygon points="${x1},${y} ${x2},${y} ${nx2},${midY} ${nx1},${midY}" fill="${l.color}" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+    <text x="${cx}" y="${y + layerH/2 + 4}" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="11" font-weight="600" fill="rgba(232,225,216,0.9)" letter-spacing="0.04em">${l.label}</text>
+    <text x="${cx}" y="${y + layerH/2 + 17}" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="300" fill="rgba(232,225,216,0.5)">${l.note}</text>`;
+  }).join('');
+
+  const macroRows = p.macros.map(m => `
+    <div class="pb-row">
+      <div class="pb-dot" style="background:${m.dot};"></div>
+      <div>
+        <div class="pb-macro">${m.label}</div>
+        <div class="pb-note">${m.note}</div>
+      </div>
+      <div class="pb-amount">${m.amount}</div>
+      <div class="pb-pct">${m.pct}</div>
+    </div>`).join('');
+
+  const timingRows = p.timing.map((t, i) => `
+    <div class="th-row">
+      <div class="th-num">${i + 1}</div>
+      <div class="th-body">
+        <div class="th-title">${t.title}</div>
+        <div class="th-text">${t.text}</div>
+      </div>
+    </div>`).join('');
+
+  // Comparison strip
+  const compCells = Object.keys(PYRAMIDS).map(pid => {
+    const pr = PYRAMIDS[pid];
+    const isActive = pid === id;
+    const protPct = pr.macros[0].pct.split('–')[0].replace('%','');
+    const carbPct = pr.macros[1].pct.split('–')[0].replace('%','');
+    const fatPct  = pr.macros[2].pct.split('–')[0].replace('%','');
+    return `<div class="cs-cell ${isActive ? 'current' : ''}">
+      <div class="cs-label">${pr.current ? '● Current' : ''}</div>
+      <div class="cs-name">${pr.name}</div>
+      <div class="cs-bar-row">
+        <div class="cs-br"><div class="cs-br-label" style="color:#00c8a0">P</div><div class="cs-br-track"><div class="cs-br-fill" style="width:${protPct}%;background:#00c8a0"></div></div><div class="cs-br-val">${protPct}%</div></div>
+        <div class="cs-br"><div class="cs-br-label" style="color:#c47c18">C</div><div class="cs-br-track"><div class="cs-br-fill" style="width:${carbPct}%;background:#c47c18"></div></div><div class="cs-br-val">${carbPct}%</div></div>
+        <div class="cs-br"><div class="cs-br-label" style="color:#4a6275">F</div><div class="cs-br-track"><div class="cs-br-fill" style="width:${fatPct}%;background:#4a6275"></div></div><div class="cs-br-val">${fatPct}%</div></div>
+      </div>
+      <div style="margin-top:8px;font-family:var(--mono);font-size:11px;color:var(--jade);">${pr.kcal.train} <span style="color:var(--dk-3);font-size:9px;">kcal/train</span></div>
+    </div>`;
+  }).join('');
+
+  cont.innerHTML = `
+    <div class="pyramid-wrap">
+      <div class="pyramid-svg-area">
+        <svg viewBox="0 0 ${svgW} ${totalH}" xmlns="http://www.w3.org/2000/svg">
+          ${svgLayers}
+        </svg>
+      </div>
+      <div class="pyramid-breakdown">
+        <div class="pb-title">${p.name}${p.current ? ' <span style="font-size:16px;color:var(--jade);">●</span>' : ''}</div>
+        <div class="pb-subtitle">${p.subtitle}</div>
+        <div class="label" style="color:var(--dk-3);margin-bottom:8px;">Daily calories: <span style="color:var(--jade);font-family:var(--mono);">${p.kcal.train.toLocaleString()}</span> training · <span style="font-family:var(--mono);color:var(--amber);">${p.kcal.rest.toLocaleString()}</span> rest</div>
+        ${macroRows}
+      </div>
+    </div>
+
+    <div class="sec-rule">Timing hierarchy <em style="color:var(--jade);">— what to prioritise and when</em></div>
+    <div class="timing-hierarchy">${timingRows}</div>
+
+    <div class="sec-rule">Goal comparison <em style="color:var(--jade);">— all four architectures side by side</em></div>
+    <div class="comparison-strip" style="margin-bottom:48px;">${compCells}</div>
+  `;
+}
+
+// Init
+renderPyramid('balanced');
+</script>
 
 <div class="page-end"></div>
 
