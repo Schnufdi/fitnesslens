@@ -409,6 +409,7 @@
     <a class="nav-link" href="bodylens-body.html">Body</a>
     <a class="nav-link" href="bodylens-training.html">Training</a>
     <a class="nav-link" href="bodylens-weightloss.html">Weight Loss</a>
+    <a class="nav-link" href="bodylens-longevity.html">Longevity</a>
     <a class="nav-link" href="bodylens-progress.html">Progress</a>
     <a class="nav-link" href="bodylens-science.html">Science</a>
     <a class="nav-link" href="bodylens-nonneg.html" style="color:var(--amber);">Non-Neg</a>
@@ -1187,6 +1188,7 @@
   <!-- Pyramid selector -->
   <div style="display:flex;gap:8px;margin-bottom:40px;flex-wrap:wrap;" id="pyr-selector">
     <button class="pyr-btn active" data-pyr="balanced" onclick="selectPyramid('balanced',this)">Balanced Precision <span style="font-size:9px;opacity:0.7;">· Current</span></button>
+    <button class="pyr-btn" data-pyr="recomp" onclick="selectPyramid('recomp',this)">Body Recomposition <span style="font-size:9px;color:var(--amber);opacity:0.8;">· Muscle ↑ Fat ↓</span></button>
     <button class="pyr-btn" data-pyr="muscle" onclick="selectPyramid('muscle',this)">Lean muscle gain</button>
     <button class="pyr-btn" data-pyr="cut" onclick="selectPyramid('cut',this)">Active fat loss</button>
     <button class="pyr-btn" data-pyr="maintain" onclick="selectPyramid('maintain',this)">Maintenance / longevity</button>
@@ -1253,6 +1255,37 @@
 
 <script>
 const PYRAMIDS = {
+  recomp: {
+    name: 'Body Recomposition',
+    subtitle: 'Muscle grows. Fat drops. The hardest architecture to execute — and the most rewarding. High protein, moderate deficit, resistance training mandatory. Body composition improves while the scale barely moves.',
+    current: false,
+    kcal: { train: 2600, rest: 2300, peak: 2650 },
+    macros: [
+      { label:'Protein', amount:'195–210g', pct:'34%', note:'Highest relative protein of any pyramid. Protects muscle during the deficit. Every gram is doing double duty: building and protecting.', color:'#00c8a0', dot:'#00c8a0' },
+      { label:'Carbohydrates', amount:'200–240g train', pct:'33%', note:'Moderate carbs timed exclusively around training. Rest days near-zero starchy carbs. Vegetables fill the volume gap.', color:'#c47c18', dot:'#c47c18' },
+      { label:'Fat', amount:'70–75g', pct:'26%', note:'At the hormonal floor. Testosterone protection is non-negotiable even in a deficit. Never drop fat below 0.7g/kg.', color:'#4a6275', dot:'#4a6275' },
+    ],
+    layers: [
+      { label:'Very high protein', note:'195–210g · muscle build + protect', width:38, color:'rgba(0,200,160,0.92)' },
+      { label:'Training-timed carbs', note:'Training days only · rest days minimal', width:50, color:'rgba(196,124,24,0.72)' },
+      { label:'Fat at hormonal floor', note:'0.7–0.85g/kg · never cut below', width:62, color:'rgba(74,98,117,0.68)' },
+      { label:'Maximum vegetable volume', note:'Unlimited · satiety + micronutrients', width:80, color:'rgba(0,168,114,0.72)' },
+      { label:'Resistance training', note:'Non-negotiable · without it, muscle is lost', width:92, color:'rgba(200,148,30,0.15)' },
+    ],
+    timing: [
+      { title:'Protein every 3–4 hours — muscle protection requires it', text:'During a deficit, MPS is suppressed. Frequent protein doses maintain anabolic stimulus continuously. <strong>Miss a protein meal during a cut and you lose muscle, not just fat.</strong>' },
+      { title:'Carbs exclusively around training', text:'On training days: carbs pre and post-session only. On rest days: near-zero starchy carbs. Vegetables unlimited. Fat and protein cover all other meals.' },
+      { title:'The resistance training rule is absolute', text:'Recomposition without resistance training is weight loss — not body recomposition. <strong>The muscle gain component only occurs with progressive resistance training stimulus.</strong> This pyramid does not work with cardio alone.' },
+      { title:'Track waist circumference, not scale weight', text:'The scale will barely move during successful recomposition — muscle gained offsets fat lost. Waist measurement and the mirror are the correct metrics. Scale weight is noise.' },
+    ],
+    foodVolume: [
+      { meal:'Breakfast', protein:'4 whole eggs scrambled', carb:'60g oats + ½ banana', fat:'1 tbsp olive oil in pan', kcal:'~520 kcal', macros:'38P · 58C · 22F' },
+      { meal:'Pre-training', protein:'30g whey in water', carb:'1 banana + 3 rice cakes', fat:'None — keep it fast', kcal:'~320 kcal', macros:'35P · 45C · 2F' },
+      { meal:'Post-training', protein:'30g whey + 150g Greek yoghurt', carb:'150g white rice (cooked)', fat:'None', kcal:'~520 kcal', macros:'52P · 58C · 6F' },
+      { meal:'Main meal', protein:'200g chicken breast', carb:'Training day: 180g sweet potato / Rest day: large salad only', fat:'1 tbsp olive oil + 30g avocado', kcal:'~480–580 kcal', macros:'50P · 40–60C · 18F' },
+      { meal:'Pre-sleep (optional)', protein:'250g cottage cheese', carb:'None on rest day', fat:'20g walnuts', kcal:'~310 kcal', macros:'30P · 8C · 16F' },
+    ],
+  },
   balanced: {
     name: 'Balanced Precision',
     subtitle: 'Your current journey. Optimised for lean muscle gain with full performance capacity, anti-inflammatory eating, and long-term adherence. Protein non-negotiable, carbs timed around training, fat as hormonal floor.',
@@ -1262,6 +1295,13 @@ const PYRAMIDS = {
       { label:'Protein', amount:'185–190g', pct:'26%', note:'Non-negotiable. Leucine threshold at every meal. Distributed across 4 meals.', color:'#00c8a0', dot:'#00c8a0' },
       { label:'Carbohydrates', amount:'330g train / 265g rest', pct:'45–47%', note:'Front-loaded on training days. Reduced ~60g on rest days. Fast pre-training, slow post-training.', color:'#c47c18', dot:'#c47c18' },
       { label:'Fat', amount:'82–85g', pct:'25–27%', note:'Hormonal floor. Testosterone synthesis, fat-soluble vitamin delivery, synovial joint lubrication.', color:'#4a6275', dot:'#4a6275' },
+    ],
+    foodVolume: [
+      { meal:'Breakfast', protein:'80g oats + 30g whey', carb:'1 banana + 200ml oat milk', fat:'1 tbsp peanut butter', kcal:'~620 kcal', macros:'52P · 82C · 16F' },
+      { meal:'Pre-training', protein:'3 eggs', carb:'2 slices sourdough', fat:'Olive oil to cook', kcal:'~430 kcal', macros:'28P · 42C · 16F' },
+      { meal:'Post-training', protein:'30g whey + 150g yoghurt', carb:'1 banana + 2 rice cakes', fat:'None', kcal:'~430 kcal', macros:'48P · 60C · 6F' },
+      { meal:'Main meal', protein:'200g chicken breast', carb:'200g basmati rice (cooked) + 100g spinach', fat:'1 tbsp olive oil', kcal:'~680 kcal', macros:'52P · 72C · 14F' },
+      { meal:'Snack / pre-sleep', protein:'250g Greek yoghurt', carb:'80g blueberries', fat:'20g walnuts', kcal:'~380 kcal', macros:'34P · 28C · 18F' },
     ],
     layers: [
       { label:'Protein', note:'4 × 45–48g servings', width:40, color:'rgba(0,200,160,0.85)' },
@@ -1300,7 +1340,13 @@ const PYRAMIDS = {
       { title:'Post-workout window is most critical', text:'40g fast protein + 80g fast carbs within 20 minutes. Insulin spike + leucine = peak anabolic environment.' },
       { title:'Higher calorie — monitor fat gain', text:'At +400–500 kcal surplus, expect 0.3–0.5% body weight change per month. Any more = too much fat being added.' },
     ],
-  },
+    foodVolume: [
+      { meal:'Breakfast', protein:'100g oats + 40g whey', carb:'1 large banana + 250ml whole milk', fat:'2 tbsp peanut butter', kcal:'~780 kcal', macros:'58P · 96C · 22F' },
+      { meal:'Pre-training', protein:'4 eggs', carb:'3 slices sourdough + 3 Medjool dates', fat:'Olive oil to cook', kcal:'~580 kcal', macros:'36P · 85C · 16F' },
+      { meal:'Post-training', protein:'40g whey + 200g yoghurt', carb:'1 banana + 150g white rice (cooked)', fat:'None', kcal:'~580 kcal', macros:'58P · 82C · 6F' },
+      { meal:'Main meal', protein:'250g chicken or steak', carb:'250g basmati rice (cooked) + sweet potato 150g', fat:'1.5 tbsp olive oil', kcal:'~820 kcal', macros:'62P · 90C · 18F' },
+      { meal:'Pre-sleep', protein:'40g casein or 300g cottage cheese', carb:'2 rice cakes', fat:'30g walnuts', kcal:'~420 kcal', macros:'46P · 22C · 20F' },
+    ],
   cut: {
     name: 'Active Fat Loss',
     subtitle: 'Cuts calories while protecting muscle. Protein maximised, carbs reduced and timed tightly around training, fat at minimum hormonal floor. The hardest pyramid to execute — adherence is the primary challenge. Not your current goal, but a useful reference.',
@@ -1323,6 +1369,13 @@ const PYRAMIDS = {
       { title:'Carbs only around training', text:'Rest days: near-zero carbs from starchy sources. Training days: carbs only in the pre and post-training windows. Fat and protein cover all other meals.' },
       { title:'High-volume, low-calorie foods dominate', text:'Unlimited vegetables, lean proteins, and fibre-rich foods manage hunger without caloric cost. This is the central execution challenge of a cut.' },
       { title:'Re-feed every 10–14 days', text:'One day at maintenance calories (with normal carbs) maintains leptin levels and prevents metabolic adaptation during extended cuts. Not a cheat day — a protocol.' },
+    ],
+    foodVolume: [
+      { meal:'Breakfast', protein:'5 egg whites + 2 whole eggs', carb:'Training day: 60g oats / Rest day: spinach only', fat:'Olive oil to cook', kcal:'~380–480 kcal', macros:'42P · 0–48C · 14F' },
+      { meal:'Pre-training', protein:'30g whey', carb:'1 banana + 2 rice cakes', fat:'None', kcal:'~280 kcal', macros:'32P · 40C · 2F' },
+      { meal:'Post-training', protein:'30g whey + 200g 0% yoghurt', carb:'Training: 100g white rice (cooked) / Rest: cucumber + tomato', fat:'None', kcal:'~360–480 kcal', macros:'46P · 10–38C · 2F' },
+      { meal:'Main meal', protein:'200g chicken or white fish', carb:'Training: 150g sweet potato / Rest: large salad + broccoli only', fat:'1 tbsp olive oil', kcal:'~380–500 kcal', macros:'46P · 10–42C · 14F' },
+      { meal:'Pre-sleep', protein:'250g cottage cheese', carb:'None', fat:'15g walnuts', kcal:'~320 kcal', macros:'34P · 8C · 16F' },
     ],
   },
   maintain: {
@@ -1347,6 +1400,13 @@ const PYRAMIDS = {
       { title:'No training/rest day cycling required', text:'At maintenance calories with no surplus goal, carb cycling complexity is unnecessary. Consistent eating is more sustainable and adherence-friendly.' },
       { title:'Prioritise anti-inflammatory pattern', text:'Mediterranean diet research is the longevity benchmark — olive oil, fatty fish, legumes, whole grains, vegetables dominate. This is the foundation of what you are already eating.' },
       { title:'Zone 2 cardio becomes the primary training focus', text:'Research on VO₂max as longevity predictor: maintaining aerobic capacity in the 60s and 70s requires consistent Zone 2 investment in the 40s. The running and step machine work continues beyond the 12-week programme.' },
+    ],
+    foodVolume: [
+      { meal:'Breakfast', protein:'3 whole eggs + 100g smoked salmon', carb:'2 slices sourdough', fat:'½ avocado + olive oil', kcal:'~580 kcal', macros:'44P · 36C · 28F' },
+      { meal:'Lunch', protein:'150g mackerel or tuna', carb:'120g quinoa (cooked) + large salad', fat:'1 tbsp olive oil + 20g walnuts', kcal:'~520 kcal', macros:'38P · 48C · 22F' },
+      { meal:'Snack', protein:'200g Greek yoghurt', carb:'80g blueberries + 1 orange', fat:'15g almonds', kcal:'~340 kcal', macros:'22P · 38C · 12F' },
+      { meal:'Dinner', protein:'180g salmon fillet', carb:'150g sweet potato + broccoli + spinach', fat:'1 tbsp olive oil + lemon', kcal:'~520 kcal', macros:'40P · 44C · 20F' },
+      { meal:'Pre-sleep', protein:'200g cottage cheese', carb:'None', fat:'15g walnuts', kcal:'~280 kcal', macros:'26P · 6C · 14F' },
     ],
   }
 };
@@ -1426,6 +1486,31 @@ function renderPyramid(id) {
     </div>`;
   }).join('');
 
+  const foodVolumeHtml = p.foodVolume ? `
+    <div class="sec-rule">What it actually looks like <em style="color:var(--jade);">— real food, real portions</em></div>
+    <div style="border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:40px;">
+      <div style="display:grid;grid-template-columns:120px 1fr 1fr 1fr 90px 130px;background:var(--ink-2);border-bottom:1px solid var(--bd);">
+        <div style="padding:9px 14px;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--dk-3);">Meal</div>
+        <div style="padding:9px 14px;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--jade);">Protein source</div>
+        <div style="padding:9px 14px;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);">Carbohydrate</div>
+        <div style="padding:9px 14px;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--dk-2);">Fat</div>
+        <div style="padding:9px 14px;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--dk-3);">Calories</div>
+        <div style="padding:9px 14px;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--dk-3);">P · C · F (g)</div>
+      </div>
+      ${p.foodVolume.map((row, i) => `
+      <div style="display:grid;grid-template-columns:120px 1fr 1fr 1fr 90px 130px;border-bottom:${i<p.foodVolume.length-1?'1px solid var(--bd)':'none'};transition:background 0.12s;" onmouseenter="this.style.background='rgba(255,255,255,0.018)'" onmouseleave="this.style.background=''">
+        <div style="padding:12px 14px;font-size:11px;font-weight:600;color:var(--dk-3);letter-spacing:0.04em;text-transform:uppercase;border-right:1px solid var(--bd);">${row.meal}</div>
+        <div style="padding:12px 14px;font-size:12px;font-weight:300;color:var(--jade);">${row.protein}</div>
+        <div style="padding:12px 14px;font-size:12px;font-weight:300;color:var(--amber);">${row.carb}</div>
+        <div style="padding:12px 14px;font-size:12px;font-weight:300;color:var(--dk-2);">${row.fat}</div>
+        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--dk-1);border-left:1px solid var(--bd);">${row.kcal}</div>
+        <div style="padding:12px 14px;font-family:var(--mono);font-size:11px;font-weight:300;color:var(--dk-3);">${row.macros}</div>
+      </div>`).join('')}
+      <div style="padding:10px 14px;background:rgba(0,200,160,0.04);border-top:1px solid var(--jade-br);font-size:11px;font-weight:300;color:var(--dk-3);">
+        Quantities are examples — adjust portions to hit your daily targets. The structure (which food at which meal) matters more than the exact gram weights.
+      </div>
+    </div>` : '';
+
   cont.innerHTML = `
     <div class="pyramid-wrap">
       <div class="pyramid-svg-area">
@@ -1441,10 +1526,12 @@ function renderPyramid(id) {
       </div>
     </div>
 
+    ${foodVolumeHtml}
+
     <div class="sec-rule">Timing hierarchy <em style="color:var(--jade);">— what to prioritise and when</em></div>
     <div class="timing-hierarchy">${timingRows}</div>
 
-    <div class="sec-rule">Goal comparison <em style="color:var(--jade);">— all four architectures side by side</em></div>
+    <div class="sec-rule">Goal comparison <em style="color:var(--jade);">— all five architectures side by side</em></div>
     <div class="comparison-strip" style="margin-bottom:48px;">${compCells}</div>
   `;
 }
