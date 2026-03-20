@@ -54,82 +54,95 @@ body { background: var(--ink); color: var(--dk-1); }
   align-items: start;
 }
 
-/* ── EDITOR ── */
-.editor-wrap {
-  position: relative;
+/* ── SECTION PANELS ── */
+.section-panel {
+  margin-bottom: 32px;
 }
-.editor-label {
-  font-size: 9px; font-weight: 600; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--dk-3);
-  margin-bottom: 10px; display: flex; align-items: center;
-  justify-content: space-between;
+.section-panel:last-of-type { margin-bottom: 0; }
+
+.panel-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
 }
-.editor-label span { color: var(--jade); }
+.panel-label {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; display: flex; align-items: center; gap: 10px;
+}
+.panel-label::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.panel-label.jade  { color: var(--jade); }
+.panel-label.jade::before  { background: var(--jade); }
+.panel-label.red   { color: var(--red); }
+.panel-label.red::before   { background: var(--red); opacity: 0.8; }
+.panel-label.amber { color: var(--amber); }
+.panel-label.amber::before { background: var(--amber); }
+
+.panel-desc {
+  font-size: 11px; font-weight: 300; color: var(--dk-3);
+  font-style: italic;
+}
 
 .editor {
   width: 100%;
-  min-height: 680px;
   background: var(--ink-2);
   border: 1px solid var(--bd);
   border-radius: 6px;
-  padding: 28px 32px;
+  padding: 22px 26px;
   font-family: var(--mono);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 300;
   line-height: 1.85;
   color: var(--dk-2);
   resize: vertical;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, color 0.15s;
   box-sizing: border-box;
   white-space: pre-wrap;
   word-wrap: break-word;
 }
-.editor:focus {
-  border-color: var(--jade-br);
-  color: var(--dk-1);
-}
+.editor.jade:focus  { border-color: var(--jade-br);  color: var(--dk-1); }
+.editor.red:focus   { border-color: rgba(217,78,53,0.35); color: var(--dk-1); }
+.editor.amber:focus { border-color: var(--amber-br); color: var(--dk-1); }
 
-/* section headings inside editor */
-.editor-rendered {
-  background: var(--ink-2);
-  border: 1px solid var(--bd);
-  border-radius: 6px;
-  padding: 28px 32px;
-  min-height: 680px;
-}
+/* tint left border per section */
+.editor.jade  { border-left: 3px solid var(--jade-br); }
+.editor.red   { border-left: 3px solid rgba(217,78,53,0.35); }
+.editor.amber { border-left: 3px solid var(--amber-br); }
 
 /* ── ACTIONS ROW ── */
 .actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 14px;
-  flex-wrap: wrap;
+  display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;
 }
 .btn {
   font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
-  text-transform: uppercase; padding: 9px 18px; border-radius: 4px;
+  text-transform: uppercase; padding: 8px 16px; border-radius: 4px;
   border: none; cursor: pointer; font-family: var(--sans);
   transition: all 0.15s;
 }
-.btn-primary {
-  background: var(--jade); color: var(--ink);
-}
+.btn-primary { background: var(--jade); color: var(--ink); }
 .btn-primary:hover { background: var(--jade-hi); }
 .btn-ghost {
   background: transparent; color: var(--dk-3);
   border: 1px solid var(--bd-2);
 }
-.btn-ghost:hover { color: var(--dk-2); border-color: var(--bd-2); }
+.btn-ghost:hover { color: var(--dk-2); }
 .btn-copy {
   background: transparent; color: var(--amber);
   border: 1px solid var(--amber-br);
 }
 .btn-copy:hover { background: var(--amber-dim); }
 
+/* global save bar at the bottom */
+.global-actions {
+  margin-top: 28px; padding-top: 20px;
+  border-top: 1px solid var(--bd);
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
 .save-status {
   font-size: 11px; font-weight: 300; color: var(--dk-3);
-  margin-top: 10px; min-height: 18px; transition: color 0.3s;
+  min-height: 18px; transition: color 0.3s;
 }
 .save-status.saved { color: var(--jade); }
 
@@ -254,19 +267,18 @@ body { background: var(--ink); color: var(--dk-1); }
 <!-- MAIN -->
 <div class="shell">
 
-  <!-- EDITOR COLUMN -->
+  <!-- EDITOR COLUMN — three panels -->
   <div>
-    <div class="editor-label">
-      Baseline instructions
-      <span id="mode-label">Edit mode</span>
-    </div>
 
-    <!-- The editable textarea -->
-    <textarea class="editor" id="instructions-editor" spellcheck="false">Workout Objective:
+    <!-- ── PANEL 1: GOALS ── -->
+    <div class="section-panel">
+      <div class="panel-header">
+        <div class="panel-label jade">Goals &amp; Objectives</div>
+        <div class="panel-desc">What you're training toward</div>
+      </div>
+      <textarea class="editor jade" id="editor-goals" spellcheck="false" rows="20">Workout Objective:
 
 To achieve a highly defined, lean, and athletic physique with a primary focus on reducing body fat to sub-10% and significantly improving glute strength, lift, and muscle tone.
-
-⸻
 
 Goals:
 
@@ -279,8 +291,6 @@ Goals:
 • Maintain or build lean muscle mass while cutting fat
 • Prevent lower back injury by correcting posterior chain imbalance
 • Reawaken daily glute activation and build ab definition through consistent, targeted work
-
-⸻
 
 Approach:
 
@@ -303,8 +313,6 @@ A structured, high-efficiency training and nutrition program designed to sculpt 
 • Minimal processed foods, with emphasis on energy, fibre, and gut health
 • Weights (kgs) always suggested, with weekly progression cues built in
 
-⸻
-
 Current Baseline:
 
 • Age: 43
@@ -315,44 +323,17 @@ Current Baseline:
 • Strengths: consistency, sauna use, cardio discipline, food awareness
 • Weaknesses: unstructured lifting split, occasional emotional eating, back strain from deadlifts
 
-⸻
-
-Preferences & Strengths:
-
-• Enjoys step machine, sauna, swimming, and cold plunge (mindful of muscle growth impact)
-• Loves training 5x/week and thrives in the gym environment
-• High discipline — avoids trigger foods at home (e.g. bread)
-• Strong understanding of digestion and energy management
-• Access to full gym and HIIT/spin class facilities
-• Open to full dietary overhaul for visible results
-• Committed to efficiency, energy, and aesthetic outcome
-• Pecs need middle and lower pec development for visual pop
-
-⸻
-
 Outcome:
 
 A lean, sculpted, camera-ready physique with defined abs, tight glutes, and enhanced symmetry. Reduced softness around hips and back, with a confident, athletic appearance that feels strong, mobile, and metabolically healthy.
 
-⸻
-
 Efficiency Rule:
 
 Always prioritise the most effective strategies — minimal fluff, maximum results, biohacks where possible, and smart sequencing of exercises to maximise impact and fat loss.
-
 Visual outputs should always be in a neat table format.
+Please ensure to log all my exercises as I instruct as well as my food log.
 
-⸻
-
-Food & Meal Prep Objective
-
-Objective:
-To lead you with precision nutrition — a system designed to structure your training, digestion, and intermittent fasting rhythm. Whether you're fuelling the gym, managing a weekend rebound, or staying lean and powerful, this is your foundation.
-
-⸻
-
-Food Philosophy:
-Clean, high-protein, digestion-friendly meals that support energy, fat loss, and muscle retention.
+Food & Meal Prep:
 
 • Proteins: Chicken, fish, eggs — no red meat (for digestion)
 • Carbs: Complex, slow-digesting — grains and vegetables
@@ -360,44 +341,22 @@ Clean, high-protein, digestion-friendly meals that support energy, fat loss, and
 • Cooking method: Steamed, baked, or grilled — never fried
 • Strict exclusions: No bread (binge trigger), no oils, no processed snacks
 • Flavour style: Bold but controlled — Middle Eastern herbs, Asian umami, Mediterranean balance
-• Outcome: Every dish feels full of life, yet keeps you in control
-
-⸻
-
-Meal Rhythm:
-Built around a flexible intermittent fasting flow, training demands, and digestive timing.
-
-• Meal structure: Breakfast (stable), Lunch, Dinner, Snack
-• Meal timing: Custom to your start (e.g. 9am or noon) and close (e.g. 5pm or 8pm)
 • Macros target: ~2245 kcal / 196g protein / 62g fat / 225g carbs
-• Daily alignment: Supports training intensity, energy flow, and mood regulation
+• Meal structure: Breakfast, Lunch, Dinner, Snack — aligned to intermittent fasting window</textarea>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="savePanel('goals')">Save</button>
+        <button class="btn btn-copy"    onclick="copyPanel('goals')">Copy</button>
+        <button class="btn btn-ghost"   onclick="resetPanel('goals')">Reset</button>
+      </div>
+    </div>
 
-⸻
-
-Daily Plan Includes:
-
-• A full-day meal plan, meal-by-meal
-• Macro breakdown per meal + running total
-• Best time to eat — based on digestion, training, fasting
-• One science-backed biohack — tea, shot, micronutrient, or supplement cue
-• The why behind each choice — clearly linked to performance, fat burn, digestion, or retention
-• Smart craving swaps for bloat, low mood, or hunger dips
-
-⸻
-
-The System:
-This isn't just food. This is structure. This is performance. Built around your body, your goals, and your life.
-
-⸻
-
-All output should always be in a neat table format.
-Please ensure to log all my exercises as I instruct as well as my food log.
-
-⸻
-
-Injuries:
-
-Right knee — Medial Meniscus (MRI confirmed)
+    <!-- ── PANEL 2: INJURIES / ADJUSTMENTS ── -->
+    <div class="section-panel">
+      <div class="panel-header">
+        <div class="panel-label red">Injuries &amp; Adjustments</div>
+        <div class="panel-desc">Constraints that shape the programme</div>
+      </div>
+      <textarea class="editor red" id="editor-injuries" spellcheck="false" rows="22">Right knee — Medial Meniscus (MRI confirmed, March 2026)
 
 Diagnosis:
 • Horizontal tear — medial meniscus body and posterior horn
@@ -409,7 +368,7 @@ Diagnosis:
 • ACL, PCL, LCL all intact
 
 Status:
-• 5 weeks post-MRI at programme start (March 2026)
+• 5 weeks post-MRI at programme start
 • 2 weeks rest completed
 • No persistent pain, no locking currently
 • Degenerative tear — appropriate loading does not worsen it; it strengthens surrounding structures
@@ -425,17 +384,30 @@ Key protocol:
 • Collagen peptides 15g + Vitamin C 50mg — 45–60 min pre-training (Shaw 2017: 5.5× collagen synthesis during loading window)
 • Omega-3 3g+ EPA/DHA daily — COX pathway suppression, reduces synovial inflammation
 • Posterior chain priority — strong glutes and hamstrings reduce medial compartment load by 30–40%
-• Hydro pool post-training — cartilage nutrition via compression-decompression; only way to feed avascular cartilage without loading the tear
+• Hydro pool post-training — cartilage nutrition via compression-decompression
 • Sauna post-training — second GH pulse, heat shock proteins, accelerated connective tissue repair
 
-⸻
+Back — lower back sensitivity from previous deadlift strain:
+• Avoid conventional deadlift heavy loading
+• Romanian deadlift permitted with neutral spine cue
+• Chest-supported rows replace bent-over rows to remove spinal loading</textarea>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="savePanel('injuries')">Save</button>
+        <button class="btn btn-copy"    onclick="copyPanel('injuries')">Copy</button>
+        <button class="btn btn-ghost"   onclick="resetPanel('injuries')">Reset</button>
+      </div>
+    </div>
 
-Non-Negotiables / Must-Haves:
-
-These are fixed. They are not negotiated around. The programme accommodates them.
+    <!-- ── PANEL 3: NON-NEGOTIABLES ── -->
+    <div class="section-panel">
+      <div class="panel-header">
+        <div class="panel-label amber">Non-Negotiables &amp; Must-Haves</div>
+        <div class="panel-desc">Fixed points — the programme works around these</div>
+      </div>
+      <textarea class="editor amber" id="editor-nonneg" spellcheck="false" rows="22">These are fixed. They are not negotiated around. The programme accommodates them.
 
 Daily life:
-• Morning lattes — 2 flat whites, arriving at 07:30 (not 06:00 — post cortisol peak timing). Non-negotiable for cognitive function and enjoyment. Always with 200mg L-Theanine to prevent anxiety amplification.
+• Morning lattes — 2 flat whites, arriving at 07:30 (not 06:00 — post cortisol peak timing). Non-negotiable for cognitive function and enjoyment. Always with 200mg L-Theanine.
 • Morning sunlight — 10 minutes, no sunglasses, before coffee
 • Cold shower finish — 30–60 seconds cold at end of shower, daily
 • 8 hours sleep — hard floor, not a preference. 06:00 alarm means 22:00 lights out.
@@ -454,14 +426,26 @@ Social / alcohol:
 • Alcohol is permitted — strategically, not avoided
 • Training days: no alcohol (mTOR protection)
 • Rest days: maximum 2 units, finish by 20:00 to clear before sleep
-• Thursday evening: protected — no alcohol (Friday posterior chain preparation)</textarea>
+• Thursday evening: protected — no alcohol (Friday posterior chain preparation)
 
-    <div class="actions">
-      <button class="btn btn-primary" onclick="save()">Save changes</button>
-      <button class="btn btn-copy"    onclick="copyAll()">Copy all</button>
-      <button class="btn btn-ghost"   onclick="resetToOriginal()">Reset to original</button>
+Lifestyle:
+• Third Space Islington — primary gym
+• Sauna post-training where possible
+• Hydro pool post-training on heavy knee-load days</textarea>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="savePanel('nonneg')">Save</button>
+        <button class="btn btn-copy"    onclick="copyPanel('nonneg')">Copy</button>
+        <button class="btn btn-ghost"   onclick="resetPanel('nonneg')">Reset</button>
+      </div>
     </div>
-    <div class="save-status" id="save-status"></div>
+
+    <!-- GLOBAL ACTIONS -->
+    <div class="global-actions">
+      <button class="btn btn-primary" onclick="saveAll()">Save all three</button>
+      <button class="btn btn-ghost"   onclick="resetAll()">Reset all to original</button>
+      <div class="save-status" id="save-status"></div>
+    </div>
+
   </div>
 
   <!-- SIDEBAR -->
@@ -520,44 +504,77 @@ Social / alcohol:
 
 <script src="nav.js"></script>
 <script>
-const STORAGE_KEY = 'bodylens_instructions_v1';
-const ORIGINAL    = document.getElementById('instructions-editor').value;
+const PANELS = {
+  goals:    { key: 'bl_inst_goals_v1',    id: 'editor-goals' },
+  injuries: { key: 'bl_inst_injuries_v1', id: 'editor-injuries' },
+  nonneg:   { key: 'bl_inst_nonneg_v1',   id: 'editor-nonneg' },
+};
 
-// Load saved content on page load
-window.addEventListener('DOMContentLoaded', () => {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      document.getElementById('instructions-editor').value = saved;
-      setStatus('Last save loaded', false);
-    }
-  } catch(e) {}
+// Store originals on load
+const ORIGINALS = {};
+Object.keys(PANELS).forEach(p => {
+  ORIGINALS[p] = document.getElementById(PANELS[p].id).value;
 });
 
-function save() {
+// Load any saved content
+window.addEventListener('DOMContentLoaded', () => {
+  let anyLoaded = false;
+  Object.keys(PANELS).forEach(p => {
+    try {
+      const saved = localStorage.getItem(PANELS[p].key);
+      if (saved) {
+        document.getElementById(PANELS[p].id).value = saved;
+        anyLoaded = true;
+      }
+    } catch(e) {}
+  });
+  if (anyLoaded) setStatus('Last saves loaded', false);
+});
+
+function savePanel(panel) {
   try {
-    const val = document.getElementById('instructions-editor').value;
-    localStorage.setItem(STORAGE_KEY, val);
+    const val = document.getElementById(PANELS[panel].id).value;
+    localStorage.setItem(PANELS[panel].key, val);
     setStatus('Saved ✓', true);
   } catch(e) {
-    setStatus('Save failed — browser storage may be disabled', false);
+    setStatus('Save failed', false);
   }
 }
 
-function copyAll() {
-  const val = document.getElementById('instructions-editor').value;
-  navigator.clipboard.writeText(val).then(() => {
-    setStatus('Copied to clipboard ✓', true);
-  }).catch(() => {
-    setStatus('Copy failed — try selecting and copying manually', false);
-  });
+function copyPanel(panel) {
+  const val = document.getElementById(PANELS[panel].id).value;
+  navigator.clipboard.writeText(val)
+    .then(() => setStatus('Copied ✓', true))
+    .catch(() => setStatus('Copy failed — select and copy manually', false));
 }
 
-function resetToOriginal() {
-  if (confirm('Reset to the original instructions? Any edits will be lost.')) {
-    document.getElementById('instructions-editor').value = ORIGINAL;
-    try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
-    setStatus('Reset to original', false);
+function resetPanel(panel) {
+  if (confirm('Reset this section to the original? Any edits will be lost.')) {
+    document.getElementById(PANELS[panel].id).value = ORIGINALS[panel];
+    try { localStorage.removeItem(PANELS[panel].key); } catch(e) {}
+    setStatus('Reset ✓', false);
+  }
+}
+
+function saveAll() {
+  try {
+    Object.keys(PANELS).forEach(p => {
+      const val = document.getElementById(PANELS[p].id).value;
+      localStorage.setItem(PANELS[p].key, val);
+    });
+    setStatus('All three saved ✓', true);
+  } catch(e) {
+    setStatus('Save failed', false);
+  }
+}
+
+function resetAll() {
+  if (confirm('Reset all three sections to the original? All edits will be lost.')) {
+    Object.keys(PANELS).forEach(p => {
+      document.getElementById(PANELS[p].id).value = ORIGINALS[p];
+      try { localStorage.removeItem(PANELS[p].key); } catch(e) {}
+    });
+    setStatus('All reset to original', false);
   }
 }
 
@@ -568,11 +585,11 @@ function setStatus(msg, isGood) {
   setTimeout(() => { el.textContent = ''; el.className = 'save-status'; }, 3000);
 }
 
-// Auto-save on Ctrl/Cmd+S
+// Cmd/Ctrl+S saves all
 document.addEventListener('keydown', e => {
   if ((e.ctrlKey || e.metaKey) && e.key === 's') {
     e.preventDefault();
-    save();
+    saveAll();
   }
 });
 </script>
