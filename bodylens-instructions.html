@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BodyLens — Instructions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+body { background: var(--ink); color: var(--dk-1); }
+
+/* ── HERO ── */
+.hero {
+  padding: 64px 48px 56px;
+  border-bottom: 1px solid var(--bd);
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.h-eye {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--jade);
+  margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+}
+.h-eye::before { content: ''; width: 28px; height: 1px; background: var(--jade); }
+.h-title {
+  font-family: var(--serif); font-size: 56px; font-weight: 300;
+  line-height: 0.95; letter-spacing: -0.025em; color: var(--dk-1);
+  margin-bottom: 20px;
+}
+.h-title em { font-style: italic; color: var(--dk-3); }
+.h-sub {
+  font-family: var(--serif); font-size: 17px; font-weight: 300;
+  font-style: italic; line-height: 1.75; color: var(--dk-2);
+  max-width: 560px; margin-bottom: 20px;
+}
+.h-note {
+  font-size: 11px; font-weight: 300; color: var(--dk-3);
+  display: flex; align-items: center; gap: 8px;
+}
+.h-note::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--amber); flex-shrink: 0;
+}
+
+/* ── MAIN LAYOUT ── */
+.shell {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 48px 48px 80px;
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 40px;
+  align-items: start;
+}
+
+/* ── EDITOR ── */
+.editor-wrap {
+  position: relative;
+}
+.editor-label {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--dk-3);
+  margin-bottom: 10px; display: flex; align-items: center;
+  justify-content: space-between;
+}
+.editor-label span { color: var(--jade); }
+
+.editor {
+  width: 100%;
+  min-height: 680px;
+  background: var(--ink-2);
+  border: 1px solid var(--bd);
+  border-radius: 6px;
+  padding: 28px 32px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--dk-2);
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.editor:focus {
+  border-color: var(--jade-br);
+  color: var(--dk-1);
+}
+
+/* section headings inside editor */
+.editor-rendered {
+  background: var(--ink-2);
+  border: 1px solid var(--bd);
+  border-radius: 6px;
+  padding: 28px 32px;
+  min-height: 680px;
+}
+
+/* ── ACTIONS ROW ── */
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.btn {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 9px 18px; border-radius: 4px;
+  border: none; cursor: pointer; font-family: var(--sans);
+  transition: all 0.15s;
+}
+.btn-primary {
+  background: var(--jade); color: var(--ink);
+}
+.btn-primary:hover { background: var(--jade-hi); }
+.btn-ghost {
+  background: transparent; color: var(--dk-3);
+  border: 1px solid var(--bd-2);
+}
+.btn-ghost:hover { color: var(--dk-2); border-color: var(--bd-2); }
+.btn-copy {
+  background: transparent; color: var(--amber);
+  border: 1px solid var(--amber-br);
+}
+.btn-copy:hover { background: var(--amber-dim); }
+
+.save-status {
+  font-size: 11px; font-weight: 300; color: var(--dk-3);
+  margin-top: 10px; min-height: 18px; transition: color 0.3s;
+}
+.save-status.saved { color: var(--jade); }
+
+/* ── SIDEBAR ── */
+.sidebar { position: sticky; top: 100px; }
+
+.sb-card {
+  background: var(--ink-2);
+  border: 1px solid var(--bd);
+  border-radius: 6px;
+  padding: 20px 22px;
+  margin-bottom: 12px;
+}
+.sb-card.highlight { border-color: var(--amber-br); background: rgba(196,124,24,0.04); }
+.sb-label {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--dk-3); margin-bottom: 10px;
+}
+.sb-label.amber { color: var(--amber); }
+.sb-label.jade  { color: var(--jade); }
+
+.sb-stat {
+  display: flex; justify-content: space-between; align-items: baseline;
+  border-bottom: 1px solid var(--bd); padding: 8px 0;
+  font-size: 12px;
+}
+.sb-stat:last-child { border-bottom: none; padding-bottom: 0; }
+.sb-stat-label { font-weight: 300; color: var(--dk-3); }
+.sb-stat-val   { font-weight: 600; color: var(--dk-1); }
+.sb-stat-val.jade  { color: var(--jade); }
+.sb-stat-val.amber { color: var(--amber); }
+
+.sb-note {
+  font-size: 12px; font-weight: 300; color: var(--dk-2);
+  line-height: 1.65; margin-top: 8px;
+}
+
+.sb-links { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+.sb-link {
+  font-size: 11px; font-weight: 500; color: var(--jade);
+  text-decoration: none; display: flex; align-items: center; gap: 6px;
+  padding: 6px 10px; border-radius: 4px; border: 1px solid var(--jade-br);
+  background: var(--jade-dim); transition: all 0.15s;
+}
+.sb-link:hover { background: rgba(0,200,160,0.12); }
+.sb-link.amber {
+  color: var(--amber); border-color: var(--amber-br); background: var(--amber-dim);
+}
+.sb-link.amber:hover { background: rgba(196,124,24,0.12); }
+
+/* ── SECTION HEADINGS in rendered view ── */
+.inst-section {
+  margin: 28px 0 6px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--jade);
+  display: flex; align-items: center; gap: 10px;
+}
+.inst-section::after { content: ''; flex: 1; height: 1px; background: var(--bd); }
+.inst-section:first-child { margin-top: 0; }
+
+.inst-body {
+  font-family: var(--serif); font-size: 16px; font-weight: 300;
+  line-height: 1.88; color: var(--dk-2);
+  white-space: pre-wrap;
+}
+.inst-body strong { color: var(--dk-1); font-weight: 500; }
+
+@media(max-width:900px){
+  .hero { padding: 36px 16px 40px; }
+  .shell { grid-template-columns: 1fr; padding: 28px 16px 60px; gap: 28px; }
+  .h-title { font-size: 36px; }
+  .sidebar { position: static; }
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-brand">Body<em>Lens</em></div>
+  <div class="nav-links">
+    <a class="nav-link nav-daily" href="bodylens-today.html">Today</a>
+    <a class="nav-link nav-daily" href="bodylens-week.html">Week</a>
+    <a class="nav-link nav-daily" href="bodylens-progress.html">Progress</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-profile.html">Profile</a>
+    <a class="nav-link active" href="bodylens-instructions.html">Instructions</a>
+    <a class="nav-link" href="bodylens-nonneg.html">My Rules</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
+    <a class="nav-link" href="bodylens-fuel.html">Food System</a>
+    <a class="nav-link" href="bodylens-hunger.html">Hunger</a>
+    <a class="nav-link" href="bodylens-alcohol.html">Alcohol</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-body.html">Muscle Guide</a>
+    <a class="nav-link" href="bodylens-training.html">Training</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-weightloss.html">Weight Loss</a>
+    <a class="nav-link" href="bodylens-longevity.html">Longevity</a>
+    <a class="nav-link" href="bodylens-optimal.html">Optimal</a>
+    <a class="nav-link" href="bodylens-story.html">The Story</a>
+    <a class="nav-link" href="bodylens-synthesis.html">How It Runs</a>
+    <a class="nav-link" href="bodylens-science.html">Science</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-studio.html" style="opacity:0.4;">Studio</a>
+  </div>
+  <div class="nav-meta">
+    <span class="nav-tag nt-go">Meniscus protocol</span>
+    <span class="nav-tag nt-jade">Balanced precision</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="h-eye">Baseline instructions · Programme engine · Editable</div>
+  <div class="h-title">Instructions.<br><em>The foundation.</em></div>
+  <div class="h-sub">
+    This is the baseline document — the raw directive that defines what the programme is trying to achieve and how. Edit it freely. This is the engine room.
+  </div>
+  <div class="h-note">Editable — changes save to your browser. This document will drive future integrations across the app.</div>
+</div>
+
+<!-- MAIN -->
+<div class="shell">
+
+  <!-- EDITOR COLUMN -->
+  <div>
+    <div class="editor-label">
+      Baseline instructions
+      <span id="mode-label">Edit mode</span>
+    </div>
+
+    <!-- The editable textarea -->
+    <textarea class="editor" id="instructions-editor" spellcheck="false">Workout Objective:
+
+To achieve a highly defined, lean, and athletic physique with a primary focus on reducing body fat to sub-10% and significantly improving glute strength, lift, and muscle tone.
+
+⸻
+
+Goals:
+
+• Enhance total body muscle definition and symmetry
+• Reduce body fat to a visibly shredded level (<10%)
+• Build strong, firm, lifted glutes with zero sag
+• Improve biceps shape and upper body aesthetics
+• Reduce fat stored around the lower back and love handles
+• Improve cardiovascular endurance and metabolic conditioning
+• Maintain or build lean muscle mass while cutting fat
+• Prevent lower back injury by correcting posterior chain imbalance
+• Reawaken daily glute activation and build ab definition through consistent, targeted work
+
+⸻
+
+Approach:
+
+A structured, high-efficiency training and nutrition program designed to sculpt a visibly tight physique while preserving recovery, energy, and digestion. The program includes:
+
+• Custom resistance training plan using full gym equipment (excluding kettlebells; prioritise free weights and cable machines)
+• Step machine sessions (30 mins, most days) for lower-body conditioning and fat burn
+• Optional HIIT classes (e.g. spin, metabolic conditioning) used strategically to accelerate fat loss and metabolic health when energy allows
+• Push/pull/glute-day training split with targeted glute and bicep hypertrophy focus
+• Daily glute and core activation (via warmups, desk work, and finishers), with at least one glute-dominant day per week
+• Occasional swimming (~10 laps freestyle/breaststroke) for recovery and breathwork
+• Daily sauna use to support recovery, circulation, and fat loss
+• Glute protocols that are safe for the lower back (avoiding deadlift strain)
+• High-protein, digestion-friendly meal plan aligned to a loose intermittent fasting window
+• Weekend alcohol buffer strategy to manage cravings and prevent fat rebound
+• Emotional eating triggers identified (bread, crisps, carb snacks) with alternatives built in
+• Macronutrient targets: ~2245 kcal/day | 196g protein | 62g fat | 225g carbs
+• Clean eating philosophy with smart swaps: chicken, fish, eggs, grains, and vegetables
+• No red meat (for digestion); no bread kept at home to avoid binge triggers
+• Minimal processed foods, with emphasis on energy, fibre, and gut health
+• Weights (kgs) always suggested, with weekly progression cues built in
+
+⸻
+
+Current Baseline:
+
+• Age: 43
+• Height: 181 cm
+• Weight: ~89 kg
+• Estimated body fat: 12–13%
+• Stores fat around: love handles / lower back
+• Strengths: consistency, sauna use, cardio discipline, food awareness
+• Weaknesses: unstructured lifting split, occasional emotional eating, back strain from deadlifts
+
+⸻
+
+Preferences & Strengths:
+
+• Enjoys step machine, sauna, swimming, and cold plunge (mindful of muscle growth impact)
+• Loves training 5x/week and thrives in the gym environment
+• High discipline — avoids trigger foods at home (e.g. bread)
+• Strong understanding of digestion and energy management
+• Access to full gym and HIIT/spin class facilities
+• Open to full dietary overhaul for visible results
+• Committed to efficiency, energy, and aesthetic outcome
+• Pecs need middle and lower pec development for visual pop
+
+⸻
+
+Outcome:
+
+A lean, sculpted, camera-ready physique with defined abs, tight glutes, and enhanced symmetry. Reduced softness around hips and back, with a confident, athletic appearance that feels strong, mobile, and metabolically healthy.
+
+⸻
+
+Efficiency Rule:
+
+Always prioritise the most effective strategies — minimal fluff, maximum results, biohacks where possible, and smart sequencing of exercises to maximise impact and fat loss.
+
+Visual outputs should always be in a neat table format.
+
+⸻
+
+Food & Meal Prep Objective
+
+Objective:
+To lead you with precision nutrition — a system designed to structure your training, digestion, and intermittent fasting rhythm. Whether you're fuelling the gym, managing a weekend rebound, or staying lean and powerful, this is your foundation.
+
+⸻
+
+Food Philosophy:
+Clean, high-protein, digestion-friendly meals that support energy, fat loss, and muscle retention.
+
+• Proteins: Chicken, fish, eggs — no red meat (for digestion)
+• Carbs: Complex, slow-digesting — grains and vegetables
+• Fats: Smart and anti-inflammatory — avocado, nuts, seeds
+• Cooking method: Steamed, baked, or grilled — never fried
+• Strict exclusions: No bread (binge trigger), no oils, no processed snacks
+• Flavour style: Bold but controlled — Middle Eastern herbs, Asian umami, Mediterranean balance
+• Outcome: Every dish feels full of life, yet keeps you in control
+
+⸻
+
+Meal Rhythm:
+Built around a flexible intermittent fasting flow, training demands, and digestive timing.
+
+• Meal structure: Breakfast (stable), Lunch, Dinner, Snack
+• Meal timing: Custom to your start (e.g. 9am or noon) and close (e.g. 5pm or 8pm)
+• Macros target: ~2245 kcal / 196g protein / 62g fat / 225g carbs
+• Daily alignment: Supports training intensity, energy flow, and mood regulation
+
+⸻
+
+Daily Plan Includes:
+
+• A full-day meal plan, meal-by-meal
+• Macro breakdown per meal + running total
+• Best time to eat — based on digestion, training, fasting
+• One science-backed biohack — tea, shot, micronutrient, or supplement cue
+• The why behind each choice — clearly linked to performance, fat burn, digestion, or retention
+• Smart craving swaps for bloat, low mood, or hunger dips
+
+⸻
+
+The System:
+This isn't just food. This is structure. This is performance. Built around your body, your goals, and your life.
+
+⸻
+
+All output should always be in a neat table format.
+Please ensure to log all my exercises as I instruct as well as my food log.</textarea>
+
+    <div class="actions">
+      <button class="btn btn-primary" onclick="save()">Save changes</button>
+      <button class="btn btn-copy"    onclick="copyAll()">Copy all</button>
+      <button class="btn btn-ghost"   onclick="resetToOriginal()">Reset to original</button>
+    </div>
+    <div class="save-status" id="save-status"></div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <div class="sb-card highlight">
+      <div class="sb-label amber">Baseline snapshot</div>
+      <div class="sb-stat"><span class="sb-stat-label">Age</span><span class="sb-stat-val">43</span></div>
+      <div class="sb-stat"><span class="sb-stat-label">Height</span><span class="sb-stat-val">181 cm</span></div>
+      <div class="sb-stat"><span class="sb-stat-label">Weight</span><span class="sb-stat-val">~89 kg</span></div>
+      <div class="sb-stat"><span class="sb-stat-label">Body fat</span><span class="sb-stat-val amber">12–13%</span></div>
+      <div class="sb-stat"><span class="sb-stat-label">Target BF</span><span class="sb-stat-val jade">&lt;10%</span></div>
+    </div>
+
+    <div class="sb-card">
+      <div class="sb-label amber">Macro targets</div>
+      <div class="sb-stat"><span class="sb-stat-label">Calories</span><span class="sb-stat-val">2,245 kcal</span></div>
+      <div class="sb-stat"><span class="sb-stat-label">Protein</span><span class="sb-stat-val jade">196g</span></div>
+      <div class="sb-stat"><span class="sb-stat-label">Carbs</span><span class="sb-stat-val">225g</span></div>
+      <div class="sb-stat"><span class="sb-stat-label">Fat</span><span class="sb-stat-val">62g</span></div>
+    </div>
+
+    <div class="sb-card">
+      <div class="sb-label jade">Priority goals</div>
+      <div class="sb-note">Sub-10% body fat · Glute strength and lift · Ab definition · Love handle reduction · Lean mass preservation</div>
+    </div>
+
+    <div class="sb-card">
+      <div class="sb-label">Pages to update next</div>
+      <div class="sb-links">
+        <a class="sb-link amber" href="bodylens-profile.html">→ Profile</a>
+        <a class="sb-link" href="bodylens-journeys.html">→ Journeys</a>
+        <a class="sb-link" href="bodylens-fuel.html">→ Food System</a>
+        <a class="sb-link" href="bodylens-training.html">→ Training</a>
+        <a class="sb-link" href="bodylens-optimal.html">→ Optimal</a>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /shell -->
+
+<script src="nav.js"></script>
+<script>
+const STORAGE_KEY = 'bodylens_instructions_v1';
+const ORIGINAL    = document.getElementById('instructions-editor').value;
+
+// Load saved content on page load
+window.addEventListener('DOMContentLoaded', () => {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      document.getElementById('instructions-editor').value = saved;
+      setStatus('Last save loaded', false);
+    }
+  } catch(e) {}
+});
+
+function save() {
+  try {
+    const val = document.getElementById('instructions-editor').value;
+    localStorage.setItem(STORAGE_KEY, val);
+    setStatus('Saved ✓', true);
+  } catch(e) {
+    setStatus('Save failed — browser storage may be disabled', false);
+  }
+}
+
+function copyAll() {
+  const val = document.getElementById('instructions-editor').value;
+  navigator.clipboard.writeText(val).then(() => {
+    setStatus('Copied to clipboard ✓', true);
+  }).catch(() => {
+    setStatus('Copy failed — try selecting and copying manually', false);
+  });
+}
+
+function resetToOriginal() {
+  if (confirm('Reset to the original instructions? Any edits will be lost.')) {
+    document.getElementById('instructions-editor').value = ORIGINAL;
+    try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+    setStatus('Reset to original', false);
+  }
+}
+
+function setStatus(msg, isGood) {
+  const el = document.getElementById('save-status');
+  el.textContent = msg;
+  el.className = 'save-status' + (isGood ? ' saved' : '');
+  setTimeout(() => { el.textContent = ''; el.className = 'save-status'; }, 3000);
+}
+
+// Auto-save on Ctrl/Cmd+S
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    save();
+  }
+});
+</script>
+</body>
+</html>
