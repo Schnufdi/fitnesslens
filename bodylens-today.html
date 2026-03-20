@@ -77,6 +77,8 @@ body{display:flex;flex-direction:column;background:var(--ink);color:var(--dk-1);
     <a class="nav-link" href="bodylens-synthesis.html">How It Runs</a>
     <a class="nav-link" href="bodylens-science.html">Science</a>
     <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-steph.html">Steph</a>
+    <div class="nav-sep"></div>
     <a class="nav-link" href="bodylens-studio.html" style="opacity:0.4;">Studio</a>
   </div>
   <div class="nav-meta">
@@ -93,7 +95,7 @@ body{display:flex;flex-direction:column;background:var(--ink);color:var(--dk-1);
     <button class="dsb" onclick="setDay(1,this)"><span class="dsb-name">Tuesday</span><span class="dsb-type">Rest</span><span class="dsb-kcal">2,700 kcal</span></button>
     <button class="dsb" onclick="setDay(2,this)"><span class="dsb-name">Wednesday</span><span class="dsb-type">Pull</span><span class="dsb-kcal">2,950 kcal</span></button>
     <button class="dsb" onclick="setDay(3,this)"><span class="dsb-name">Thursday</span><span class="dsb-type">Rest</span><span class="dsb-kcal">2,700 kcal</span></button>
-    <button class="dsb active" onclick="setDay(4,this)"><span class="dsb-name">Friday</span><span class="dsb-type">Posterior</span><span class="dsb-kcal">3,050 kcal</span></button>
+    <button class="dsb" onclick="setDay(4,this)"><span class="dsb-name">Friday</span><span class="dsb-type">Posterior</span><span class="dsb-kcal">3,050 kcal</span></button>
     <button class="dsb" onclick="setDay(5,this)"><span class="dsb-name">Saturday</span><span class="dsb-type">Upper</span><span class="dsb-kcal">2,950 kcal</span></button>
     <button class="dsb" onclick="setDay(6,this)"><span class="dsb-name">Sunday</span><span class="dsb-type">Rest</span><span class="dsb-kcal">2,700 kcal</span></button>
   </div>
@@ -490,7 +492,10 @@ const PROTOCOLS = {
 };
 
 // ─── CURRENT STATE ────────────────────────────────────────
-let currentDay = 4;
+// Map JS getDay() (0=Sun,1=Mon,...,6=Sat) to programme index (0=Mon,...,6=Sun)
+const _jsDay = new Date().getDay();
+const _dayMap = { 0:6, 1:0, 2:1, 3:2, 4:3, 5:4, 6:5 };
+let currentDay = _dayMap[_jsDay];
 
 function getDayCtx() {
   const d = DAYS[currentDay];
@@ -1017,8 +1022,9 @@ function switchTabLocal(paneId, btn) {
 }
 
 // ─── INIT ─────────────────────────────────────────────────
-setDay(4, null);
-document.querySelector('.dsb.active') || document.querySelectorAll('.dsb')[4].classList.add('active');
+// Auto-select today's day from system date, then highlight correct button
+setDay(currentDay, null);
+document.querySelectorAll('.dsb').forEach((b,i) => b.classList.toggle('active', i === currentDay));
 </script>
 </body>
 </html>

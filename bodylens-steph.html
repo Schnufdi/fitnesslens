@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BodyLens — Steph</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+
+/* ══════════════════════════════════════════════════════════
+   STEPH — GOLD ROSE PALETTE
+   Dusty gold, warm rose, antique ivory — a completely
+   different world from the main app's forest-floor dark.
+   This palette lives only on this page.
+══════════════════════════════════════════════════════════ */
+
+:root {
+  --rose:       #c4856a;   /* warm terracotta rose — primary accent */
+  --rose-hi:    #d4957a;   /* hover / brighter */
+  --rose-lo:    #a46555;   /* pressed / darker */
+  --rose-dim:   rgba(196,133,106,0.1);
+  --rose-mid:   rgba(196,133,106,0.18);
+  --rose-br:    rgba(196,133,106,0.30);
+
+  --gold-r:     #c9a96e;   /* gold — secondary accent */
+  --gold-r-dim: rgba(201,169,110,0.10);
+  --gold-r-br:  rgba(201,169,110,0.28);
+
+  --sage:       #8a9e8c;   /* muted sage — tertiary / data */
+  --sage-dim:   rgba(138,158,140,0.10);
+  --sage-br:    rgba(138,158,140,0.25);
+
+  /* Page backgrounds — warm ivory dark */
+  --s-ink:    #1a1410;
+  --s-ink-1:  #211a14;
+  --s-ink-2:  #2a211a;
+  --s-ink-3:  #33281f;
+
+  /* Type on dark */
+  --s-dk-1: #f0e8df;
+  --s-dk-2: #9e9088;
+  --s-dk-3: #5a4e47;
+
+  /* Light sections — warm cream */
+  --s-paper:   #faf6f0;
+  --s-paper-1: #fff9f4;
+  --s-paper-2: #ede5da;
+
+  /* Type on light */
+  --s-lt-1: #1a120d;
+  --s-lt-2: #4e3e35;
+  --s-lt-3: #9a8a80;
+
+  /* Borders */
+  --s-bd:   rgba(255,235,210,0.08);
+  --s-bd-2: rgba(255,235,210,0.15);
+}
+
+/* ── BASE ── */
+body { background: var(--s-ink); color: var(--s-dk-1); }
+
+/* ── NAV — rose tint for Steph's page ── */
+.site-nav {
+  background: var(--s-ink-1) !important;
+  border-bottom: 1px solid var(--s-bd-2) !important;
+}
+.nav-brand em { color: var(--rose) !important; }
+.nav-link.active {
+  color: var(--rose) !important;
+  background: var(--rose-dim) !important;
+}
+.nav-link:hover { color: var(--s-dk-1) !important; }
+.nav-sep { background: var(--s-bd-2) !important; }
+
+/* ── HERO ── */
+.hero {
+  padding: 72px 0 64px;
+  border-bottom: 1px solid var(--s-bd);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 800px 600px at 60% 40%, rgba(196,133,106,0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 500px 400px at 10% 80%, rgba(201,169,110,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: 1080px; margin: 0 auto; padding: 0 48px;
+  position: relative; z-index: 1;
+}
+.h-kicker {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--rose);
+  margin-bottom: 18px; display: flex; align-items: center; gap: 12px;
+}
+.h-kicker::before { content: ''; width: 28px; height: 1px; background: var(--rose); }
+.h-title {
+  font-family: var(--serif); font-size: 72px; font-weight: 300;
+  line-height: 0.92; letter-spacing: -0.03em;
+  color: var(--s-dk-1); margin-bottom: 28px;
+}
+.h-title em { font-style: italic; color: var(--rose); }
+.h-two { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-top: 32px; }
+.h-voice {
+  font-family: var(--serif); font-size: 18px; font-weight: 300;
+  font-style: italic; line-height: 1.82; color: var(--s-dk-2);
+  border-left: 2px solid var(--rose-br); padding-left: 22px;
+}
+.h-stats { display: flex; flex-direction: column; gap: 0; }
+.hs {
+  display: grid; grid-template-columns: 160px 1fr;
+  border-bottom: 1px solid var(--s-bd); padding: 9px 0;
+  align-items: baseline;
+}
+.hs:first-child { border-top: 1px solid var(--s-bd); }
+.hs-label { font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--s-dk-3); }
+.hs-val   { font-size: 13px; font-weight: 300; color: var(--s-dk-2); }
+.hs-val.rose  { color: var(--rose); font-weight: 500; }
+.hs-val.gold  { color: var(--gold-r); font-weight: 500; }
+
+/* ── TABS ── */
+.tabs {
+  background: var(--s-ink-1); border-bottom: 1px solid var(--s-bd);
+  position: sticky; top: 60px; z-index: 100;
+  padding: 0 48px; display: flex; overflow-x: auto; scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 13px 20px; border: none;
+  background: transparent; color: var(--s-dk-3); cursor: pointer;
+  font-family: var(--sans); white-space: nowrap;
+  border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s;
+}
+.tab:hover { color: var(--s-dk-2); }
+.tab.active { color: var(--rose); border-bottom-color: var(--rose); }
+
+/* ── PANES ── */
+.pane { display: none; }
+.pane.active { display: block; }
+.dk  { background: var(--s-ink);   padding: 64px 0; }
+.dk1 { background: var(--s-ink-1); padding: 64px 0; border-top: 1px solid var(--s-bd); }
+.lt  { background: var(--s-paper); padding: 64px 0; border-top: 1px solid var(--s-bd-2); }
+.w   { max-width: 1080px; margin: 0 auto; padding: 0 48px; }
+
+/* ── SECTION RULE ── */
+.dr {
+  display: flex; align-items: center; gap: 14px; margin: 0 0 28px;
+  font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--s-dk-3);
+}
+.dr em { font-style: normal; color: var(--rose); }
+.dr::after { content: ''; flex: 1; height: 1px; background: var(--s-bd); }
+
+/* ── STATEMENT BLOCKS ── */
+.sb { display: grid; grid-template-columns: 56px 1fr; border-top: 1px solid var(--s-bd); transition: background 0.15s; }
+.sb:hover { background: rgba(255,220,200,0.02); }
+.sbn { padding: 28px 0; display: flex; align-items: flex-start; justify-content: center; border-right: 1px solid var(--s-bd); font-family: var(--serif); font-size: 40px; font-weight: 300; color: var(--s-dk-3); line-height: 1; transition: color 0.2s; }
+.sb:hover .sbn { color: var(--rose); }
+.sbc { padding: 24px 32px; }
+.sbt { font-family: var(--serif); font-size: 26px; font-weight: 400; color: var(--s-dk-1); margin-bottom: 10px; line-height: 1.12; letter-spacing: -0.01em; }
+.sbp { font-size: 13px; font-weight: 300; color: var(--s-dk-2); line-height: 1.9; max-width: 640px; }
+.sbp strong { color: var(--s-dk-1); font-weight: 500; }
+.sb-tag {
+  display: inline-flex; align-items: center; margin-top: 12px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.04em; padding: 5px 14px; border-radius: 20px;
+}
+.tr { color: var(--rose);   background: var(--rose-dim);   border: 1px solid var(--rose-br); }
+.tg { color: var(--gold-r); background: var(--gold-r-dim); border: 1px solid var(--gold-r-br); }
+.ts { color: var(--sage);   background: var(--sage-dim);   border: 1px solid var(--sage-br); }
+
+/* ── MECHANISM CARDS ── */
+.mc {
+  background: var(--s-ink-2); border: 1px solid var(--s-bd);
+  border-radius: 6px; padding: 22px 24px; margin-bottom: 12px;
+  transition: border-color 0.15s;
+}
+.mc:hover { border-color: var(--s-bd-2); }
+.mc.rose  { border-left: 3px solid var(--rose); }
+.mc.gold  { border-left: 3px solid var(--gold-r); }
+.mc.sage  { border-left: 3px solid var(--sage); }
+.mc.red   { border-left: 3px solid #c45a45; }
+.mc-eye  { font-size: 9px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; margin-bottom: 7px; }
+.mc-eye.rose  { color: var(--rose); }
+.mc-eye.gold  { color: var(--gold-r); }
+.mc-eye.sage  { color: var(--sage); }
+.mc-t    { font-family: var(--serif); font-size: 21px; font-weight: 500; color: var(--s-dk-1); margin-bottom: 8px; line-height: 1.15; }
+.mc-b    { font-size: 13px; font-weight: 300; color: var(--s-dk-2); line-height: 1.8; }
+.mc-b strong { color: var(--s-dk-1); font-weight: 500; }
+
+/* ── CALLOUT ── */
+.callout {
+  background: var(--s-ink-2); border: 1px solid var(--rose-br);
+  border-left: 3px solid var(--rose); border-radius: 0 6px 6px 0;
+  padding: 22px 26px; margin: 24px 0;
+}
+.callout.gold { border-color: var(--gold-r-br); border-left-color: var(--gold-r); }
+.callout.sage { border-color: var(--sage-br); border-left-color: var(--sage); }
+.co-label { font-size: 9px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rose); margin-bottom: 7px; }
+.callout.gold .co-label { color: var(--gold-r); }
+.callout.sage .co-label { color: var(--sage); }
+.co-text { font-family: var(--serif); font-size: 16px; font-weight: 300; font-style: italic; line-height: 1.75; color: var(--s-dk-2); }
+.co-text strong { color: var(--s-dk-1); font-weight: 500; font-style: normal; }
+
+/* ── PRIORITY BLOCKS ── */
+.pri-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 28px; }
+.pri { background: var(--s-ink-2); border: 1px solid var(--s-bd); border-radius: 6px; padding: 20px 22px; }
+.pri-num { font-family: var(--serif); font-size: 48px; font-weight: 300; line-height: 1; color: var(--s-dk-3); margin-bottom: 8px; }
+.pri.active-pri .pri-num { color: var(--rose); }
+.pri-title { font-size: 13px; font-weight: 600; color: var(--s-dk-1); margin-bottom: 5px; }
+.pri-body  { font-size: 12px; font-weight: 300; color: var(--s-dk-2); line-height: 1.65; }
+.pri-tag { display: inline-flex; margin-top: 10px; font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; }
+.pt-rose { color: var(--rose); background: var(--rose-dim); border: 1px solid var(--rose-br); }
+.pt-gold { color: var(--gold-r); background: var(--gold-r-dim); border: 1px solid var(--gold-r-br); }
+.pt-sage { color: var(--sage); background: var(--sage-dim); border: 1px solid var(--sage-br); }
+
+/* ── SUPPLEMENT TABLE ── */
+.supp-row {
+  display: grid; grid-template-columns: 200px 100px 160px 1fr;
+  border-bottom: 1px solid var(--s-bd);
+}
+.supp-row:first-child { border-top: 1px solid var(--s-bd); background: var(--s-ink-2); }
+.supp-cell { padding: 12px 14px; font-size: 12px; font-weight: 300; color: var(--s-dk-2); line-height: 1.5; }
+.supp-cell:first-child { font-weight: 600; color: var(--s-dk-1); }
+.supp-row.head .supp-cell { font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--s-dk-3); padding: 10px 14px; }
+
+/* ── FOOD DECISION PROTOCOL ── */
+.fdp { border: 1px solid var(--s-bd); border-radius: 6px; overflow: hidden; margin-bottom: 14px; }
+.fdp-head { background: var(--s-ink-2); padding: 14px 18px; border-bottom: 1px solid var(--s-bd); }
+.fdp-label { font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rose); margin-bottom: 4px; }
+.fdp-title { font-family: var(--serif); font-size: 18px; font-weight: 500; color: var(--s-dk-1); }
+.fdp-body { background: var(--s-ink-1); padding: 16px 18px; }
+.fdp-item { font-size: 12px; font-weight: 300; color: var(--s-dk-2); line-height: 1.65; padding: 6px 0; border-bottom: 1px solid var(--s-bd); display: flex; gap: 12px; align-items: baseline; }
+.fdp-item:last-child { border-bottom: none; }
+.fdp-bullet { color: var(--rose); font-size: 14px; flex-shrink: 0; }
+
+/* ── LOOP CHAIN ── */
+.chain { display: flex; flex-direction: column; margin-bottom: 24px; border: 1px solid var(--s-bd); border-radius: 6px; overflow: hidden; }
+.chain-step { display: grid; grid-template-columns: 48px 1fr; border-bottom: 1px solid var(--s-bd); }
+.chain-step:last-child { border-bottom: none; }
+.chain-n { background: var(--s-ink-2); display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--s-bd); font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--s-dk-3); }
+.chain-step.bad  .chain-n { color: #c45a45; background: rgba(196,90,69,0.06); }
+.chain-step.good .chain-n { color: var(--rose); background: var(--rose-dim); }
+.chain-b { padding: 13px 16px; background: var(--s-ink-1); }
+.chain-t { font-size: 12px; font-weight: 600; color: var(--s-dk-1); margin-bottom: 3px; }
+.chain-d { font-size: 11px; font-weight: 300; color: var(--s-dk-2); line-height: 1.6; }
+.chain-d strong { color: var(--s-dk-1); font-weight: 500; }
+
+/* ── PAGE END ── */
+.page-end { height: 80px; }
+
+@media(max-width:600px){
+  .hero { padding: 36px 0 36px; }
+  .hero-inner, .w { padding: 0 16px; }
+  .h-title { font-size: 40px; }
+  .h-two { grid-template-columns: 1fr; gap: 28px; }
+  .tabs { padding: 0 12px; }
+  .dk, .dk1, .lt { padding: 36px 0; }
+  .sb { grid-template-columns: 36px 1fr; }
+  .sbn { font-size: 24px; }
+  .sbc { padding: 16px 14px; }
+  .sbt { font-size: 19px; }
+  .pri-grid { grid-template-columns: 1fr; }
+  .supp-row { grid-template-columns: 1fr 1fr; }
+  .supp-row .supp-cell:nth-child(3),
+  .supp-row .supp-cell:nth-child(4) { grid-column: 1 / -1; }
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-brand">Body<em>Lens</em></div>
+  <div class="nav-links">
+    <a class="nav-link nav-daily" href="bodylens-today.html">Today</a>
+    <a class="nav-link nav-daily" href="bodylens-week.html">Week</a>
+    <a class="nav-link nav-daily" href="bodylens-progress.html">Progress</a>
+    <a class="nav-link nav-daily" href="bodylens-optimal.html">The Machine</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-profile.html">Profile</a>
+    <a class="nav-link" href="bodylens-instructions.html">Instructions</a>
+    <a class="nav-link" href="bodylens-nonneg.html">My Rules</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-journeys.html">Journeys</a>
+    <a class="nav-link" href="bodylens-fuel.html">Food System</a>
+    <a class="nav-link" href="bodylens-hunger.html">Hunger</a>
+    <a class="nav-link" href="bodylens-alcohol.html">Alcohol</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-body.html">Muscle Guide</a>
+    <a class="nav-link" href="bodylens-training.html">Training</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-weightloss.html">Weight Loss</a>
+    <a class="nav-link" href="bodylens-longevity.html">Longevity</a>
+    <a class="nav-link" href="bodylens-story.html">The Story</a>
+    <a class="nav-link" href="bodylens-synthesis.html">How It Runs</a>
+    <a class="nav-link" href="bodylens-science.html">Science</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link active" href="bodylens-steph.html">Steph</a>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="bodylens-studio.html" style="opacity:0.4;">Studio</a>
+  </div>
+  <div class="nav-meta">
+    <span class="nav-tag" style="color:var(--rose);background:var(--rose-dim);border:1px solid var(--rose-br);">Perimenopause</span>
+    <span class="nav-tag" style="color:var(--gold-r);background:var(--gold-r-dim);border:1px solid var(--gold-r-br);">Recovery phase</span>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="h-kicker">Steph · 38 → 39 · Female physiology · Full recovery plan</div>
+    <div class="h-title">Getting you<br><em>back.</em></div>
+    <div class="h-two">
+      <div class="h-voice">
+        Your body has been through significant events in the last year — surgery, recovery, a new stressful role, a shoulder injury, and a hormonal shift that nobody warned you about. None of this is failure. It is context. And context changes the prescription. This page is built around your specific biology, your specific history, and the science of what actually needs to happen, in what order, to get your energy, your body, and your confidence back.
+      </div>
+      <div class="h-stats">
+        <div class="hs"><div class="hs-label">Age</div><div class="hs-val">38 → 39</div></div>
+        <div class="hs"><div class="hs-label">Hormonal phase</div><div class="hs-val rose">Early perimenopause</div></div>
+        <div class="hs"><div class="hs-label">Surgical history</div><div class="hs-val gold">Colon resection (Jul 2024)</div></div>
+        <div class="hs"><div class="hs-label">Active injury</div><div class="hs-val">Rotator cuff tear (R shoulder)</div></div>
+        <div class="hs"><div class="hs-label">Gut status</div><div class="hs-val">IBS + post-resection microbiome</div></div>
+        <div class="hs"><div class="hs-label">Sleep</div><div class="hs-val rose">Severely disrupted</div></div>
+        <div class="hs"><div class="hs-label">Food relationship</div><div class="hs-val">Disordered pattern — therapist engaged</div></div>
+        <div class="hs"><div class="hs-label">Gym baseline</div><div class="hs-val">Daily habit — temporarily disrupted</div></div>
+        <div class="hs"><div class="hs-label">Primary outcome</div><div class="hs-val rose">Energy · Sleep · Body ownership</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TABS ══ -->
+<div class="tabs">
+  <button class="tab active" onclick="show('overview',this)">Where you are</button>
+  <button class="tab" onclick="show('science',this)">The science</button>
+  <button class="tab" onclick="show('priorities',this)">Priority plan</button>
+  <button class="tab" onclick="show('sleep',this)">Sleep protocol</button>
+  <button class="tab" onclick="show('gut',this)">Gut & food</button>
+  <button class="tab" onclick="show('movement',this)">Movement</button>
+  <button class="tab" onclick="show('hormones',this)">Hormones</button>
+  <button class="tab" onclick="show('supplements',this)">Supplements</button>
+</div>
+
+
+<!-- ══════════════════════════════════
+     WHERE YOU ARE
+══════════════════════════════════ -->
+<div class="pane active" id="overview">
+<div class="dk"><div class="w">
+
+  <div class="dr" style="margin-top:0;">Where you are <em>— an honest read of everything</em></div>
+  <div style="font-size:13px;font-weight:300;color:var(--s-dk-2);margin-bottom:36px;max-width:640px;line-height:1.85;">Before any plan, the situation has to be named clearly. Not to be heavy about it — but because understanding what is actually happening in the body changes the response from willpower to precision.</div>
+
+  <div class="sb">
+    <div class="sbn">1</div>
+    <div class="sbc">
+      <div class="sbt">You had major abdominal surgery less than a year ago. Your body is still healing.</div>
+      <div class="sbp">The polyp removal and colon resection in July 2024 was a significant physiological event — not just procedurally but systemically. The gut microbiome, which takes 12–24 months to fully restabilise after resection, is the root mechanism behind the fatigue, the digestive sensitivity, the mood disruption, and the food anxiety. <strong>The post-surgical gut is not the same gut that existed before. The rules have changed.</strong> Eating plain chicken and cramping today is not random — it is a gut that is still recalibrating its motility, its microbial balance, and its signalling to the brain. The good news: the gut is the most regenerable organ in the body. It can be rebuilt, deliberately, with specific inputs.</div>
+      <div class="sb-tag tg">All healing is happening · Colon resection takes 12–24 months to fully restabilise</div>
+    </div>
+  </div>
+
+  <div class="sb">
+    <div class="sbn">2</div>
+    <div class="sbc">
+      <div class="sbt">The fatigue is not laziness. It has at least four simultaneous biological causes.</div>
+      <div class="sbp">When a patient describes chronic, systemic fatigue after what Steph has been through, there are always multiple mechanisms. They compound each other — which is why no single thing fixes it.<br><br>
+      <strong>Sleep deprivation:</strong> 2 hours of sleep produces measurable cognitive impairment equivalent to 48 hours without sleep. GH doesn't pulse, testosterone doesn't synthesise, BDNF doesn't produce. Every repair process the body needs to run overnight doesn't run.<br><br>
+      <strong>Post-surgical microbiome disruption:</strong> Reduced serotonin production from the gut (where 95% of serotonin is made) creates a low-mood, low-energy baseline that feels like depression but is biochemical, not psychological.<br><br>
+      <strong>Perimenopause:</strong> Fluctuating oestrogen disrupts sleep architecture, reduces progesterone (the calming neurotransmitter precursor), and creates erratic cortisol patterns that exhaust the adrenal system over weeks and months.<br><br>
+      <strong>New stressful role:</strong> Chronic work stress elevates cortisol chronically. Chronically elevated cortisol depletes the adrenal glands and suppresses the entire restorative hormonal cascade.</div>
+      <div class="sb-tag tr">Four causes stacking — each one alone would be manageable · Together they are overwhelming</div>
+    </div>
+  </div>
+
+  <div class="sb">
+    <div class="sbn">3</div>
+    <div class="sbc">
+      <div class="sbt">The food paralysis is not a character flaw. It is a neurological response to a disrupted gut-brain axis.</div>
+      <div class="sbp">The freeze at the supermarket, the inability to compose a meal, the binge-restrict cycle — these are not willpower failures. The gut produces 95% of the body's serotonin, and serotonin is the primary modulator of the prefrontal cortex's executive function: decision-making, planning, and self-regulation. <strong>When the gut-brain axis is disrupted — through microbiome imbalance, post-surgical changes, and the HPA activation that stress produces — the ability to make even simple food decisions is genuinely impaired at the neurological level.</strong> This is not fixed by wanting it harder. It is fixed by removing the decision from the high-stress moment entirely (structural pre-planning), and by restoring the gut-brain axis over time (microbiome rebuilding). The therapist's engagement is exactly right. This page works alongside that work, not instead of it.</div>
+      <div class="sb-tag tr">Not willpower · Gut-brain axis disruption creates real executive function impairment</div>
+    </div>
+  </div>
+
+  <div class="sb">
+    <div class="sbn">4</div>
+    <div class="sbc">
+      <div class="sbt">You had a gym habit that was working. It got interrupted by things outside your control. That is different from never having had it.</div>
+      <div class="sbp">The surgical recovery, the rotator cuff injury, the new role, the illness — these are not the same as losing motivation. They are disruptions to a functioning system. The system worked. It needs to be restarted, not reinvented. <strong>The minimum viable gym habit that was working (daily, even if brief, even if just to feel normal) is the right model to restore.</strong> The rotator cuff changes what the upper body can do right now — it doesn't change what the lower body, the cardio, the pool, the sauna, and the core can do. Those are all available. The shoulder physio matters and needs to restart — but it doesn't block the gym.</div>
+      <div class="sb-tag ts">The habit existed · It was interrupted · It can restart from where it left off</div>
+    </div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     THE SCIENCE
+══════════════════════════════════ -->
+<div class="pane" id="science">
+<div class="dk"><div class="w">
+  <div class="dr" style="margin-top:0;">The science <em>— female physiology, perimenopause, gut-brain axis, and the sleep cascade</em></div>
+
+  <div class="mc rose">
+    <div class="mc-eye rose">Perimenopause — what is actually happening</div>
+    <div class="mc-t">Oestrogen doesn't just decline — it fluctuates. The fluctuation is the problem.</div>
+    <div class="mc-b">Most people think of menopause as oestrogen declining smoothly to a lower level. Perimenopause — which can begin 8–10 years before menopause, and at 38–39 is entirely within normal range — is different. <strong>Oestrogen spikes erratically, sometimes to levels higher than normal, then crashes suddenly.</strong> These spikes cause the night sweats and sleep disruption even when no obvious sweating occurs — the brain's temperature regulation is disrupted by the oestrogen spike. The crashes cause the low mood, joint aching, cognitive fog, and emotional reactivity.<br><br>
+    Progesterone declines more steadily, and progesterone is the body's primary GABA activator — the calming neurotransmitter. <strong>Lower progesterone means the nervous system is chronically more anxious, sleep architecture is disrupted (less slow-wave sleep), and the cortisol response to stressors is larger and longer.</strong> This is why a stressful day at work hits harder than it used to. The buffer is thinner.</div>
+  </div>
+
+  <div class="mc gold">
+    <div class="mc-eye gold">The gut-brain axis — post-resection</div>
+    <div class="mc-t">The colon resection changed the gut's relationship with the brain.</div>
+    <div class="mc-b">The enteric nervous system — 500 million neurons lining the gut — communicates with the brain via the vagus nerve, predominantly upward (gut signals the brain, not the other way around). The gut produces 95% of the body's serotonin, regulates 70% of the immune system, and directly influences cortisol baseline and anxiety levels.<br><br>
+    After colon resection, three things change: the mechanical transit rhythm of the gut is altered (explaining the cramping at unexpected times), the microbial ecosystem is disrupted (the bacteria removed with the tissue don't immediately repopulate in the same pattern), and the vagal signalling from the affected section is reduced. <strong>The result is lower serotonin output, higher baseline anxiety, impaired decision-making under stress, and digestive unpredictability.</strong> None of this is permanent — the gut is the most regenerable organ — but it requires active intervention, not just time.</div>
+  </div>
+
+  <div class="mc sage">
+    <div class="mc-eye sage">Sleep architecture in perimenopause</div>
+    <div class="mc-t">The sleep problem is hormonal first, behavioural second.</div>
+    <div class="mc-b">Normal sleep architecture requires: stable oestrogen (night-time spikes cause waking), adequate progesterone (GABA activation for slow-wave sleep), cortisol nadir overnight (cortisol can't reach its low point when chronically elevated), and melatonin onset (suppressed by light exposure and cortisol).<br><br>
+    In perimenopause, all four of these are compromised simultaneously. The result is the pattern Steph describes: difficulty falling asleep, waking in the night, eventually falling asleep in the early hours, and not getting enough total sleep. <strong>This is not insomnia in the traditional sense — it is a hormonal disruption of the sleep architecture systems. The fix is partly hormonal, partly environmental, and partly circadian anchor-setting.</strong><br><br>
+    The 2 hours of sleep last night has a specific consequence: cortisol never reached its overnight nadir. Today's cortisol baseline is elevated. Elevated cortisol suppresses appetite at some points and drives cravings at others, impairs decision-making (contributing to the food paralysis), and produces the physical fatigue that feels like a lead blanket.</div>
+  </div>
+
+  <div class="mc rose">
+    <div class="mc-eye rose">The HPA axis under compound stress</div>
+    <div class="mc-t">The body's stress response system is running on empty.</div>
+    <div class="mc-b">The HPA (hypothalamic-pituitary-adrenal) axis produces cortisol in response to stress. It is designed for acute stressors with recovery between them. What Steph has experienced in the last 12 months — cancer diagnosis and surgery, new stressful role, shoulder injury, sleep deprivation, food anxiety — is a sustained period of HPA activation with insufficient recovery.<br><br>
+    <strong>The result is adrenal fatigue — not in the pseudoscientific sense, but in the genuine physiological sense: the cortisol system becomes dysregulated, producing too much at the wrong times and too little at others.</strong> The "can't get up" feeling despite wanting to, the afternoon crashes, the inability to push through the gym session — these are not motivation failures. They are HPA dysregulation. Ashwagandha (KSM-66) is the most evidence-backed natural HPA modulator available, and it is the single most important supplement in Steph's stack.</div>
+  </div>
+
+  <div class="mc gold">
+    <div class="mc-eye gold">Female testosterone — the missing conversation</div>
+    <div class="mc-t">Women need testosterone. And perimenopause depletes it.</div>
+    <div class="mc-b">Testosterone is not just a male hormone. In women, it drives: motivation and drive, muscle tone and lean mass, libido, cognitive sharpness, and the feeling of being "in the body" rather than outside looking in. Testosterone in women peaks in the mid-20s and begins declining through the 30s — but perimenopause accelerates this significantly. <strong>The "I don't feel like my body is my own" description Steph gave is a clinically recognised symptom of testosterone decline in perimenopausal women.</strong><br><br>
+    This is not fixed by supplements alone — it requires a GP conversation about hormonal assessment. But it informs every other part of the plan: resistance training (the strongest non-pharmaceutical testosterone stimulus in women), sleep (testosterone synthesised overnight), and stress reduction (cortisol is inversely related to testosterone).</div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     PRIORITY PLAN
+══════════════════════════════════ -->
+<div class="pane" id="priorities">
+<div class="dk"><div class="w">
+  <div class="dr" style="margin-top:0;">Priority plan <em>— what to do, in what order, and why the order matters</em></div>
+  <div style="font-size:13px;font-weight:300;color:var(--s-dk-2);margin-bottom:32px;max-width:640px;line-height:1.85;">The order is not arbitrary. You cannot fix the gym plateau without fixing the sleep. You cannot fix the sleep without the hormonal and gut work. You cannot fix the food relationship with willpower when the gut-brain axis is dysregulated. Each priority unlocks the next.</div>
+
+  <div class="pri-grid">
+    <div class="pri active-pri">
+      <div class="pri-num">01</div>
+      <div class="pri-title">Sleep — start tonight</div>
+      <div class="pri-body">Magnesium glycinate 400mg 30–60 min before target sleep. Ashwagandha 600mg daily — HPA axis modulation. Morning light protocol — 10 min outside within 30 min of waking, every day. This anchors the circadian clock and begins pulling the sleep window earlier. Cool room, dark, no screens.</div>
+      <div class="pri-tag pt-rose">Immediate</div>
+    </div>
+    <div class="pri">
+      <div class="pri-num">02</div>
+      <div class="pri-title">Gut restoration — week 1</div>
+      <div class="pri-body">High-quality probiotic (Lactobacillus + Bifidobacterium strains). Prebiotic fibre — gentle sources only (oats, banana, cooked vegetables — avoid raw cruciferous). Remove the biggest gut disruptors: alcohol, processed foods, stress eating. Omega-3 3g+ for gut anti-inflammatory environment.</div>
+      <div class="pri-tag pt-gold">Week 1</div>
+    </div>
+    <div class="pri">
+      <div class="pri-num">03</div>
+      <div class="pri-title">Food structure — remove the decision</div>
+      <div class="pri-body">Two or three known, safe, pre-decided meals that require zero in-the-moment choice. Batch cook Sunday. Buy the same things each week. The disordered eating pattern is resistant to food knowledge — it requires structural pre-planning to remove the decision from the high-stress moment.</div>
+      <div class="pri-tag pt-rose">Week 1–2</div>
+    </div>
+    <div class="pri">
+      <div class="pri-num">04</div>
+      <div class="pri-title">Daily movement — minimum viable</div>
+      <div class="pri-body">20–30 minutes, any modality that feels accessible that day. The neurochemical reset (BDNF, dopamine baseline, cortisol clearance) from 20 minutes of movement is non-negotiable for everything else. Lower body, cardio, pool, and sauna are all unaffected by the shoulder.</div>
+      <div class="pri-tag pt-sage">Week 1 onwards</div>
+    </div>
+    <div class="pri">
+      <div class="pri-num">05</div>
+      <div class="pri-title">Rotator cuff physio — restart now</div>
+      <div class="pri-body">The 3-week physio lapse matters but is recoverable. The rotator cuff is a stability mechanism — continued neglect leads to compensatory patterns that create secondary injuries. Physio restarts this week. Upper body training is modified not eliminated: no overhead pressing, cable and machine work only.</div>
+      <div class="pri-tag pt-gold">This week</div>
+    </div>
+    <div class="pri">
+      <div class="pri-num">06</div>
+      <div class="pri-title">GP — hormonal assessment</div>
+      <div class="pri-body">Request a full hormonal panel: FSH, LH, oestradiol, progesterone, testosterone, thyroid (TSH, T3, T4), Vitamin D, ferritin, B12, CRP (inflammation marker). This panel tells you what is actually happening rather than what is estimated. HRT is a legitimate conversation at 38–39 with these symptoms.</div>
+      <div class="pri-tag pt-rose">Book this week</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="co-label">The 4-week target</div>
+    <div class="co-text">Four weeks of the sleep protocol + gut rebuilding + daily movement + food structure produces measurable change in every area Steph described. <strong>Not transformation — reset.</strong> The energy starts to return when sleep improves. The food anxiety reduces when the gut-brain axis begins restabilising. The body starts feeling more familiar when the movement habit reestablishes. Week 4 is where momentum becomes self-sustaining.</div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     SLEEP PROTOCOL
+══════════════════════════════════ -->
+<div class="pane" id="sleep">
+<div class="dk"><div class="w">
+  <div class="dr" style="margin-top:0;">Sleep protocol <em>— the most urgent intervention in the entire plan</em></div>
+  <div style="font-size:13px;font-weight:300;color:var(--s-dk-2);margin-bottom:32px;max-width:640px;line-height:1.85;">Without sleep, everything else is fighting uphill. The fatigue, the food paralysis, the gym plateau, the emotional reactivity — all of them are amplified by sleep deprivation. This is not one element of the plan. It is the foundation that all other elements rest on.</div>
+
+  <div class="callout" style="margin-bottom:28px;">
+    <div class="co-label">What 2 hours of sleep does to the body</div>
+    <div class="co-text">GH pulse doesn't complete. Testosterone doesn't synthesise. Cortisol never reaches its overnight nadir — so today's baseline cortisol is already elevated. Ghrelin (hunger hormone) is 20–30% higher than normal. Insulin sensitivity drops — fuel goes to fat not muscle. BDNF production collapses — cognitive performance is impaired. The immune system, which runs primary maintenance overnight, misses its window. <strong>One night at 2 hours of sleep produces more physiological disruption than most people realise. Repeated nights compound into the state Steph is describing.</strong></div>
+  </div>
+
+  <div class="sb">
+    <div class="sbn">1</div>
+    <div class="sbc">
+      <div class="sbt">Morning light — the most powerful circadian anchor available</div>
+      <div class="sbp">The circadian clock is currently phase-delayed — Steph's biology thinks the day starts at midday, not at 7:30am. This is not a character trait, it is a clock that has drifted in response to the sleep disruption pattern.<br><br>
+      The fix: <strong>within 30 minutes of waking, go outside for 10 minutes and look toward the sky (not directly at the sun). No sunglasses.</strong> The retinal ganglion cells that detect morning light signal the suprachiasmatic nucleus — the master circadian clock — that the day has started. This triggers: the cortisol awakening response at the correct time, serotonin synthesis that converts to melatonin that evening, and the beginning of the sleep pressure that will allow earlier sleep onset tonight.<br><br>
+      Done consistently for 7–10 days, morning light shifts the circadian clock forward measurably. It is free, takes 10 minutes, and is the most impactful single habit for the sleep problem.</div>
+      <div class="sb-tag tr">Do this tomorrow morning. Non-negotiable.</div>
+    </div>
+  </div>
+
+  <div class="sb">
+    <div class="sbn">2</div>
+    <div class="sbc">
+      <div class="sbt">Magnesium glycinate 400mg — the GABA connection</div>
+      <div class="sbp">Magnesium is a required cofactor for GABA receptor function. GABA is the primary inhibitory neurotransmitter — it quiets the nervous system and permits sleep onset. In perimenopause, GABA is already reduced (progesterone, which activates GABA, is declining). <strong>Magnesium glycinate adds the glycine chelate — which independently inhibits neuronal excitation and promotes slow-wave sleep onset.</strong><br><br>
+      Take 400mg, 30–60 minutes before the target sleep time. The glycinate form is the most bioavailable and the gentlest on the gut — critical for Steph's post-resection digestive situation. This is not a sedative — it doesn't knock you out. It reduces the neurological friction that keeps the mind racing when the body wants to sleep.</div>
+      <div class="sb-tag tr">Tonight. Every night. The most evidence-backed non-pharmaceutical sleep intervention available.</div>
+    </div>
+  </div>
+
+  <div class="sb">
+    <div class="sbn">3</div>
+    <div class="sbc">
+      <div class="sbt">Ashwagandha KSM-66 — the HPA axis modulator</div>
+      <div class="sbp">The sleep disruption has a hormonal component (perimenopause) and a stress component (HPA hyperactivation). Ashwagandha KSM-66 at 600mg daily addresses the HPA component directly — it reduces cortisol by 25–30% in clinical trials over 8 weeks, reduces the cortisol response to acute stressors, and improves sleep quality as a consequence.<br><br>
+      <strong>This is not a sleeping pill. It is a stress system recalibrator.</strong> Take in the morning or evening — morning if the primary issue is daytime anxiety, evening if the primary issue is nighttime wakefulness. Given Steph's pattern (can't fall asleep until 5:30), evening is the better timing. The effects build over 4–8 weeks of consistent use.</div>
+      <div class="sb-tag ts">Start immediately. Effects build over 4–8 weeks — the sooner started, the sooner felt.</div>
+    </div>
+  </div>
+
+  <div class="sb">
+    <div class="sbn">4</div>
+    <div class="sbc">
+      <div class="sbt">The wind-down environment — what it needs to be</div>
+      <div class="sbp"><strong>Temperature:</strong> 17–19°C. Core body temperature must drop 1–2°C for sleep to initiate. A warm room prevents this drop and creates lighter, more fragmented sleep cycles.<br><br>
+      <strong>Light:</strong> No screens 90 minutes before target sleep time. Blue-spectrum light from phones and laptops directly suppresses melatonin synthesis through the same retinal pathway that morning sunlight uses — the pineal gland cannot distinguish between the two. One hour of phone use at 11pm delays melatonin onset by 60–90 minutes and reduces REM sleep by 20%.<br><br>
+      <strong>The target sleep time:</strong> Given the 7:30am alarm, 23:00 sleep onset is the initial target — not ideal 8 hours, but achievable in the first week. Over 2–4 weeks as the circadian clock resets, 22:30–23:00 becomes natural rather than forced.</div>
+      <div class="sb-tag tg">Environment is not optional — the sleep system responds to signals, not willpower</div>
+    </div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     GUT & FOOD
+══════════════════════════════════ -->
+<div class="pane" id="gut">
+<div class="dk"><div class="w">
+  <div class="dr" style="margin-top:0;">Gut & food <em>— rebuilding the system and removing the decision</em></div>
+  <div style="font-size:13px;font-weight:300;color:var(--s-dk-2);margin-bottom:32px;max-width:640px;line-height:1.85;">Two separate problems here that need two separate solutions. The gut restoration is biological — specific inputs to rebuild the microbiome. The food relationship is structural — removing the decision from the high-stress moment rather than trying to make better decisions under pressure.</div>
+
+  <div class="mc gold">
+    <div class="mc-eye gold">Post-resection gut — what's actually happening</div>
+    <div class="mc-t">Cramping after plain chicken is the gut-brain axis misfiring, not food intolerance.</div>
+    <div class="mc-b">Colon resection alters three things simultaneously: the mechanical transit rhythm (contractions that move food through are disrupted in the section around the resection site), the microbial ecosystem (bacteria that lived in the resected tissue don't immediately repopulate), and the enteric nervous system signalling (the section of gut that was removed loses its neural contribution to the motility coordination upstream and downstream).<br><br>
+    <strong>Crucially: eating while stressed — which Steph is, chronically — activates the sympathetic nervous system, which diverts blood away from the gut and inhibits digestive motility.</strong> This is the mechanism behind stress-induced IBS flares. The plain chicken itself is not the problem. The state in which it is eaten may be. Eating in a calm, seated, slow state with no screens is a direct digestive intervention — not a wellness suggestion.</div>
+  </div>
+
+  <div class="mc rose">
+    <div class="mc-eye rose">Microbiome rebuilding — the specific inputs</div>
+    <div class="mc-t">The gut can be rebuilt. It requires specific, consistent, deliberate inputs.</div>
+    <div class="mc-b"><strong>Probiotic:</strong> High-quality multi-strain probiotic containing both Lactobacillus and Bifidobacterium species. Take first thing in the morning on an empty stomach or with a small amount of food. Not all probiotics are equal — look for at least 10 billion CFU with named strains on the label. Optibac Everyday Extra or Bio-Kult are evidence-backed UK options.<br><br>
+    <strong>Prebiotic fibre — gentle sources only:</strong> Oats (beta-glucan — feeds Bifidobacterium), cooked and cooled potato or rice (resistant starch), banana (especially slightly underripe — inulin), cooked root vegetables. <strong>Avoid raw cruciferous vegetables (broccoli, cauliflower, cabbage) until gut is more stable</strong> — these are fermented aggressively by gut bacteria and produce gas that irritates the post-resection gut.<br><br>
+    <strong>Fermented foods — start small:</strong> Greek yoghurt (Lactobacillus), kefir (if tolerated — start with 50ml), miso in soups. These introduce live bacteria that the gut needs. Start with small amounts — the post-resection gut may react initially to increases in fermented food intake before adapting.<br><br>
+    <strong>Omega-3 3g+ daily:</strong> EPA and DHA have direct anti-inflammatory effects on the gut lining — reducing the low-grade inflammation in the gut wall that is likely contributing to the cramping and sensitivity.</div>
+  </div>
+
+  <div class="callout gold" style="margin:28px 0;">
+    <div class="co-label">The food anxiety — a structural solution</div>
+    <div class="co-text">The binge-restrict cycle and the supermarket freeze are not going to be solved by better nutritional knowledge. <strong>The solution is to remove the decision from the moment of highest stress and lowest cognitive resource.</strong> Pre-deciding two or three meals that are safe, known, and available removes the moment where the system breaks down. The decision was made yesterday, or on Sunday, or last week. Today's version of you just executes it.</div>
+  </div>
+
+  <div class="fdp">
+    <div class="fdp-head">
+      <div class="fdp-label">The 3-meal protocol — pre-decided, no cognitive load</div>
+      <div class="fdp-title">Breakfast · Safe lunch · Safe dinner. Decided in advance. Always available.</div>
+    </div>
+    <div class="fdp-body">
+      <div class="fdp-item"><div class="fdp-bullet">→</div><div><strong>Breakfast (always the same):</strong> Greek yoghurt + oats + banana + a small handful of nuts. Takes 2 minutes. No decisions. High protein (20–25g), prebiotic fibre for the gut, slow carbs for stable glucose. This is not a diet meal — it is a decision-free anchor that starts the day with a win.</div></div>
+      <div class="fdp-item"><div class="fdp-bullet">→</div><div><strong>Lunch (batch cooked or bought safely):</strong> Baked salmon or chicken + sweet potato + spinach, batch cooked Sunday and portioned into containers. No lunch decision required Monday–Thursday. Or: a known safe bought option (Pret chicken salad, Itsu, M&S protein pot) that is identified in advance and becomes the default, not a search.</div></div>
+      <div class="fdp-item"><div class="fdp-bullet">→</div><div><strong>Dinner (2 options, rotate):</strong> Option A: chicken thighs + roasted root vegetables + brown rice. Option B: baked salmon + courgette + new potatoes. Both batch-cook easily. Both are gut-gentle. Both require almost no decision-making beyond which of two known things to eat. The decision is: A or B. That is all.</div></div>
+      <div class="fdp-item"><div class="fdp-bullet">→</div><div><strong>The rule:</strong> These meals are the default. Not a diet. Not a restriction. A default. When energy is high and life is good, expand freely. When the system is under stress — which it currently is — return to the default without judgment. The default is not failure. It is the plan working.</div></div>
+      <div class="fdp-item"><div class="fdp-bullet">→</div><div><strong>The shopping list:</strong> Greek yoghurt, oats, bananas, nuts, salmon fillets, chicken thighs, sweet potato, courgette, spinach, new potatoes, brown rice, olive oil. That is the entire shop. Done in 10 minutes. No browsing. No decisions under pressure.</div></div>
+    </div>
+  </div>
+
+  <div class="mc sage">
+    <div class="mc-eye sage">Eating posture and state — underrated and real</div>
+    <div class="mc-t">How you eat matters as much as what you eat right now.</div>
+    <div class="mc-b">The parasympathetic nervous system (rest-and-digest) needs to be dominant for digestion to work properly. The sympathetic system (fight-or-flight) shuts digestion down — blood is diverted away from the gut, motility slows, gastric acid secretion decreases. <strong>Eating while anxious, rushed, or distracted is a direct digestive impairment, not just a bad habit.</strong><br><br>
+    The protocol for the post-resection gut: sit down, put the phone away, take 3 slow breaths before starting, eat slowly. This is not mindfulness as an aesthetic — it is a physiological switch from sympathetic to parasympathetic that changes what the gut can do with the food it receives. For Steph's gut specifically, this single habit change may reduce the cramping more than any individual food change.</div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     MOVEMENT
+══════════════════════════════════ -->
+<div class="pane" id="movement">
+<div class="dk"><div class="w">
+  <div class="dr" style="margin-top:0;">Movement <em>— rebuilding the daily habit around what is available</em></div>
+  <div style="font-size:13px;font-weight:300;color:var(--s-dk-2);margin-bottom:32px;max-width:640px;line-height:1.85;">The goal right now is not performance. It is the neurochemical reset that even 20 minutes of movement produces — BDNF, dopamine baseline, cortisol clearance, and the sense of being back in the body. Everything else follows from that.</div>
+
+  <div class="callout" style="margin-bottom:28px;">
+    <div class="co-label">The rotator cuff — what it changes and what it doesn't</div>
+    <div class="co-text">Small tear, not fracture. The rotator cuff is a stability mechanism for the shoulder joint — it keeps the humeral head centred in the socket during movement. A small tear changes what the shoulder can do under load but <strong>does not affect lower body training, cardiovascular work, pool, sauna, or core work in any way.</strong> Upper body modifications: no overhead pressing, no heavy rows that pull the shoulder into end range. Cable flyes, light lateral raises, and machine chest press at low load are all manageable. Physio restarts this week — the 3-week lapse is recoverable.</div>
+  </div>
+
+  <div class="sb">
+    <div class="sbn">1</div>
+    <div class="sbc">
+      <div class="sbt">The minimum viable session — 20 minutes, any modality</div>
+      <div class="sbp">The daily gym habit that was working was not producing results because of specific session quality. It was producing results because it was daily, because the neurochemical reset was happening every day, and because it was a non-negotiable point of structure in the day.<br><br>
+      <strong>The minimum viable session that restores all of these benefits:</strong> 20–30 minutes on the step machine or the bike. Zone 2 heart rate (conversational, sustainable, not pushing). This produces: BDNF (brain-derived neurotrophic factor — the cognitive performance enhancer), dopamine normalisation, cortisol clearance from the working day, serotonin production, and the parasympathetic activation that improves gut motility for the hours that follow.<br><br>
+      On high-energy days, add resistance work. On low-energy days, the 20-minute minimum is enough. The identity of "someone who goes to the gym daily" is the asset — not the specific session that happens there.</div>
+      <div class="sb-tag tr">The habit is the goal. The session is the bonus.</div>
+    </div>
+  </div>
+
+  <div class="sb">
+    <div class="sbn">2</div>
+    <div class="sbc">
+      <div class="sbt">Lower body resistance — the most important training for perimenopause</div>
+      <div class="sbp">Resistance training is the strongest non-pharmaceutical intervention for perimenopausal women across every relevant system: it produces the largest testosterone stimulus (which addresses the "don't feel like my body is my own" experience), it builds lean mass that compensates for the metabolic slowdown that perimenopause produces, it improves insulin sensitivity (which addresses the glucose dysregulation that perimenopause accelerates), and it is the primary intervention for bone density preservation as oestrogen declines.<br><br>
+      <strong>The glute priority Steph identified is also the therapeutic priority.</strong> Glute strength protects the lower back (her stated concern), improves posture, and produces the largest hormonal stimulus per session of any training choice available to her. Hip thrusts, Romanian deadlifts, step-ups, and cable kickbacks — all shoulder-independent. These are the sessions that matter most right now.</div>
+      <div class="sb-tag ts">Glute training is hormonal medicine. Not just aesthetics.</div>
+    </div>
+  </div>
+
+  <div class="sb">
+    <div class="sbn">3</div>
+    <div class="sbc">
+      <div class="sbt">The pool and sauna — recovery infrastructure, not luxuries</div>
+      <div class="sbp"><strong>Pool:</strong> Swimming or water walking is the most complete movement available to Steph right now. Zero shoulder load (gentle strokes only), zero gut impact, full cardiovascular stimulus, and the parasympathetic activation of water immersion is directly therapeutic for the HPA hyperactivation she's experiencing. 15–20 minutes in the pool is worth 45 minutes on the gym floor for nervous system recovery.<br><br>
+      <strong>Sauna post-movement:</strong> 15 minutes at 80–90°C produces a GH pulse (tissue repair), activates heat shock proteins (cellular maintenance), and most relevantly for Steph — drives dynorphin and endogenous opioid release that produces a sustained mood elevation lasting several hours. The "feel good after sauna" is not imagined — it is a specific neurochemical output. For someone who is fatigued and disconnected from their body, the sauna is one of the fastest tools for feeling better immediately.<br><br>
+      <strong>The contrast: sauna → cold shower → pool.</strong> Vascular pumping, metabolite clearance, and the most complete nervous system reset available within a gym environment.</div>
+      <div class="sb-tag tg">Pool + sauna is the mental health protocol as much as the physical recovery protocol</div>
+    </div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     HORMONES
+══════════════════════════════════ -->
+<div class="pane" id="hormones">
+<div class="dk"><div class="w">
+  <div class="dr" style="margin-top:0;">Hormones <em>— what to know, what to ask for, what to do</em></div>
+
+  <div class="mc rose">
+    <div class="mc-eye rose">The GP conversation — what to request</div>
+    <div class="mc-t">Book this week. Request a full hormonal panel.</div>
+    <div class="mc-b">The following blood panel will give a complete picture of what is actually happening rather than what is estimated. <strong>Request specifically:</strong><br><br>
+    FSH (follicle-stimulating hormone) and LH (luteinising hormone) — the primary perimenopause markers. FSH rises as the ovaries become less responsive.<br><br>
+    Oestradiol (E2) — the active form of oestrogen. In perimenopause this fluctuates — a single reading may not capture the full picture, but it is a starting point.<br><br>
+    Progesterone — taken on day 21 of the cycle if cycles are still regular. Declining progesterone is the primary driver of the sleep disruption and anxiety.<br><br>
+    Total and free testosterone — frequently overlooked in women. The "don't feel like myself" symptom is often testosterone-driven.<br><br>
+    Thyroid panel (TSH, free T3, free T4) — thyroid dysfunction is common in perimenopausal women and produces an almost identical symptom profile to perimenopause itself: fatigue, weight changes, brain fog, low mood.<br><br>
+    Vitamin D, ferritin (iron stores), B12, and CRP (inflammation marker) — these four can each individually produce fatigue, low mood, and poor recovery when depleted. After surgical recovery, ferritin depletion is particularly common.</div>
+  </div>
+
+  <div class="mc gold">
+    <div class="mc-eye gold">HRT — a legitimate conversation at 38–39</div>
+    <div class="mc-t">Not a last resort. A precision tool that may be appropriate now.</div>
+    <div class="mc-b">Hormone replacement therapy has been reframed significantly by current evidence. For women under 60 or within 10 years of menopause onset, the benefit-to-risk ratio is strongly positive for most women without contraindications. <strong>Modern body-identical HRT (oestrogen patch or gel + micronised progesterone) carries a very different risk profile from the older synthetic progestogens that produced the negative headlines of the 1990s and 2000s.</strong><br><br>
+    At 38–39 with the symptom cluster Steph is describing — sleep disruption, mood dysregulation, cognitive fog, fatigue, joint changes, and the "not in my body" feeling — a knowledgeable GP or a menopause specialist (The Menopause Charity can signpost to good practitioners) will take these seriously and have a proper conversation. This is not about jumping to medication — it is about having access to the full picture of what is available.</div>
+  </div>
+
+  <div class="mc sage">
+    <div class="mc-eye sage">What lifestyle does to hormones — the levers that are available now</div>
+    <div class="mc-t">Lifestyle is not a substitute for medical support but it is not irrelevant either.</div>
+    <div class="mc-b"><strong>Sleep → testosterone and progesterone:</strong> Both are synthesised overnight. 8 hours of sleep produces measurably higher levels of both than 6 hours. The sleep protocol is a direct hormonal intervention.<br><br>
+    <strong>Resistance training → testosterone and GH:</strong> The strongest non-pharmaceutical testosterone stimulus in women is heavy resistance training, particularly of large muscle groups (glutes, quads, back). GH pulses during the post-training window and overnight.<br><br>
+    <strong>Stress reduction → cortisol → testosterone:</strong> Cortisol and testosterone are inversely related. Chronically elevated cortisol suppresses testosterone production. Every stress management tool — Ashwagandha, Zone 2 cardio, sauna, cold exposure, magnesium — is a testosterone intervention.<br><br>
+    <strong>Vitamin D3:</strong> D3 receptors are present in Leydig cells (where testosterone is produced — yes, women have these too) and in the hypothalamus. D3 deficiency directly impairs testosterone production. At UK latitude, from October to April, supplementation at 3,000 IU daily is the evidence-backed dose.</div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     SUPPLEMENTS
+══════════════════════════════════ -->
+<div class="pane" id="supplements">
+<div class="dk"><div class="w">
+  <div class="dr" style="margin-top:0;">Supplements <em>— targeted, evidence-based, sequenced by priority</em></div>
+  <div style="font-size:13px;font-weight:300;color:var(--s-dk-2);margin-bottom:28px;max-width:640px;line-height:1.85;">Every supplement below has a specific mechanism. Nothing here is general wellness. Each one targets a specific identified deficiency or system dysfunction in Steph's profile.</div>
+
+  <div class="supp-row head">
+    <div class="supp-cell">Supplement</div>
+    <div class="supp-cell">Dose</div>
+    <div class="supp-cell">Timing</div>
+    <div class="supp-cell">Why — the specific mechanism</div>
+  </div>
+  <div class="supp-row">
+    <div class="supp-cell">Magnesium glycinate</div>
+    <div class="supp-cell">400mg</div>
+    <div class="supp-cell">30–60 min pre-sleep</div>
+    <div class="supp-cell">GABA receptor cofactor. Glycinate chelate calms neuronal excitation. Most bioavailable, gentlest on gut. The sleep non-negotiable.</div>
+  </div>
+  <div class="supp-row">
+    <div class="supp-cell">Ashwagandha KSM-66</div>
+    <div class="supp-cell">600mg</div>
+    <div class="supp-cell">Evening</div>
+    <div class="supp-cell">HPA axis modulation. 25–30% cortisol reduction in RCTs. Improves sleep quality, anxiety baseline, and testosterone. Effects build over 4–8 weeks.</div>
+  </div>
+  <div class="supp-row">
+    <div class="supp-cell">Omega-3 EPA + DHA</div>
+    <div class="supp-cell">3g combined</div>
+    <div class="supp-cell">With largest meal</div>
+    <div class="supp-cell">Anti-inflammatory for gut lining (post-resection). COX pathway suppression. DHA structural brain tissue — mood and cognition. MPS amplifier.</div>
+  </div>
+  <div class="supp-row">
+    <div class="supp-cell">Vitamin D3 + K2 (MK-7)</div>
+    <div class="supp-cell">3,000 IU + 100mcg</div>
+    <div class="supp-cell">With fat meal</div>
+    <div class="supp-cell">UK latitude deficiency Oct–Apr. Testosterone synthesis cofactor. Immune function. Bone density (critical for perimenopause). Mood regulation.</div>
+  </div>
+  <div class="supp-row">
+    <div class="supp-cell">Probiotic (multi-strain)</div>
+    <div class="supp-cell">10+ billion CFU</div>
+    <div class="supp-cell">Morning, with or without food</div>
+    <div class="supp-cell">Post-resection microbiome restoration. Serotonin production. Immune function. Reduce gut inflammation. Optibac Everyday Extra or Bio-Kult.</div>
+  </div>
+  <div class="supp-row">
+    <div class="supp-cell">Vitamin B12</div>
+    <div class="supp-cell">1,000mcg</div>
+    <div class="supp-cell">Morning</div>
+    <div class="supp-cell">Post-surgical colon resection can impair B12 absorption (ileum involvement). B12 deficiency produces fatigue, brain fog, and low mood identical to depression. Get levels checked — supplement regardless while awaiting results.</div>
+  </div>
+  <div class="supp-row">
+    <div class="supp-cell">Iron (ferritin) — if confirmed low</div>
+    <div class="supp-cell">Per GP guidance</div>
+    <div class="supp-cell">Away from tea/coffee</div>
+    <div class="supp-cell">Surgical recovery frequently depletes ferritin. Ferritin below 50 µg/L produces fatigue even with normal haemoglobin. Get levels checked first — iron supplementation without deficiency can cause gut irritation.</div>
+  </div>
+  <div class="supp-row">
+    <div class="supp-cell">L-Theanine</div>
+    <div class="supp-cell">200mg</div>
+    <div class="supp-cell">With morning coffee</div>
+    <div class="supp-cell">Alpha brain wave activation — calm alertness without sedation. Removes the anxiety component of caffeine. Critical for someone managing HPA hyperactivation who still needs coffee to function.</div>
+  </div>
+  <div class="supp-row">
+    <div class="supp-cell">Collagen peptides + Vit C</div>
+    <div class="supp-cell">10g + 50mg</div>
+    <div class="supp-cell">30–45 min pre-exercise</div>
+    <div class="supp-cell">Rotator cuff tear connective tissue repair. Shaw 2017: 5.5× collagen synthesis during loading window. Relevant for both the shoulder and the long-term joint health of a perimenopausal woman.</div>
+  </div>
+
+  <div class="callout" style="margin-top:28px;">
+    <div class="co-label">UK sources — same quality benchmark as the main programme</div>
+    <div class="co-text"><strong>Magnesium glycinate:</strong> Nutrition Geeks Triple Magnesium · <strong>Ashwagandha KSM-66:</strong> Love Life Supplements · <strong>Omega-3:</strong> Nature's Best Max Strength · <strong>D3 + K2:</strong> British Supplements · <strong>Probiotic:</strong> Optibac Everyday Extra (Boots / Amazon) · <strong>B12:</strong> Bulk methylcobalamin · <strong>L-Theanine:</strong> Bulk · <strong>Collagen:</strong> Ancient + Brave True Collagen</div>
+  </div>
+
+  <div class="callout sage" style="margin-top:12px;">
+    <div class="co-label">Important note</div>
+    <div class="co-text">Given Steph's colon resection history and the medications that may have followed, <strong>check all supplements with the GP before starting</strong> — particularly iron, and anything that affects gut motility. The list above is evidence-based and generally well-tolerated, but the post-surgical gut context makes medical sign-off the right first step.</div>
+  </div>
+
+</div></div>
+</div>
+
+<div class="page-end"></div>
+
+<script src="nav.js"></script>
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: document.querySelector('.tabs').offsetTop - 62, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
