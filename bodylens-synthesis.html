@@ -188,10 +188,186 @@ body { background: var(--ink); color: var(--dk-1); }
 </div>
 
 
+<div class="tabs">
+  <button class="tab active" onclick="show('framework',this)">The framework</button>
+  <button class="tab" onclick="show('overview',this)">The full picture</button>
+  <button class="tab" onclick="show('loops',this)">Feedback loops</button>
+  <button class="tab" onclick="show('connections',this)">System connections</button>
+  <button class="tab" onclick="show('nutrition',this)">How nutrition runs the machine</button>
+  <button class="tab" onclick="show('recovery',this)">The recovery cycle</button>
+  <button class="tab" onclick="show('you',this)">Your specific biology</button>
+</div>
+
+
 <!-- ══════════════════════════════════════
-     THE FULL PICTURE
+     THE FRAMEWORK
 ══════════════════════════════════════ -->
-<div class="pane active" id="overview">
+<div class="pane active" id="framework">
+<div class="dk"><div class="w">
+
+  <!-- The one-sentence frame -->
+  <div style="padding:52px 0 48px;border-bottom:1px solid var(--bd);margin-bottom:52px;max-width:760px;">
+    <div style="font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--jade);margin-bottom:22px;display:flex;align-items:center;gap:12px;"><span style="width:28px;height:1px;background:var(--jade);display:inline-block;"></span>The mental model · Everything reduces to this</div>
+    <div style="font-family:var(--serif);font-size:42px;font-weight:300;line-height:1.08;letter-spacing:-0.02em;color:var(--dk-1);margin-bottom:24px;">Every decision in this programme either<br><em style="color:var(--jade);">sends a signal to adapt</em>, <em style="color:var(--amber);">builds the adaptation</em>,<br><em style="color:var(--red);opacity:0.8;">protects it from being cancelled</em>,<br>or <em style="color:var(--dk-2);">makes the cycle repeat stronger.</em></div>
+    <div style="font-family:var(--serif);font-size:17px;font-weight:300;font-style:italic;color:var(--dk-2);line-height:1.8;border-left:2px solid var(--jade-br);padding-left:20px;">That is the whole framework. Four words. If you can place any decision — a meal, a supplement, a rest day, a swimming session, a sauna — into one of these four categories, you understand why it is in the programme and what it is doing for you.</div>
+  </div>
+
+  <!-- The four pillars -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:8px;overflow:hidden;margin-bottom:52px;">
+
+    <!-- SIGNAL -->
+    <div style="background:var(--ink-2);padding:32px 24px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--jade);"></div>
+      <div style="font-family:var(--serif);font-size:52px;font-weight:300;color:var(--jade);line-height:1;margin-bottom:16px;opacity:0.25;position:absolute;top:14px;right:18px;">01</div>
+      <div style="font-size:9px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--jade);margin-bottom:10px;">Signal</div>
+      <div style="font-family:var(--serif);font-size:24px;font-weight:400;color:var(--dk-1);margin-bottom:14px;line-height:1.1;">Tell the body<br>to change</div>
+      <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.75;margin-bottom:18px;">The stimulus that creates the instruction. Without the signal, nothing else in the programme matters — there is no instruction to execute.</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(0,200,160,0.05);border-radius:4px;border-left:2px solid var(--jade);line-height:1.5;"><strong style="color:var(--jade);font-weight:600;">Training</strong> — mechanical tension activates mTOR via integrins in the muscle fibre</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(0,200,160,0.05);border-radius:4px;border-left:2px solid var(--jade);line-height:1.5;"><strong style="color:var(--jade);font-weight:600;">Leucine</strong> — 2.5g+ per meal independently activates mTOR via the PI3K-Akt pathway</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(0,200,160,0.05);border-radius:4px;border-left:2px solid var(--jade);line-height:1.5;"><strong style="color:var(--jade);font-weight:600;">Zone 2 cardio</strong> — activates PGC-1α → mitochondrial biogenesis</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(0,200,160,0.05);border-radius:4px;border-left:2px solid var(--jade);line-height:1.5;"><strong style="color:var(--jade);font-weight:600;">Cold exposure</strong> — noradrenaline surge + HPA recalibration signal</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(0,200,160,0.05);border-radius:4px;border-left:2px solid var(--jade);line-height:1.5;"><strong style="color:var(--jade);font-weight:600;">Progressive overload</strong> — the signal only fires if the demand exceeds prior adaptation</div>
+      </div>
+    </div>
+
+    <!-- BUILD -->
+    <div style="background:var(--ink-2);padding:32px 24px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--amber);"></div>
+      <div style="font-family:var(--serif);font-size:52px;font-weight:300;color:var(--amber);line-height:1;margin-bottom:16px;opacity:0.25;position:absolute;top:14px;right:18px;">02</div>
+      <div style="font-size:9px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;">Build</div>
+      <div style="font-family:var(--serif);font-size:24px;font-weight:400;color:var(--dk-1);margin-bottom:14px;line-height:1.1;">Execute<br>the adaptation</div>
+      <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.75;margin-bottom:18px;">The signal opened the window. Now the body needs the raw materials and the conditions to build. This is where the programme is won or lost.</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(196,124,24,0.06);border-radius:4px;border-left:2px solid var(--amber);line-height:1.5;"><strong style="color:var(--amber);font-weight:600;">Sleep</strong> — GH pulses, MPS runs, testosterone synthesised, glymphatic clears</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(196,124,24,0.06);border-radius:4px;border-left:2px solid var(--amber);line-height:1.5;"><strong style="color:var(--amber);font-weight:600;">185g protein</strong> — the amino acids that MPS is built from, 4 meals × leucine threshold</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(196,124,24,0.06);border-radius:4px;border-left:2px solid var(--amber);line-height:1.5;"><strong style="color:var(--amber);font-weight:600;">Sauna post-training</strong> — second GH pulse + heat shock protein activation</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(196,124,24,0.06);border-radius:4px;border-left:2px solid var(--amber);line-height:1.5;"><strong style="color:var(--amber);font-weight:600;">Collagen + VitC pre-training</strong> — connective tissue synthesis peaks during the loading window</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(196,124,24,0.06);border-radius:4px;border-left:2px solid var(--amber);line-height:1.5;"><strong style="color:var(--amber);font-weight:600;">Supplement stack</strong> — creatine, D3, Mg, Ashwagandha creating the hormonal environment to build in</div>
+      </div>
+    </div>
+
+    <!-- PROTECT -->
+    <div style="background:var(--ink-2);padding:32px 24px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:rgba(217,78,53,0.7);"></div>
+      <div style="font-family:var(--serif);font-size:52px;font-weight:300;color:var(--red);line-height:1;margin-bottom:16px;opacity:0.2;position:absolute;top:14px;right:18px;">03</div>
+      <div style="font-size:9px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);opacity:0.8;margin-bottom:10px;">Protect</div>
+      <div style="font-family:var(--serif);font-size:24px;font-weight:400;color:var(--dk-1);margin-bottom:14px;line-height:1.1;">Stop it being<br>cancelled</div>
+      <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.75;margin-bottom:18px;">The signal fired. The build window is open. Multiple things will cancel it if not managed. Most progress failures live here, not in the signal or the build.</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(217,78,53,0.05);border-radius:4px;border-left:2px solid rgba(217,78,53,0.5);line-height:1.5;"><strong style="color:var(--red);font-weight:600;opacity:0.9;">No alcohol on training days</strong> — ethanol directly blocks mTOR phosphorylation</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(217,78,53,0.05);border-radius:4px;border-left:2px solid rgba(217,78,53,0.5);line-height:1.5;"><strong style="color:var(--red);font-weight:600;opacity:0.9;">Cortisol management</strong> — chronic elevation suppresses testosterone and drives fat storage</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(217,78,53,0.05);border-radius:4px;border-left:2px solid rgba(217,78,53,0.5);line-height:1.5;"><strong style="color:var(--red);font-weight:600;opacity:0.9;">Omega-3 + anti-inflammatory food</strong> — COX pathway protection, synovial environment</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(217,78,53,0.05);border-radius:4px;border-left:2px solid rgba(217,78,53,0.5);line-height:1.5;"><strong style="color:var(--red);font-weight:600;opacity:0.9;">Knee protocol</strong> — protecting access to the training that generates the signal</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(217,78,53,0.05);border-radius:4px;border-left:2px solid rgba(217,78,53,0.5);line-height:1.5;"><strong style="color:var(--red);font-weight:600;opacity:0.9;">Sleep hygiene</strong> — no alcohol within 4h of sleep, cool room, Mg glycinate</div>
+      </div>
+    </div>
+
+    <!-- REPEAT -->
+    <div style="background:var(--ink-2);padding:32px 24px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--dk-3);"></div>
+      <div style="font-family:var(--serif);font-size:52px;font-weight:300;color:var(--dk-3);line-height:1;margin-bottom:16px;opacity:0.25;position:absolute;top:14px;right:18px;">04</div>
+      <div style="font-size:9px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--dk-3);margin-bottom:10px;">Repeat</div>
+      <div style="font-family:var(--serif);font-size:24px;font-weight:400;color:var(--dk-1);margin-bottom:14px;line-height:1.1;">Make the cycle<br>compound</div>
+      <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.75;margin-bottom:18px;">One cycle does almost nothing. One hundred cycles changes the body permanently. Everything in the Repeat category makes each subsequent cycle more powerful than the last.</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(255,255,255,0.03);border-radius:4px;border-left:2px solid var(--dk-3);line-height:1.5;"><strong style="color:var(--dk-2);font-weight:600;">Progressive overload</strong> — the signal grows stronger each week because the load grows</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(255,255,255,0.03);border-radius:4px;border-left:2px solid var(--dk-3);line-height:1.5;"><strong style="color:var(--dk-2);font-weight:600;">Gut microbiome diversity</strong> — 30 plants/week compounds into a more capable microbiome</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(255,255,255,0.03);border-radius:4px;border-left:2px solid var(--dk-3);line-height:1.5;"><strong style="color:var(--dk-2);font-weight:600;">VO₂max accumulation</strong> — every Zone 2 session adds permanently to mitochondrial density</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(255,255,255,0.03);border-radius:4px;border-left:2px solid var(--dk-3);line-height:1.5;"><strong style="color:var(--dk-2);font-weight:600;">Lean mass accumulation</strong> — each kg of muscle raises BMR, improves insulin sensitivity, produces more testosterone</div>
+        <div style="font-size:11px;font-weight:300;color:var(--dk-2);padding:7px 10px;background:rgba(255,255,255,0.03);border-radius:4px;border-left:2px solid var(--dk-3);line-height:1.5;"><strong style="color:var(--dk-2);font-weight:600;">HPA recalibration</strong> — consistent cold exposure + Zone 2 + Ashwagandha lower the anxiety baseline week by week</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Every decision mapped -->
+  <div class="dr">Where every decision lives <em>— the full programme mapped to the framework</em></div>
+  <div style="font-size:13px;font-weight:300;color:var(--dk-2);margin-bottom:28px;max-width:600px;line-height:1.75;">Every item in the programme sits primarily in one of the four categories. When you understand which category something is in, you understand why it matters and what happens if you skip it.</div>
+
+  <div style="border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:40px;">
+
+    <!-- Signal rows -->
+    <div style="background:rgba(0,200,160,0.04);border-bottom:1px solid var(--bd);padding:10px 18px;"><div style="font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--jade);">Signal — the instruction to adapt</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bd);border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Monday push session</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Mechanical tension → mTOR → MPS signal for chest, shoulders, triceps</div></div>
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Wednesday pull session</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Back, biceps, rear delts signalled. Second MPS window for upper body this week.</div></div>
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Friday posterior chain</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Largest hormonal signal of the week. Hip thrusts → GH + T spike. The week's most important session.</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bd);border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Tue + Thu Zone 2 (step machine)</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">PGC-1α activation → mitochondrial biogenesis. Cardiovascular signal. Also a glute conditioning signal.</div></div>
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Cold shower (daily)</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Noradrenaline surge. Dopamine activation. Signal to the HPA axis: acute stress is manageable.</div></div>
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">185g protein daily</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Leucine threshold at each of 4 meals independently activates mTOR. Four MPS signals per day.</div></div>
+    </div>
+
+    <!-- Build rows -->
+    <div style="background:rgba(196,124,24,0.04);border-bottom:1px solid var(--bd);padding:10px 18px;border-top:1px solid var(--bd);"><div style="font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);">Build — executing the adaptation</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bd);border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">8h sleep (non-negotiable)</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">GH pulses in the first slow-wave cycle. Testosterone synthesised. MPS runs. The training session is the signal. This is the adaptation.</div></div>
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Sauna post-training</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Second GH pulse via heat-stress GHRH stimulation. HSP70/HSP90 repair damaged muscle cell proteins.</div></div>
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Collagen + VitC (45min pre-training)</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Peak plasma collagen during training = 5.5× connective tissue synthesis vs baseline. Meniscal repair.</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bd);border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Hydro pool (post-training)</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Metabolite clearance. Knee unloaded to 30% bodyweight. Cartilage nutrition via compression-decompression.</div></div>
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Post-training meal</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Insulin sensitivity elevated post-training → carbs directed to glycogen. 50–60g protein in this meal.</div></div>
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Supplement stack</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Creatine (phosphocreatine), D3 (testosterone + mood), Ashwagandha (cortisol + T), Mg (GABA + sleep).</div></div>
+    </div>
+
+    <!-- Protect rows -->
+    <div style="background:rgba(217,78,53,0.04);border-bottom:1px solid var(--bd);padding:10px 18px;border-top:1px solid var(--bd);"><div style="font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--red);opacity:0.85;">Protect — preventing cancellation</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bd);border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">No alcohol on training days</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Ethanol blocks mTOR phosphorylation directly. Not indirect — the adaptation window is closed by alcohol.</div></div>
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Knee protocol (RDL, partial leg press)</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Protecting access to training. Without the knee, the signal cannot be sent. The constraint is the protection.</div></div>
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Omega-3 + anti-inflammatory foods</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Chronic inflammation suppresses testosterone, impairs insulin sensitivity, degrades sleep. Omega-3 suppresses it.</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bd);border-bottom:1px solid var(--bd);">
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Cortisol management</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Ashwagandha + Zone 2 + rest days. Chronic cortisol suppresses T, drives visceral fat, impairs sleep.</div></div>
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Sleep hygiene</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">No screens 90min pre-sleep. Cool room 17–19°C. Mg glycinate 30min before. Protecting the build window.</div></div>
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Thursday evening protection</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">No alcohol. Early bed. Thursday protects Friday — the most important training signal of the week.</div></div>
+    </div>
+
+    <!-- Repeat rows -->
+    <div style="background:rgba(255,255,255,0.02);border-bottom:1px solid var(--bd);padding:10px 18px;border-top:1px solid var(--bd);"><div style="font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--dk-3);">Repeat — making the cycle compound</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bd);">
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Hip thrust number (weekly)</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">The single composite indicator. If it moves, every system is working. If it stalls for 2 weeks, something is failing.</div></div>
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">30 plants/week (microbiome)</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Each different plant variety compounds the microbiome diversity that drives serotonin, immunity, and mood.</div></div>
+      <div style="background:var(--ink-1);padding:14px 16px;"><div style="font-size:12px;font-weight:600;color:var(--dk-1);margin-bottom:3px;">Zone 2 accumulation</div><div style="font-size:11px;font-weight:300;color:var(--dk-2);line-height:1.5;">Each session adds permanently to mitochondrial density and VO₂max. The longevity investment with every step.</div></div>
+    </div>
+
+  </div>
+
+  <!-- The one question that diagnoses the day -->
+  <div style="background:var(--ink-2);border:1px solid var(--jade-br);border-radius:6px;padding:32px 36px;margin-bottom:40px;">
+    <div style="font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--jade);margin-bottom:14px;">The diagnostic question</div>
+    <div style="font-family:var(--serif);font-size:28px;font-weight:400;color:var(--dk-1);margin-bottom:14px;line-height:1.1;">For any decision: which category does this belong to — and am I doing it?</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:18px;">
+      <div>
+        <div style="font-size:11px;font-weight:600;color:var(--jade);margin-bottom:8px;letter-spacing:0.06em;text-transform:uppercase;">If the answer is Signal</div>
+        <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.7;">Did you train with progressive overload? Did you hit the leucine threshold at every meal? Did you do the Zone 2 session? If not — no signal, no adaptation, regardless of everything else.</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;color:var(--amber);margin-bottom:8px;letter-spacing:0.06em;text-transform:uppercase;">If the answer is Build</div>
+        <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.7;">Did you sleep 8 hours? Did you take the supplements at the right time? Did you use the sauna and hydro pool post-training? The signal fired — but the build only happens if the conditions are met.</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;color:var(--red);opacity:0.85;margin-bottom:8px;letter-spacing:0.06em;text-transform:uppercase;">If the answer is Protect</div>
+        <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.7;">Did you drink alcohol on a training day? Did cortisol run unchecked? Did the knee take excessive load? Protection failures cancel the signal and the build simultaneously. This is where most progress dies.</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;color:var(--dk-3);margin-bottom:8px;letter-spacing:0.06em;text-transform:uppercase;">If the answer is Repeat</div>
+        <div style="font-size:12px;font-weight:300;color:var(--dk-2);line-height:1.7;">Is the hip thrust number moving? Is the waist circumference changing? Are you sleeping naturally before the alarm? These are not goals — they are confirmation that the loop is running. If they are moving, the system is working.</div>
+      </div>
+    </div>
+  </div>
+
+</div></div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     THE FULL PICTURE (existing — now second tab)
+══════════════════════════════════════ -->
+<div class="pane" id="overview">
 <div class="dk"><div class="w">
 
   <div class="dr" style="margin-top:0;">The full picture <em>— what every page taught us and how it connects</em></div>
